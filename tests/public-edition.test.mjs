@@ -11,3 +11,5 @@ test('preview execution satisfies the original cockpit risk-policy contract',asy
 test('public export rejects private file extensions without regex escape ambiguity',async()=>{const {sensitiveFilename}=await import('../scripts/public/file-boundary.mjs');for(const n of ['secret.key','id.pem','account.sqlite','copy.db','archive.zip','.env.local','.dev.vars'])assert.equal(sensitiveFilename(n),true,n);assert.equal(sensitiveFilename('.env.example'),false);assert.equal(sensitiveFilename('engine.mjs'),false);});
 
 test('public verifier canonicalizes Windows relative paths before exemptions',async()=>{const {portablePath}=await import('../scripts/public/file-boundary.mjs');assert.equal(portablePath(['scripts','public','verify.mjs'].join(String.fromCharCode(92))),'scripts/public/verify.mjs');assert.equal(portablePath('app/s1/page.tsx'),'app/s1/page.tsx');});
+
+test('synthetic execution rehearsal never claims a running market scanner',async()=>{const x=await publicApi('s1-monitor','GET',{recordedAt:new Date().toISOString(),positions:[]}).json();assert.equal(x.snapshot.scannedSymbols,0);assert.equal(x.snapshot.lastSuccessfulScanAt,null);assert.equal(x.synthetic,true);});
