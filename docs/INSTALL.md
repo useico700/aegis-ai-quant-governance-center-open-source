@@ -13,3 +13,9 @@ dev默认只绑定127.0.0.1:3000。JEV单独安装后绑定3001。端口占用�
 更新前停止本项目进程，备份自己的配置与运行数据，再git pull --ff-only、npm ci --ignore-scripts并重跑验证。不要覆盖新用户的.env和账本。
 
 常见问题：Node不满足则升级后重开终端；缺少依赖先npm ci；451/403是Demo访问受限，保留离线模式；原主机启动器报错是预期边界，使用scripts/public入口，不移除保护。未知Cloudflare运行问题记录具体错误，不发布公网试错。
+
+## Windows安装
+
+Windows使用WSL2/Ubuntu，在Linux家目录安装，不能放在/mnt/c等Windows挂载盘；原生Windows不运行执行回路，因为原审计账本要求POSIX权限与目录同步。
+
+WSL2准备见 https://learn.microsoft.com/windows/wsl/install 。需要安装或启用系统组件时由用户按官方步骤操作，Agent不自行提权。WSL系统镜像另外需要磁盘空间。

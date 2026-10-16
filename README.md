@@ -18,6 +18,8 @@
 
 Git、Node.js >=22.13（建议Node24）、npm、可写目录，以及访问GitHub/npm的网络。建议4GB可用内存、3GB磁盘。默认不需要实盘账号、资金、API Key、服务器、Docker、Cloudflare账号或模型API Key。
 
+**平台范围：** Windows使用WSL2/Ubuntu，在Linux家目录安装，不能放在/mnt/c等Windows挂载盘；原生Windows不运行执行回路，因为原审计账本要求POSIX权限与目录同步。
+
 ## 安装与运行
 
 ```bash

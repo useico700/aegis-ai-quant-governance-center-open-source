@@ -13,3 +13,5 @@ test('public export rejects private file extensions without regex escape ambigui
 test('public verifier canonicalizes Windows relative paths before exemptions',async()=>{const {portablePath}=await import('../scripts/public/file-boundary.mjs');assert.equal(portablePath(['scripts','public','verify.mjs'].join(String.fromCharCode(92))),'scripts/public/verify.mjs');assert.equal(portablePath('app/s1/page.tsx'),'app/s1/page.tsx');});
 
 test('synthetic execution rehearsal never claims a running market scanner',async()=>{const x=await publicApi('s1-monitor','GET',{recordedAt:new Date().toISOString(),positions:[]}).json();assert.equal(x.snapshot.scannedSymbols,0);assert.equal(x.snapshot.lastSuccessfulScanAt,null);assert.equal(x.synthetic,true);});
+
+test('platform boundary preserves POSIX audit controls and directs native Windows to WSL2',async()=>{const {supportsPublicEngine,assertPublicEnginePlatform}=await import('../scripts/public/platform.mjs');assert.equal(supportsPublicEngine('linux'),true);assert.equal(supportsPublicEngine('darwin'),true);assert.equal(supportsPublicEngine('win32'),false);assert.throws(()=>assertPublicEnginePlatform('win32'),/WSL2/);});

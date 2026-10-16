@@ -8,6 +8,8 @@ https://github.com/useico700/aegis-ai-quant-governance-center-open-source
 
 这是从 aegis-ai-quant-governance-center 原项目派生的源码版，请保留原驾驶舱、S1/S2策略、扫描、执行、审计、JEV与TradingView模块，不要另建一个MA示例项目替代它。
 
+Windows使用WSL2/Ubuntu，在Linux家目录安装，不能放在/mnt/c等Windows挂载盘；原生Windows不运行执行回路，因为原审计账本要求POSIX权限与目录同步。
+
 请实际执行以下步骤；你需要终端与文件操作能力。没有这些能力时请明确说明，提供手动步骤，不要假称安装成功。
 
 1. 先说明准备项并检查环境：Git、Node.js >=22.13（建议Node24）、npm、可写的新目录、可访问GitHub与npm的软件安装网络。建议4GB可用内存和3GB磁盘。默认本地模拟无需真实资金、交易所账户、API Key、服务器、Docker或AI模型API Key。缺软件时给出官方安装方法，不擅自提权或执行不明安装脚本。

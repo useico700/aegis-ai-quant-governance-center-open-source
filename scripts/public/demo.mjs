@@ -1,7 +1,9 @@
+import {assertPublicEnginePlatform} from './platform.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {upstreamFixture} from './upstream-fixture.mjs';
+assertPublicEnginePlatform();
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const dir=path.join(root,'.runtime/public-demo');await fs.mkdir(dir,{recursive:true});
 const lock=path.join(dir,'writer.lock');try{await fs.mkdir(lock);}catch{throw Error('PUBLIC_DEMO_SINGLE_WRITER_LOCKED');}

@@ -6,7 +6,7 @@ jobs:
   verify:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
         node: ['22', '24']
     runs-on: ${{ matrix.os }}
     steps:
@@ -35,3 +35,15 @@ jobs:
           node-version: '24'
       - run: npm --prefix apps/jev-filter ci --ignore-scripts
       - run: npm run jev:build
+
+  windows-public-boundary:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24'
+      - run: node scripts/public/verify.mjs
+      - run: node --test tests/public-edition.test.mjs

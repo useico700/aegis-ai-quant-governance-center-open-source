@@ -1,0 +1,13 @@
+{
+  "fullEngine": {
+    "linux": "CI_TEST_AND_BUILD",
+    "darwin": "LOCAL_VERIFIED_AND_CI_TEST_AND_BUILD"
+  },
+  "win32": {
+    "fullEngine": false,
+    "reason": "Original SQLite/raw-evidence roots require POSIX permissions and directory fsync",
+    "installation": "WSL2 Linux home filesystem; not a Windows mount",
+    "ciScope": "PUBLIC_BOUNDARY_TESTS_ONLY"
+  },
+  "sourceSecurityControlsWeakened": false
+}
