@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-09-10T07:35:00.000Z",
+  "coverageEnd": "2026-11-01T00:00:00.000Z",
+  "displayOnly": true,
+  "events": [
+    {
+      "id": "BLS_PPI_2026-09-10T12:30:00.000Z",
+      "provider": "BLS",
+      "name": "美国 PPI",
+      "category": "PPI",
+      "tier": "WATCH",
+      "scheduledAt": "2026-09-10T12:30:00.000Z",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/09_sched.htm"
+    },
+    {
+      "id": "BLS_CPI_2026-09-11T12:30:00.000Z",
+      "provider": "BLS",
+      "name": "美国 CPI",
+      "category": "CPI",
+      "tier": "TIER1",
+      "scheduledAt": "2026-09-11T12:30:00.000Z",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/09_sched.htm"
+    },
+    {
+      "id": "BLS_JOLTS_2026-09-29T14:00:00.000Z",
+      "provider": "BLS",
+      "name": "美国 JOLTS 职位空缺",
+      "category": "JOLTS",
+      "tier": "WATCH",
+      "scheduledAt": "2026-09-29T14:00:00.000Z",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/09_sched.htm"
+    },
+    {
+      "id": "BLS_NFP_2026-10-02T12:30:00.000Z",
+      "provider": "BLS",
+      "name": "美国非农就业报告",
+      "category": "NFP",
+      "tier": "TIER1",
+      "scheduledAt": "2026-10-02T12:30:00.000Z",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/10_sched.htm"
+    },
+    {
+      "id": "BLS_CPI_2026-10-14T12:30:00.000Z",
+      "provider": "BLS",
+      "name": "美国 CPI",
+      "category": "CPI",
+      "tier": "TIER1",
+      "scheduledAt": "2026-10-14T12:30:00.000Z",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/10_sched.htm"
+    },
+    {
+      "id": "BLS_PPI_2026-10-15T12:30:00.000Z",
+      "provider": "BLS",
+      "name": "美国 PPI",
+      "category": "PPI",
+      "tier": "WATCH",
+      "scheduledAt": "2026-10-15T12:30:00.000Z",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/10_sched.htm"
+    },
+    {
+      "id": "FED_FOMC_2026-09-16T18:00:00.000Z",
+      "provider": "FED",
+      "name": "FOMC 利率决议",
+      "category": "FOMC",
+      "tier": "TIER1",
+      "scheduledAt": "2026-09-16T18:00:00.000Z",
+      "sourceUrl": "https://www.federalreserve.gov/newsevents/2026-september.htm"
+    },
+    {
+      "id": "FED_FOMC_PRESS_2026-09-16T18:30:00.000Z",
+      "provider": "FED",
+      "name": "美联储新闻发布会",
+      "category": "FOMC_PRESS",
+      "tier": "TIER1",
+      "scheduledAt": "2026-09-16T18:30:00.000Z",
+      "sourceUrl": "https://www.federalreserve.gov/newsevents/2026-september.htm"
+    },
+    {
+      "id": "FED_FOMC_MINUTES_2026-10-07T18:00:00.000Z",
+      "provider": "FED",
+      "name": "FOMC 会议纪要",
+      "category": "FOMC_MINUTES",
+      "tier": "WATCH",
+      "scheduledAt": "2026-10-07T18:00:00.000Z",
+      "sourceUrl": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+    },
+    {
+      "id": "FED_FOMC_2026-10-28T18:00:00.000Z",
+      "provider": "FED",
+      "name": "FOMC 利率决议",
+      "category": "FOMC",
+      "tier": "TIER1",
+      "scheduledAt": "2026-10-28T18:00:00.000Z",
+      "sourceUrl": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+    },
+    {
+      "id": "FED_FOMC_PRESS_2026-10-28T18:30:00.000Z",
+      "provider": "FED",
+      "name": "美联储新闻发布会",
+      "category": "FOMC_PRESS",
+      "tier": "TIER1",
+      "scheduledAt": "2026-10-28T18:30:00.000Z",
+      "sourceUrl": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+    },
+    {
+      "id": "BEA_PCE_2026-09-30T12:30:00.000Z",
+      "provider": "BEA",
+      "name": "美国个人收入与支出 · PCE",
+      "category": "PCE",
+      "tier": "TIER1",
+      "scheduledAt": "2026-09-30T12:30:00.000Z",
+      "sourceUrl": "https://www.bea.gov/news/schedule/full"
+    },
+    {
+      "id": "BEA_GDP_2026-09-30T12:30:00.000Z",
+      "provider": "BEA",
+      "name": "美国 GDP · 第三次估值",
+      "category": "GDP",
+      "tier": "WATCH",
+      "scheduledAt": "2026-09-30T12:30:00.000Z",
+      "sourceUrl": "https://www.bea.gov/news/schedule/full"
+    },
+    {
+      "id": "BEA_PCE_2026-10-29T12:30:00.000Z",
+      "provider": "BEA",
+      "name": "美国个人收入与支出 · PCE",
+      "category": "PCE",
+      "tier": "TIER1",
+      "scheduledAt": "2026-10-29T12:30:00.000Z",
+      "sourceUrl": "https://www.bea.gov/news/schedule/full"
+    },
+    {
+      "id": "BEA_GDP_2026-10-29T12:30:00.000Z",
+      "provider": "BEA",
+      "name": "美国 GDP · 初值",
+      "category": "GDP",
+      "tier": "WATCH",
+      "scheduledAt": "2026-10-29T12:30:00.000Z",
+      "sourceUrl": "https://www.bea.gov/news/schedule/full"
+    }
+  ]
+}

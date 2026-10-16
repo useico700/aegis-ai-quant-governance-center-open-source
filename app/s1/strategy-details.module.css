@@ -1,0 +1,30 @@
+.strategy{margin-top:18px;padding:22px;border:1px solid var(--line-soft);border-radius:12px;background:color-mix(in oklch,var(--surface) 68%,var(--ink))}
+.strategy>header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line-soft)}
+.strategy h2{margin:0;font-size:20px;font-weight:620;letter-spacing:-.02em}
+.strategy header p{margin-top:5px!important;color:var(--cyan);font-size:15px;font-weight:600}
+.strategy header>span{font-size:12px;line-height:1.7;text-align:right}
+.synced{color:var(--cyan)}
+.stale,.notice{color:var(--amber)}
+.notice{margin-top:16px!important;font-size:13px;line-height:1.6}
+.columns{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;padding-top:22px}
+.columns>div{min-width:0}
+.columns>div+div{padding-left:28px;border-left:1px solid var(--line-soft)}
+.strategy h3{margin:0 0 14px;font-size:15px;font-weight:650;color:var(--text)}
+.rules{display:grid;gap:13px;margin:0}
+.rules>div{display:grid;gap:4px}
+.strategy dt{color:var(--muted);font-size:12px}
+.strategy dd{margin:0;font-size:14px;line-height:1.65}
+.descriptions section{margin-top:22px}
+.descriptions h4{margin:0 0 7px;font-size:14px;font-weight:600;color:var(--text)}
+.descriptions p,.empty,.versionNote{color:var(--muted);font-size:13px;line-height:1.85}
+.empty{margin-top:18px!important}
+.formulas{display:grid;gap:6px;margin-top:12px;padding:11px 14px;border-left:2px solid var(--cyan);background:color-mix(in oklch,var(--cyan) 5%,transparent);color:var(--text);font-size:13px;font-variant-numeric:tabular-nums}
+.risk{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;margin:0 0 26px}
+.risk dd{font-size:20px;font-weight:600}
+.risk .wide{grid-column:1 / -1}
+.risk .wide dd{font-size:14px}
+.versionNote{margin:0 0 14px!important}
+.versions{display:grid;gap:14px;margin:0}
+.versions dd{margin-top:5px}
+.versions code{color:var(--cyan-soft);font-size:12px;line-height:1.7;overflow-wrap:anywhere;word-break:break-word}
+@media(max-width:760px){.strategy{padding:18px}.columns{grid-template-columns:1fr;gap:24px}.columns>div+div{padding:22px 0 0;border-left:0;border-top:1px solid var(--line-soft)}.strategy>header{gap:12px}.strategy h2{font-size:18px}}

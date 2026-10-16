@@ -1,0 +1,23 @@
+{
+  "symbols": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT"
+  ],
+  "intervals": [
+    "15m",
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "interval_weights": {
+    "15m": 0.1,
+    "1h": 0.25,
+    "4h": 0.4,
+    "1d": 0.25
+  },
+  "quote_asset": "USDT",
+  "report_dir": "reports",
+  "exchange": "BINANCE",
+  "webhook_url": ""
+}

@@ -1,0 +1,202 @@
+{
+  "version": "1.1.0",
+  "timezone": "Asia/Shanghai",
+  "purpose": "Taxonomy and scoring rules for market-moving fundamental events",
+  "cadence_seconds": {
+    "normal": 1800,
+    "p1_window": 900,
+    "p0_or_release_window": 300
+  },
+  "priority": {
+    "P0": {
+      "min_score": 85,
+      "notification": "immediate"
+    },
+    "P1": {
+      "min_score": 70,
+      "notification": "proactive"
+    },
+    "P2": {
+      "min_score": 50,
+      "notification": "record_only"
+    }
+  },
+  "weights": {
+    "historical_market_sensitivity": 25,
+    "surprise_or_expectation_gap": 20,
+    "transmission_breadth": 15,
+    "time_proximity": 15,
+    "source_credibility": 15,
+    "market_fragility": 10
+  },
+  "source_tiers": {
+    "A": [
+      "government",
+      "central_bank",
+      "official_statistics",
+      "regulator",
+      "issuer_or_exchange_announcement"
+    ],
+    "B": [
+      "Reuters",
+      "Associated Press",
+      "primary_market_venue_data"
+    ],
+    "C": [
+      "institutional_research",
+      "economist_consensus",
+      "futures_options_positioning",
+      "fund_flows"
+    ],
+    "D": [
+      "social_media",
+      "anonymous_claim",
+      "prediction_market"
+    ]
+  },
+  "categories": [
+    {
+      "id": "central_bank",
+      "examples": [
+        "rate_decision",
+        "press_conference",
+        "minutes",
+        "liquidity_operation"
+      ]
+    },
+    {
+      "id": "inflation",
+      "examples": [
+        "CPI",
+        "PPI",
+        "PCE",
+        "inflation_expectations"
+      ]
+    },
+    {
+      "id": "labor",
+      "examples": [
+        "payrolls",
+        "unemployment",
+        "wages",
+        "JOLTS",
+        "claims"
+      ]
+    },
+    {
+      "id": "growth",
+      "examples": [
+        "GDP",
+        "PMI",
+        "retail_sales",
+        "industrial_production",
+        "trade"
+      ]
+    },
+    {
+      "id": "fiscal_liquidity",
+      "examples": [
+        "Treasury_refunding",
+        "auction",
+        "debt_ceiling",
+        "TGA",
+        "tax_deadline"
+      ]
+    },
+    {
+      "id": "crypto_regulation",
+      "examples": [
+        "SEC",
+        "CFTC",
+        "ETF",
+        "stablecoin",
+        "custody",
+        "enforcement"
+      ]
+    },
+    {
+      "id": "crypto_market_structure",
+      "examples": [
+        "ETF_flow",
+        "stablecoin_supply",
+        "exchange_flow",
+        "funding",
+        "basis",
+        "options",
+        "liquidations"
+      ]
+    },
+    {
+      "id": "crypto_operational",
+      "examples": [
+        "exchange_failure",
+        "stablecoin_depeg",
+        "protocol_exploit",
+        "withdrawal_halt",
+        "chain_upgrade"
+      ]
+    },
+    {
+      "id": "geopolitics",
+      "examples": [
+        "war_escalation",
+        "ceasefire",
+        "shipping_route",
+        "energy_infrastructure",
+        "sanctions",
+        "cyberattack"
+      ]
+    },
+    {
+      "id": "administrative_trade",
+      "examples": [
+        "executive_order",
+        "tariff",
+        "export_control",
+        "capital_control",
+        "supply_chain_policy"
+      ]
+    }
+  ],
+  "notification_gate": {
+    "send_to_thread": "量化交易与技术分析系统",
+    "thread_id": "019fb48a-9092-7833-a194-80241a3925d7",
+    "minimum_priority": "P1",
+    "requires": [
+      "verified_fact",
+      "impact_path",
+      "scenario_analysis",
+      "invalidation",
+      "source_links"
+    ],
+    "no_change_notifications": false,
+    "may_override_trading_risk_rules": false
+  },
+  "crypto_operational_gate": {
+    "purpose": "monitoring_and_escalation_only_not_a_trading_signal_or_strategy_parameter",
+    "p0_candidate": {
+      "exchange": "confirmed_systemwide_matching_core_market_data_or_withdrawal_halt_at_a_major_venue",
+      "stablecoin": "issuer_confirmed_redemption_halt_or_usdt_usdc_deviation_gte_1pct_on_two_independent_liquid_venues",
+      "chain": "confirmed_loss_of_finality_or_major_network_outage",
+      "security": "confirmed_attack_with_direct_major_trading_custody_bridge_or_settlement_contagion"
+    },
+    "p1_candidate": {
+      "exchange": "persistent_multi_product_degradation_at_a_major_venue",
+      "stablecoin": "usdt_usdc_deviation_0_5_to_1pct_on_two_independent_liquid_venues_for_at_least_15_minutes",
+      "security": "major_single_protocol_incident_with_cross_venue_liquidity_collateral_or_liquidation_transmission"
+    },
+    "p2_default": "single_asset_maintenance_single_region_or_api_failure_planned_maintenance_or_contained_protocol_incident_without_contagion",
+    "confirmation_requires": [
+      "issuer_exchange_chain_or_protocol_primary_source_when_available",
+      "cross_venue_executable_price_or_functionality_check",
+      "market_structure_confirmation",
+      "bad_tick_quote_currency_and_illiquid_pair_exclusion"
+    ],
+    "release_requires": [
+      "official_recovery_or_incident_resolution",
+      "first_party_functionality_recovery_evidence",
+      "cross_venue_price_or_redemption_normalization"
+    ],
+    "release_limit": "solvency_reserve_or_key_compromise_events_cannot_be_cleared_by_status_page_recovery_alone"
+  }
+}

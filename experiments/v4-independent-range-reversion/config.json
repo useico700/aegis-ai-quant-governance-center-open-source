@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "candidateVersion": "ORION-V4-RANGE-MEAN-REVERSION-2.0.0",
+  "displayName": "V4 独立区间回归 · RG2",
+  "implementationRevision": "ORION-V4-RG2-INDEPENDENT-RANGE-GEOMETRY",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "scanUniverseAuthorizationId": "OWNER-DIRECTIVE-ORION-V3-V4-TIERED-SCAN-UNIVERSE30-20260820",
+  "lifecycle": "ACTIVE_OWNER_AUTHORIZED_BINANCE_USDM_DEMO_EXECUTION",
+  "independentGeometry": {
+    "owner": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "method": "ROLLING_FULLY_CLOSED_1H_HORIZONTAL_RANGE",
+    "implementationModule": "agents/orion-v4/binance-demo/strategy.mjs",
+    "v2StrategyConfigRevisionHashOrCodeAccessAllowed": false,
+    "v2RuntimePositionOrderLedgerAccessAllowed": false,
+    "v3StrategyConfigRevisionHashOrCodeAccessAllowed": false,
+    "v3RuntimePositionOrderLedgerAccessAllowed": false
+  },
+  "venue": {
+    "name": "BINANCE_USDM_DEMO",
+    "fixedBaseUrl": "https://demo-fapi.binance.com",
+    "strategyCapitalBaselineUsdt": 5000,
+    "initialLeverage": 10
+  },
+  "universe": {
+    "symbols": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "DOTUSDT",
+      "LTCUSDT",
+      "BCHUSDT",
+      "TRXUSDT",
+      "SUIUSDT",
+      "NEARUSDT",
+      "ETCUSDT",
+      "FILUSDT",
+      "ATOMUSDT",
+      "APTUSDT",
+      "ARBUSDT",
+      "OPUSDT",
+      "INJUSDT",
+      "WIFUSDT",
+      "SEIUSDT",
+      "UNIUSDT",
+      "TAOUSDT",
+      "RENDERUSDT"
+    ]
+  },
+  "range": {
+    "interval": "1h",
+    "lookbackBars": 48,
+    "minimumBoundaryTouchesPerSide": 3,
+    "boundaryTouchZoneFraction": 0.12,
+    "minimumMidlineCloseCrosses": 2,
+    "maximumAdx14": 25,
+    "slopeLookbackBars": 24,
+    "maximumAbsoluteLinearSlopeAtrPerLookback": 0.75,
+    "minimumHeightAtr14": 2,
+    "maximumHeightAtr14": 10,
+    "minimumWidthToRoundTripCostRatio": 4,
+    "maximumWidthBps": 1500,
+    "maximumBoundaryExcursionFractionOfWidth": 0.05,
+    "invalidationBufferAtr14_1h": 0.5
+  },
+  "signal": {
+    "interval": "15m",
+    "confirmation": "BOUNDARY_TOUCH_OR_BRIEF_EXCURSION_THEN_FULLY_CLOSED_RECLAIM_INSIDE_STATIC_RANGE",
+    "reclaimBufferBps": 5,
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "oneEntryPerBoundaryCycle": true,
+    "rearmRequiresMidlineCross": true,
+    "preActivationBackfillAllowed": false
+  },
+  "stop": {
+    "atrInterval": "15m",
+    "atrPeriod": 14,
+    "outsideBoundaryAtrMultiplier": 0.5,
+    "minimumBufferBps": 5,
+    "stopCanNeverLoosen": true,
+    "oneHourCloseOutsideBoundaryPlusAtrInvalidates": true
+  },
+  "targets": {
+    "firstTarget": "STATIC_RANGE_MIDLINE",
+    "firstTargetCloseFractionOfOriginal": 0.5,
+    "secondTarget": "OPPOSITE_INNER_15_PERCENT",
+    "secondTargetCloseFractionOfOriginal": 0.3,
+    "runnerTarget": "OPPOSITE_BOUNDARY",
+    "runnerFractionOfOriginal": 0.2,
+    "targetsImmutableAfterEntry": true,
+    "minimumNetRewardToMidlineR": 1.2,
+    "economicQualificationRole": "FINAL_SIGNAL_SPECIFIC_GATE_AFTER_FEES_AND_ADVERSE_SLIPPAGE"
+  },
+  "risk": {
+    "maximumRiskPerEntryFraction": 0.01,
+    "maximumPortfolioRiskFraction": 0.1,
+    "maximumOpenPositionsTotal": 10,
+    "maximumEffectiveNotionalLeverage": 10,
+    "maximumNewEntriesPerCycle": 2,
+    "riskSizingUtilizationFraction": 0.98,
+    "takerFeeRate": 0.0007,
+    "adverseSlippageRate": 0.0002,
+    "averagingDownAllowed": false,
+    "stopWideningAllowed": false
+  },
+  "eventRisk": {
+    "enabled": true,
+    "freezeBeforeMinutes": 30,
+    "freezeAfterMinutes": 30,
+    "calendarPath": "agents/nexus/data/mtfx-tier1-event-calendar.json"
+  },
+  "runtime": {
+    "scanIntervalMs": 60000,
+    "structuralDiscoveryIntervalMs": 900000,
+    "structuralDiscoveryAlignment": "CLOSED_15M_BUCKET",
+    "candidatePositionAndReconciliationIntervalMs": 60000,
+    "latestPath": ".runtime/orion-v4-binance-demo/strategy-latest.json",
+    "autoStatePath": ".runtime/orion-v4-binance-demo/auto-state.json",
+    "autoAuditPath": ".runtime/orion-v4-binance-demo/auto-audit.ndjson",
+    "pidPath": ".runtime/orion-v4-binance-demo/scanner.pid.json"
+  },
+  "evaluationIsolation": {
+    "baselineCohortId": "ORION-V4-CWR1.1-COST-FLOOR-FORWARD-20260821",
+    "forwardCohortId": "ORION-V4-RG2-INDEPENDENT-RANGE-FORWARD-20260821",
+    "historicalRg1OrCwrMixedAggregationAllowed": false
+  }
+}

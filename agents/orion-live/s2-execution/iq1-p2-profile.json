@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 4,
+  "revision": "S1-S2-IQ1-P4-PX-RIGHT-SIDE-LIVE-BAND-20260918",
+  "strategyRevision": "PX-BAND-RISK-ONLY-P5-S2-3PCT",
+  "status": "OWNER_AUTHORIZED_LIVE",
+  "maximumPxBps": 300,
+  "maximumQuoteAgeMs": 5000,
+  "pxAtrExecutionGate": false,
+  "pxAtrPurpose": "TELEMETRY_ONLY",
+  "convergenceExecutionGate": false,
+  "convergencePurpose": "TELEMETRY_ONLY",
+  "entryAdmissionRevision": "S2-PX-BAND-3PCT-P5-20260921",
+  "correlationExecutionGate": false,
+  "eventCalendarExecutionGate": false,
+  "campaignCooldownExecutionGate": false,
+  "preCrossTelemetryRequired": false,
+  "secondBandCloseRequired": false
+}

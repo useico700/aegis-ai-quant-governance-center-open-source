@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "studyId": "V2-ACCOUNT-COMPOUND-ABC-20260906",
+  "candidateRevision": "V2-ACCOUNT-COMPOUND-C1-20260906",
+  "sequence": 1,
+  "sourceAsOf": "2026-09-06T04:15:00.000Z",
+  "startedAt": null,
+  "status": "WAITING_HEALTHY_FORWARD_BASELINE",
+  "sourceScope": {
+    "mode": "BASELINE_EXECUTED_OPPORTUNITY_SUBSET_ONLY",
+    "baselineLedger": "V2_APPEND_ONLY_PAPER_LEDGER_READ_ONLY",
+    "fullIndependentSignalUniverse": false,
+    "baselineRejectedOpportunitiesSynthesized": false,
+    "historicalBackfillAllowed": false,
+    "carryInDisposition": "EXCLUDED_NOT_COPIED_AS_CANDIDATE_ENTRIES",
+    "carryInPositionCount": 5,
+    "inferenceBoundary": "INCOMPLETE_FOR_FULL_ACCOUNT_OR_ANNUAL_PROBABILITY_INFERENCE"
+  },
+  "account": {
+    "currency": "USDT",
+    "initialEquityUsdt": null,
+    "cashRealizedEquityUsdt": null,
+    "liquidationNetEquityUsdt": null,
+    "confirmedHighEquityUsdt": null,
+    "protectionFloorUsdt": null,
+    "remainingProtectionCushionUsdt": null,
+    "existingStressRiskUsdt": 0,
+    "availableCandidateRiskUsdt": 0,
+    "portfolioPlannedRiskUsdt": 0,
+    "grossNotionalUsdt": 0,
+    "openPositionCount": 0,
+    "closedPositionCount": 0,
+    "cumulativeEntryFeesUsdt": 0,
+    "cumulativeExitFeesUsdt": 0,
+    "cumulativeFundingUsdt": 0,
+    "cumulativeRebalanceCostsUsdt": 0,
+    "realizedPnlUsdt": 0,
+    "markToMarketNetPnlUsdt": 0,
+    "maximumDrawdownFraction": 0
+  },
+  "inputs": {
+    "baselineAccount": {
+      "status": "WAITING",
+      "sourceAsOf": null,
+      "freshnessMs": null
+    },
+    "eventLedger": {
+      "status": "HEALTHY",
+      "sourceAsOf": "2026-09-06T04:15:00.000Z",
+      "freshnessMs": 0,
+      "cursor": 9651
+    },
+    "quote": {
+      "status": "WAITING",
+      "sourceAsOf": null,
+      "freshnessMs": null,
+      "cursor": null
+    },
+    "depth": {
+      "status": "WAITING",
+      "sourceAsOf": null,
+      "freshnessMs": null,
+      "cursor": null
+    },
+    "funding": {
+      "status": "WAITING",
+      "sourceAsOf": null,
+      "freshnessMs": null,
+      "cursor": null
+    },
+    "metadata": {
+      "status": "WAITING",
+      "sourceAsOf": null,
+      "freshnessMs": null,
+      "sha256": null
+    }
+  },
+  "gates": {
+    "executionInputAllowed": false,
+    "kellySizingActivationAllowed": false,
+    "automaticPromotionAllowed": false,
+    "realizedOnlyCompounding": true,
+    "correlatedRiskShared": true,
+    "riskLimits": {
+      "candidateFraction": 0.0075,
+      "perIntersectionFraction": 0.01,
+      "portfolioFraction": 0.05,
+      "cushionUseFraction": 0.25,
+      "maximumLeverage": 4,
+      "maximumPositions": 10
+    },
+    "strategyInheritance": {
+      "baselineRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+      "r13": "REQUIRED",
+      "r15": "REQUIRED",
+      "r19": "REQUIRED",
+      "r20": "REQUIRED",
+      "r21": "REQUIRED",
+      "r22": "REQUIRED"
+    },
+    "abnormalLoss": {
+      "status": "CLEAR",
+      "yellowAboveR": 1.2,
+      "orangeAboveR": 1.5,
+      "redAboveR": 2,
+      "automaticRedReleaseAllowed": false
+    },
+    "blockers": [
+      "WAITING_FIRST_HEALTHY_FORWARD_ACCOUNT_NET_EQUITY",
+      "WAITING_PUBLIC_QUOTE_DEPTH_FUNDING_AND_METADATA",
+      "BASELINE_EXECUTED_OPPORTUNITY_SUBSET_NOT_COMPLETE_SIGNAL_UNIVERSE"
+    ]
+  },
+  "validation": {
+    "performanceValidated": false,
+    "annualTargetProbability": null,
+    "annualTargetProbabilityPublicationAllowed": false,
+    "eligibleCompletedCampaigns": 0,
+    "excludedCompletedCampaigns": 0,
+    "minimumEligibleCampaigns": 20,
+    "completeIndependentSignalUniverse": false,
+    "missingDataInvented": false
+  }
+}

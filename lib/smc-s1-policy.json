@@ -1,0 +1,120 @@
+{
+  "revision": "SMC-S1-PX-1",
+  "trailRevision": "SMC-S1-STOP-ONLY-1",
+  "s1SourceAuthorization": "governance/owner-authorizations/2026-10-10-s1-r22-rollback.json",
+  "entryPolicy": {
+    "interval": "15m",
+    "barSelection": "THE_FULLY_CLOSED_15M_BAR_CONTAINING_CANONICAL_EXACT_INTERSECTION",
+    "maximumReserveBars": 4,
+    "entryMode": "TWO_BAR_CROSS_CLOSE_WITH_BUFFER",
+    "crossCloseBufferBps": 5,
+    "allowedPatternLengths": [
+      1
+    ],
+    "maximumDirectionDecisionBars": 2,
+    "patternSelection": "FIRST_ELIGIBLE_CLOSE_IN_THE_CROSS_BAR_OR_IMMEDIATE_NEXT_15M_BAR_DETERMINES_DIRECTION",
+    "longRule": "FIRST_ELIGIBLE_CLOSE_GREATER_THAN_OR_EQUAL_TO_INTERSECTION_PRICE_PLUS_5_BPS",
+    "shortRule": "FIRST_ELIGIBLE_CLOSE_LESS_THAN_OR_EQUAL_TO_INTERSECTION_PRICE_MINUS_5_BPS",
+    "bufferAction": "WAIT_FOR_IMMEDIATE_SECOND_BAR_IF_CROSS_BAR_IS_STRICTLY_INSIDE_BUFFER; THEN_EXPIRE_WITHOUT_LATER_SUBSTITUTION",
+    "candleColorBodyAndWicks": "NOT_EXECUTION_INPUTS",
+    "execution": "LATEST_CAUSALLY_VALID_EXECUTABLE_BBO_WITHIN_50BPS_OF_CONFIRMED_15M_DECISION_CLOSE_AND_180_SECONDS_REVALIDATED_ON_EVERY_ATTEMPT",
+    "bboTemporalEvidence": "DUAL_CLOCK_EXCHANGE_MARKET_TIME_AND_LOCAL_RECEIVED_TIME",
+    "bboOrdering": "MARKET_TIME_NON_REGRESSING_AND_UPDATE_ID_REQUIRED_STRICTLY_INCREASING",
+    "positionStateDurability": "LEDGER_FIRST_OPEN_AND_PER_POSITION_SEQUENCE_REPLAY_FOR_BBO_AND_1H_TRAIL_COMMITS",
+    "minimumBodyToRange": null,
+    "longMinimumCloseLocation": null,
+    "shortMaximumCloseLocation": null,
+    "bodySizeFilter": false,
+    "volumeFilter": false,
+    "intersectionPriceProximityFilter": false,
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "entryDisplacementReference": "LATEST_EXECUTABLE_PUBLIC_BBO_VERSUS_CONFIRMED_15M_DECISION_CLOSE",
+    "entryQualityRevalidation": "EVERY_NEW_ENTRY_RETRY_AND_OPPOSITE_REPLACEMENT_ATTEMPT",
+    "costPolicyRevision": "S1-S2-COST-IN-RISK-C1-20260919",
+    "maximumCompleteLifecycleCostR": null,
+    "costEfficiencyFormula": "QUANTITY_TIMES_STOP_DISTANCE_PLUS_ENTRY_AND_EXIT_FEES_AND_ADVERSE_SLIPPAGE_WITHIN_CURRENT_RISK_BUDGET",
+    "costEfficiencyRevalidation": "BEFORE_POSITION_SIZING_ON_EVERY_SUBMISSION_ATTEMPT",
+    "aboveCostThresholdAction": "NO_RATIO_GATE_COSTS_INCLUDED_IN_RISK_SIZING",
+    "outsideDistanceAction": "WAIT_ONLY_WITHIN_ORIGINAL_SIGNAL_WINDOW_NO_CHASING",
+    "expiredSignalAction": "TERMINATE_AND_CONSUME_INTERSECTION",
+    "protectiveStructureMaturation": "INTERSECTION_BUFFER_STOP_READY_AT_DIRECTION_LOCKING_BAR_CLOSE",
+    "oppositeAcceptanceAfterDirectionLock": "OBSERVE_ONLY_DIRECTION_REMAINS_LOCKED",
+    "expiryAction": "BOTH_DIRECTION_DECISION_BARS_INSIDE_BUFFER_EXPIRE; AFTER_DIRECTION_LOCK_WAIT_ONLY_FOR_CAUSAL_BBO_AND_PRICE_REENTRY_UNTIL_180_SECONDS_AFTER_DECISION_CLOSE",
+    "oneEntryMaximumPerIntersection": true
+  },
+  "hourlyPivots": {
+    "leftBars": 4,
+    "rightBars": 4,
+    "hierarchyWindowMultipliers": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "minimumAnchorSeparationBars": 6,
+    "searchWindowBars": 1000,
+    "minimumAnchorProminenceFractionOfVisibleRange": 0.05,
+    "minimumPairMoveFractionOfVisibleRange": 0.02,
+    "minimumPairSpanFractionOfSearchWindow": 0.006,
+    "maximumIntermediateViolationFractionOfVisibleRange": 0.004,
+    "preferredSecondAnchorAgeFraction": {
+      "minimum": 0.01,
+      "maximum": 0.35
+    },
+    "nonAdjacentParentAnchorsAllowed": true,
+    "adaptiveBackwardSearch": true
+  },
+  "atrTrailPolicy": {
+    "eligibleSymbols": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT"
+    ],
+    "excludedSymbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "runnerAtrPeriod": 14,
+    "runnerAtrTiers": [
+      {
+        "minimumNetR": 3,
+        "multiplier": 4
+      },
+      {
+        "minimumNetR": 5,
+        "multiplier": 3
+      },
+      {
+        "minimumNetR": 10,
+        "multiplier": 2.5
+      }
+    ]
+  },
+  "maximumCompleteLifecycleCostR": 0.12,
+  "maximumCrossAgeMs": 1800000,
+  "maximumSignalAgeMs": 180000,
+  "maximumDisplacementBps": 50,
+  "initialStopBufferBps": 5,
+  "automaticPartialExits": false,
+  "stages": [
+    {
+      "netR": 0.5,
+      "floorR": 0.15
+    },
+    {
+      "netR": 1,
+      "floorR": 0.6
+    },
+    {
+      "netR": 2,
+      "floorR": 0.6,
+      "structureAtrTrail": true
+    }
+  ]
+}

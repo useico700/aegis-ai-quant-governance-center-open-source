@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "runtimeId": "ORION-V2-MTFX-PAPER-1.1",
+  "strategyVersion": "ORION-V2-RESEARCH-MTFX-0.5.0",
+  "implementationRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "implementationDirectiveId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "executionRevision": "MTFX-0.5.0-R22.1-ENTRY-PROTECTION-CONSISTENCY",
+  "executionDirectiveId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "paperRiskDirectiveId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "venue": {
+    "name": "BINANCE_USDT_PERPETUAL_PUBLIC_DATA",
+    "restBaseUrl": "https://demo-fapi.binance.com",
+    "websocketBaseUrl": "wss://fstream.binancefuture.com/stream",
+    "universe": {
+      "selection": "FIXED_OWNER_APPROVED_10",
+      "size": 10,
+      "symbols": [
+        "BTCUSDT",
+        "ETHUSDT",
+        "SOLUSDT",
+        "XRPUSDT",
+        "BNBUSDT",
+        "DOGEUSDT",
+        "ZECUSDT",
+        "HYPEUSDT",
+        "LINKUSDT",
+        "AAVEUSDT"
+      ],
+      "mandatorySymbols": [
+        "BTCUSDT",
+        "ETHUSDT"
+      ],
+      "quoteAsset": "USDT",
+      "contractType": "PERPETUAL",
+      "status": "TRADING",
+      "excludedBaseAssets": [
+        "USDT",
+        "USDC",
+        "FDUSD",
+        "TUSD",
+        "USDE",
+        "DAI",
+        "BUSD",
+        "USDP",
+        "USD1"
+      ]
+    },
+    "signedRequestsAllowed": false,
+    "apiKeysAllowed": false,
+    "orderEndpointsAllowed": false
+  },
+  "marketData": {
+    "klineLimits": {
+      "15m": 320,
+      "1h": 1200,
+      "4h": 500
+    },
+    "requestTimeoutMs": 8000,
+    "requestAttempts": 2,
+    "requestSpacingMs": 120,
+    "universeRefreshMs": 21600000,
+    "scanIntervalMs": 60000,
+    "heartbeatMs": 5000,
+    "signalFreshnessMs": 180000,
+    "bboEvidenceMinimumIntervalMs": 20,
+    "maximumWebsocketGapMs": 0
+  },
+  "books": [
+    {
+      "variant": "MTFX-T",
+      "initialEquityUsdt": 100000,
+      "entryEnabled": true,
+      "role": "CANONICAL_0_5_0"
+    }
+  ],
+  "paperRisk": {
+    "riskAllocationMode": "FIXED_PER_INTERSECTION_CAP",
+    "riskPerIntersectionFraction": 0.02,
+    "maximumPortfolioRiskFraction": 0.1,
+    "maximumOpenPositionsTotal": 10,
+    "dailyRealizedLossStopEnabled": false,
+    "dailyRealizedLossStopFraction": null,
+    "maximumDrawdownKillEnabled": false,
+    "maximumDrawdownKillFraction": null,
+    "takerFeeRate": 0.0007,
+    "adverseSlippageRate": 0.0002,
+    "maximumLeverage": 4,
+    "excursionRecordStepR": 0.05,
+    "lossAveragingAllowed": false,
+    "stopWideningAllowed": false,
+    "exitVariant": "PARTIAL_40_SOFT_LOCK_25_20_RUNNER_15_1H_STRUCTURE",
+    "maximumHoldingBars15m": null
+  },
+  "execution": {
+    "immediateAfterClose": true,
+    "retestOrders": "OBSERVE_ONLY_QUEUE_UNKNOWN_NO_FILL",
+    "realOrdersAllowed": false,
+    "testnetOrdersAllowed": false,
+    "automaticRestartAllowed": true,
+    "singleSymbolExposure": "AT_MOST_ONE_OPEN_POSITION_PER_SYMBOL_ACROSS_ALL_ACTIVE_PAPER_BOOKS",
+    "automaticSignalReplacement": "OPPOSITE_CURRENT_FULLY_CONFIRMED_ONLY",
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "entryDisplacementReference": "LATEST_EXECUTABLE_PUBLIC_BBO_VERSUS_CONFIRMED_15M_DECISION_CLOSE",
+    "entryQualityRevalidation": "EVERY_SIMULATED_SUBMISSION_ATTEMPT",
+    "maximumCompleteLifecycleCostR": 0.12,
+    "costEfficiencyRevalidation": "BEFORE_POSITION_SIZING_ON_EVERY_SUBMISSION_ATTEMPT"
+  },
+  "eventRisk": {
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "enabled": true,
+    "calendar": "agents/nexus/data/mtfx-tier1-event-calendar.json",
+    "freezeNewEntries": true,
+    "freezeBeforeMinutes": 30,
+    "freezeAfterMinutes": 30,
+    "existingPositions": "UNCHANGED_UNLESS_A_NON_FROZEN_CONFIRMED_OPPOSITE_CURRENT_STRUCTURE_REPLACES_THEM",
+    "entryWindowExtensionAllowed": false,
+    "notification": "LOCAL_MACOS_ONCE_PER_EVENT_WINDOW_NO_CONVERSATION"
+  },
+  "portfolioProfitProtection": {
+    "enabled": true,
+    "eligibleSymbols": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT"
+    ],
+    "excludedSymbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "minimumSameDirectionPositions": 3,
+    "armProfitFractionOfEquity": 0.015,
+    "armProfitMultipleOfInitialRisk": 2,
+    "quoteSampleIntervalMs": 60000,
+    "shockLookbackMs": 180000,
+    "shockMinimumObservedSymbols": 6,
+    "shockMinimumAdverseSymbols": 6,
+    "shockMedianReturnFraction": -0.02,
+    "trendBreadthMinimumFraction": 0.625,
+    "normalThresholds": {
+      "warning": 0.2,
+      "defense": 0.3,
+      "hard": 0.4
+    },
+    "weakThresholds": {
+      "warning": 0.15,
+      "defense": 0.25,
+      "hard": 0.35
+    },
+    "initialDefenseReductionFractionOfOriginal": 0.25,
+    "freezeMs": 900000,
+    "initialStopsImmediate": true,
+    "protectiveStopsFullQuantity": true,
+    "runnerAtrPeriod": 14,
+    "runnerAtrTiers": [
+      {
+        "minimumNetR": 3,
+        "multiplier": 4
+      },
+      {
+        "minimumNetR": 5,
+        "multiplier": 3
+      },
+      {
+        "minimumNetR": 10,
+        "multiplier": 2.5
+      }
+    ],
+    "runnerAtrRatchetOnClosed15mBarsOnly": true,
+    "runnerTrailCombination": "TIGHTER_OF_CONFIRMED_1H_STRUCTURE_AND_15M_ATR"
+  },
+  "onlineLedger": {
+    "enabled": true,
+    "url": "https://your-cockpit.example.invalid",
+    "publishIntervalMs": 15000,
+    "broadcastIntervalMs": 900000,
+    "keychainService": "aegis-mtfx-online-ledger",
+    "keychainAccount": "ORION-V2-MTFX",
+    "sitesBypassKeychainService": "aegis-sites-bypass",
+    "sitesBypassKeychainAccount": "PUBLIC_PROJECT_ID_REQUIRED"
+  }
+}

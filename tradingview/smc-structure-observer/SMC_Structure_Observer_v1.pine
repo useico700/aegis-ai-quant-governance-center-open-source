@@ -1,0 +1,1955 @@
+//@version=6
+indicator("SMC 结构观察器 v1.19 | 治理适配", shorttitle="SMC-v1.19", overlay=false, max_bars_back=2000, max_lines_count=500, max_labels_count=400, max_boxes_count=150)
+
+// GOVERNANCE_METADATA_BEGIN
+const string governanceRevision = "SMC-CONTEXT-2 / SMC-ENTRY-REVIEW-3 / SMC-STRUCTURE-PLAN-2 / SMC-OPPORTUNITY-SEARCH-1 / SMC-PLAN-LIFECYCLE-1"
+const string governanceFingerprint = "b9c392e2aeca"
+const int governanceReviewedAt = 1791489051152
+const int governanceValidUntil = 1792093851152
+// GOVERNANCE_METADATA_END
+
+// Original visual observer, not the source video's code and not an execution system.
+// Closed-bar events. Newly confirmed pivots become eligible on the NEXT bar.
+// State: 0 unknown, 1 bullish, -1 bearish, 2 transition.
+// Events: 1 BOS, 2 CHoCH, 3 trend established, 4 counter-direction internal break,
+//         5 unconfirmed break. Each endpoint is consumed once.
+compactView = input.bool(true, "直观布局", group="00 · 常用显示", display=display.none, tooltip="紧凑多周期表、当前水平边界与独立动能副图；关闭后恢复详细表格。只改变显示。")
+clearCandles = input.bool(true, "K线避让布局", group="00 · 常用显示", display=display.none, tooltip="价位和区域文字放在最新K线右侧，细引线指向真实价格；历史事件放在影线外。仅调整绘图，不改变结构、交汇或警报。请保留约25根右侧空白；Pine无法读取字体像素边界。")
+annotationGap = input.int(10, "右侧文字距离 / 根", minval=4, maxval=60, group="00 · 常用显示", display=display.none, active=clearCandles, tooltip="文字从最新K线右侧此距离起向右展开；不要把右侧留白全部收起。")
+annotationSpacing = input.float(0.45, "标签间隔 / ATR", minval=0.2, maxval=2, step=0.05, group="00 · 常用显示", display=display.none, active=clearCandles, tooltip="右侧标签按价格排列并保持最小间距；文字价格和引线起点始终是真实价位，标签高度可能避让。")
+eventWords = input.bool(false, "展开事件全称", group="00 · 常用显示", display=display.none, tooltip="默认使用BOS、CHoCH、HH/HL和扫高/扫低等短标记，完整含义在悬停提示。")
+showLevelHistory = input.bool(false, "历史边界轨迹", group="00 · 常用显示", display=display.none, tooltip="默认只画当前外部边界和保护点的水平段；开启可回看历史迁移。不是额外买卖信号。")
+showCandlePanel = input.bool(true, "K线特征", display=display.none, group="00 · 常用显示", tooltip="显示已收盘K线的形态、实体和影线占比；不单独决定方向。", inline="overview")
+showLevels = input.bool(true, "外部边界与保护点", display=display.none, group="00 · 常用显示", tooltip="外部推进边界优先；保护线是趋势失效界，不等于交易止损。局部摆动单独勾选。", inline="structure")
+showLocalLevels = input.bool(false, "局部摆动高低", display=display.none, group="00 · 常用显示", tooltip="最近N窗口高低，可能属于外部结构内部波动；不代替外部边界。")
+showSweep = input.bool(true, "扫点收回", display=display.none, group="00 · 常用显示", tooltip="越过已确认主高/低后，同一根收盘回到该点内。只标首次扫点，不代表反转成立。", inline="structure")
+showPivots = input.bool(false, "HH / HL / LH / LL", display=display.none, group="00 · 常用显示", tooltip="标记主摆动序列，默认放在确认K线；窗口8意味着要等待右侧8根确认。", inline="marks")
+showInner = input.bool(false, "内部事件", display=display.none, group="00 · 常用显示", tooltip="显示灰色内部破点；仅作辅助，不能替代主结构。", inline="marks")
+showBg = input.bool(false, "方向背景", display=display.none, group="00 · 常用显示", tooltip="淡色背景对应主结构方向。", inline="background")
+showMid = input.bool(false, "区间50%", display=display.none, group="00 · 常用显示", tooltip="保护点和对向主摆动构成区间的中点；不是FVG的CE或影线中点。", inline="background")
+showFvg = input.bool(true, "FVG 失衡区", display=display.none, group="01 · 区域与透明度", tooltip="三根收线确认；默认精选位移与结构相关缺口，全部模式查看其余候选。完全回补或超龄才删除；精选隐藏不等于失效。", inline="fvg")
+showCe = input.bool(true, "CE 中线", display=display.none, group="01 · 区域与透明度", tooltip="单个FVG的50%中线；只在FVG开启时显示。", inline="fvg", active=showFvg)
+fvgMode = input.string("精选FVG", "FVG 显示模式", options=["精选FVG", "全部FVG"], display=display.none, group="01 · 区域与透明度", active=showFvg, tooltip="精选：位移、宽度、结构相关与回补/距离排序，同向重叠去重。全部：寿命与原始宽度内候选，仍受绘图数量限制；非无限历史。均为展示启发式，不代表胜率。")
+fvgSelectedMax = input.int(4, "精选最多 / 个", minval=1, maxval=8, display=display.none, group="01 · 区域与透明度", active=showFvg and fvgMode == "精选FVG", tooltip="按代表性排序，不按最近FIFO；不改变缺口边界或主结构。")
+showOb = input.bool(false, "突破位移 OB 候选", display=display.none, group="01 · 区域与透明度", tooltip="仅主BOS/趋势建立与位移同根；回溯首个反向K，若不合格不继续找更早K。不是所有OB或真实机构订单，可选展示。", inline="zones")
+showLiquidity = input.bool(false, "BSL / SSL", display=display.none, group="01 · 区域与透明度", tooltip="最近未扫、未突破的主高低参考带；不是真实交易所挂单量。", inline="zones")
+showPd = input.bool(false, "溢价 / 折价", display=display.none, group="01 · 区域与透明度", tooltip="当前保护点与对向主摆动的区间上下半部；过渡、未建立或区间无效时不显示。")
+zoneTransparency = input.int(84, "透明度 %", minval=50, maxval=95, display=display.none, group="01 · 区域与透明度", tooltip="数值越大越淡，84表示84%透明。也作用于SL/TP参考区域。")
+zoneExtend = input.int(12, "向右延伸 / 根", minval=1, maxval=100, display=display.none, group="01 · 区域与透明度", tooltip="把区域延伸到最新K线右侧；建议图表右留白至少50根。")
+fvgColor = input.color(color.rgb(56,121,255), "FVG颜色", display=display.none, group="01 · 区域与透明度", tooltip="FVG区域颜色。", inline="zone-colors", active=showFvg)
+obColor = input.color(color.rgb(186,156,230), "OB颜色", display=display.none, group="01 · 区域与透明度", tooltip="OB候选区域颜色。", inline="zone-colors", active=showOb)
+showSl = input.bool(false, "SL 风险区", display=display.none, group="02 · 历史 / 手动测量", tooltip="入场到止损的价格区间；这是参考图，不是真实订单。", inline="plan")
+showTp = input.bool(false, "TP 目标区", display=display.none, group="02 · 历史 / 手动测量", tooltip="入场到目标的价格区间；价格触线不代表成交。", inline="plan")
+planMode = input.string("历史毛R测量", "价格来源", options=["历史毛R测量", "手动价格"], display=display.none, group="02 · 历史 / 手动测量", tooltip="历史测量：过去主BOS/建立后冻结收盘价、保护点及固定R，画在形成时间，不代表当前计划。手动价格：按下一组填写的价格画图。固定R不等于生产策略的结构目标或成本后净R。", active=showSl or showTp)
+planR1 = input.float(1.0, "TP1 / R", minval=0.25, maxval=10, step=0.25, display=display.none, group="02 · 历史 / 手动测量", tooltip="毛价格距离倍数，未计手续费、滑点和资金费。", inline="rewards", active=(showSl or showTp) and planMode == "历史毛R测量")
+planR2 = input.float(2.0, "TP2 / R", minval=0.5, maxval=20, step=0.25, display=display.none, group="02 · 历史 / 手动测量", tooltip="TP2必须大于TP1。1R/2R是观察尺，不是治理生产候选的净2R准入。", inline="rewards", active=(showSl or showTp) and planMode == "历史毛R测量")
+planSlAtr = input.float(0.10, "SL 缓冲 / ATR", minval=0, maxval=2, step=0.05, display=display.none, group="02 · 历史 / 手动测量", tooltip="观察尺的保护点外缓冲，至少1tick；未核验生产止损安全门（波动、流动性、Tick/BBO、费用）。已有参考计划冻结。", active=(showSl or showTp) and planMode == "历史毛R测量")
+planAge = input.int(200, "最长观察 / 根", minval=10, maxval=1000, display=display.none, group="02 · 历史 / 手动测量", tooltip="自动参考计划超龄或主CHoCH、SL、TP2触及后结束；同根SL与TP2触及时标路径未知。仅在创建后的K线检查触价，不回填成交；后续新主事件可建立新参考，未实现生产锚点族永久失效台账。", active=(showSl or showTp) and planMode == "历史毛R测量")
+slColor = input.color(color.rgb(176,146,228), "SL颜色", display=display.none, group="02 · 历史 / 手动测量", tooltip="止损风险区颜色。", inline="plan-colors", active=showSl)
+tpColor = input.color(color.rgb(79,150,240), "TP颜色", display=display.none, group="02 · 历史 / 手动测量", tooltip="止盈目标区颜色。", inline="plan-colors", active=showTp)
+manualDirection = input.string("多头", "参考方向", options=["多头", "空头"], display=display.none, group="03 · 手动价格", tooltip="先在上一组把价格来源切换为手动价格，下面的价格才可编辑。", active=(showSl or showTp) and planMode == "手动价格")
+manualEntry = input.float(0, "参考入场", minval=0, display=display.none, group="03 · 手动价格", tooltip="0表示未设置。价格必须来自当前图表品种。", active=(showSl or showTp) and planMode == "手动价格")
+manualSl = input.float(0, "止损 SL", minval=0, display=display.none, group="03 · 手动价格", tooltip="多头：SL < 入场 < TP1 < TP2；空头顺序相反。所有价格必须大于0。", active=(showSl or showTp) and planMode == "手动价格")
+manualTp1 = input.float(0, "目标 TP1", minval=0, display=display.none, group="03 · 手动价格", tooltip="第一目标；仅画参考线，不做触线成交推断。", active=(showSl or showTp) and planMode == "手动价格")
+manualTp2 = input.float(0, "目标 TP2", minval=0, display=display.none, group="03 · 手动价格", tooltip="第二目标；手动模式不会因结构变化自动修改你填写的价格。", active=(showSl or showTp) and planMode == "手动价格")
+showBodyHistogram = input.bool(true, "实体动能副图", group="04 · K线与市场动能", display=display.none, tooltip="已收盘K线的有符号实体/前ATR14，阳线为正、阴线为负；当前未收线留空，不回填未来数据。浅蓝折线与灰色零线；关闭只隐藏曲线，不改变计算。")
+useReferenceCandles = input.bool(true, "参考红绿K线", group="04 · K线与市场动能", display=display.none, tooltip="阳线亮绿、阴线红。可叠加已收盘关键形态高亮。")
+momentumMode = input.string("已收盘", "读数时点", options=["已收盘", "盘中参考"], display=display.none, group="04 · K线与市场动能", tooltip="已收盘：盘中读取上一根完成K。盘中参考：当前K随行情更新，明确标未确认。结构事件仍只在收盘确认。")
+showRsi = input.bool(true, "RSI", display=display.none, group="04 · K线与市场动能", tooltip=">=55偏强，<=45偏弱，其余中性。不是买卖指令。", inline="momentum")
+showRvol = input.bool(true, "相对成交量", display=display.none, group="04 · K线与市场动能", tooltip="当前量除以前N根已收盘平均量；分母不含当前柱。", inline="momentum")
+showBodyAtr = input.bool(true, "实体 / ATR", display=display.none, group="04 · K线与市场动能", tooltip="实体相对前一根ATR14的大小，辅助观察推进强度。", inline="momentum")
+showCandleHighlight = input.bool(false, "关键K线着色", display=display.none, group="04 · K线与市场动能", tooltip="收盘确认后高亮位移、吞没、长影等候选。", inline="candles")
+showCandleLabels = input.bool(false, "形态标签", display=display.none, group="04 · K线与市场动能", tooltip="每根最多一个标签，优先位移、吞没、长影、小实体。", inline="candles")
+rsiLen = input.int(14, "RSI 周期", minval=2, maxval=100, display=display.none, group="04 · K线与市场动能", tooltip="RSI计算长度；默认14。", inline="periods", active=showRsi)
+volLen = input.int(20, "量均周期", minval=2, maxval=100, display=display.none, group="04 · K线与市场动能", tooltip="相对成交量分母使用此前N根已收盘量。", inline="periods", active=showRvol)
+rvolThreshold = input.float(1.5, "放量阈值 / 倍", minval=1, step=0.1, display=display.none, group="04 · K线与市场动能", tooltip="相对均量达到此倍数标放量；不等于主动买盘。", active=showRvol)
+displacementAtr = input.float(1.0, "位移实体 / ATR", minval=0.25, maxval=5, step=0.25, display=display.none, group="04 · K线与市场动能", tooltip="同时要求实体占比>=60%、收盘位于方向末端20%；也是OB候选的位移筛选条件。")
+hideAllPanels = input.bool(false, "隐藏全部面板", display=display.none, group="05 · 面板与阅读", tooltip="只隐藏四块文字面板，结构/FVG/SLTP图形和交汇时间竖线继续计算与显示。取消后恢复各面板选择。")
+showPanel = input.bool(true, "主结构面板", display=display.none, group="05 · 面板与阅读", tooltip="右上只显示4H外部背景和15M局部背景；图上形态仍按当前图表周期计算。两个周期独立观察，不投票、不作订单准入。")
+showMomentumPanel = input.bool(true, "K线动能面板", display=display.none, group="05 · 面板与阅读", tooltip="只隐藏整块动能表；K线特征/RSI等内容选择及着色计算保持。")
+showPlanPanel = input.bool(true, "历史测量面板", display=display.none, group="05 · 面板与阅读", tooltip="只隐藏底部冻结计划文字；SL/TP区域与参考生命周期保持。")
+showMeetPanel = input.bool(true, "交汇时间面板", display=display.none, group="05 · 面板与阅读", tooltip="交汇时间摘要位于下方指标窗，不覆盖K线。关闭只隐藏摘要；准确时间竖线与来源计算保持。")
+structurePosition = input.string("右上", "结构面板位置", options=["右上", "左上"], group="05 · 面板与阅读", tooltip="右侧SL/TP标签被遮挡时，可把结构面板移到左上。", display=display.none, active=showPanel)
+momentumPosition = input.string("右下", "动能面板位置", options=["右下", "左下", "左上"], display=display.none, group="05 · 面板与阅读", tooltip="可放右下、左下、左上；若与结构面板同在左上，动能自动移到左下。", active=showCandlePanel or showRsi or showRvol or showBodyAtr)
+panelFont = input.string("标准", "面板字号", options=["紧凑", "标准", "大字"], group="05 · 面板与阅读", tooltip="大字便于手机截图查看；面板会占用更多图表空间。", display=display.none)
+panelDetail = input.bool(false, "展开保护点与时间", display=display.none, group="05 · 面板与阅读", tooltip="同一源快照的保护/外部边界/最近外部事件/确认时刻；统一北京时间 UTC+8。低周期快照可能额外滞后一根源周期K；详情注明已确认至。", active=showPanel)
+panelBackground = input.color(color.rgb(5,6,8), "面板背景", display=display.none, group="05 · 面板与阅读", tooltip="面板背景色，配合图表明暗主题选择。")
+editAdvanced = input.bool(false, "解锁高级参数", group="06 · 高级结构与区域规则", tooltip="只控制下面参数能否编辑，不会切换或重置算法。调整后会重算已加载历史，既有警报需重建。", display=display.none)
+mainLen = input.int(8, "主结构 / 根", minval=3, maxval=50, display=display.none, group="06 · 高级结构与区域规则", tooltip="左右各N根确认；15M默认8根约2小时确认延迟。该观察窗口与生产2×2结构基元不同。", inline="swing", active=editAdvanced)
+innerLen = input.int(2, "内部 / 根", minval=1, maxval=20, display=display.none, group="06 · 高级结构与区域规则", tooltip="必须小于主结构窗口。用于识别主结构中的小波动。", inline="swing", active=editAdvanced)
+bufferAtr = input.float(0.05, "突破缓冲 / ATR", minval=0, maxval=1, step=0.01, display=display.none, group="06 · 高级结构与区域规则", tooltip="使用上一根ATR14，实际缓冲取ATR部分与最小tick部分的较大值。", active=editAdvanced)
+bufferTicks = input.int(1, "最小突破 / tick", minval=0, maxval=100, display=display.none, group="06 · 高级结构与区域规则", tooltip="一个tick等于当前品种最小报价单位。", active=editAdvanced)
+equalTicks = input.int(1, "等高低容差 / tick", minval=0, maxval=100, display=display.none, group="06 · 高级结构与区域规则", tooltip="容差内归为等高/等低，避免报价微差制造新结构。", active=editAdvanced)
+fvgMinAtr = input.float(0.10, "FVG 最小宽度 / ATR", minval=0, step=0.05, display=display.none, group="06 · 高级结构与区域规则", tooltip="小于该阈值的缺口不创建。", active=editAdvanced and showFvg)
+fvgAge = input.int(200, "区域寿命 / 根", minval=10, maxval=1000, display=display.none, group="06 · 高级结构与区域规则", tooltip="FVG与OB共用的最长保留根数。", active=editAdvanced and (showFvg or showOb))
+fvgMax = input.int(10, "全部模式最多 FVG", minval=1, maxval=20, display=display.none, group="06 · 高级结构与区域规则", tooltip="仅限制全部模式绘图数量，按代表性排序；不丢弃寿命内候选。", inline="caps", active=editAdvanced and showFvg and fvgMode == "全部FVG")
+fvgSelectedAtr = input.float(0.20, "精选宽度 / ATR", minval=0, maxval=2, step=0.05, display=display.none, group="06 · 高级结构与区域规则", active=editAdvanced and showFvg, tooltip="精选缺口至少此倍数前ATR且>=2tick，仍需满足原始最小宽度。展示阈值未校准盈利能力。")
+fvgImpulseAtr = input.float(0.8, "精选中K实体 / ATR", minval=0.25, maxval=3, step=0.05, display=display.none, group="06 · 高级结构与区域规则", active=editAdvanced and showFvg, tooltip="中间K同向、实体>=此前ATR倍数、实体占比>=60%、收盘在方向末端20%。与动能/OB位移阈值独立。")
+fvgMaxFill = input.int(75, "精选隐藏回补 / %", minval=25, maxval=100, display=display.none, group="06 · 高级结构与区域规则", active=editAdvanced and showFvg, tooltip="已收盘影线累计回补达到此比例，仅从精选隐藏；全部模式保留至完全填补或超龄。")
+fvgMaxDistance = input.float(6, "精选最远距离 / ATR", minval=1, maxval=30, step=0.5, display=display.none, group="06 · 高级结构与区域规则", active=editAdvanced and showFvg, tooltip="已收盘价格到缺口最近边界距离；仅影响精选可见性，不使缺口失效。")
+obMax = input.int(5, "最多 OB", minval=1, maxval=15, display=display.none, group="06 · 高级结构与区域规则", tooltip="达到数量上限后删除最早候选。", inline="caps", active=editAdvanced and showOb)
+obLookback = input.int(20, "OB 回溯 / 根", minval=2, maxval=100, display=display.none, group="06 · 高级结构与区域规则", tooltip="在主结构突破前寻找最近反向K线的最大范围。", active=editAdvanced and showOb)
+obFullRange = input.bool(true, "OB 包含影线", display=display.none, group="06 · 高级结构与区域规则", tooltip="开启用整根高低；关闭仅用实体。", active=editAdvanced and showOb)
+liqWidthAtr = input.float(0.03, "流动性带半宽 / ATR", minval=0.01, maxval=0.3, step=0.01, display=display.none, group="06 · 高级结构与区域规则", tooltip="半宽取等高低容差与前ATR倍数的较大值。", active=editAdvanced and showLiquidity)
+historyLimit = input.int(120, "外部事件保留上限", minval=30, maxval=160, display=display.none, group="06 · 高级结构与区域规则", tooltip="外部BOS/CHoCH/趋势建立独立预算，默认120；内部最多40，形态/摆动/扫回最多60，互不挤占。", active=editAdvanced)
+backplot = input.bool(false, "拐点回标（复盘）", display=display.none, group="06 · 高级结构与区域规则", tooltip="把新确认标签画回早先拐点；不表示当时已知。突破事件始终在确认K线。", active=editAdvanced and showPivots)
+showGovernance = input.bool(true, "显示治理核对信息", group="07 · 治理同步与版本", tooltip="在结构面板底部显示版本与最近核对日期。同步由Codex定期任务完成，Pine本身不联网读取治理文件；标签表示已评审治理版本，不代表全部移植。多锚点机会排序、真实结构目标、跨重启失效台账、Tick/BBO与净R准入均未移植；当前仍为单一毛R观察尺。", display=display.none, active=showPanel)
+
+
+// Independent intersection research display. No effect on existing SMC signals or plans.
+showMeet = input.bool(true, "数学交汇标记", group="08 · 多周期数学交汇", display=display.none, tooltip="完整确认N序列建立来源家族；活动父族和子族各用一条包络，大小周期反向家族求交。数学交点按近期性、外推、锚点年龄与规模排序，价格是否到达、穿线、时间经过不改变其坐标；SMC在结构区独立判断。")
+meetHighTf = input.timeframe("240", "大周期", options=["240", "60", "15"], group="08 · 多周期数学交汇", display=display.none, inline="meet-tf", active=showMeet)
+meetLowTf = input.timeframe("15", "小周期", options=["60", "15", "5"], group="08 · 多周期数学交汇", display=display.none, inline="meet-tf", active=showMeet, tooltip="大周期必须严格大于小周期。所有按时间划分的图表周期均可显示；来源周期固定，竖线不吸附图表K线。所有图表统一读取固定5M来源的完整状态；源摆动只使用已收盘数据。切换观察周期不重新定义交汇来源。")
+meetMode = input.string("线性价格", "计算口径", options=["线性价格", "对数价格"], group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="线性：P对时间直线；对数：ln(P)对时间直线。图表自身的线性/对数开关不会改变此参数。精确求解，绘图时间四舍五入到1毫秒；来源趋势线只在内部计算，图上不画；仅按精确交汇时间画全高竖线，不使用交汇价格定位。")
+meetLen = input.int(8, "源周期主摆动 / 根", minval=3, maxval=30, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="N与2N左右确认，并以同源N/2反向摆动证明完整N。父族不因反向子N消失；保护随本族外部推进迁移。每活动家族一条包络，不组合任意旧锚点；同周期同尺度同族采用最新包络；旧修订留作追溯，不再并列为当前交汇。独立家族与不同尺度保留。锚点时间为极值所在源K开盘时间，不冒充逐笔极值时刻。")
+meetKeep = input.int(160, "区域绘图预算 / 个", minval=12, maxval=200, step=4, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="右侧多个交点并列保留，按四种规模组合分享标记预算；新大点不取消小点。容量不足只暂不绘制，坐标仍可重放。默认160、最多200；有限源历史无法穷举无限连线。")
+showMeetFuture = input.bool(true, "绘制未来坐标", group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="通常持续显示前向窗口的交汇时间列表，缩放或横移不改变来源结果。仅开启历史回看且查看旧历史区时，收起未来点。Pine只提供可见K线时间边界，不能读取空白未来或价格轴精确像素边界。")
+showMeetLegacyFuture = input.bool(false, "展开全部未来投影（诊断）", group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="勾选展开最远天数内全部可得未来事件，含弱参考；绕过简洁上限、近期窗与邻近抑制，仍受诊断绘图预算限制。坐标不变，绝非交易信号。")
+meetConciseLimit = input.int(3, "简洁视图：最多竖线", minval=1, maxval=8, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="跨尺度共享总额度，历史回看也计入；不足此数量不会拿弱参考补位。展开全部诊断才取消此上限。")
+showMeetWeak = input.bool(false, "简洁视图：显示弱参考", group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="默认收起陈旧/过度外推，面板保留候选与收起数量。不是低胜率判定。")
+meetNearDays = input.int(7, "简洁视图：近期 / 天", minval=1, maxval=30, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="简洁模式只画此窗口内未来候选；更远坐标仍保留，展开全部诊断可看。")
+meetClusterHours = input.int(12, "邻近间隔 / 小时", minval=0, maxval=48, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="按质量先选原始事件，跨尺度收起距离已选时间不超过此间隔的邻近点；无固定桶边界。0仅合并完全同时间。")
+meetWeakExtension = input.float(8, "弱参考：外推跨度倍数", minval=1, maxval=100, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="任一来源从第二锚点到交点的延伸超过自身两锚点跨度的此倍数，降为灰色弱参考；阅读启发式，未证明预测能力。")
+meetWeakAge = input.int(30, "弱参考：锚点年龄 / 天", minval=1, maxval=180, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="任一来源第二锚点超过此年龄即降为弱参考；来源已结束并不单独取消未来坐标。")
+showMeetHistory = input.bool(false, "历史区回看（可选）", group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="默认关注当前K线右侧尚在未来的多个数学交点。仅复盘时勾选，按当前可见历史区重放旧点。显示位置变化不是交点失效。")
+meetHorizon = input.int(30, "最远绘制 / 天", minval=1, maxval=90, group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="仅限制绘图，不裁剪数学交点坐标。过远坐标留在事件流，面板明确报告窗口内候选；图上不画伪替代点。")
+showMeetChartLabels = input.bool(false, "K线旁时间标签（可能遮挡）", group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="默认关闭。交汇时间在下方指标窗独立显示，主图只保留准确时间竖线。勾选可恢复旧式价格附近标签；手机端可能遮挡K线。")
+showMeetDetail = input.bool(false, "展开四锚点与精度", group="08 · 多周期数学交汇", display=display.none, active=showMeet, tooltip="下方指标窗展开源K时间、确认可得时间与未按tick舍入的P*。包含来源家族、父族、确认推进数与当时保护；完整因果链见交点提示。")
+
+if barstate.isfirst and innerLen >= mainLen
+    runtime.error("内部确认根数必须小于主摆动确认根数。")
+if barstate.isfirst and planR2 <= planR1
+    runtime.error("结构TP2的R倍数必须大于TP1。")
+if barstate.isfirst and not chart.is_standard
+    runtime.error("请使用标准时间K线；本观察器不支持Heikin Ashi、Renko等合成价格图。")
+
+bull = input.color(color.rgb(79, 150, 240), "上行 / 低点", group="09 · 配色与视觉", inline="structure-palette", display=display.none)
+bear = input.color(color.rgb(176, 146, 228), "下行 / 高点", group="09 · 配色与视觉", inline="structure-palette", display=display.none)
+levelBlue = bull
+momentumLineColor = input.color(color.rgb(139,199,240), "动能折线", group="09 · 配色与视觉", display=display.none, tooltip="与K线红绿分离的单色线；正负看灰色零线。")
+momentumLineWidth = input.int(2, "线宽", minval=1, maxval=3, group="09 · 配色与视觉", display=display.none)
+candleBull = color.rgb(0, 200, 150)
+candleBear = color.rgb(255, 54, 94)
+neutral = input.color(color.rgb(157,166,180), "内部 / 中性", group="09 · 配色与视觉", inline="aux-palette", display=display.none)
+amber = input.color(color.rgb(220,182,92), "扫点 / 过渡", group="09 · 配色与视觉", inline="aux-palette", display=display.none)
+var array<line> eventLines = array.new<line>()
+var array<label> marks = array.new<label>()
+var array<label> externalMarks = array.new<label>()
+var array<label> internalMarks = array.new<label>()
+var array<line> internalLines = array.new<line>()
+// VISUAL_EVENT_CLEARANCE_BEGIN — label-only; original timestamps/levels stay in tooltip/lines.
+float visualAtr = nz(ta.atr(14)[1], math.max(high - low, syminfo.mintick * 10))
+float visualHigh = ta.highest(high, 3)
+float visualLow = ta.lowest(low, 3)
+var array<int> visualTimes = array.new<int>()
+var array<float> visualYs = array.new<float>()
+var array<bool> visualSides = array.new<bool>()
+f_shortMark(string caption) =>
+    string short = str.replace_all(str.replace_all(caption, " 确认", ""), "主 ", "")
+    short := str.replace_all(str.replace_all(short, "扫高收回", "扫高"), "扫低收回", "扫低")
+    eventWords ? caption : short
+f_eventY(int stamp, float price, bool above) =>
+    float gap = math.max(visualAtr * annotationSpacing, syminfo.mintick * 3)
+    float edge = stamp == time ? (above ? math.max(price, visualHigh) : math.min(price, visualLow)) : price
+    float y = edge + (above ? gap : -gap)
+    if visualTimes.size() > 0
+        for i = 0 to visualTimes.size() - 1
+            if visualSides.get(i) == above and math.abs(stamp - visualTimes.get(i)) <= (time_close - time) * 3
+                y := above ? math.max(y, visualYs.get(i) + gap) : math.min(y, visualYs.get(i) - gap)
+    visualTimes.push(stamp)
+    visualYs.push(y)
+    visualSides.push(above)
+    if visualTimes.size() > 60
+        visualTimes.shift()
+        visualYs.shift()
+        visualSides.shift()
+    clearCandles ? y : price
+// VISUAL_EVENT_CLEARANCE_END
+f_mark(int t, float price, string caption, color col, bool above, string note) =>
+    label id = label.new(t, f_eventY(t, price, above), f_shortMark(caption), xloc=xloc.bar_time, style=above ? label.style_label_down : label.style_label_up, color=color.new(col, clearCandles ? 100 : 82), textcolor=col, size=size.tiny, tooltip=caption + " · 原价 " + str.tostring(price, format.mintick) + "\n" + note, force_overlay=true)
+    marks.push(id)
+    if marks.size() > 60
+        label.delete(marks.shift())
+    id
+
+type Pivot
+    float price
+    int idx
+    int stamp
+    int known
+    bool used = false
+    bool swept = false
+
+type Structure
+    array<Pivot> highs
+    array<Pivot> lows
+    int bias = 0
+    int after = -1
+    Pivot protection = na
+    int lastEvent = 0
+    int lastDirection = 0
+    int lastAt = na
+    Pivot continuationBoundary = na
+    int externalEvent = 0
+    int externalDirection = 0
+    int externalOccurredAt = na
+    int externalConfirmedAt = na
+    int auxiliaryEvent = 0
+    int auxiliaryConfirmedAt = na
+    int episodeAt = na
+    float externalEndpoint = na
+    int endpointAvailableAt = na
+
+f_last(array<Pivot> points) =>
+    Pivot p = points.size() > 0 ? points.last() : na
+    p
+
+method sequence(Structure s, float eq) =>
+    int d = 0
+    if s.highs.size() >= 2 and s.lows.size() >= 2
+        Pivot h = s.highs.last()
+        Pivot hp = s.highs.get(s.highs.size() - 2)
+        Pivot l = s.lows.last()
+        Pivot lp = s.lows.get(s.lows.size() - 2)
+        bool fresh = hp.idx > s.after and lp.idx > s.after
+        if fresh
+            d := h.price > hp.price + eq and l.price > lp.price + eq ? 1 : h.price < hp.price - eq and l.price < lp.price - eq ? -1 : 0
+    d
+
+method stepAt(Structure s, float ph, float pl, int n, float buf, float eq, float hi, float lo, float cl, float prev, int index, int stamp, int closed, int pivotTime) =>
+    int event = 0
+    int direction = 0
+    float level = na
+    int known = na
+    int sweeps = 0
+    Pivot h = f_last(s.highs)
+    Pivot l = f_last(s.lows)
+    // Advance only from a point registered by a previous completed bar. The
+    // independent boundary survives rolling pivot-array pruning and local pivots.
+    Pivot candidate = s.bias == 1 ? h : s.bias == -1 ? l : na
+    if not na(candidate) and not na(s.continuationBoundary) and candidate.idx > s.continuationBoundary.idx
+        bool extends = s.bias == 1 ? candidate.price > s.continuationBoundary.price + eq : candidate.price < s.continuationBoundary.price - eq
+        if extends
+            s.continuationBoundary := Pivot.new(candidate.price, candidate.idx, candidate.stamp, candidate.known)
+    // Evaluate only pivots stored by earlier closed bars.
+    if not na(h) and not h.used and not h.swept and hi > h.price + buf and cl <= h.price
+        h.swept := true
+        sweeps += 1
+    if not na(l) and not l.used and not l.swept and lo < l.price - buf and cl >= l.price
+        l.swept := true
+        sweeps += 2
+    bool broken = not na(s.protection) and (s.bias == 1 ? cl < s.protection.price - buf : s.bias == -1 ? cl > s.protection.price + buf : false)
+    if broken
+        event := 2
+        direction := -s.bias
+        level := s.protection.price
+        known := s.protection.known
+        s.protection.used := true
+        s.protection := na
+        s.continuationBoundary := na
+        s.bias := 2
+        s.after := index
+    else
+        bool up = not na(h) and not h.used and cl > h.price + buf and prev <= h.price + buf
+        bool down = not na(l) and not l.used and cl < l.price - buf and prev >= l.price - buf
+        Pivot boundary = s.continuationBoundary
+        bool externalUp = s.bias == 1 and not na(boundary) and not boundary.used and cl > boundary.price + buf and prev <= boundary.price + buf
+        bool externalDown = s.bias == -1 and not na(boundary) and not boundary.used and cl < boundary.price - buf and prev >= boundary.price - buf
+        bool externalBreak = externalUp or externalDown
+        if externalBreak or up or down
+            direction := externalBreak ? (externalUp ? 1 : -1) : up ? 1 : -1
+            up := direction == 1
+            Pivot endpoint = externalBreak ? boundary : up ? h : l
+            endpoint.used := true
+            level := endpoint.price
+            known := endpoint.known
+            array<Pivot> opposite = up ? s.lows : s.highs
+            Pivot selected = na
+            for p in opposite
+                bool eligible = p.idx > endpoint.idx and not p.used and (up ? p.price < cl - buf : p.price > cl + buf)
+                if eligible and (na(selected) or (up ? p.price < selected.price : p.price > selected.price))
+                    selected := p
+            bool established = (s.bias == 0 or s.bias == 2) and s.sequence(eq) == direction and not na(selected)
+            if established
+                s.bias := direction
+                s.protection := selected
+                s.continuationBoundary := Pivot.new(endpoint.price, endpoint.idx, endpoint.stamp, endpoint.known, true)
+                event := 3
+            else if s.bias == direction and externalBreak
+                event := 1
+                if not na(selected) and (na(s.protection) or (up ? selected.price >= s.protection.price : selected.price <= s.protection.price))
+                    s.protection := selected
+            else
+                event := s.bias == 1 or s.bias == -1 ? 4 : 5
+    if event != 0
+        s.lastEvent := event
+        s.lastDirection := direction
+        s.lastAt := closed
+        if event <= 3
+            s.externalEvent := event
+            s.externalDirection := direction
+            s.externalOccurredAt := stamp
+            s.externalConfirmedAt := closed
+            s.externalEndpoint := level
+            s.endpointAvailableAt := known
+            if event == 2 or event == 3
+                s.episodeAt := closed
+        else
+            s.auxiliaryEvent := event
+            s.auxiliaryConfirmedAt := closed
+    // Register at END: no same-bar retroactive use; 80 points per side caps memory.
+    if not na(ph)
+        s.highs.push(Pivot.new(ph, index - n, pivotTime, closed))
+        if s.highs.size() > 80
+            s.highs.shift()
+    if not na(pl)
+        s.lows.push(Pivot.new(pl, index - n, pivotTime, closed))
+        if s.lows.size() > 80
+            s.lows.shift()
+    [event, direction, level, known, sweeps]
+
+// Chart and all nested source contexts use the same explicit-input core.
+method step(Structure s, float ph, float pl, int n, float buf, float eq) =>
+    s.stepAt(ph, pl, n, buf, eq, high, low, close, close[1], bar_index, time, time_close, time[n])
+
+// HIERARCHY_TESTS_BEGIN — actual stepAt core, synthetic causal fixtures.
+f_hierarchyFixture(int direction) =>
+    Structure s = Structure.new(array.new<Pivot>(), array.new<Pivot>())
+    s.bias := direction
+    if direction == 1
+        s.highs.push(Pivot.new(120, 10, 10000, 12000))
+        s.highs.push(Pivot.new(110, 20, 20000, 22000))
+        s.lows.push(Pivot.new(95, 5, 5000, 7000))
+        s.lows.push(Pivot.new(108, 22, 22000, 24000))
+        s.protection := s.lows.get(0)
+        s.continuationBoundary := Pivot.new(120, 10, 10000, 12000)
+    else
+        s.lows.push(Pivot.new(80, 10, 10000, 12000))
+        s.lows.push(Pivot.new(90, 20, 20000, 22000))
+        s.highs.push(Pivot.new(105, 5, 5000, 7000))
+        s.highs.push(Pivot.new(92, 22, 22000, 24000))
+        s.protection := s.highs.get(0)
+        s.continuationBoundary := Pivot.new(80, 10, 10000, 12000)
+    s
+f_hierarchyTest() =>
+    Structure u = f_hierarchyFixture(1)
+    [e1, d1, v1, k1, w1] = u.stepAt(na, na, 2, 0, 0, 112, 109, 111, 109, 30, 30000, 31000, 28000)
+    bool nestedUp = e1 == 4 and d1 == 1 and u.protection.price == 95 and u.continuationBoundary.price == 120 and not u.continuationBoundary.used and u.bias == 1
+    [e2, d2, v2, k2, w2] = u.stepAt(na, na, 2, 0, 0, 122, 119, 121, 119, 31, 31000, 32000, 29000)
+    bool outerUp = e2 == 1 and v2 == 120 and u.protection.price == 108 and u.continuationBoundary.used
+    [e3, d3, v3, k3, w3] = u.stepAt(na, na, 2, 0, 0, 122, 119, 121, 119, 32, 32000, 33000, 30000)
+    bool noRepeat = e3 != 1 and u.continuationBoundary.used
+    // Equal/lower pivot cannot rearm a consumed boundary.
+    u.highs.push(Pivot.new(120, 33, 33000, 35000))
+    [e4, d4, v4, k4, w4] = u.stepAt(na, na, 2, 0, 0, 122, 119, 121, 119, 36, 36000, 37000, 34000)
+    bool equalNoRearm = e4 == 4 and u.continuationBoundary.idx == 10 and u.continuationBoundary.used
+    // New confirmation registers at END; current close cannot use it as frontier.
+    [e5, d5, v5, k5, w5] = u.stepAt(125, na, 2, 0, 0, 124, 120, 124, 121, 40, 40000, 41000, 38000)
+    bool noSameBar = u.continuationBoundary.price == 120 and e5 != 1
+    u.lows.push(Pivot.new(119, 39, 39000, 41000))
+    [e6, d6, v6, k6, w6] = u.stepAt(na, na, 2, 0, 0, 127, 124, 126, 124, 42, 42000, 43000, 40000)
+    bool rearmed = e6 == 1 and v6 == 125 and u.continuationBoundary.price == 125 and u.protection.price == 119
+    Structure d = f_hierarchyFixture(-1)
+    [e7, d7, v7, k7, w7] = d.stepAt(na, na, 2, 0, 0, 91, 88, 89, 91, 30, 30000, 31000, 28000)
+    bool nestedDown = e7 == 4 and d7 == -1 and d.protection.price == 105 and d.continuationBoundary.price == 80 and d.bias == -1
+    [e8, d8, v8, k8, w8] = d.stepAt(na, na, 2, 0, 0, 81, 78, 79, 81, 31, 31000, 32000, 29000)
+    bool outerDown = e8 == 1 and v8 == 80 and d.protection.price == 92
+    Structure inside = f_hierarchyFixture(1)
+    [e9, d9, v9, k9, w9] = inside.stepAt(na, na, 2, 0, 0, 109, 106, 107, 109, 30, 30000, 31000, 28000)
+    bool reverseInternal = e9 == 4 and inside.protection.price == 95 and inside.bias == 1
+    [e10, d10, v10, k10, w10] = inside.stepAt(na, na, 2, 0, 0, 97, 93, 94, 96, 31, 31000, 32000, 29000)
+    bool transition = e10 == 2 and inside.bias == 2 and na(inside.protection) and na(inside.continuationBoundary)
+    // All reversal pivots are after CHoCH index31; confirmed before bar45.
+    inside.highs.push(Pivot.new(100, 32, 32000, 34000))
+    inside.lows.push(Pivot.new(93, 34, 34000, 36000))
+    inside.highs.push(Pivot.new(98, 36, 36000, 38000))
+    inside.lows.push(Pivot.new(92, 38, 38000, 40000))
+    inside.highs.push(Pivot.new(96, 40, 40000, 42000))
+    [e11, d11, v11, k11, w11] = inside.stepAt(na, na, 2, 0, 0, 94, 90, 91, 93, 45, 45000, 46000, 43000)
+    bool reverseConfirmed = e11 == 3 and inside.bias == -1 and inside.protection.price == 96 and inside.continuationBoundary.price == 92 and inside.continuationBoundary.used
+    Structure preserved = f_hierarchyFixture(1)
+    preserved.highs.clear()
+    preserved.highs.push(Pivot.new(110, 20, 20000, 22000))
+    [e12, d12, v12, k12, w12] = preserved.stepAt(na, na, 2, 0, 0, 121, 118, 119, 118, 30, 30000, 31000, 28000)
+    bool sweepOnly = e12 != 1 and preserved.continuationBoundary.price == 120 and not preserved.continuationBoundary.used and preserved.protection.price == 95
+    [e13, d13, v13, k13, w13] = preserved.stepAt(na, na, 2, 0, 0, 122, 119, 121, 119, 31, 31000, 32000, 29000)
+    bool survivesPrune = e13 == 1 and v13 == 120
+    bool pass = nestedUp and outerUp and noRepeat and equalNoRearm and noSameBar and rearmed and nestedDown and outerDown and reverseInternal and transition and reverseConfirmed and sweepOnly and survivesPrune
+    if not pass
+        runtime.error("HIERARCHY-2 状态机回放失败：" + str.tostring(nestedUp) + "/" + str.tostring(outerUp) + "/" + str.tostring(noRepeat) + "/" + str.tostring(equalNoRearm) + "/" + str.tostring(noSameBar) + "/" + str.tostring(rearmed) + "/" + str.tostring(nestedDown) + "/" + str.tostring(outerDown) + "/" + str.tostring(reverseInternal) + "/" + str.tostring(transition) + "/" + str.tostring(reverseConfirmed) + "/" + str.tostring(sweepOnly) + "/" + str.tostring(survivesPrune))
+    pass
+if barstate.isfirst
+    f_hierarchyTest()
+// HIERARCHY_TESTS_END
+
+f_event(int e) =>
+    e == 1 ? "BOS" : e == 2 ? "CHoCH / 过渡" : e == 3 ? "趋势建立" : e == 4 ? "内部破点" : e == 5 ? "待确认破点" : "等待"
+f_bias(int b) =>
+    b == 1 ? "上涨" : b == -1 ? "下跌" : b == 2 ? "过渡" : b == 99 ? "数据不可用" : "未建立"
+f_color(int b) =>
+    b == 1 ? bull : b == -1 ? bear : b == 2 ? amber : neutral
+f_draw(int event, int direction, float level, int known, bool inner) =>
+    bool visible = inner ? showInner and event > 0 : event > 0 and (event <= 3 or showInner)
+    if visible
+        color col = inner or event >= 4 ? neutral : direction == 1 ? bull : bear
+        string caption = (inner ? "内 " : "主 ") + f_event(event) + (direction == 1 ? " ↑" : " ↓")
+        line id = line.new(known, level, time_close, level, xloc=xloc.bar_time, color=col, style=inner ? line.style_dotted : line.style_dashed, width=inner ? 1 : 2, force_overlay=true)
+        bool external = not inner and event <= 3
+        array<line> lines = external ? eventLines : internalLines
+        array<label> labels = external ? externalMarks : internalMarks
+        int budget = external ? historyLimit : 40
+        lines.push(id)
+        label tag = label.new(time, f_eventY(time, level, direction == 1), eventWords ? caption : (inner ? "i·" : "") + (event == 1 ? "BOS" : event == 2 ? "CHoCH" : event == 3 ? "建立" : "破点?") + (direction == 1 ? "↑" : "↓"), xloc=xloc.bar_time, style=direction == 1 ? label.style_label_down : label.style_label_up, color=color.new(col, clearCandles ? 100 : 82), textcolor=col, size=size.tiny, tooltip=caption + " · 突破价 " + str.tostring(level, format.mintick) + "\n源 " + timeframe.period + " · 发生K " + str.format_time(time, "MM-dd HH:mm", "Asia/Shanghai") + " · 收盘确认 " + str.format_time(time_close, "MM-dd HH:mm", "Asia/Shanghai") + " UTC+8；非买卖指令。", force_overlay=true)
+        labels.push(tag)
+        if lines.size() > budget
+            line.delete(lines.shift())
+        if labels.size() > budget
+            label.delete(labels.shift())
+    event
+
+var Structure main = Structure.new(array.new<Pivot>(), array.new<Pivot>())
+var Structure internal = Structure.new(array.new<Pivot>(), array.new<Pivot>())
+float atr = ta.atr(14)
+float buf = math.max(syminfo.mintick * bufferTicks, nz(atr[1]) * bufferAtr)
+float eq = syminfo.mintick * equalTicks
+float mh = ta.pivothigh(high, mainLen, mainLen)
+float ml = ta.pivotlow(low, mainLen, mainLen)
+float ih = ta.pivothigh(high, innerLen, innerLen)
+float il = ta.pivotlow(low, innerLen, innerLen)
+// Candle and momentum measurements do not alter structure state.
+float span = high - low
+float body = math.abs(close - open)
+float bodyPct = span > 0 ? body / span * 100 : na
+float upperPct = span > 0 ? (high - math.max(open, close)) / span * 100 : na
+float lowerPct = span > 0 ? (math.min(open, close) - low) / span * 100 : na
+float bodyAtr = atr[1] > 0 ? body / atr[1] : na
+float rsiValue = ta.rsi(close, rsiLen)
+float previousVolMean = ta.sma(volume, volLen)[1]
+float rvolValue = not na(volume) and previousVolMean > 0 ? volume / previousVolMean : na
+bool displacementUp = close > open and bodyAtr >= displacementAtr and bodyPct >= 60 and span > 0 and (high - close) / span <= 0.2
+bool displacementDown = close < open and bodyAtr >= displacementAtr and bodyPct >= 60 and span > 0 and (close - low) / span <= 0.2
+bool engulfUp = close > open and close[1] < open[1] and open <= close[1] and close >= open[1] and (open < close[1] or close > open[1])
+bool engulfDown = close < open and close[1] > open[1] and open >= close[1] and close <= open[1] and (open > close[1] or close < open[1])
+bool longLower = lowerPct >= 50 and upperPct <= 20 and bodyPct <= 35
+bool longUpper = upperPct >= 50 and lowerPct <= 20 and bodyPct <= 35
+int candleCode = displacementUp ? 1 : displacementDown ? -1 : engulfUp ? 2 : engulfDown ? -2 : longLower ? 3 : longUpper ? -3 : bodyPct <= 10 ? 4 : 0
+f_candle(int code, bool up) =>
+    code == 1 ? "位移阳线" : code == -1 ? "位移阴线" : code == 2 ? "阳线吞没" : code == -2 ? "阴线吞没" : code == 3 ? "长下影候选" : code == -3 ? "长上影候选" : code == 4 ? "小实体 / 十字" : up ? "普通阳线" : "普通阴线"
+color candleColor = candleCode == 1 or candleCode == 2 ? bull : candleCode == -1 or candleCode == -2 ? bear : amber
+barcolor(showCandleHighlight and barstate.isconfirmed and candleCode != 0 ? color.new(candleCode == 1 or candleCode == 2 ? candleBull : candleCode == -1 or candleCode == -2 ? candleBear : amber, 25) : useReferenceCandles ? (close >= open ? candleBull : candleBear) : na, title="关键K线高亮（收盘确认）")
+if barstate.isconfirmed and showCandleLabels and candleCode != 0
+    f_mark(time, candleCode > 0 ? low : high, f_candle(candleCode, close >= open), candleColor, candleCode < 0, "K线形态候选，不改变主结构；位移用前一根ATR。")
+int currentEvent = 0
+int currentDirection = 0
+if barstate.isconfirmed
+    Pivot previousH = f_last(main.highs)
+    Pivot previousL = f_last(main.lows)
+    [ev, dr, lv, kt, sw] = main.step(mh, ml, mainLen, buf, eq)
+    [ie, idir, ilevel, iknown, isweep] = internal.step(ih, il, innerLen, buf, eq)
+    currentEvent := ev
+    currentDirection := dr
+    f_draw(ev, dr, lv, kt, false)
+    f_draw(ie, idir, ilevel, iknown, true)
+    if showPivots and not na(mh)
+        string tag = na(previousH) ? "H" : math.abs(mh - previousH.price) <= eq ? "EQH" : mh > previousH.price ? "HH" : "LH"
+        f_mark(backplot ? time[mainLen] : time, mh, "主 " + tag + (backplot ? "" : " 确认"), bear, true, "拐点发生：" + str.format_time(time[mainLen], "MM-dd HH:mm", "Asia/Shanghai") + "；确认延迟 " + str.tostring(mainLen) + " 根。")
+    if showPivots and not na(ml)
+        string tag = na(previousL) ? "L" : math.abs(ml - previousL.price) <= eq ? "EQL" : ml > previousL.price ? "HL" : "LL"
+        f_mark(backplot ? time[mainLen] : time, ml, "主 " + tag + (backplot ? "" : " 确认"), bull, false, "拐点发生：" + str.format_time(time[mainLen], "MM-dd HH:mm", "Asia/Shanghai") + "；确认延迟 " + str.tostring(mainLen) + " 根。")
+    if showSweep and (sw == 1 or sw == 3)
+        f_mark(time, high, "扫高收回", amber, true, "越过此前已确认主高并在同根收盘收回；潜在BSL代理，非反转保证。")
+    if showSweep and (sw == 2 or sw == 3)
+        f_mark(time, low, "扫低收回", amber, false, "越过此前已确认主低并在同根收盘收回；潜在SSL代理，非反转保证。")
+
+Pivot latestH = f_last(main.highs)
+Pivot latestL = f_last(main.lows)
+float highLevel = not na(latestH) ? latestH.price : na
+float lowLevel = not na(latestL) ? latestL.price : na
+float protectedLevel = not na(main.protection) ? main.protection.price : na
+float rangeHigh = main.bias == -1 ? protectedLevel : highLevel
+float rangeLow = main.bias == 1 ? protectedLevel : lowLevel
+bool rangeValid = (main.bias == 1 or main.bias == -1) and not na(rangeHigh) and not na(rangeLow) and rangeHigh > rangeLow
+plot(showLocalLevels ? highLevel : na, "局部摆动高（非外部边界）", color=color.new(bear, 38), style=plot.style_stepline, force_overlay=true)
+plot(showLocalLevels ? lowLevel : na, "局部摆动低（非外部边界）", color=color.new(bull, 38), style=plot.style_stepline, force_overlay=true)
+float boundaryLevel = not na(main.continuationBoundary) ? main.continuationBoundary.price : na
+plot(showLevels and showLevelHistory ? boundaryLevel : na, "外部推进边界（已消费需等新极值）", color=main.bias == 1 ? bear : levelBlue, linewidth=2, style=plot.style_linebr, force_overlay=true)
+plot(showLevels and showLevelHistory ? protectedLevel : na, "受保护点（结构参考，非订单）", color=main.bias == 1 ? levelBlue : bear, linewidth=2, style=plot.style_linebr, force_overlay=true)
+plot(showMid and rangeValid ? (rangeHigh + rangeLow) / 2 : na, "主参考区间50%（非CE）", color=color.new(neutral, 35), style=plot.style_linebr, force_overlay=true)
+pdTop = plot(showPd and rangeValid ? rangeHigh : na, "溢价上沿", color=color.new(color.white, 100), style=plot.style_linebr, force_overlay=true)
+pdMid = plot(showPd and rangeValid ? (rangeHigh + rangeLow) / 2 : na, "溢价折价分界", color=color.new(neutral, 65), style=plot.style_linebr, force_overlay=true)
+pdBottom = plot(showPd and rangeValid ? rangeLow : na, "折价下沿", color=color.new(color.white, 100), style=plot.style_linebr, force_overlay=true)
+fill(pdTop, pdMid, color=color.new(obColor, math.min(zoneTransparency + 8, 98)), title="溢价区（主参考区间）", fillgaps=false)
+fill(pdMid, pdBottom, color=color.new(fvgColor, math.min(zoneTransparency + 8, 98)), title="折价区（主参考区间）", fillgaps=false)
+bgcolor(showBg ? color.new(f_color(main.bias), 94) : na, title="主结构状态", force_overlay=true)
+// Only three moving end labels; historical events retain their original meaning.
+var label highTag = label.new(na, na, "", xloc=xloc.bar_time, style=label.style_label_left, size=size.small, force_overlay=true)
+var label lowTag = label.new(na, na, "", xloc=xloc.bar_time, style=label.style_label_left, size=size.small, force_overlay=true)
+var label boundaryTag = label.new(na, na, "", xloc=xloc.bar_time, style=label.style_label_left, size=size.small, force_overlay=true)
+var label protectionTag = label.new(na, na, "", xloc=xloc.bar_time, style=label.style_label_left, size=size.small, force_overlay=true)
+f_endtag(label tag, float price, string caption, color col, int offset) =>
+    label.set_style(tag, clearCandles ? label.style_label_left : label.style_label_right)
+    label.set_xy(tag, time_close + (time_close - time) * offset, showLevels ? price : na)
+    label.set_text(tag, caption + " " + str.tostring(price, format.mintick))
+    label.set_color(tag, color.new(panelBackground, 5))
+    label.set_textcolor(tag, col)
+if barstate.islast
+    // Hide a redundant H/L tag if it coincides with the protected level.
+    f_endtag(highTag, not showLocalLevels or not na(latestH) and latestH.used or not na(protectedLevel) and highLevel == protectedLevel ? na : highLevel, "局部高", bear, 1)
+    f_endtag(lowTag, not showLocalLevels or not na(protectedLevel) and lowLevel == protectedLevel ? na : lowLevel, "局部低", bull, 1)
+    f_endtag(boundaryTag, boundaryLevel, not na(main.continuationBoundary) and main.continuationBoundary.used ? "外部边界·已消费" : "外部推进边界", main.bias == 1 ? bear : levelBlue, 3)
+    f_endtag(protectionTag, protectedLevel, main.bias == 1 ? "主保护低点" : "主保护高点", main.bias == 1 ? levelBlue : bear, 1)
+
+// VISUAL_CURRENT_LEVELS_BEGIN — paint only; source state remains untouched.
+var line currentBoundaryLine = line.new(na, na, na, na, xloc=xloc.bar_time, force_overlay=true)
+var line currentProtectionLine = line.new(na, na, na, na, xloc=xloc.bar_time, force_overlay=true)
+if barstate.islast
+    int visualRight = time_close + (time_close - time) * zoneExtend
+    int boundaryStart = not na(main.continuationBoundary) ? main.continuationBoundary.known : time_close
+    int protectionStart = not na(main.protection) ? main.protection.known : time_close
+    line.set_xy1(currentBoundaryLine, boundaryStart, showLevels ? boundaryLevel : na)
+    line.set_xy2(currentBoundaryLine, visualRight, showLevels ? boundaryLevel : na)
+    line.set_color(currentBoundaryLine, main.bias == 1 ? bear : levelBlue)
+    line.set_style(currentBoundaryLine, not na(main.continuationBoundary) and main.continuationBoundary.used ? line.style_dashed : line.style_solid)
+    line.set_width(currentBoundaryLine, 2)
+    line.set_xy1(currentProtectionLine, protectionStart, showLevels ? protectedLevel : na)
+    line.set_xy2(currentProtectionLine, visualRight, showLevels ? protectedLevel : na)
+    line.set_color(currentProtectionLine, main.bias == 1 ? levelBlue : bear)
+    line.set_width(currentProtectionLine, 2)
+// VISUAL_CURRENT_LEVELS_END
+
+// FVG and OB are created at confirmation CLOSE, never backfilled to an origin bar.
+type Zone
+    box region
+    line mid
+    float top
+    float bottom
+    int direction
+    int born
+    int kind
+var array<Zone> zones = array.new<Zone>()
+f_remove(Zone z) =>
+    box.delete(z.region)
+    if not na(z.mid)
+        line.delete(z.mid)
+f_add_zone(float top, float bottom, int direction, int kind) =>
+    color col = kind == 1 ? fvgColor : obColor
+    int right = time_close + (time_close - time) * zoneExtend
+    box b = box.new(time_close, top, right, bottom, xloc=xloc.bar_time, border_color=color.new(col, 45), bgcolor=color.new(col, zoneTransparency), text=(kind == 1 ? "FVG " : "OB候选 ") + (direction == 1 ? "↑" : "↓"), text_color=col, text_size=size.tiny, text_halign=text.align_left, force_overlay=true)
+    line mid = kind == 1 and showCe ? line.new(time_close, (top + bottom) / 2, right, (top + bottom) / 2, xloc=xloc.bar_time, color=color.new(col, 30), style=line.style_dotted, force_overlay=true) : na
+    zones.push(Zone.new(b, mid, top, bottom, direction, bar_index, kind))
+    int count = 0
+    for z in zones
+        if z.kind == kind
+            count += 1
+    if count > (kind == 1 ? fvgMax : obMax)
+        for j = 0 to zones.size() - 1
+            Zone old = zones.get(j)
+            if old.kind == kind
+                f_remove(old)
+                zones.remove(j)
+                break
+if barstate.isconfirmed
+    if zones.size() > 0
+        for j = zones.size() - 1 to 0
+            Zone z = zones.get(j)
+            bool invalid = z.kind == 1 ? (z.direction == 1 ? low <= z.bottom : high >= z.top) : (z.direction == 1 ? close < z.bottom - buf : close > z.top + buf)
+            if invalid or bar_index - z.born > fvgAge
+                f_remove(z)
+                zones.remove(j)
+    bool newOb = showOb and (currentEvent == 1 or currentEvent == 3) and (currentDirection == 1 ? displacementUp : displacementDown)
+    if newOb
+        for j = 1 to obLookback
+            bool opposite = currentDirection == 1 ? close[j] < open[j] : close[j] > open[j]
+            if opposite
+                float obTop = obFullRange ? high[j] : math.max(open[j], close[j])
+                float obBottom = obFullRange ? low[j] : math.min(open[j], close[j])
+                bool valid = obTop > obBottom and (currentDirection == 1 ? close > obTop + buf : close < obBottom - buf)
+                if valid
+                    f_add_zone(obTop, obBottom, currentDirection, 2)
+                break
+if barstate.islast and zones.size() > 0
+    for z in zones
+        int right = time_close + (time_close - time) * zoneExtend
+        box.set_right(z.region, right)
+        if not na(z.mid)
+            line.set_x2(z.mid, right)
+// FVG_DISPLAY_BEGIN — independent display heuristic, never a structure/entry gate.
+type FvgView
+    float top
+    float bottom
+    int direction
+    int born
+    int known
+    float widthAtr
+    float impulseAtr
+    bool quality
+    bool external
+    float fill = 0.0
+var array<FvgView> fvgPool = array.new<FvgView>()
+var array<box> fvgBoxes = array.new<box>()
+var array<line> fvgMids = array.new<line>()
+f_fvg_external(int event, int direction, int wanted) =>
+    (event == 1 or event == 3) and direction == wanted
+f_fvg_quality(float width, float priorAtr, float tick, float impulse, float impulseBase, float fraction, float closeTail, bool aligned) =>
+    priorAtr > 0 and impulseBase > 0 and width >= math.max(priorAtr * fvgSelectedAtr, tick * 2) and aligned and impulse / impulseBase >= fvgImpulseAtr and fraction >= 0.6 and closeTail <= 0.2
+f_fvg_overlap(float aTop, float aBottom, float bTop, float bBottom) =>
+    float intersection = math.max(0.0, math.min(aTop, bTop) - math.max(aBottom, bBottom))
+    float narrower = math.min(aTop - aBottom, bTop - bBottom)
+    narrower > 0 ? intersection / narrower : 0.0
+f_fvg_fill(float top, float bottom, int direction, float seenLow, float seenHigh) =>
+    math.max(0.0, math.min(1.0, direction == 1 ? (top - seenLow) / (top - bottom) : (seenHigh - bottom) / (top - bottom)))
+f_fvg_distance(float top, float bottom, float reference, float base) =>
+    base > 0 ? math.max(math.max(bottom - reference, reference - top), 0) / base : 1e6
+f_fvg_score(bool external, float widthAtr, float impulseAtr, float fill, float distance, float ageFraction, bool aligned, bool inRange) =>
+    (external ? 8.0 : 0.0) + math.min(widthAtr, 1.0) + math.min(impulseAtr, 2.0) + (aligned ? 1.0 : 0.0) + (inRange ? 2.0 : 0.0) - fill * 4.0 - math.min(distance, 10.0) * 0.4 - ageFraction
+f_fvg_eligible(FvgView z, float distance) =>
+    z.quality and z.fill < fvgMaxFill / 100.0 and distance <= fvgMaxDistance
+if barstate.isconfirmed
+    if fvgPool.size() > 0
+        for i = fvgPool.size() - 1 to 0
+            FvgView z = fvgPool.get(i)
+            // A new zone is not mitigated by its own formation candle.
+            z.fill := math.max(z.fill, f_fvg_fill(z.top, z.bottom, z.direction, low, high))
+            if z.fill >= 1.0 or bar_index - z.born > fvgAge
+                fvgPool.remove(i)
+    bool upGap = low > high[2] and low - high[2] >= math.max(atr[1] * fvgMinAtr, syminfo.mintick)
+    bool downGap = high < low[2] and low[2] - high >= math.max(atr[1] * fvgMinAtr, syminfo.mintick)
+    if showFvg and (upGap or downGap)
+        int dr = upGap ? 1 : -1
+        float top = upGap ? low : low[2]
+        float bottom = upGap ? high[2] : high
+        float middleSpan = high[1] - low[1]
+        float middleBody = math.abs(close[1] - open[1])
+        float fraction = middleSpan > 0 ? middleBody / middleSpan : 0
+        float tail = middleSpan > 0 ? (dr == 1 ? high[1] - close[1] : close[1] - low[1]) / middleSpan : 1
+        bool aligned = dr == 1 ? close[1] > open[1] : close[1] < open[1]
+        bool quality = f_fvg_quality(top - bottom, atr[1], syminfo.mintick, middleBody, atr[2], fraction, tail, aligned)
+        // Immutable evidence available on middle/confirmation close only; no later backfill.
+        bool external = f_fvg_external(currentEvent, currentDirection, dr) or f_fvg_external(currentEvent[1], currentDirection[1], dr)
+        fvgPool.push(FvgView.new(top, bottom, dr, bar_index, time_close, (top - bottom) / atr[1], atr[2] > 0 ? middleBody / atr[2] : 0, quality, external))
+
+if barstate.isfirst
+    float testWidth = math.max(fvgSelectedAtr, 0.02) * 1.1
+    float testImpulse = fvgImpulseAtr * 1.1
+    if not f_fvg_quality(testWidth, 1, 0.01, testImpulse, 1, 0.7, 0.1, true) or f_fvg_quality(0.001, 1, 0.01, testImpulse, 1, 0.7, 0.1, true) or f_fvg_quality(testWidth, 1, 0.01, testImpulse, 1, 0.7, 0.1, false)
+        runtime.error("FVG宽度/方向入口断言失败")
+    if f_fvg_quality(testWidth, 1, 0.01, fvgImpulseAtr * 0.5, 1, 0.7, 0.1, true) or f_fvg_quality(testWidth, 0, 0.01, testImpulse, 1, 0.7, 0.1, true) or f_fvg_quality(testWidth, 1, 0.01, testImpulse, 0, 0.7, 0.1, true) or f_fvg_quality(testWidth, 1, 0.01, testImpulse, 1, 0.5, 0.1, true) or f_fvg_quality(testWidth, 1, 0.01, testImpulse, 1, 0.7, 0.3, true)
+        runtime.error("FVG位移/ATR/实体/收盘入口断言失败")
+    if f_fvg_external(4, 1, 1) or f_fvg_external(5, -1, -1) or f_fvg_external(1, -1, 1) or not f_fvg_external(3, 1, 1)
+        runtime.error("FVG外部事件证据断言失败")
+    if math.abs(f_fvg_overlap(110, 100, 108, 102) - 1) > 1e-6 or f_fvg_overlap(110, 100, 120, 111) != 0
+        runtime.error("FVG重叠断言失败")
+    if math.abs(f_fvg_fill(110, 100, 1, 103, 120) - 0.7) > 1e-6 or math.abs(f_fvg_fill(110, 100, -1, 90, 107) - 0.7) > 1e-6
+        runtime.error("FVG回补断言失败")
+    if f_fvg_score(true, 0.5, 1, 0, 0, 0, true, true) <= f_fvg_score(false, 1, 2, 0, 0, 0, true, true)
+        runtime.error("FVG结构证据优先断言失败")
+
+// Re-rank the entire age-bounded pool, never evict candidates to satisfy draw budget.
+if (barstate.islast or barstate.islastconfirmedhistory) and showFvg
+    for b in fvgBoxes
+        box.delete(b)
+    fvgBoxes.clear()
+    for l in fvgMids
+        line.delete(l)
+    fvgMids.clear()
+    array<int> chosen = array.new<int>()
+    bool selected = fvgMode == "精选FVG"
+    int budget = selected ? fvgSelectedMax : fvgMax
+    float reference = barstate.isconfirmed ? close : close[1]
+    float referenceAtr = barstate.isconfirmed ? atr : atr[1]
+    int referenceBar = barstate.isconfirmed ? bar_index : bar_index - 1
+    int eligibleCount = 0
+    if fvgPool.size() > 0
+        for z in fvgPool
+            float distance = f_fvg_distance(z.top, z.bottom, reference, referenceAtr)
+            if not selected or f_fvg_eligible(z, distance)
+                eligibleCount += 1
+        for slot = 0 to budget - 1
+            int best = -1
+            float bestScore = -1e10
+            for i = 0 to fvgPool.size() - 1
+                FvgView z = fvgPool.get(i)
+                float distance = f_fvg_distance(z.top, z.bottom, reference, referenceAtr)
+                bool eligible = not chosen.includes(i) and (not selected or f_fvg_eligible(z, distance))
+                if eligible and selected and chosen.size() > 0
+                    for index in chosen
+                        FvgView other = fvgPool.get(index)
+                        if z.direction == other.direction and f_fvg_overlap(z.top, z.bottom, other.top, other.bottom) >= 0.65
+                            eligible := false
+                bool inRange = rangeValid and z.top >= rangeLow and z.bottom <= rangeHigh
+                float score = f_fvg_score(z.external, z.widthAtr, z.impulseAtr, z.fill, distance, (referenceBar - z.born) / float(fvgAge), main.bias == z.direction, inRange)
+                // Stable deterministic ties: newer wins only when all quality scores tie.
+                if eligible and score >= bestScore
+                    best := i
+                    bestScore := score
+            if best == -1
+                break
+            chosen.push(best)
+            FvgView z = fvgPool.get(best)
+            int right = time_close + (time_close - time) * zoneExtend
+            string caption = (selected ? "精选FVG " : "FVG ") + (z.direction == 1 ? "↑" : "↓") + (z.external ? " · 主推进" : "")
+            box b = box.new(z.known, z.top, right, z.bottom, xloc=xloc.bar_time, border_color=color.new(fvgColor, 45), bgcolor=color.new(fvgColor, zoneTransparency), text=caption, text_color=fvgColor, text_size=size.tiny, text_halign=text.align_left, force_overlay=true)
+            fvgBoxes.push(b)
+            if showCe
+                fvgMids.push(line.new(z.known, (z.top + z.bottom) / 2, right, (z.top + z.bottom) / 2, xloc=xloc.bar_time, color=color.new(fvgColor, 30), style=line.style_dotted, force_overlay=true))
+            if barstate.islastconfirmedhistory
+                log.info("FVG-V1.8|" + timeframe.period + "|" + fvgMode + "|" + str.tostring(z.known) + "|" + str.tostring(z.top) + "|" + str.tostring(z.bottom) + "|" + str.tostring(z.direction) + "|" + str.tostring(z.quality) + "|" + str.tostring(z.external) + "|" + str.tostring(z.fill) + "|" + str.tostring(bestScore))
+    if barstate.islastconfirmedhistory
+        log.info("FVG-COUNTS|" + timeframe.period + "|" + fvgMode + "|pool=" + str.tostring(fvgPool.size()) + "|eligible=" + str.tostring(eligibleCount) + "|drawn=" + str.tostring(chosen.size()))
+// FVG_DISPLAY_END
+
+// Latest unconsumed swing levels proxy liquidity; no orderbook inventory is inferred.
+var box bsl = na
+var box ssl = na
+if barstate.islast
+    if not na(bsl)
+        box.delete(bsl)
+    if not na(ssl)
+        box.delete(ssl)
+    float halfWidth = math.max(eq, nz(atr[1]) * liqWidthAtr)
+    int right = time_close + (time_close - time) * zoneExtend
+    if showLiquidity and not na(latestH) and not latestH.used and not latestH.swept
+        bsl := box.new(latestH.known, highLevel + halfWidth, right, highLevel - halfWidth, xloc=xloc.bar_time, border_color=color.new(amber, 60), bgcolor=color.new(amber, zoneTransparency), text="BSL参考带", text_color=amber, text_size=size.tiny, text_halign=text.align_left, force_overlay=true)
+    if showLiquidity and not na(latestL) and not latestL.used and not latestL.swept
+        ssl := box.new(latestL.known, lowLevel + halfWidth, right, lowLevel - halfWidth, xloc=xloc.bar_time, border_color=color.new(amber, 60), bgcolor=color.new(amber, zoneTransparency), text="SSL参考带", text_color=amber, text_size=size.tiny, text_halign=text.align_left, force_overlay=true)
+
+// A single frozen reference plan, never an execution/fill model.
+var int planDirection = 0
+var float planEntry = na
+var float planSl = na
+var float planTp1 = na
+var float planTp2 = na
+var int planBorn = na
+var int planTime = na
+var int planEndedAt = na
+var string planStatus = "等待主BOS / 趋势建立"
+var bool planActive = false
+if planMode == "历史毛R测量" and barstate.isconfirmed
+    bool endedNow = false
+    if planActive and bar_index > planBorn
+        bool hitSl = planDirection == 1 ? low <= planSl : high >= planSl
+        bool hitTarget = planDirection == 1 ? high >= planTp2 : low <= planTp2
+        if hitSl and hitTarget
+            planActive := false
+            planStatus := "同根触SL与TP2 · 路径未知"
+            endedNow := true
+        else if currentEvent == 2
+            planActive := false
+            planStatus := "主CHoCH · 原计划失效"
+            endedNow := true
+        else if hitSl or hitTarget
+            planActive := false
+            planStatus := hitSl ? "触及参考SL · 结束观察" : "触及参考TP2 · 结束观察"
+            endedNow := true
+        else if bar_index - planBorn > planAge
+            planActive := false
+            planStatus := "计划超龄 · 结束观察"
+            endedNow := true
+    if endedNow
+        planEndedAt := time_close
+    // Do not replace an active plan at every small continuation, or overwrite an
+    // ending on the same bar. A later qualifying main event can create a new plan.
+    if not planActive and not endedNow and (currentEvent == 1 or currentEvent == 3) and not na(protectedLevel)
+        float stop = protectedLevel - currentDirection * math.max(syminfo.mintick, nz(atr[1]) * planSlAtr)
+        float risk = currentDirection * (close - stop)
+        if risk >= syminfo.mintick * 2 and stop > 0 and close + currentDirection * risk * planR2 > 0
+            planDirection := currentDirection
+            planEntry := close
+            planSl := stop
+            planTp1 := close + currentDirection * risk * planR1
+            planTp2 := close + currentDirection * risk * planR2
+            planBorn := bar_index
+            planTime := time_close
+            planEndedAt := na
+            planActive := true
+            planStatus := "结构毛R参考 · 止损安全未核验"
+if planMode == "手动价格" and barstate.islast
+    planDirection := manualDirection == "多头" ? 1 : -1
+    bool valid = manualEntry > 0 and manualSl > 0 and manualTp1 > 0 and manualTp2 > 0 and planDirection * (manualEntry - manualSl) > 0 and planDirection * (manualTp1 - manualEntry) > 0 and planDirection * (manualTp2 - manualTp1) > 0
+    planActive := valid
+    planEntry := manualEntry
+    planSl := manualSl
+    planTp1 := manualTp1
+    planTp2 := manualTp2
+    planTime := time_close
+    planStatus := valid ? "手动价格参考 · 止损安全未核验" : "手动价格未设 / 顺序无效"
+var box slBox = na
+var box tpBox = na
+var line entryLine = na
+var line tp1Line = na
+var label entryTag = na
+var label slTag = na
+var label tp1Tag = na
+var label tp2Tag = na
+var table planPanel = table.new(position.bottom_center, 1, 5, bgcolor=color.new(panelBackground, 12), force_overlay=true)
+if barstate.islast
+    box.delete(slBox)
+    box.delete(tpBox)
+    line.delete(entryLine)
+    line.delete(tp1Line)
+    label.delete(entryTag)
+    label.delete(slTag)
+    label.delete(tp1Tag)
+    label.delete(tp2Tag)
+    bool visible = (showSl or showTp) and (planMode == "手动价格" ? planActive : not na(planTime))
+    if visible
+        int left = planMode == "手动价格" ? time_close + (time_close - time) * 3 : planTime
+        int right = planMode == "手动价格" ? time_close + (time_close - time) * (zoneExtend + 6) : math.min(nz(planEndedAt, time_close), planTime + (time_close - time) * zoneExtend)
+        color textCol = color.rgb(205,218,232)
+        float risk = math.abs(planEntry - planSl)
+        entryLine := line.new(left, planEntry, right, planEntry, xloc=xloc.bar_time, color=color.new(textCol, 25), style=line.style_dashed, force_overlay=true)
+        entryTag := label.new(right, planEntry, "历史E（非当前入场） " + str.tostring(planEntry, format.mintick), xloc=xloc.bar_time, style=label.style_label_left, color=color.new(panelBackground, 15), textcolor=textCol, size=size.small, force_overlay=true)
+        if showSl
+            slBox := box.new(left, math.max(planEntry, planSl), right, math.min(planEntry, planSl), xloc=xloc.bar_time, border_color=color.new(slColor, 45), bgcolor=color.new(slColor, zoneTransparency), force_overlay=true)
+            slTag := label.new(right, planSl, "SL " + str.tostring(planSl, format.mintick), xloc=xloc.bar_time, style=label.style_label_left, color=color.new(slColor, zoneTransparency), textcolor=slColor, size=size.small, force_overlay=true)
+        if showTp
+            tpBox := box.new(left, math.max(planEntry, planTp2), right, math.min(planEntry, planTp2), xloc=xloc.bar_time, border_color=color.new(tpColor, 45), bgcolor=color.new(tpColor, zoneTransparency), force_overlay=true)
+            tp1Line := line.new(left, planTp1, right, planTp1, xloc=xloc.bar_time, color=color.new(tpColor, 30), style=line.style_dashed, force_overlay=true)
+            tp1Tag := label.new(right, planTp1, "TP1 毛R尺 " + str.tostring(planTp1, format.mintick) + " / " + str.tostring(math.abs(planTp1 - planEntry) / risk, "#.##") + "R", xloc=xloc.bar_time, style=label.style_label_left, color=color.new(tpColor, zoneTransparency), textcolor=tpColor, size=size.small, force_overlay=true)
+            tp2Tag := label.new(right, planTp2, "TP2 毛R尺 " + str.tostring(planTp2, format.mintick) + " / " + str.tostring(math.abs(planTp2 - planEntry) / risk, "#.##") + "R", xloc=xloc.bar_time, style=label.style_label_left, color=color.new(tpColor, zoneTransparency), textcolor=tpColor, size=size.small, force_overlay=true)
+    table.cell(planPanel, 0, 0, (showSl or showTp) ? "历史测量 · " + planStatus + " · 毛R未计成本" : "", text_color=planActive ? neutral : amber, text_size=size.tiny)
+
+// Independent per-context engine. Export prior completed values with lookahead_on.
+// Never use barstate.isconfirmed inside request.security or sample lower TFs as HTF.
+type StructureSnapshot
+    int state = 99
+    float protection = na
+    float boundary = na
+    bool boundaryConsumed = false
+    int event = 0
+    int direction = 0
+    int occurredAt = na
+    int eventConfirmedAt = na
+    int confirmedAt = na
+    string sourceTF = ""
+    int auxiliaryEvent = 0
+    int auxiliaryAt = na
+    int episodeAt = na
+    float endpointPrice = na
+    int endpointAvailableAt = na
+f_snapshot(Structure s, string tf, int confirmed) =>
+    StructureSnapshot.new(s.bias, na(s.protection) ? na : s.protection.price, na(s.continuationBoundary) ? na : s.continuationBoundary.price, na(s.continuationBoundary) ? false : s.continuationBoundary.used, s.externalEvent, s.externalDirection, s.externalOccurredAt, s.externalConfirmedAt, confirmed, tf, s.auxiliaryEvent, s.auxiliaryConfirmedAt, s.episodeAt, s.externalEndpoint, s.endpointAvailableAt)
+f_context(int n) =>
+    var Structure s = Structure.new(array.new<Pivot>(), array.new<Pivot>())
+    float ph = ta.pivothigh(high, n, n)
+    float pl = ta.pivotlow(low, n, n)
+    float a = ta.atr(14)
+    float b = math.max(syminfo.mintick * bufferTicks, nz(a[1]) * bufferAtr)
+    s.step(ph, pl, n, b, syminfo.mintick * equalTicks)
+    StructureSnapshot packet = f_snapshot(s, timeframe.period, time_close)
+    packet[1]
+f_snapshotTest() =>
+    Structure probe = f_hierarchyFixture(1)
+    probe.lows.clear()
+    probe.lows.push(Pivot.new(95, 5, 5000, 7000))
+    [a, ad, al, ak, aw] = probe.stepAt(na, na, 2, 0, 0, 122, 118, 121, 119, 30, 30000, 31000, 28000)
+    StructureSnapshot first = f_snapshot(probe, "5", 31000)
+    probe.lows.push(Pivot.new(98, 31, 31000, 32000))
+    [b, bd, bl, bk, bw] = probe.stepAt(na, na, 2, 0, 0, 100, 96, 97, 99, 33, 33000, 34000, 31000)
+    StructureSnapshot second = f_snapshot(probe, "5", 34000)
+    bool externalKept = first.event == 1 and second.event == 1 and first.eventConfirmedAt == second.eventConfirmedAt and second.auxiliaryEvent == 4
+    bool atomic = first.state == 1 and first.protection == 95 and first.boundary == 120 and first.confirmedAt == 31000 and first.sourceTF == "5"
+    [c, cd, cl, ck, cw] = probe.stepAt(na, na, 2, 0, 0, 96, 93, 94, 97, 34, 34000, 35000, 32000)
+    StructureSnapshot third = f_snapshot(probe, "5", 35000)
+    bool transition = third.state == 2 and na(third.protection) and na(third.boundary) and third.event == 2 and third.eventConfirmedAt == 35000
+    bool immutable = first.state == 1 and first.protection == 95 and first.confirmedAt == 31000
+    if not externalKept or not atomic or not transition or not immutable
+        runtime.error("原子快照/外部事件隔离断言失败")
+if barstate.isfirst
+    f_snapshotTest()
+f_stamp(int t) =>
+    na(t) ? "—" : str.format_time(t, "MM-dd HH:mm", "Asia/Shanghai")
+f_price(float p) =>
+    na(p) ? "—" : str.tostring(p, format.mintick)
+f_packetNote(StructureSnapshot p) =>
+    na(p.confirmedAt) ? "数据不可用" : p.state == 2 ? "过渡·无外部保护" : p.state == 0 ? "序列未建立" : na(p.protection) or na(p.boundary) ? "字段不全·不可确认" : p.boundaryConsumed ? "边界已消费·等新极值" : "等待边界收盘突破"
+string panelSize = panelFont == "大字" ? size.large : panelFont == "紧凑" ? size.small : size.normal
+var table panel = table.new(structurePosition == "左上" ? position.top_left : position.top_right, 4, 15, bgcolor=color.new(panelBackground, 12), border_width=1, border_color=color.new(neutral, 65), force_overlay=true)
+if barstate.isfirst
+    table.merge_cells(panel, 0, 0, 3, 0)
+    table.merge_cells(panel, 0, 9, 3, 9)
+    table.merge_cells(panel, 0, 10, 3, 10)
+    table.merge_cells(panel, 0, 11, 3, 11)
+    table.merge_cells(panel, 0, 12, 3, 12)
+    table.merge_cells(panel, 0, 13, 3, 13)
+    table.merge_cells(panel, 0, 14, 3, 14)
+f_row(int row, string tf, StructureSnapshot p) =>
+    table.cell(panel, 0, row, tf, text_color=color.white, text_size=panelSize)
+    bool complete = not na(p.confirmedAt) and (math.abs(p.state) != 1 or not na(p.protection) and not na(p.boundary))
+    table.cell(panel, 1, row, complete ? f_bias(p.state) : "数据不全", text_color=complete ? f_color(p.state) : amber, text_size=panelSize)
+    string relation = f_packetNote(p)
+    string detail = "保 " + f_price(p.protection) + " / 界 " + f_price(p.boundary) + "\n" + f_event(p.event) + " · " + f_stamp(p.eventConfirmedAt) + "\n已确认至 " + f_stamp(p.confirmedAt) + " UTC+8"
+    string note = "SMC-CONTRACT-2 / 源周期 " + p.sourceTF + " · 同一原子快照\n事件ID " + p.sourceTF + ":" + str.tostring(p.eventConfirmedAt) + ":" + str.tostring(p.event) + "\n结构段 " + p.sourceTF + ":" + str.tostring(p.episodeAt) + "\n端点 " + p.sourceTF + ":" + f_price(p.endpointPrice) + ":" + str.tostring(p.endpointAvailableAt) + " / 已知 " + f_stamp(p.endpointAvailableAt) + "\n" + relation + "\n事件K开盘 " + f_stamp(p.occurredAt) + "\n事件收盘确认 " + f_stamp(p.eventConfirmedAt) + " UTC+8\n" + detail + "\n右侧N=" + str.tostring(mainLen) + "根确认，新点下一根可用于突破。低周期运输可附加一根源周期K延迟；历史覆盖不足不能当作无结构。"
+    table.cell(panel, 2, row, panelDetail ? detail : relation, text_color=neutral, text_size=size.small, tooltip=note)
+if barstate.islast and showPanel
+    string summary = main.bias == 2 ? "主结构过渡 · 等待新序列" : main.bias == 0 ? "主结构未建立 · 继续观察" : internal.bias == -main.bias ? "外部主" + f_bias(main.bias) + " · 内部回调/冲突" : internal.bias == main.bias ? "外部主" + f_bias(main.bias) + " · 内部同向" : "主" + f_bias(main.bias) + " · 内部待确认"
+    table.cell(panel, 0, 0, "当前图 " + timeframe.period + " · " + summary, text_color=f_color(main.bias), text_size=panelSize, bgcolor=color.new(f_color(main.bias), 86))
+    table.cell(panel, 0, 1, "层级 / 周期", text_color=color.white, text_size=size.tiny)
+    table.cell(panel, 1, 1, "状态", text_color=color.white, text_size=size.tiny)
+    table.cell(panel, 2, 1, panelDetail ? "保护 / 边界 / 事件 / UTC+8" : "关系（不是概率）", text_color=color.white, text_size=size.tiny)
+    f_row(2, "当前 " + timeframe.period + " N" + str.tostring(mainLen), f_snapshot(main, timeframe.period, barstate.isconfirmed ? time_close : time_close[1]))
+    table.cell(panel, 0, 3, "内部 N" + str.tostring(innerLen), text_color=neutral, text_size=size.small)
+    table.cell(panel, 1, 3, f_bias(internal.bias), text_color=neutral, text_size=size.small)
+    table.cell(panel, 2, 3, "辅助 " + f_event(main.auxiliaryEvent) + " / 内 " + f_event(internal.lastEvent), text_color=neutral, text_size=size.tiny, tooltip="主窗口内部破点 " + f_stamp(main.auxiliaryConfirmedAt) + " / 内窗口 " + f_stamp(internal.lastAt) + " UTC+8；不覆盖外部事件。")
+    table.cell(panel, 0, 8, "最近外部事件", text_color=neutral, text_size=size.tiny)
+    table.cell(panel, 1, 8, f_event(main.externalEvent) + (main.externalDirection == 1 ? " ↑" : main.externalDirection == -1 ? " ↓" : ""), text_color=amber, text_size=size.tiny)
+    table.cell(panel, 2, 8, f_stamp(main.externalConfirmedAt) + " UTC+8", text_color=neutral, text_size=size.tiny, tooltip="发生K " + f_stamp(main.externalOccurredAt) + " / 收盘确认 " + f_stamp(main.externalConfirmedAt) + " UTC+8")
+    table.cell(panel, 0, 9, "右侧" + str.tostring(mainLen) + "根确认 + 下一根可用 · CHoCH先过渡 · 非订单", text_color=neutral, text_size=size.tiny)
+    bool governanceStale = timenow > governanceValidUntil or governanceReviewedAt <= 0
+    string governanceCaption = "v1.19 · 治理核对 " + str.format_time(governanceReviewedAt, "MM-dd", "Asia/Shanghai") + (governanceStale ? " · 待复核" : " · 观察适配")
+    table.cell(panel, 0, 10, showGovernance ? governanceCaption : "", text_color=governanceStale ? amber : neutral, text_size=size.small, tooltip="治理快照 " + governanceRevision + " / " + governanceFingerprint + "。观察器保留独立窗口与毛R标尺；未接入账户、Tick/BBO或真实执行准入。")
+
+alertcondition(currentEvent == 1 and currentDirection == 1, "主结构向上BOS", "SMC主结构向上BOS已收盘确认：{{ticker}} {{interval}}。仅结构观察。")
+alertcondition(currentEvent == 1 and currentDirection == -1, "主结构向下BOS", "SMC主结构向下BOS已收盘确认：{{ticker}} {{interval}}。仅结构观察。")
+alertcondition(currentEvent == 2 and currentDirection == 1, "主结构向上CHoCH", "SMC主保护高点被破坏，进入过渡：{{ticker}} {{interval}}。不是已完成反转。")
+alertcondition(currentEvent == 2 and currentDirection == -1, "主结构向下CHoCH", "SMC主保护低点被破坏，进入过渡：{{ticker}} {{interval}}。不是已完成反转。")
+alertcondition(currentEvent == 3, "主趋势建立", "SMC新主趋势经序列与新突破确认：{{ticker}} {{interval}}。仅结构观察。")
+
+var table momentumPanel = table.new(momentumPosition == "左下" ? position.bottom_left : momentumPosition == "左上" ? (showPanel and structurePosition == "左上" ? position.bottom_left : position.top_left) : position.bottom_right, 2, 8, bgcolor=color.new(panelBackground, 12), border_width=1, border_color=color.new(neutral, 70), force_overlay=false)
+if barstate.isfirst
+    table.merge_cells(momentumPanel, 0, 0, 1, 0)
+    table.merge_cells(momentumPanel, 0, 7, 1, 7)
+f_metric(int row, string title, string value, color col) =>
+    table.cell(momentumPanel, 0, row, title, text_color=neutral, text_size=size.small)
+    table.cell(momentumPanel, 1, row, value, text_color=col, text_size=compactView ? (panelFont == "大字" ? size.normal : panelFont == "紧凑" ? size.tiny : size.small) : panelSize)
+if barstate.islast
+    table.clear(momentumPanel, 0, 0, 1, 7)
+    if showCandlePanel or showRsi or showRvol or showBodyAtr
+        int k = momentumMode == "已收盘" and not barstate.isconfirmed ? 1 : 0
+        bool provisional = k == 0 and not barstate.isconfirmed
+        table.cell(momentumPanel, 0, 0, "K线与动能 · " + (provisional ? "盘中未确认" : "已收盘"), text_color=provisional ? amber : color.white, text_size=size.small)
+        if showCandlePanel
+            f_metric(1, "K线候选", f_candle(candleCode[k], close[k] >= open[k]), candleColor[k])
+            f_metric(2, "实体占比", na(bodyPct[k]) ? "不可用" : str.tostring(bodyPct[k], "#.0") + "%", neutral)
+            f_metric(3, "上影 / 下影", na(upperPct[k]) ? "不可用" : str.tostring(upperPct[k], "#") + "% / " + str.tostring(lowerPct[k], "#") + "%", neutral)
+        if showRsi
+            string state = rsiValue[k] >= 55 ? "偏强" : rsiValue[k] <= 45 ? "偏弱" : "中性"
+            f_metric(4, "RSI " + str.tostring(rsiLen), na(rsiValue[k]) ? "不可用" : str.tostring(rsiValue[k], "#.0") + " · " + state, rsiValue[k] >= 55 ? bull : rsiValue[k] <= 45 ? bear : neutral)
+        if showRvol
+            f_metric(5, "相对成交量", na(rvolValue[k]) ? "不可用" : str.tostring(rvolValue[k], "#.00") + "×" + (rvolValue[k] >= rvolThreshold ? " · 放量" : ""), rvolValue[k] >= rvolThreshold ? amber : neutral)
+        if showBodyAtr
+            f_metric(6, "实体 / ATR", na(bodyAtr[k]) ? "不可用" : str.tostring(bodyAtr[k], "#.00") + " ATR", bodyAtr[k] >= displacementAtr ? amber : neutral)
+        table.cell(momentumPanel, 0, 7, "辅助非投票 · UTC+8 · " + str.format_time(time_close[k], "MM-dd HH:mm", "Asia/Shanghai"), text_color=neutral, text_size=size.tiny)
+
+// MTF_INTERSECTION_BEGIN — SMC-PURE-GEOMETRY-1, independent read-only mathematics.
+// Fixed 5M engine + prior completed source families. Every chart receives the
+// complete accumulated source snapshot, not a sampled 5M event delta.
+type MeetSource
+    int direction = 0
+    int t1 = na
+    float p1 = na
+    int k1 = na
+    string c1 = ""
+    int t2 = na
+    float p2 = na
+    int k2 = na
+    string c2 = ""
+    int known = na
+    int started = na
+    string parent = ""
+    int protectT = na
+    float protectP = na
+    int protectK = na
+    int frontierT = na
+    float frontierP = na
+    int frontierK = na
+    int middleT = na
+    float middleP = na
+    int middleK = na
+    int legs = 0
+    int witnessN = 0
+    string chain = ""
+    int depth = 0
+
+f_meetY(float p) =>
+    meetMode == "对数价格" ? math.log(p) : p
+f_meetP(float y) =>
+    meetMode == "对数价格" ? math.exp(y) : y
+f_meetValue(int t1, float p1, int t2, float p2, float at) =>
+    float m = (f_meetY(p2) - f_meetY(p1)) / ((t2 - t1) / 3600000.0)
+    f_meetP(f_meetY(p1) + m * ((at - t1) / 3600000.0))
+
+// Origin is an anchor time, slopes are price (or log price) per hour. No tick
+// rounding in the solver. Relative 1e-10 slope tolerance rejects near parallel.
+f_meetSolve(int a, float pa, int b, float pb, int c, float pc, int d, float pd, bool logarithmic) =>
+    float tx = na
+    float px = na
+    string why = "锚点不足或数学不可求"
+    bool valid = not na(a) and not na(b) and not na(c) and not na(d) and b > a and d > c and math.min(math.min(pa, pb), math.min(pc, pd)) > 0
+    if valid
+        float ya = logarithmic ? math.log(pa) : pa
+        float yb = logarithmic ? math.log(pb) : pb
+        float yc = logarithmic ? math.log(pc) : pc
+        float yd = logarithmic ? math.log(pd) : pd
+        float ma = (yb - ya) / ((b - a) / 3600000.0)
+        float mb = (yd - yc) / ((d - c) / 3600000.0)
+        float ca = ya
+        float cb = yc + mb * ((a - c) / 3600000.0)
+        float scale = math.max(math.max(math.abs(ma), math.abs(mb)), 1e-12)
+        if math.abs(ma - mb) <= scale * 1e-10
+            why := math.abs(ca - cb) <= math.max(math.abs(ca), 1.0) * 1e-10 ? "重合 / 无唯一交点" : "平行或近似平行"
+        else
+            float hours = (cb - ca) / (ma - mb)
+            float yx = ca + ma * hours
+            tx := a + hours * 3600000.0
+            px := logarithmic ? math.exp(yx) : yx
+            valid := not na(px) and (not logarithmic or px > 0) and math.abs(px) < 1e30 and math.abs(tx) < 8e15
+            why := valid ? "唯一交点" : "超出浮点可表示范围"
+        valid := valid and not na(tx) and not na(px) and why == "唯一交点"
+    [tx, px, valid, why]
+
+// Actual Pine math assertions execute on compilation/loading, independently of
+// the external oracle. Synthetic timestamps are not market observations.
+f_meetMathTest() =>
+    int t = 1700000000000
+    [a, p, ok, w] = f_meetSolve(t, 100, t + 3600000, 102, t, 110, t + 3600000, 106, false)
+    [b, q, ok2, w2] = f_meetSolve(t, 100, t + 3600000, 200, t, 400, t + 3600000, 200, true)
+    [c, r, ok3, w3] = f_meetSolve(t, 100, t + 3600000, 102, t, 105, t + 3600000, 107, false)
+    [d, s, ok4, w4] = f_meetSolve(t, 100, t + 3600000, 102, t, 100, t + 3600000, 102, false)
+    [e, u, ok5, w5] = f_meetSolve(t, 100, t + 3600000, 102, t, 105, t + 3600000, 107.00000000001, false)
+    [f, v, ok6, w6] = f_meetSolve(t, 0, t + 3600000, 102, t, 110, t + 3600000, 106, true)
+    [g, z, ok7, w7] = f_meetSolve(t, 100, t + 3600000, 102, t, 101, t + 3600000, 99, false)
+    [fractional, fp, fok, fw] = f_meetSolve(t, 100, t + 3600000, 102, t, 110, t + 3600000, 105, false)
+    [nt, np, nok, nw] = f_meetSolve(t,100,t+3600000,101,t,300,t+3600000,302,false)
+    bool pass = nok and math.abs(np + 100) < 1e-9 and fok and math.abs(fractional - (t + 36000000.0 / 7)) < 0.01 and ok and math.abs(a - (t + 6000000)) < 0.01 and math.abs(p - 103.3333333333333) < 1e-9 and ok2 and math.abs(b - (t + 3600000)) < 0.01 and math.abs(q - 200) < 1e-8 and not ok3 and not ok4 and not ok5 and not ok6 and ok7 and math.abs(g - (t + 900000)) < 0.01
+    if not pass
+        runtime.error("交汇数学自检失败；保留上一验证版本。")
+    pass
+if barstate.isfirst
+    f_meetMathTest()
+
+f_meetClass(float value, float previous, bool highSide, float tolerance) =>
+    na(previous) ? (highSide ? "H" : "L") : math.abs(value - previous) <= tolerance ? (highSide ? "EQH" : "EQL") : value > previous ? (highSide ? "HH" : "HL") : (highSide ? "LH" : "LL")
+// Opposite-direction source families form convergence observations.
+// Price crossings, SMC bias and elapsed time do not enter this module's retention.
+type MeetBatch
+    string candidates = ""
+    int nativeAt = na
+// Source families are independent of the main SMC Structure type.
+// Two same-side anchors alone are insufficient: confirmed opposite witnesses
+// must prove a complete progressive N. Unknown intrabar pivot order is excluded.
+type MeetPivot
+    int t
+    float p
+    int k
+f_meetFamily(MeetSource s) =>
+    str.tostring(s.direction) + ":" + str.tostring(s.t1)
+f_meetPoint(MeetPivot p) =>
+    str.tostring(p.t) + "@" + str.tostring(p.p, "#.########") + "@" + str.tostring(p.k)
+f_meetSourcePacket(MeetSource s) =>
+    array<string> v = array.from(str.tostring(s.direction), str.tostring(s.t1), str.tostring(s.p1, "#.################"), str.tostring(s.k1), s.c1, str.tostring(s.t2), str.tostring(s.p2, "#.################"), str.tostring(s.k2), s.c2, str.tostring(s.known), str.tostring(s.started), s.parent, str.tostring(s.protectT), str.tostring(s.protectP, "#.################"), str.tostring(s.protectK), str.tostring(s.frontierT), str.tostring(s.frontierP, "#.################"), str.tostring(s.frontierK), str.tostring(s.middleT), str.tostring(s.middleP, "#.################"), str.tostring(s.middleK), str.tostring(s.legs), str.tostring(s.witnessN), s.chain, str.tostring(s.depth))
+    array.join(v, ",")
+f_meetNumber(array<string> v, int i) =>
+    str.tonumber(v.get(i))
+f_meetParseSource(array<string> v, int i) =>
+    MeetSource.new(int(f_meetNumber(v,i)), int(f_meetNumber(v,i+1)), f_meetNumber(v,i+2), int(f_meetNumber(v,i+3)), v.get(i+4), int(f_meetNumber(v,i+5)), f_meetNumber(v,i+6), int(f_meetNumber(v,i+7)), v.get(i+8), int(f_meetNumber(v,i+9)), int(f_meetNumber(v,i+10)), v.get(i+11), int(f_meetNumber(v,i+12)), f_meetNumber(v,i+13), int(f_meetNumber(v,i+14)), int(f_meetNumber(v,i+15)), f_meetNumber(v,i+16), int(f_meetNumber(v,i+17)), int(f_meetNumber(v,i+18)), f_meetNumber(v,i+19), int(f_meetNumber(v,i+20)), int(f_meetNumber(v,i+21)), int(f_meetNumber(v,i+22)), v.get(i+23), int(f_meetNumber(v,i+24)))
+f_meetPush(array<MeetPivot> points, MeetPivot p) =>
+    points.push(p)
+    if points.size() > 80
+        points.shift()
+f_meetExtreme(array<MeetPivot> points, int from, int until, int side) =>
+    MeetPivot best = na
+    for p in points
+        if p.t > from and p.t < until
+            if na(best) or side * (p.p - best.p) > 0
+                best := p
+    best
+f_meetAlive(MeetSource s, float price, float tolerance) =>
+    s.direction * (price - s.protectP) >= -tolerance
+f_meetContinue(MeetSource s, MeetPivot pull, MeetPivot terminal, float eq, float price) =>
+    bool advance = not na(pull) and not na(terminal)
+    if advance
+        advance := pull.t > s.frontierT and terminal.t > pull.t and s.direction * (terminal.p-s.frontierP) > eq and s.direction * (pull.p-s.protectP) > eq and s.direction * (price-pull.p) >= -eq
+    if advance
+        s.middleT := s.frontierT
+        s.middleP := s.frontierP
+        s.middleK := s.frontierK
+        s.protectT := pull.t
+        s.protectP := pull.p
+        s.protectK := pull.k
+        s.frontierT := terminal.t
+        s.frontierP := terminal.p
+        s.frontierK := terminal.k
+        s.legs += 1
+        s.known := math.max(pull.k, terminal.k)
+        s.chain += ">" + f_meetPoint(pull) + ">" + f_meetPoint(terminal)
+        float candidate = (f_meetY(pull.p)-f_meetY(s.p1))/((pull.t-s.t1)/3600000.0)
+        float previous = (f_meetY(s.p2)-f_meetY(s.p1))/((s.t2-s.t1)/3600000.0)
+        if s.direction*candidate > 0 and (s.direction == 1 ? candidate < previous : candidate > previous)
+            s.t2 := pull.t
+            s.p2 := pull.p
+            s.k2 := pull.k
+    advance
+f_meetBatch(int n) =>
+    var array<MeetPivot> highs = array.new<MeetPivot>()
+    var array<MeetPivot> lows = array.new<MeetPivot>()
+    var array<MeetPivot> wh = array.new<MeetPivot>()
+    var array<MeetPivot> wl = array.new<MeetPivot>()
+    var array<MeetSource> families = array.new<MeetSource>()
+    var int lastSide = 0
+    var int lastRoot = 0
+    var array<int> consumed = array.new<int>(2,0)
+    int wn = math.max(2, int(n/2))
+    float atr = ta.atr(14)
+    float eq = math.max(syminfo.mintick * math.max(equalTicks,1), nz(atr[1])*0.02)
+    float ph = ta.pivothigh(high,n,n)
+    float pl = ta.pivotlow(low,n,n)
+    float h = ta.pivothigh(high,wn,wn)
+    float l = ta.pivotlow(low,wn,wn)
+    bool closedFamily = false
+    int j = families.size()-1
+    while j >= 0
+        // Only this source's closed price through its own external protection
+        // closes new-pair activity. Opposite child N never closes its parent.
+        if not f_meetAlive(families.get(j), close, eq)
+            families.remove(j)
+            closedFamily := true
+        j -= 1
+    if not na(h) and na(l)
+        f_meetPush(wh, MeetPivot.new(time[wn],h,time_close))
+    if not na(l) and na(h)
+        f_meetPush(wl, MeetPivot.new(time[wn],l,time_close))
+    if not na(ph) and na(pl)
+        f_meetPush(highs,MeetPivot.new(time[n],ph,time_close))
+    if not na(pl) and na(ph)
+        f_meetPush(lows,MeetPivot.new(time[n],pl,time_close))
+    bool newPivot = not na(ph) or not na(pl) or not na(h) or not na(l)
+    if newPivot
+        for fam in families
+            array<MeetPivot> points = fam.direction == 1 ? lows : highs
+            array<MeetPivot> witnesses = fam.direction == 1 ? wh : wl
+            MeetPivot terminal = f_meetExtreme(witnesses, fam.frontierT, time_close, fam.direction)
+            if not na(terminal) and fam.direction*(terminal.p-fam.frontierP)>eq
+                MeetPivot pull = f_meetExtreme(points, fam.frontierT, terminal.t, -fam.direction)
+                f_meetContinue(fam,pull,terminal,eq,close)
+        for slot = 0 to 1
+            int side = slot == 0 ? 1 : -1
+            array<MeetPivot> points = side == 1 ? lows : highs
+            array<MeetPivot> witnesses = side == 1 ? wh : wl
+            if points.size() >= 2
+                MeetPivot a = points.get(points.size()-2)
+                MeetPivot b = points.last()
+                if b.t > consumed.get(slot) and side*(b.p-a.p)>eq
+                    MeetPivot middle = f_meetExtreme(witnesses,a.t,b.t,side)
+                    MeetPivot terminal = na
+                    if not na(middle)
+                        for w in witnesses
+                            if w.t>b.t and side*(w.p-middle.p)>eq
+                                terminal := w
+                                break
+                    if not na(terminal)
+                        consumed.set(slot,b.t)
+                        bool latestAlive = false
+                        for fam in families
+                            latestAlive := latestAlive or fam.t1 == lastRoot
+                        if a.t>lastRoot and not (side==lastSide and latestAlive) and side*(close-b.p)>=-eq
+                            string parent = families.size()>0 ? f_meetFamily(families.last()) : "ROOT"
+                            int known = math.max(math.max(a.k,b.k),math.max(middle.k,terminal.k))
+                            string chain = f_meetPoint(a)+">"+f_meetPoint(middle)+">"+f_meetPoint(b)+">"+f_meetPoint(terminal)
+                            MeetSource fam = MeetSource.new(side,a.t,a.p,a.k,side==1 ? "L0" : "H0",b.t,b.p,b.k,side==1 ? "HL" : "LH",known,time_close,parent,b.t,b.p,b.k,terminal.t,terminal.p,terminal.k,middle.t,middle.p,middle.k,1,wn,chain,families.size()>0 ? families.last().depth+1 : 0)
+                            families.push(fam)
+                            lastSide := side
+                            lastRoot := a.t
+        if families.size()>64
+            runtime.error("来源活动家族超过64；停止输出，需检查历史覆盖与结构复杂度。")
+    // Sparse transport: compute all source history, emit only changes and a
+    // daily checkpoint. This is not an anchor-age or family-expiry condition.
+    // All still-active parents/children contribute one envelope each.
+    var string previousPacket = ""
+    string packet = ""
+    int emittedAt = 0
+    bool checkpoint = timeframe.change("D")
+    if newPivot or closedFamily or checkpoint
+        string candidate = ""
+        for fam in families
+            candidate += f_meetSourcePacket(fam)+";"
+        if candidate!=previousPacket or checkpoint
+            packet := candidate
+            emittedAt := time_close
+            previousPacket := candidate
+    MeetBatch.new(packet,emittedAt)
+f_meetBatchClosed(int n) =>
+    MeetBatch batch = f_meetBatch(n)
+    batch[1]
+f_meetKey(MeetSource s) =>
+    str.tostring(s.direction)+":"+str.tostring(s.t1)+":"+str.tostring(s.p1,"#.########")+":"+str.tostring(s.t2)+":"+str.tostring(s.p2,"#.########")
+// Stable lineage identity, distinct from immutable four-anchor geometry identity.
+f_meetSourceSlot(string tf, int tier, MeetSource s) =>
+    tf + ":M" + str.tostring(tier) + ":" + f_meetFamily(s)
+f_meetSpan(MeetSource s) =>
+    s.t2 - s.t1
+f_meetRange(MeetSource s) =>
+    math.abs(s.p2 - s.p1)
+type MeetLine
+    string key
+    MeetSource source
+    int tier
+    bool fresh = true
+type MeetEvent
+    string key = ""
+    MeetSource h = na
+    MeetSource l = na
+    float tx = na
+    float px = na
+    int born = na
+    int asof = na
+    int htier = 1
+    int ltier = 1
+    bool fresh = true
+
+f_meetPairSlot(MeetEvent e) =>
+    f_meetSourceSlot(meetHighTf,e.htier,e.h) + "~" + f_meetSourceSlot(meetLowTf,e.ltier,e.l)
+f_meetSourceGroup(string tf, int tier) =>
+    tf+":M"+str.tostring(tier)
+f_meetSourceActive(string tf, int tier, MeetSource s, map<string,string> groups) =>
+    string group = f_meetSourceGroup(tf,tier)
+    groups.contains(group) and str.contains(groups.get(group),"#"+f_meetSourceSlot(tf,tier,s)+"#")
+f_meetActive(MeetEvent e, map<string,string> activeGroups) =>
+    string hs = "#"+f_meetSourceSlot(meetHighTf,e.htier,e.h)+"#"
+    string ls = "#"+f_meetSourceSlot(meetLowTf,e.ltier,e.l)+"#"
+    str.contains(activeGroups.get(f_meetSourceGroup(meetHighTf,e.htier)),hs) and str.contains(activeGroups.get(f_meetSourceGroup(meetLowTf,e.ltier)),ls)
+f_meetCurrent(MeetEvent e, map<string,string> revisions) =>
+    revisions.get(f_meetSourceSlot(meetHighTf,e.htier,e.h)) == f_meetKey(e.h) and revisions.get(f_meetSourceSlot(meetLowTf,e.ltier,e.l)) == f_meetKey(e.l)
+// SMC-NEARBY-GEOMETRY-1. Display heuristics, NOT calibrated trade quality.
+// Uses exact frozen anchors; source-ended status alone is never an exclusion.
+f_meetExtension(MeetEvent e) =>
+    math.max(0.0, math.max((e.tx-e.h.t2)/(e.h.t2-e.h.t1), (e.tx-e.l.t2)/(e.l.t2-e.l.t1)))
+f_meetAge(MeetEvent e) =>
+    math.max(0.0, (timenow-math.min(e.h.t2,e.l.t2))/86400000.0)
+f_meetWeak(MeetEvent e) =>
+    f_meetExtension(e)>meetWeakExtension or f_meetAge(e)>meetWeakAge
+f_meetNear(MeetEvent e) =>
+    e.tx>timenow and e.tx<=timenow+meetNearDays*86400000.0
+f_meetBetter(MeetEvent a, MeetEvent b) =>
+    bool better = false
+    if f_meetNear(a) != f_meetNear(b)
+        better := f_meetNear(a)
+    else if f_meetWeak(a) != f_meetWeak(b)
+        better := not f_meetWeak(a)
+    else if math.floor(f_meetExtension(a)/4) != math.floor(f_meetExtension(b)/4)
+        better := math.floor(f_meetExtension(a)/4) < math.floor(f_meetExtension(b)/4)
+    else if math.floor(f_meetAge(a)/7) != math.floor(f_meetAge(b)/7)
+        better := math.floor(f_meetAge(a)/7) < math.floor(f_meetAge(b)/7)
+    else if a.htier != b.htier
+        better := a.htier > b.htier
+    else if a.ltier != b.ltier
+        better := a.ltier > b.ltier
+    else if a.h.legs+a.l.legs != b.h.legs+b.l.legs
+        better := a.h.legs+a.l.legs > b.h.legs+b.l.legs
+    else if f_meetSpan(a.h)+f_meetSpan(a.l) != f_meetSpan(b.h)+f_meetSpan(b.l)
+        better := f_meetSpan(a.h)+f_meetSpan(a.l) > f_meetSpan(b.h)+f_meetSpan(b.l)
+    else if math.min(a.h.t2,a.l.t2) != math.min(b.h.t2,b.l.t2)
+        better := math.min(a.h.t2,a.l.t2) > math.min(b.h.t2,b.l.t2)
+    else if a.tx != b.tx
+        better := a.tx < b.tx
+    else
+        array<string> keys = array.from(a.key,b.key)
+        keys.sort(order.ascending)
+        better := a.key!=b.key and keys.get(0)==a.key
+    better
+
+f_meetRecord(MeetEvent e) =>
+    e.key+","+str.tostring(e.tx,"#.################")+","+str.tostring(e.px,"#.################")+","+str.tostring(e.born)+","+str.tostring(e.asof)+","+str.tostring(e.htier)+","+str.tostring(e.ltier)+","+f_meetSourcePacket(e.h)+","+f_meetSourcePacket(e.l)+";"
+f_meetSameLine(MeetSource a, MeetSource b) =>
+    float ma = (f_meetY(a.p2)-f_meetY(a.p1))/((a.t2-a.t1)/3600000.0)
+    float mb = (f_meetY(b.p2)-f_meetY(b.p1))/((b.t2-b.t1)/3600000.0)
+    float atA = f_meetY(b.p1)+mb*((a.t1-b.t1)/3600000.0)
+    a.direction==b.direction and math.abs(ma-mb)<=math.max(math.max(math.abs(ma),math.abs(mb)),1e-12)*1e-10 and math.abs(f_meetY(a.p1)-atA)<=math.max(math.abs(atA),1.0)*1e-12
+type MeetPayload
+    array<string> rows
+    int at
+// nativeAt=0 means no transport update. nativeAt>0 with empty candidates is
+// an authoritative complete empty active set, never an omitted change.
+f_meetApplySnapshot(array<MeetBatch> contexts, array<int> consumed, MeetBatch batch, int i) =>
+    bool changed = false
+    if not na(batch) and batch.nativeAt>consumed.get(i)
+        consumed.set(i,batch.nativeAt)
+        MeetBatch prior = contexts.get(i)
+        changed := na(prior)
+        if not na(prior)
+            changed := prior.candidates!=batch.candidates
+        contexts.set(i,batch)
+    changed
+f_meetEngine() =>
+    MeetBatch h2 = request.security(syminfo.tickerid, meetHighTf, f_meetBatchClosed(meetLen * 2), lookahead=barmerge.lookahead_on, calc_bars_count=10000)
+    MeetBatch h1 = request.security(syminfo.tickerid, meetHighTf, f_meetBatchClosed(meetLen), lookahead=barmerge.lookahead_on, calc_bars_count=10000)
+    MeetBatch l2 = request.security(syminfo.tickerid, meetLowTf, f_meetBatchClosed(meetLen * 2), lookahead=barmerge.lookahead_on, calc_bars_count=10000)
+    MeetBatch l1 = request.security(syminfo.tickerid, meetLowTf, f_meetBatchClosed(meetLen), lookahead=barmerge.lookahead_on, calc_bars_count=10000)
+    var array<MeetBatch> contexts = array.new<MeetBatch>(4,na)
+    var array<MeetEvent> registry = array.new<MeetEvent>()
+    var map<string,string> sourceRevisions = map.new<string,string>()
+    var array<int> consumed = array.new<int>(4,0)
+    array<string> updates = array.new<string>()
+    int at = time_close[1]
+    bool changed = false
+    for [i,batch] in array.from(h2,h1,l2,l1)
+        bool delta = f_meetApplySnapshot(contexts,consumed,batch,i)
+        changed := changed or delta
+    if changed
+        array<MeetLine> highs = array.new<MeetLine>()
+        array<MeetLine> lows = array.new<MeetLine>()
+        for [i,batch] in contexts
+            if not na(batch)
+                string activeSlots = "#"
+                int groupTier = i%2==0 ? 2 : 1
+                string groupTf = i<2 ? meetHighTf : meetLowTf
+                for packet in str.split(batch.candidates,";")
+                    if str.length(packet)>0
+                        MeetSource src = f_meetParseSource(str.split(packet,","),0)
+                        array<MeetLine> pool = i<2 ? highs : lows
+                        int tier = i%2==0 ? 2 : 1
+                        pool.push(MeetLine.new(f_meetKey(src),src,tier))
+                        string slot = f_meetSourceSlot(i<2 ? meetHighTf : meetLowTf,tier,src)
+                        activeSlots += slot+"#"
+                        string geometry = f_meetKey(src)
+                        if not sourceRevisions.contains(slot) or sourceRevisions.get(slot)!=geometry
+                            sourceRevisions.put(slot,geometry)
+                            // Emit even if revised lines are parallel / have no future intersection.
+                            // Missing families do not cancel a frozen mathematical point.
+                            updates.push("REV|"+slot+"|"+geometry)
+                // Complete source-native activity snapshot, including empty sets.
+                // This classifies current vs old-source projections; archive is immutable.
+                updates.push("ACTIVE|"+f_meetSourceGroup(groupTf,groupTier)+"|"+activeSlots)
+        for highLine in highs
+            for lowLine in lows
+                MeetSource h = highLine.source
+                MeetSource l = lowLine.source
+                // The set contains only simultaneously active known families.
+                // Parents participate even while an opposite child is active.
+                if h.direction != l.direction and math.max(h.started,l.started)<=time_close and math.max(h.known,l.known)<=time_close
+                    int ht = highLine.tier
+                    int lt = lowLine.tier
+                    int duplicate = -1
+                    for [j,old] in registry
+                        if old.htier==ht and old.ltier==lt and f_meetFamily(h)==f_meetFamily(old.h) and f_meetFamily(l)==f_meetFamily(old.l) and f_meetSameLine(h,old.h) and f_meetSameLine(l,old.l)
+                            duplicate := j
+                            break
+                    if duplicate>=0
+                        MeetEvent old = registry.get(duplicate)
+                        if ht>old.htier or lt>old.ltier
+                            old.htier := math.max(ht,old.htier)
+                            old.ltier := math.max(lt,old.ltier)
+                            updates.push(f_meetRecord(old))
+                    else
+                        [tx,px,possible,why] = f_meetSolve(h.t1,h.p1,h.t2,h.p2,l.t1,l.p1,l.t2,l.p2,meetMode=="对数价格")
+                        if possible
+                            string key = f_meetSourceSlot(meetHighTf,ht,h)+":"+f_meetKey(h)+"~"+f_meetSourceSlot(meetLowTf,lt,l)+":"+f_meetKey(l)
+                            MeetEvent e = MeetEvent.new(key,h,l,tx,px,time_close,at,ht,lt)
+                            registry.push(e)
+                            updates.push(f_meetRecord(e))
+        if registry.size()>10000
+            runtime.error("来源历史超过10000个独立交点；停止输出，禁止静默丢失。")
+    MeetPayload.new(updates,at)
+f_meetParse(string row) =>
+    array<string> v = str.split(row,",")
+    MeetEvent.new(v.get(0),f_meetParseSource(v,7),f_meetParseSource(v,32),f_meetNumber(v,1),f_meetNumber(v,2),int(f_meetNumber(v,3)),int(f_meetNumber(v,4)),int(f_meetNumber(v,5)),int(f_meetNumber(v,6)),false)
+// Small charts can load less history than the source families need. Bootstrap
+// their current view with source-engine state, not only deltas inside chart history.
+// Only the source tail exports collections, avoiding a full archive per chart bar.
+f_meetChartSnapshot() =>
+    MeetPayload delta = f_meetEngine()
+    var map<string,string> latest = map.new<string,string>()
+    var map<string,string> history = map.new<string,string>()
+    for packet in delta.rows
+        string row = str.replace_all(packet, ";", "")
+        if str.startswith(row,"REV|") or str.startswith(row,"ACTIVE|")
+            array<string> fields = str.split(row,"|")
+            latest.put(fields.get(0)+"|"+fields.get(1),packet)
+        else if str.length(row)>0
+            MeetEvent e = f_meetParse(row)
+            latest.put("PAIR|"+f_meetPairSlot(e),packet)
+            if showMeetHistory
+                history.put(e.key,packet)
+    MeetPayload snapshot = na
+    if time >= last_bar_time - 2 * 300000
+        array<string> rows = history.values()
+        array.concat(rows,latest.values())
+        snapshot := MeetPayload.new(rows,delta.at)
+    snapshot
+f_meetChartClosed() =>
+    MeetPayload snapshot = f_meetChartSnapshot()
+    snapshot[1]
+
+// The full event stream is replayed whenever chart visible times change.
+// Only a bounded DRAWING selection is resident. No chronological geometry FIFO.
+// Each scale combination has a display share so minor points can also be seen.
+f_meetViewInsert(array<MeetEvent> pool, MeetEvent e) =>
+    int existing = -1
+    for [i,old] in pool
+        if old.key==e.key
+            existing := i
+    if existing>=0
+        if f_meetBetter(e,pool.get(existing)) or e.key==pool.get(existing).key
+            pool.set(existing,e)
+    else
+        int quota = int(math.floor(meetKeep / 4))
+        int count = 0
+        int worst = -1
+        for [j, old] in pool
+            if old.htier == e.htier and old.ltier == e.ltier
+                count += 1
+                if worst == -1 or f_meetBetter(pool.get(worst), old)
+                    worst := j
+        if count < quota
+            pool.push(e)
+        else if worst >= 0 and f_meetBetter(e, pool.get(worst))
+            pool.set(worst, e)
+    pool.size()
+// Quality-first non-maximum suppression over the complete eligible set.
+// Cross-scale; no bins, coordinate averaging, or stream-order replacement.
+f_meetConcise(array<MeetEvent> candidates, int limit, float gap) =>
+    array<MeetEvent> picked = array.new<MeetEvent>()
+    if candidates.size()>0
+        for slot=0 to limit-1
+            int best = -1
+            for [i,e] in candidates
+                bool blocked = false
+                for chosen in picked
+                    blocked := blocked or math.abs(e.tx-chosen.tx)<=gap
+                if not blocked
+                    if best==-1 or f_meetBetter(e,candidates.get(best))
+                        best := i
+            if best<0
+                break
+            picked.push(candidates.get(best))
+    picked
+var array<MeetEvent> meetEvents = array.new<MeetEvent>()
+var array<MeetEvent> meetHistoryEvents = array.new<MeetEvent>()
+var int meetHistoryRegionCount = 0
+var map<string,string> meetLatestSources = map.new<string,string>()
+var map<string,MeetEvent> meetCurrentPairs = map.new<string,MeetEvent>()
+var int meetRevisionCount = 0
+var map<string,string> meetActiveGroups = map.new<string,string>()
+var int meetLegacyCount = 0
+var int meetWeakCount = 0
+var int meetFarCount = 0
+var int meetEligibleCount = 0
+var array<label> meetLabels = array.new<label>()
+var array<line> meetTimeLines = array.new<line>()
+var int meetAsOf = na
+var int meetComputed = 0
+var map<string,bool> meetSeen = map.new<string,bool>()
+var int meetRegionCount = 0
+var int meetFirstKnown = na
+var MeetEvent meetMajor = na
+var MeetEvent meetNext = na
+// Keep intersection text in the indicator pane, outside the candlestick pane.
+var table meetPanel = table.new(position.middle_left, 1, 8, bgcolor=color.new(panelBackground, 8), border_width=1, border_color=color.new(neutral, 78), force_overlay=false)
+bool meetTfValid = timeframe.in_seconds(meetHighTf) > timeframe.in_seconds(meetLowTf)
+// Display timeframe is independent of the fixed source pair and 5M engine.
+bool meetChartValid = timeframe.isseconds or timeframe.isminutes or timeframe.isdaily or timeframe.isweekly or timeframe.ismonthly
+if showMeet and meetTfValid and meetChartValid
+    array<MeetPayload> records = array.new<MeetPayload>()
+    // Do not request the engine on the same timeframe as the viewing chart:
+    // TradingView can reuse that chart's shorter loaded history. On a5M viewer,
+    // use a1M clock with the same100000-minute coverage. Source families still
+    // come from the unchanged selected closed4H/15M/etc feeds; this is transport.
+    if timeframe.in_seconds() == 300
+        MeetPayload snapshot = request.security(syminfo.tickerid, "1", f_meetChartSnapshot(), lookahead=barmerge.lookahead_off, calc_bars_count=100000)
+        if not na(snapshot)
+            records.push(snapshot)
+    else if timeframe.in_seconds() > 300
+        MeetPayload snapshot = request.security(syminfo.tickerid, "5", f_meetChartSnapshot(), lookahead=barmerge.lookahead_off, calc_bars_count=20000)
+        if not na(snapshot)
+            records.push(snapshot)
+    else
+        MeetPayload snapshot = request.security(syminfo.tickerid, "5", f_meetChartClosed(), lookahead=barmerge.lookahead_on, calc_bars_count=20000)
+        if not na(snapshot)
+            records.push(snapshot)
+    for [k, record] in records
+        meetAsOf := record.at
+        for packet in record.rows
+            string row = str.replace_all(packet, ";", "")
+            if str.startswith(row,"ACTIVE|")
+                array<string> activity = str.split(row,"|")
+                meetActiveGroups.put(activity.get(1),activity.get(2))
+            else if str.startswith(row,"REV|")
+                array<string> revision = str.split(row,"|")
+                string slot = revision.get(1)
+                if meetLatestSources.contains(slot) and meetLatestSources.get(slot)!=revision.get(2)
+                    meetRevisionCount += 1
+                meetLatestSources.put(slot,revision.get(2))
+            else if str.length(row) > 0
+                MeetEvent e = f_meetParse(row)
+                bool first = not meetSeen.contains(e.key)
+                if first
+                    meetSeen.put(e.key,true)
+                    meetComputed += 1
+                if na(meetFirstKnown)
+                    meetFirstKnown := e.born
+                // One current immutable event per independent family pair and scale.
+                // Source REV messages also suppress an old pair when no replacement
+                // intersection exists; no stale point survives a parallel revision.
+                meetCurrentPairs.put(f_meetPairSlot(e),e)
+                bool historyVisible = showMeetHistory and e.tx >= chart.left_visible_bar_time and e.tx <= chart.right_visible_bar_time
+                if historyVisible
+                    if first
+                        meetHistoryRegionCount += 1
+                    f_meetViewInsert(meetHistoryEvents, e)
+
+// Build the future view only AFTER all causal revisions have been replayed.
+// Filtering before the finite drawing quota prevents old revisions crowding out
+// independent smaller families. Earlier points stay in the immutable event stream.
+if barstate.islast
+    meetEvents.clear()
+    meetRegionCount := meetHistoryRegionCount
+    meetLegacyCount := 0
+    meetWeakCount := 0
+    meetFarCount := 0
+    meetEligibleCount := 0
+    array<MeetEvent> eligible = array.new<MeetEvent>()
+    for historical in meetHistoryEvents
+        if showMeetLegacyFuture
+            f_meetViewInsert(meetEvents,historical)
+        else if showMeetWeak or not f_meetWeak(historical)
+            eligible.push(historical)
+    meetMajor := na
+    meetNext := na
+    for e in meetCurrentPairs.values()
+        if f_meetCurrent(e,meetLatestSources)
+            bool futureDrawing = showMeetFuture and (not showMeetHistory or chart.right_visible_bar_time >= last_bar_time) and e.tx > timenow and e.tx <= timenow + meetHorizon * 86400000.0
+            if futureDrawing
+                meetRegionCount += 1
+                if not f_meetActive(e,meetActiveGroups)
+                    meetLegacyCount += 1
+                bool weak = f_meetWeak(e)
+                if weak
+                    meetWeakCount += 1
+                else if not f_meetNear(e)
+                    meetFarCount += 1
+                if showMeetLegacyFuture
+                    f_meetViewInsert(meetEvents,e)
+                else if f_meetNear(e) and (showMeetWeak or not weak)
+                    eligible.push(e)
+    meetEligibleCount := eligible.size()
+    if not showMeetLegacyFuture
+        // Apply the GLOBAL concise budget only after full eligibility and ranking.
+        meetEvents := f_meetConcise(eligible,meetConciseLimit,meetClusterHours*3600000.0)
+    // Summary comes from the displayed selection, never a far-off hidden major.
+    for e in meetEvents
+        if na(meetMajor) or f_meetBetter(e,meetMajor)
+            meetMajor := e
+        if e.tx>timenow
+            if na(meetNext) or e.tx<meetNext.tx
+                meetNext := e
+
+f_meetTime(float stamp) =>
+    int ms = int(math.round(stamp))
+    str.format_time(ms, "MM-dd HH:mm:ss", "Asia/Shanghai") + "." + str.tostring(ms % 1000, "000")
+f_meetTf(string tf) =>
+    tf == "240" ? "4H" : tf == "60" ? "1H" : tf == "15" ? "15M" : "5M"
+f_meetAnchor(MeetSource s, string tf) =>
+    tf + " " + s.c1 + " " + f_meetTime(s.t1) + " @" + str.tostring(s.p1, format.mintick) + " → " + s.c2 + " " + f_meetTime(s.t2) + " @" + str.tostring(s.p2, format.mintick) + "\n确认 " + f_meetTime(s.k1) + " / " + f_meetTime(s.k2) + " · N证据" + str.tostring(s.legs) + "次 / witnessN=" + str.tostring(s.witnessN) + "\n家族" + f_meetFamily(s) + " · 父" + s.parent + " · 当时保护 " + str.tostring(s.protectP,format.mintick)
+f_meetScale(MeetEvent e) =>
+    "M" + str.tostring(e.htier) + "/M" + str.tostring(e.ltier) + " · Δt " + str.tostring(f_meetSpan(e.h) / 86400000.0, "#.##") + "d/" + str.tostring(f_meetSpan(e.l) / 86400000.0, "#.##") + "d · ΔP " + str.tostring(f_meetRange(e.h), format.mintick) + "/" + str.tostring(f_meetRange(e.l), format.mintick)
+f_meetPrimary(array<MeetEvent> pool) =>
+    int best = -1
+    for [i, e] in pool
+        if best == -1 or f_meetBetter(e, pool.get(best))
+            best := i
+    best
+// TIME_MARKER_DISPLAY_BEGIN — exact x; y is a near-market full-height-line scaffold.
+varip int lastTimeMarkerLogBar = na
+f_meetTimeKey(float tx) =>
+    str.tostring(tx, "#.##########")
+f_meetTimeScale(MeetEvent e) =>
+    "M" + str.tostring(e.htier) + "/M" + str.tostring(e.ltier) + " · 推进 " + str.tostring(e.h.legs) + "/" + str.tostring(e.l.legs)
+if barstate.islast
+    for l in meetLabels
+        label.delete(l)
+    meetLabels.clear()
+    for l in meetTimeLines
+        line.delete(l)
+    meetTimeLines.clear()
+    table.clear(meetPanel, 0, 0, 0, 7)
+    if showMeet
+        string pairName = f_meetTf(meetHighTf) + " / " + f_meetTf(meetLowTf)
+        table.cell(meetPanel, 0, 0, "交汇时间 · " + pairName, text_color=color.rgb(191,167,243), text_size=size.small)
+        table.cell(meetPanel,0,7,"候选 " + str.tostring(meetRegionCount) + " · 弱 " + str.tostring(meetWeakCount) + " · 远 " + str.tostring(meetFarCount),text_color=neutral,text_size=size.tiny,tooltip="最远窗口内最新同族候选。弱：陈旧或长距离外推；远：非弱但不在近期窗。数量是来源事件，可能同时间。展开全部诊断可核对原始坐标。")
+        if showMeetDetail and (na(lastTimeMarkerLogBar) or lastTimeMarkerLogBar!=bar_index)
+            log.info("CONCISE-COUNTS|raw="+str.tostring(meetRegionCount)+"|weak="+str.tostring(meetWeakCount)+"|far="+str.tostring(meetFarCount)+"|eligible="+str.tostring(meetEligibleCount)+"|selected="+str.tostring(meetEvents.size())+"|expanded="+str.tostring(showMeetLegacyFuture))
+        if not meetTfValid or not meetChartValid or na(meetMajor)
+            table.cell(meetPanel, 0, 1, not meetTfValid ? "请选择大周期 > 小周期" : not meetChartValid ? "请使用按时间划分的图表周期" : na(meetAsOf) ? "来源同步中 · 请稍候" : meetRegionCount>0 ? (meetWeakCount>0 and not showMeetWeak ? "暂无优选，弱参考已收起" : "近期暂无优选 · 可展开诊断") : "窗口内暂无可绘交汇", text_color=neutral, text_size=size.small)
+        else
+            array<int> selected = array.new<int>()
+            for [j, e] in meetEvents
+                selected.push(j)
+            // Other modules own their handles. Keep headroom for subsequent bar events.
+            int lineRoom = math.max(0, math.min(showMeetLegacyFuture ? meetKeep : meetConciseLimit, 500 - line.all.size() - 8))
+            int labelRoom = math.max(0, math.min(showMeetDetail ? 20 : 6, 400 - label.all.size() - 8))
+            float supportY = barstate.isconfirmed ? close : close[1]
+            float labelStep = math.max(nz(atr[1]), syminfo.mintick * 10) * 0.15
+            map<string,int> drawnTimes = map.new<string,int>()
+            array<MeetEvent> representatives = array.new<MeetEvent>()
+            array<string> summaries = array.new<string>()
+            array<int> sameTimeCounts = array.new<int>()
+            array<int> consumed = array.new<int>()
+            // Chronological display; equal exact times use source-quality tie breaking.
+            if selected.size() > 0
+                for slot = 0 to selected.size() - 1
+                    int best = -1
+                    for j in selected
+                        if not consumed.includes(j)
+                            if best == -1 or meetEvents.get(j).tx < meetEvents.get(best).tx or (meetEvents.get(j).tx == meetEvents.get(best).tx and f_meetBetter(meetEvents.get(j),meetEvents.get(best)))
+                                best := j
+                    consumed.push(best)
+                    MeetEvent e = meetEvents.get(best)
+                    string key = f_meetTimeKey(e.tx)
+                    string source = (f_meetActive(e,meetActiveGroups) ? "当前双源" : "含结束来源") + " · " + (f_meetWeak(e) ? "弱参考" : "相对优选") + "\n" + pairName + " " + f_meetTimeScale(e) + " · 源N=" + str.tostring(e.h.witnessN * 2) + "/" + str.tostring(e.l.witnessN * 2)
+                    if drawnTimes.contains(key)
+                        int existing = drawnTimes.get(key)
+                        sameTimeCounts.set(existing, sameTimeCounts.get(existing) + 1)
+                        summaries.set(existing, summaries.get(existing) + "\n" + source)
+                    else if representatives.size() < lineRoom
+                        drawnTimes.put(key, representatives.size())
+                        representatives.push(e)
+                        summaries.push(source)
+                        sameTimeCounts.push(1)
+            MeetEvent major = representatives.size()>0 ? representatives.get(0) : meetMajor
+            for rendered in representatives
+                if rendered.tx>timenow and (major.tx<=timenow or rendered.tx<major.tx)
+                    major := rendered
+            table.cell(meetPanel, 0, 1, representatives.size()==0 ? "绘图额度不足 · 无竖线" : (major.tx>timenow ? "最近交汇 " : "历史回看 ") + str.format_time(int(math.round(major.tx)), "MM-dd HH:mm", "Asia/Shanghai") + " CST", text_color=color.rgb(191,167,243), text_size=size.small, tooltip="精确时间 " + f_meetTime(major.tx) + " CST\n" + f_meetTimeScale(major) + "\n数学交汇时间参考，非行情或入场预测。")
+            table.cell(meetPanel, 0, 2, (showMeetLegacyFuture ? "展开竖线 " : "精选竖线 ") + str.tostring(representatives.size()) + " · " + meetMode, text_color=neutral, text_size=size.tiny, tooltip="底层区域事件 " + str.tostring(meetRegionCount) + "；选择池 " + str.tostring(selected.size()) + "；全流 " + str.tostring(meetComputed) + "；源修订 " + str.tostring(meetRevisionCount) + "；旧结构未来投影 " + str.tostring(meetLegacyCount) + "。同族同尺度仅最新修订；结束来源可参与，独立尺度各有预算。默认最多3条跨尺度邻近代表、弱参考收起；其余留在事件流。竖线超出当前横轴窗口时需向右查看，不移动真实时间。")
+            bool onlyWeak = true
+            for chosen in representatives
+                onlyWeak := onlyWeak and f_meetWeak(chosen)
+            table.cell(meetPanel,0,6, (onlyWeak ? "仅弱参考 · " : "几何观察 · ") + "非入场信号", text_color=neutral,text_size=size.tiny)
+            if showMeetDetail and (na(lastTimeMarkerLogBar) or lastTimeMarkerLogBar!=bar_index)
+                log.info("NEARBY-COUNTS|candidates="+str.tostring(meetRegionCount)+"|ended="+str.tostring(meetLegacyCount)+"|selected="+str.tostring(selected.size())+"|lines="+str.tostring(representatives.size()))
+            if showMeetDetail
+                table.cell(meetPanel, 0, 3, "线预算 " + str.tostring(lineRoom) + " · 标签 " + str.tostring(labelRoom), text_color=neutral, text_size=size.tiny)
+                table.cell(meetPanel, 0, 4, "池外暂不绘制 " + str.tostring(meetRegionCount-selected.size()) + " · 线池外 " + str.tostring(selected.size()-representatives.size()), text_color=neutral, text_size=size.tiny, tooltip="线池外包含同时间共享线的事件，亦可能含共享对象额度不足的事件；不表示数学取消。")
+                table.cell(meetPanel, 0, 5, "覆盖 " + str.format_time(meetFirstKnown, "MM-dd HH:mm", "Asia/Shanghai") + " → " + str.format_time(meetAsOf, "MM-dd HH:mm", "Asia/Shanghai"), text_color=neutral, text_size=size.tiny)
+            if not showMeetDetail and representatives.size() > 0
+                table.clear(meetPanel, 0, 1, 0, 2)
+                table.clear(meetPanel, 0, 6, 0, 6)
+            for [i, e] in representatives
+                int x = int(math.round(e.tx))
+                color col = f_meetWeak(e) ? neutral : e.htier == 2 ? color.rgb(191,167,243) : color.rgb(97,193,218)
+                meetTimeLines.push(line.new(x, supportY, x, supportY + syminfo.mintick, xloc=xloc.bar_time, extend=extend.both, color=color.new(col, 35), style=f_meetActive(e,meetActiveGroups) ? line.style_dashed : line.style_dotted, width=e.htier == 2 and e.ltier == 2 ? 2 : 1, force_overlay=true))
+                if i < labelRoom or i < 3
+                    string caption = str.format_time(x, "MM-dd HH:mm", "Asia/Shanghai") + (f_meetWeak(e) ? " 弱" : "")
+                    string note = "交汇时间 " + f_meetTime(e.tx) + " CST\n" + summaries.get(i) + "\n外推 " + str.tostring(f_meetExtension(e),"#.##") + "倍 · 锚点年龄 " + str.tostring(f_meetAge(e),"#.##") + "天\n" + f_meetAnchor(e.h,f_meetTf(meetHighTf)) + "\n小来源：" + (f_meetSourceActive(meetLowTf,e.ltier,e.l,meetActiveGroups) ? "当前" : "已结束") + "\n" + f_meetAnchor(e.l,f_meetTf(meetLowTf)) + "\n同时间事件 " + str.tostring(sameTimeCounts.get(i)) + "；仅绘图共享竖线，底层事件保留。\n首次已知 " + f_meetTime(e.born) + " CST\n图形时间取整到1ms，不吸附K线；价格不作为显示坐标。"
+                    if not showMeetDetail and i < 3
+                        table.cell(meetPanel, 0, 3 + i, str.tostring(i + 1) + " · " + caption, text_color=col, text_size=size.small, tooltip=note)
+                    if showMeetChartLabels and i < labelRoom
+                        meetLabels.push(label.new(x, supportY + labelStep * (i % 3), caption, xloc=xloc.bar_time, style=label.style_label_down, textcolor=col, color=color.new(panelBackground, 18), size=size.small, tooltip=note, force_overlay=true))
+                if na(lastTimeMarkerLogBar) or lastTimeMarkerLogBar != bar_index
+                    if showMeetDetail
+                        log.info((f_meetActive(e,meetActiveGroups) ? "CURRENT-MEET " : "LEGACY-MEET ")+f_meetRecord(e))
+                    log.info("TIME-MARKER|" + timeframe.period + "|exact=" + f_meetTimeKey(e.tx) + "|drawMs=" + str.tostring(x) + "|events=" + str.tostring(sameTimeCounts.get(i)) + "|fvg=" + str.tostring(showFvg))
+    lastTimeMarkerLogBar := bar_index
+if barstate.isfirst
+    if f_meetTimeKey(1791455121272.1792) == f_meetTimeKey(1791455121272.1892) or f_meetTimeKey(1791455121272.1792) != f_meetTimeKey(1791455121272.1792)
+        runtime.error("交汇精确时间绘图去重断言失败")
+// TIME_MARKER_DISPLAY_END
+// Actual Pine behavioral assertions exercise source progression and geometry identity.
+f_meetPureTest() =>
+    int t = 1700000000000
+    int hr = 3600000
+    MeetSource parent = MeetSource.new(1,t,100,t+hr,"L0",t+2*hr,105,t+3*hr,"HL",t+4*hr,t+4*hr,"ROOT",t+2*hr,105,t+3*hr,t+3*hr,115,t+4*hr, t+hr,110,t+2*hr,1,4,"test")
+    bool survivesChild = f_meetAlive(parent,108,0.01)
+    MeetPivot internal = MeetPivot.new(t+4*hr,107,t+5*hr)
+    MeetPivot notExternal = MeetPivot.new(t+5*hr,114,t+6*hr)
+    bool noMigration = not f_meetContinue(parent,internal,notExternal,0.01,110) and parent.protectP==105
+    MeetPivot outer = MeetPivot.new(t+5*hr,120,t+6*hr)
+    bool migration = f_meetContinue(parent,internal,outer,0.01,110) and parent.protectP==107 and parent.legs==2
+    bool ownBreak = not f_meetAlive(parent,106,0.01)
+    MeetSource same = parent.copy()
+    MeetSource revised = parent.copy()
+    revised.p2 += 1
+    bool identity = f_meetSameLine(parent,same) and not f_meetSameLine(parent,revised)
+    map<string,string> versions = map.new<string,string>()
+    MeetEvent original = MeetEvent.new("old",parent,same,t+10*hr,110,t,t,1,1)
+    MeetEvent replacement = MeetEvent.new("new",revised,same,t+11*hr,111,t+hr,t+hr,1,1)
+    MeetEvent otherScale = MeetEvent.new("scale",parent,same,t+12*hr,112,t,t,2,1)
+    versions.put(f_meetSourceSlot(meetHighTf,1,parent),f_meetKey(revised))
+    versions.put(f_meetSourceSlot(meetLowTf,1,same),f_meetKey(same))
+    versions.put(f_meetSourceSlot(meetHighTf,2,parent),f_meetKey(parent))
+    map<string,string> activity = map.new<string,string>()
+    activity.put(f_meetSourceGroup(meetHighTf,1),"#"+f_meetSourceSlot(meetHighTf,1,parent)+"#")
+    activity.put(f_meetSourceGroup(meetLowTf,1),"#"+f_meetSourceSlot(meetLowTf,1,same)+"#")
+    bool activeBefore = f_meetActive(original,activity)
+    activity.put(f_meetSourceGroup(meetLowTf,1),"#")
+    bool activityPolicy = activeBefore and not f_meetActive(original,activity) and original.tx==t+10*hr
+    bool revisionPolicy = f_meetPairSlot(original)==f_meetPairSlot(replacement) and not f_meetCurrent(original,versions) and f_meetCurrent(replacement,versions) and f_meetCurrent(otherScale,versions) and original.tx==t+10*hr and original.h.p2==parent.p2
+    if not (revisionPolicy and activityPolicy)
+        runtime.error("交汇同族修订/独立尺度保留自检失败")
+    array<MeetBatch> snapshots = array.new<MeetBatch>(2,na)
+    array<int> clocks = array.new<int>(2,0)
+    bool unknown = na(snapshots.get(0)) and na(snapshots.get(1))
+    bool restore = f_meetApplySnapshot(snapshots,clocks,MeetBatch.new("parent",t),0)
+    bool idle = not f_meetApplySnapshot(snapshots,clocks,MeetBatch.new("",0),0) and snapshots.get(0).candidates=="parent"
+    bool ended = f_meetApplySnapshot(snapshots,clocks,MeetBatch.new("",t+hr),0) and snapshots.get(0).candidates==""
+    bool laterChild = f_meetApplySnapshot(snapshots,clocks,MeetBatch.new("child",t+2*hr),1) and snapshots.get(0).candidates==""
+    bool staleIgnored = not f_meetApplySnapshot(snapshots,clocks,MeetBatch.new("zombie",t),0) and snapshots.get(0).candidates==""
+    bool transport = unknown and restore and idle and ended and laterChild and staleIgnored
+    // Real-price/time envelope regression. Log slopes per millisecond can be
+    // rounded equal by Pine comparisons; always compare price/log-price per hour.
+    MeetSource actual = MeetSource.new(1,1789574400000,113.1,1789819200000,"L0",1790236800000,134.84,1790481600000,"HL",1790611200000,1790611200000,"ROOT",1790236800000,134.84,1790481600000,1790481600000,157.38,1790611200000,na,na,na,1,8,"")
+    MeetPivot actualPull = MeetPivot.new(1790596800000,143.9,1790841600000)
+    MeetPivot actualHigh = MeetPivot.new(1790683200000,176.24,1790812800000)
+    bool realEnvelope = f_meetContinue(actual,actualPull,actualHigh,0.05,176) and actual.t2==actualPull.t and actual.p2==143.9
+    if not (survivesChild and noMigration and migration and ownBreak and identity and transport and realEnvelope)
+        runtime.error("来源家族/外层推进/保护迁移/几何去重自检失败。")
+    true
+if barstate.isfirst
+    f_meetPureTest()
+if barstate.islastconfirmedhistory and showMeetDetail
+    log.info("SMC-SWING-FAMILY-1 | math+family selftests PASS | chart="+timeframe.period+" | mode="+meetMode+" | sourceAsOf="+str.tostring(meetAsOf))
+    if not na(meetMajor)
+        log.info("PRIMARY "+f_meetRecord(meetMajor))
+    log.info("COUNTS computed="+str.tostring(meetComputed)+" region="+str.tostring(meetRegionCount)+" drawn="+str.tostring(meetEvents.size()))
+    for e in meetEvents
+        log.info("SWINGMEET "+f_meetRecord(e))
+// Synthetic runtime checks for presentation only, without changing math records.
+f_meetNearbyTest() =>
+    int day = 86400000
+    int width = math.max(1,meetClusterHours)*3600000
+    float future = (math.floor(timenow/width)+2)*width+1000.123
+    MeetSource recent = MeetSource.new(1,timenow-2*day,100,timenow-2*day,"L",timenow-day,101,timenow-day,"HL",timenow-day,timenow-day)
+    recent.legs := 2
+    MeetSource stale = recent.copy()
+    stale.t1 := timenow-100*day
+    stale.t2 := timenow-99*day
+    MeetEvent good = MeetEvent.new("recent",recent,recent,future,102,timenow,timenow,1,1)
+    MeetEvent old = MeetEvent.new("old",stale,stale,future+1,102,timenow,timenow,1,1)
+    MeetEvent otherScale = MeetEvent.new("scale",recent,recent,future+2,102,timenow,timenow,2,1)
+    array<MeetEvent> pool = array.new<MeetEvent>()
+    f_meetViewInsert(pool,old)
+    f_meetViewInsert(pool,good)
+    f_meetViewInsert(pool,otherScale)
+    bool ranking = f_meetBetter(good,old) and f_meetExtension(old)>f_meetExtension(good)
+    array<MeetEvent> selected = f_meetConcise(pool,3,43200000.0)
+    bool selection = pool.size()==3 and selected.size()==1 and selected.get(0).key=="scale"
+    if not ranking or not selection or good.tx!=future or old.tx!=future+1
+        runtime.error("近期代表选择/独立尺度/精确时间自检失败")
+    true
+if barstate.isfirst
+    f_meetNearbyTest()
+// MTF_INTERSECTION_END
+// SMC_LINK_BEGIN — SMC-LINK-2; presentation only, never an entry gate.
+// All source states have the same major engine/window as this independent chart
+// observer. Local sequences and internal swings do not overwrite confirmed bias.
+f_linkSelect(int h4, int m15) =>
+    int rank = math.abs(h4) == 1 ? 4 : math.abs(m15) == 1 ? 2 : 0
+    int direction = rank == 4 ? h4 : rank == 2 ? m15 : 0
+    [direction, rank]
+// Both atomic source packets may lag one source bar when transported on a
+// higher chart. Permit two source periods; absent packets remain unavailable.
+f_linkStale(int nowAt, int highAt, int lowAt) =>
+    na(highAt) or na(lowAt) or nowAt - highAt > 28800000 or nowAt - lowAt > 1800000
+// Source-native closed packets; chart timeframe does not add a third backdrop.
+f_atomicFrame(string tf) =>
+    StructureSnapshot result = StructureSnapshot.new()
+    if timeframe.in_seconds(tf) >= timeframe.in_seconds()
+        p = request.security(syminfo.tickerid, tf, f_context(mainLen), lookahead=barmerge.lookahead_on, calc_bars_count=10000)
+        if not na(p)
+            result := p
+    else
+        packets = request.security_lower_tf(syminfo.tickerid, tf, f_context(mainLen), ignore_invalid_timeframe=true, calc_bars_count=20000)
+        if packets.size() > 0
+            p = packets.last()
+            if not na(p)
+                result := p
+    result
+StructureSnapshot packet4 = f_atomicFrame("240")
+StructureSnapshot packet15 = f_atomicFrame("15")
+int link4 = packet4.state
+int link15 = packet15.state
+int linkTime = packet15.confirmedAt
+[linkDirection, linkRank] = f_linkSelect(link4, link15)
+string linkTf = linkRank == 4 ? "4H" : linkRank == 2 ? "15M" : "—"
+string linkUpper = linkRank == 4 ? "上级已确认" : linkRank > 0 ? "上级未确认/过渡 · 非全周期共振" : "全部方向未确认"
+bool linkConflict = linkDirection != 0 and (link4 == -linkDirection or link15 == -linkDirection)
+string linkRelation = linkDirection == 0 or planDirection == 0 ? "方向未定" : planDirection == linkDirection ? "顺势参考" : "逆势参考"
+string linkStates = "4H " + f_bias(link4) + " / 15M " + f_bias(link15)
+bool linkStale = f_linkStale(barstate.isrealtime ? timenow : time_close, packet4.confirmedAt, packet15.confirmedAt)
+string linkMain = "背景参照 · 最高已确认 " + linkTf + " " + f_bias(linkDirection)
+if barstate.islast
+    if showPanel
+        string boundaryInfo = na(main.continuationBoundary) ? "外部推进边界：待建立" : "外部边界 " + str.tostring(main.continuationBoundary.price, format.mintick) + (main.continuationBoundary.used ? " · 已消费，等新极值" : " · 待收盘突破")
+        table.cell(panel, 0, 14, boundaryInfo, text_color=amber, text_size=size.small, tooltip="HIERARCHY-2：更低新高/更高新低仅属内部，不能覆盖此边界或移动外部保护。")
+        f_row(4, "4H", packet4)
+        f_row(5, "15M", packet15)
+        table.cell(panel, 0, 11, linkMain, text_color=f_color(linkDirection), text_size=size.small, tooltip=linkStates + "\n4H外部背景＋15M局部背景；差异仅描述，不作同向硬门槛。")
+        table.cell(panel, 0, 12, linkUpper + (linkConflict ? " · 存在周期冲突" : "") + (linkStale ? " · 源数据滞后" : ""), text_color=amber, text_size=size.tiny)
+        table.cell(panel, 0, 13, "观察N8/N2 · 生产2×2 · 未与生产同事件匹配 · 自动无权限", text_color=neutral, text_size=size.tiny, tooltip="本地Pine主N=" + str.tostring(mainLen) + "，独立数据历史和枢轴实现；SMC-LINK-1只统一层级与口径，不保证与生产方向/锚点一致，不是当前可执行入场。")
+    bool hasPlan = (showSl or showTp) and not na(planEntry) and planEntry > 0
+    string formed = planMode == "手动价格" ? "手动静态参考 · 无事件形成时刻" : na(planTime) ? "等待主事件" : "形成 " + str.format_time(planTime, "MM-dd HH:mm", "Asia/Shanghai") + " CST / 源" + timeframe.period + "M"
+    float displacement = hasPlan ? 100 * (close - planEntry) / planEntry : na
+    string life = planMode == "手动价格" ? "手动测量·非计划" : planActive ? "历史测量·尚未结束" : "历史测量·已结束"
+    string planMeta = formed + " · " + life + " · 非当前计划"
+    string planDistance = hasPlan ? "现价距冻结E " + str.tostring(displacement, "+#.##;-#.##") + "% · E不随现价追移" : ""
+    table.cell(planPanel, 0, 1, hasPlan ? planMeta : "", text_color=linkRelation == "逆势参考" ? amber : neutral, text_size=size.small)
+    table.cell(planPanel, 0, 2, planDistance, text_color=neutral, text_size=size.tiny)
+    table.cell(planPanel, 0, 3, hasPlan ? "独立毛R尺 ≠ 最近未扫结构目标/监视器净R · 非可执行入场 · 自动无权限" : "", text_color=neutral, text_size=size.tiny)
+    table.cell(planPanel, 0, 4, hasPlan ? "E " + str.tostring(planEntry, format.mintick) + " / SL " + str.tostring(planSl, format.mintick) + " / TP1毛R " + str.tostring(planTp1, format.mintick) + " / TP2毛R " + str.tostring(planTp2, format.mintick) : "", text_color=neutral, text_size=size.tiny)
+// Check the actual main engine on every completed chart bar. Internal events
+// cannot change main bias/protection. CHoCH must enter transition before reversal.
+int linkObservedMain = main.bias
+float linkObservedProtection = protectedLevel
+if barstate.isconfirmed and not na(linkObservedMain[1])
+    if linkObservedMain != linkObservedMain[1] and currentEvent != 2 and currentEvent != 3
+        runtime.error("外部主方向被非主确认事件改写。")
+    if currentEvent == 2 and linkObservedMain != 2
+        runtime.error("外部保护破坏未先进入过渡。")
+    if currentEvent == 3 and linkObservedMain[1] != 0 and linkObservedMain[1] != 2
+        runtime.error("主方向反转缺少过渡阶段。")
+    if not na(linkObservedProtection) and not na(linkObservedProtection[1]) and linkObservedProtection != linkObservedProtection[1] and currentEvent != 1 and currentEvent != 2 and currentEvent != 3
+        runtime.error("内部事件改变外部保护点。")
+// Actual Pine hierarchy tests include unknown parent, conflicting lower trend,
+// and all-unconfirmed states; they never mutate source structure or plans.
+if barstate.isfirst
+    [a, ar] = f_linkSelect(2, 1)
+    [b, br] = f_linkSelect(-1, 1)
+    [c, cr] = f_linkSelect(0, 2)
+    [d, dr] = f_linkSelect(0, -1)
+    if a != 1 or ar != 2 or b != -1 or br != 4 or c != 0 or cr != 0 or d != -1 or dr != 2
+        runtime.error("SMC-LINK-2 双周期层级自检失败。")
+    if f_linkStale(28800000, 0, 27000000) or not f_linkStale(28800001, 0, 27000001) or not f_linkStale(28800000, 0, 26999999) or not f_linkStale(28800000, na, 27000000)
+        runtime.error("双周期源时间自检失败。")
+if barstate.islastconfirmedhistory and showMeetDetail
+    log.info("SMC-LINK-2 | " + syminfo.tickerid + " | chart=" + timeframe.period + " | " + linkStates + " | selected=" + linkTf + ":" + str.tostring(linkDirection) + " | " + linkUpper + " | conflict=" + str.tostring(linkConflict) + " | sourceAsOf=" + str.tostring(linkTime) + " | model=independent-mainN" + str.tostring(mainLen) + " | productionEventMatch=false | orderAuthority=false | hierarchySelftests=PASS | externalInternalInvariants=PASS | mainN=" + str.tostring(mainLen) + " | internalN=" + str.tostring(innerLen) + "")
+    log.info("LINK-PLAN | direction=" + str.tostring(planDirection) + " | formed=" + str.tostring(planTime) + " | sourceTF=" + timeframe.period + " | active=" + str.tostring(planActive) + " | status=" + planStatus + " | E=" + str.tostring(planEntry) + " | SL=" + str.tostring(planSl) + " | TP1gross=" + str.tostring(planTp1) + " | TP2gross=" + str.tostring(planTp2) + " | relation=" + linkRelation + " | currentExecutable=false")
+if barstate.islastconfirmedhistory and showMeetDetail
+    log.info("HIERARCHY-2 | actualCoreFixtures=13PASS | mainBias=" + str.tostring(main.bias) + " | protection=" + str.tostring(protectedLevel) + " | boundary=" + (na(main.continuationBoundary) ? "na" : str.tostring(main.continuationBoundary.price)) + " | consumed=" + (na(main.continuationBoundary) ? "na" : str.tostring(main.continuationBoundary.used)) + " | boundaryKnown=" + (na(main.continuationBoundary) ? "na" : str.tostring(main.continuationBoundary.known)) + " | lastEvent=" + f_event(main.lastEvent))
+if barstate.islastconfirmedhistory and showMeetDetail
+    for p in array.from(packet4, packet15)
+        log.info("ATOMIC|chart=" + timeframe.period + "|source=" + p.sourceTF + "|state=" + str.tostring(p.state) + "|protection=" + f_price(p.protection) + "|boundary=" + f_price(p.boundary) + "|consumed=" + str.tostring(p.boundaryConsumed) + "|event=" + str.tostring(p.event) + "|eventAt=" + str.tostring(p.eventConfirmedAt) + "|availableAt=" + str.tostring(p.confirmedAt) + "|episode=" + p.sourceTF + ":" + str.tostring(p.episodeAt) + "|packetSelftest=PASS|orderAuthority=false")
+// SMC_LINK_END
+
+// VISUAL_COMPACT_BEGIN — only table/plot rendering, no strategy mutation.
+string compactSize = panelFont == "大字" ? size.normal : panelFont == "紧凑" ? size.tiny : size.small
+string chartTfLabel = timeframe.isminutes ? (timeframe.multiplier >= 60 and timeframe.multiplier % 60 == 0 ? str.tostring(timeframe.multiplier / 60, "#") + "H" : timeframe.period + "m") : timeframe.period
+float signedBodyAtr = atr[1] > 0 ? (close - open) / atr[1] : na
+plot(showBodyHistogram and barstate.isconfirmed ? signedBodyAtr : na, "实体动能 · 浅蓝折线 / 前ATR", color=momentumLineColor, linewidth=momentumLineWidth, style=plot.style_linebr, display=display.pane + display.data_window)
+plot(showBodyHistogram ? 0 : na, "动能零线", color=color.new(neutral, 35), display=display.pane)
+f_compactCell(int column, string tf, StructureSnapshot p) =>
+    bool complete = not na(p.confirmedAt) and (math.abs(p.state) != 1 or not na(p.protection) and not na(p.boundary))
+    string status = complete ? (p.state == 1 ? "↑ 上涨" : p.state == -1 ? "↓ 下跌" : f_bias(p.state)) : "数据不全"
+    table.cell(panel, column, 1, tf, bgcolor=color.rgb(7,26,42), text_color=color.white, text_size=compactSize)
+    table.cell(panel, column, 2, status, bgcolor=color.new(complete ? f_color(p.state) : amber, 88), text_color=complete ? f_color(p.state) : amber, text_size=compactSize, tooltip=f_packetNote(p) + "\n保 " + f_price(p.protection) + " / 界 " + f_price(p.boundary) + "\n" + f_event(p.event) + " · " + f_stamp(p.eventConfirmedAt) + "\n已确认至 " + f_stamp(p.confirmedAt) + " UTC+8；独立观察，不是订单准入。")
+if barstate.islast and compactView
+    table.clear(panel, 0, 0, 3, 14)
+    if showPanel
+        table.cell(panel, 0, 0, "图表 " + chartTfLabel + " · 主结构 " + f_bias(main.bias), text_color=f_color(main.bias), text_size=panelSize, bgcolor=color.rgb(7,26,42))
+        f_compactCell(0, "4H", packet4)
+        f_compactCell(1, "15M", packet15)
+        table.cell(panel, 0, 3, "内部", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 1, 3, f_bias(internal.bias), text_color=neutral, text_size=compactSize)
+        table.cell(panel, 2, 3, math.abs(main.bias) == 1 and internal.bias == -main.bias ? "回调/冲突" : "辅助观察", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 0, 4, "外部边界", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 1, 4, f_price(boundaryLevel), text_color=main.bias == 1 ? bear : levelBlue, text_size=compactSize)
+        table.cell(panel, 2, 4, na(boundaryLevel) ? "未建立" : not na(main.continuationBoundary) and main.continuationBoundary.used ? "已消费" : "待突破", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 0, 5, "结构保护", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 1, 5, f_price(protectedLevel), text_color=main.bias == 1 ? levelBlue : bear, text_size=compactSize)
+        table.cell(panel, 2, 5, "非交易SL", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 0, 6, "最近", text_color=neutral, text_size=compactSize)
+        table.cell(panel, 1, 6, f_event(main.externalEvent), text_color=amber, text_size=compactSize)
+        table.cell(panel, 2, 6, f_stamp(main.externalConfirmedAt), text_color=neutral, text_size=size.tiny)
+        table.cell(panel, 0, 9, "N" + str.tostring(mainLen) + "右确认 · 仅观察" + (linkStale ? " · 源滞后" : ""), text_color=neutral, text_size=size.tiny, tooltip="新枢轴延迟确认，下一根可用；外部CHoCH先进入过渡。不同周期状态不做胜率投票。")
+        table.cell(panel, 0, 10, showGovernance ? "v1.19 · 核对 " + str.format_time(governanceReviewedAt, "MM-dd", "Asia/Shanghai") + (timenow > governanceValidUntil ? " · 待复核" : "") : "", text_color=neutral, text_size=size.tiny, tooltip=governanceFingerprint + " · 账户/Tick/BBO/净R未移植")
+        for row = 3 to 6
+            for col = 0 to 3
+                table.cell_set_bgcolor(panel, col, row, color.new(panelBackground, 4))
+        table.cell_set_bgcolor(panel, 0, 9, color.new(panelBackground, 4))
+        table.cell_set_bgcolor(panel, 0, 10, color.new(panelBackground, 4))
+    table.clear(momentumPanel, 0, 0, 1, 7)
+    if showMomentumPanel
+        int k = momentumMode == "已收盘" and not barstate.isconfirmed ? 1 : 0
+        table.cell(momentumPanel, 0, 0, k == 0 and not barstate.isconfirmed ? "动能 · 盘中未确认" : "动能 · 已收盘", text_color=neutral, text_size=compactSize)
+        if showRsi
+            f_metric(1, "RSI", na(rsiValue[k]) ? "—" : str.tostring(rsiValue[k], "#.0"), rsiValue[k] >= 55 ? bull : rsiValue[k] <= 45 ? bear : neutral)
+        if showRvol
+            f_metric(2, "相对量", na(rvolValue[k]) ? "—" : str.tostring(rvolValue[k], "#.00") + "×", neutral)
+        if showCandlePanel
+            f_metric(3, "K线", f_candle(candleCode[k], close[k] >= open[k]), candleColor[k])
+        if showBodyAtr
+            f_metric(4, "实体/ATR", na(signedBodyAtr[k]) ? "—" : str.tostring(signedBodyAtr[k], "#.00"), momentumLineColor)
+// VISUAL_COMPACT_END
+
+// VISUAL_LABEL_RAIL_BEGIN — final paint pass; never write structure/zone/plan state.
+var array<label> railZoneTags = array.new<label>()
+var array<line> railLeaders = array.new<line>()
+var float visiblePaintHigh = na
+var float visiblePaintLow = na
+if time >= chart.left_visible_bar_time and time <= chart.right_visible_bar_time
+    visiblePaintHigh := na(visiblePaintHigh) ? high : math.max(visiblePaintHigh, high)
+    visiblePaintLow := na(visiblePaintLow) ? low : math.min(visiblePaintLow, low)
+f_railZone(box region, string caption, color col) =>
+    float top = box.get_top(region)
+    float bottom = box.get_bottom(region)
+    box.set_text(region, "")
+    box.set_bgcolor(region, color.new(col, math.max(zoneTransparency, 93)))
+    box.set_border_color(region, color.new(col, 65))
+    label tag = label.new(time_close, (top + bottom) / 2, caption + " " + str.tostring(bottom, format.mintick) + "–" + str.tostring(top, format.mintick), xloc=xloc.bar_time, style=label.style_label_left, color=color.new(panelBackground, 12), textcolor=col, size=size.small, tooltip=caption + " · 区域边界保持原价；引线指向区域中点，不是入场指令。", force_overlay=true)
+    railZoneTags.push(tag)
+f_railY(float actual, float previous, float gap) =>
+    na(previous) ? actual : math.max(actual, previous + gap)
+if barstate.isfirst
+    if f_railY(100, 100, 2) != 102 or f_railY(110, 100, 2) != 110 or f_railY(100, float(na), 2) != 100
+        runtime.error("标签避让排序断言失败")
+if barstate.islast
+    for tag in railZoneTags
+        label.delete(tag)
+    railZoneTags.clear()
+    for guide in railLeaders
+        line.delete(guide)
+    railLeaders.clear()
+    if clearCandles
+        for region in fvgBoxes
+            string caption = "FVG"
+            for z in fvgPool
+                if z.known == box.get_left(region) and z.top == box.get_top(region) and z.bottom == box.get_bottom(region)
+                    caption := (fvgMode == "精选FVG" ? "精选FVG " : "FVG ") + (z.direction == 1 ? "↑" : "↓") + (z.external ? " · 主推进" : "")
+                    break
+            f_railZone(region, caption, fvgColor)
+        for z in zones
+            f_railZone(z.region, (z.kind == 1 ? "FVG " : "OB候选 ") + (z.direction == 1 ? "↑" : "↓"), z.kind == 1 ? fvgColor : obColor)
+        if not na(bsl)
+            f_railZone(bsl, "BSL", amber)
+        if not na(ssl)
+            f_railZone(ssl, "SSL", amber)
+        array<label> tags = array.from(highTag, lowTag, boundaryTag, protectionTag, entryTag, slTag, tp1Tag, tp2Tag)
+        for tag in railZoneTags
+            tags.push(tag)
+        array<label> active = array.new<label>()
+        array<float> prices = array.new<float>()
+        for tag in tags
+            if not na(tag) and not na(label.get_y(tag))
+                active.push(tag)
+                prices.push(label.get_y(tag))
+        array<int> sorted = array.sort_indices(prices, order.ascending)
+        float gap = math.max(math.max(visualAtr * annotationSpacing, nz(visiblePaintHigh - visiblePaintLow) / 65), syminfo.mintick * 3)
+        int labelX = time_close + (time_close - time) * annotationGap
+        int guideX = time_close + (time_close - time) * 2
+        float previous = na
+        for index in sorted
+            label tag = active.get(index)
+            float actual = prices.get(index)
+            float placed = f_railY(actual, previous, gap)
+            label.set_xy(tag, labelX, placed)
+            label.set_style(tag, label.style_label_left)
+            label.set_size(tag, size.small)
+            label.set_color(tag, color.new(panelBackground, 12))
+            railLeaders.push(line.new(guideX, actual, labelX, placed, xloc=xloc.bar_time, color=color.new(neutral, 65), style=line.style_dotted, width=1, force_overlay=true))
+            previous := placed
+        if not na(slBox)
+            box.set_bgcolor(slBox, color.new(slColor, math.max(zoneTransparency, 94)))
+        if not na(tpBox)
+            box.set_bgcolor(tpBox, color.new(tpColor, math.max(zoneTransparency, 94)))
+// VISUAL_LABEL_RAIL_END
+
+// PANEL_VISIBILITY_BEGIN — final paint-only pass, after all link annotations.
+if barstate.islast
+    if hideAllPanels or not showPanel
+        table.clear(panel, 0, 0, 3, 14)
+    if hideAllPanels or not showMomentumPanel
+        table.clear(momentumPanel, 0, 0, 1, 7)
+    if hideAllPanels or not showPlanPanel
+        table.clear(planPanel, 0, 0, 0, 4)
+    if hideAllPanels or not showMeetPanel
+        table.clear(meetPanel, 0, 0, 0, 7)
+// PANEL_VISIBILITY_END

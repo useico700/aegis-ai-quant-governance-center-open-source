@@ -1,0 +1,41 @@
+{
+  "revision": "SMC-CONTEXT-2",
+  "mode": "DESCRIPTIVE_STRUCTURE_ONLY",
+  "orderAuthority": false,
+  "admissionEffect": "NONE",
+  "calibratedWinProbability": null,
+  "structureLookbackDays": 120,
+  "pivotLeft": 2,
+  "pivotRight": 2,
+  "breakTicks": 2,
+  "breakBufferAtr": 0.05,
+  "geometryBars": 64,
+  "frames": {
+    "4h": {
+      "widthMs": 14400000,
+      "historyBars": 900,
+      "role": "PARENT_CONTEXT"
+    },
+    "1h": {
+      "widthMs": 3600000,
+      "historyBars": 720,
+      "role": "LOCAL_LEG"
+    },
+    "15m": {
+      "widthMs": 900000,
+      "historyBars": 1500,
+      "role": "CONFIRMATION_CONTEXT"
+    },
+    "5m": {
+      "widthMs": 300000,
+      "historyBars": 720,
+      "role": "TIMING_CONTEXT"
+    }
+  },
+  "thresholdBasis": "EXISTING_2X2_CONFIRMED_PIVOT_AND_TICK_ATR_BREAK_DEFINITION_NOT_OPTIMIZED_OR_PROFIT_VALIDATED",
+  "checkpointPolicy": "VERSIONED_V2_CHECKPOINT_BOOTSTRAP_FROM_AVAILABLE_CONFIRMED_HISTORY_PRESERVE_V1_ARCHIVE",
+  "confluencePolicy": "OVERLAPPING_OHLC_NOT_INDEPENDENT_VOTES",
+  "riskRewardPolicy": "EXISTING_AUTOMATIC_NET_2R_GATE_NO_TARGET_EXTENSION_NO_WIN_GUARANTEE",
+  "hierarchyRevision": "SMC-HIERARCHY-1",
+  "externalBoundaryPolicy": "PERSIST_CONFIRMED_EXTREME_PER_EPISODE_NO_LOWER_HIGH_OR_HIGHER_LOW_REPLACEMENT"
+}

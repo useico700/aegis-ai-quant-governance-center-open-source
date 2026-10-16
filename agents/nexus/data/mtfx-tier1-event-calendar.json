@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "timezone": "Asia/Shanghai",
+  "generatedAt": "2026-08-15T17:20:00+08:00",
+  "maintainer": "NEXUS_VERIFIED_CALENDAR",
+  "policyScope": "SCHEDULED_US_TIER1_MACRO_ONLY",
+  "events": [
+    {
+      "id": "us_pce_20260826_2030_cst",
+      "tier": "TIER1",
+      "category": "inflation",
+      "name": "美国个人收入与支出（含PCE）",
+      "scheduledAt": "2026-08-26T20:30:00+08:00",
+      "sourceUrl": "https://www.bea.gov/news/schedule/full",
+      "source": "US_BEA_OFFICIAL"
+    },
+    {
+      "id": "us_employment_situation_20260904_2030_cst",
+      "tier": "TIER1",
+      "category": "labor",
+      "name": "美国就业报告（非农）",
+      "scheduledAt": "2026-09-04T20:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/home.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "us_cpi_20260911_2030_cst",
+      "tier": "TIER1",
+      "category": "inflation",
+      "name": "美国CPI",
+      "scheduledAt": "2026-09-11T20:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/news_release/cpi.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "fomc_statement_20260917_0200_cst",
+      "tier": "TIER1",
+      "category": "central_bank",
+      "name": "FOMC利率决议与新闻发布会",
+      "scheduledAt": "2026-09-17T02:00:00+08:00",
+      "sourceUrl": "https://www.federalreserve.gov/newsevents/2026-september.htm",
+      "source": "FEDERAL_RESERVE_OFFICIAL"
+    },
+    {
+      "id": "us_employment_situation_20261002_2030_cst",
+      "tier": "TIER1",
+      "category": "labor",
+      "name": "美国就业报告（非农）",
+      "scheduledAt": "2026-10-02T20:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/home.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "us_cpi_20261014_2030_cst",
+      "tier": "TIER1",
+      "category": "inflation",
+      "name": "美国CPI",
+      "scheduledAt": "2026-10-14T20:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/news_release/cpi.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "fomc_statement_20261029_0200_cst",
+      "tier": "TIER1",
+      "category": "central_bank",
+      "name": "FOMC利率决议与新闻发布会",
+      "scheduledAt": "2026-10-29T02:00:00+08:00",
+      "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "source": "FEDERAL_RESERVE_OFFICIAL"
+    },
+    {
+      "id": "us_employment_situation_20261106_2130_cst",
+      "tier": "TIER1",
+      "category": "labor",
+      "name": "美国就业报告（非农）",
+      "scheduledAt": "2026-11-06T21:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/home.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "us_cpi_20261110_2130_cst",
+      "tier": "TIER1",
+      "category": "inflation",
+      "name": "美国CPI",
+      "scheduledAt": "2026-11-10T21:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/news_release/cpi.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "us_employment_situation_20261204_2130_cst",
+      "tier": "TIER1",
+      "category": "labor",
+      "name": "美国就业报告（非农）",
+      "scheduledAt": "2026-12-04T21:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/2026/home.htm",
+      "source": "US_BLS_OFFICIAL"
+    },
+    {
+      "id": "fomc_statement_20261210_0300_cst",
+      "tier": "TIER1",
+      "category": "central_bank",
+      "name": "FOMC利率决议与新闻发布会",
+      "scheduledAt": "2026-12-10T03:00:00+08:00",
+      "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "source": "FEDERAL_RESERVE_OFFICIAL"
+    },
+    {
+      "id": "us_cpi_20261210_2130_cst",
+      "tier": "TIER1",
+      "category": "inflation",
+      "name": "美国CPI",
+      "scheduledAt": "2026-12-10T21:30:00+08:00",
+      "sourceUrl": "https://www.bls.gov/schedule/news_release/cpi.htm",
+      "source": "US_BLS_OFFICIAL"
+    }
+  ]
+}

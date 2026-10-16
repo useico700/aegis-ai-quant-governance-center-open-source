@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 1,
+  "scope": "V2纸面策略修订记录",
+  "dateBasis": "R1–R22及基线日期为授权文件issuedAt的北京时间日期；R22.1文件未记录issuedAt，其日期取授权文件记录日期。授权日期不等于进程加载时间。仅R22.1列出已核验的首次加载时间，其余activatedAt留空。",
+  "currentExecutionRevision": "MTFX-0.5.0-R22.1-ENTRY-PROTECTION-CONSISTENCY",
+  "currentBaseRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "entries": [
+    {
+      "version": "R22.1",
+      "revision": "MTFX-0.5.0-R22.1-ENTRY-PROTECTION-CONSISTENCY",
+      "date": "2026-09-14",
+      "dateLabel": "记录日期",
+      "authorizedAt": null,
+      "activatedAt": "2026-09-14T17:40:37.943+08:00",
+      "title": "开仓保护一致性修复",
+      "status": "CURRENT",
+      "statusLabel": "现行修订",
+      "bullets": [
+        "9月13日修复组合盈亏结算、报价时效与组合动作持久化，避免账务或恢复错误扭曲保护判断。",
+        "9月14日修复：组合已启动保护后，即使只剩1–2仓，达到预警仍冻结同向入场；减仓与清仓继续要求至少3仓。",
+        "R22.1为上述修复补充版本标识：新仓固定记录修订，监视器显示实际加载与保护状态，旧仓和历史记录保留原版本。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-V2-R22-1-ENTRY-PROTECTION-CONSISTENCY-20260914",
+        "OWNER-DIRECTIVE-V2-R21-INTEGRITY-REPAIR-20260913",
+        "OWNER-DIRECTIVE-V2-R21-ENTRY-CONSISTENCY-20260914",
+        "OWNER-DIRECTIVE-V2-R22-1-ENTRY-PROTECTION-CONSISTENCY-20260914"
+      ],
+      "relatedMilestones": [
+        {
+          "date": "2026-09-13",
+          "title": "组合账务与证据完整性修复",
+          "versionAssignedAtTheTime": "V2-R21-INTEGRITY-1"
+        },
+        {
+          "date": "2026-09-14",
+          "title": "准入与组合保护一致性修复",
+          "versionAssignedAtTheTime": "V2-R21-ENTRY-CONSISTENCY-1"
+        },
+        {
+          "date": "2026-09-14",
+          "title": "R22.1修订标识与监视器加载",
+          "activatedAt": "2026-09-14T17:40:37.943+08:00"
+        }
+      ]
+    },
+    {
+      "version": "R22",
+      "revision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+      "date": "2026-08-28",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-28T11:34:00+08:00",
+      "activatedAt": null,
+      "title": "平衡分批落袋",
+      "status": "BASE_POLICY",
+      "statusLabel": "现行基础规则",
+      "bullets": [
+        "净+0.5R、+1R、+2R分别减原仓40%、25%、20%，保留15%跟踪。",
+        "前两档后分别计算整单净+0.15R、+0.60R保护底线；剩余仓位按1H结构和既有15M ATR取更紧止损。",
+        "保留R19防追价、R20成本过滤和R21组合保护，旧仓不追溯改版。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-R22-BALANCED-PROFIT-REALIZATION-20260828"
+      ]
+    },
+    {
+      "version": "R21",
+      "revision": "MTFX-0.5.0-R21-ALT-PROFIT-RETENTION",
+      "date": "2026-08-22",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-22T13:40:00+08:00",
+      "activatedAt": null,
+      "title": "组合利润保护",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "引入至少3笔同向合格仓位的组合保护，覆盖8币，排除BTC与ETH。",
+        "根据组合利润高点回吐进入预警、防守或硬保护；预警冻结同向新入场15分钟。",
+        "防守与硬保护处理初始阶段仓位；剩余跟踪仓增加只收紧的15M ATR止损。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-R21-ALT-PROFIT-RETENTION-20260822"
+      ]
+    },
+    {
+      "version": "R20",
+      "revision": "MTFX-0.5.0-R20-COST-EFFICIENCY-GATE",
+      "date": "2026-08-22",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-22T01:55:03+08:00",
+      "activatedAt": null,
+      "title": "完整往返成本过滤",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "开仓前要求预计完整往返手续费及不利滑点成本不高于0.12R。",
+        "在头寸计算前检查；不允许通过放宽止损、调整头寸或降低成本模型绕过。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-R20-COST-EFFICIENCY-GATE-20260822"
+      ]
+    },
+    {
+      "version": "R19",
+      "revision": "MTFX-0.5.0-R19-CONFIRMED-CLOSE-ENTRY-GUARD",
+      "date": "2026-08-21",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-21T09:52:00+08:00",
+      "activatedAt": null,
+      "title": "确认收盘防追价",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "将50bps偏离基准改为确认方向的15M收盘价，保留180秒信号时效。",
+        "修复其他执行域凭证范围导致的V2恢复阻断，V2继续仅用公开数据模拟。",
+        "保仓恢复账本，不补造历史入场。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-R19-CONFIRMED-CLOSE-ENTRY-AND-MONITOR-RECOVERY-20260821"
+      ]
+    },
+    {
+      "version": "R18",
+      "revision": "MTFX-0.5.0-R18-ENTRY-QUALITY-GUARDS",
+      "date": "2026-08-19",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-19T16:24:03+08:00",
+      "activatedAt": null,
+      "title": "入场距离与时效",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "新仓、等待重试和反向替换加入50bps最大偏离与180秒信号时效。",
+        "当时偏离基准为数学交汇价；每次尝试重新校验，过期不补开。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-ENTRY-QUALITY-GUARDS-R18-20260819"
+      ]
+    },
+    {
+      "version": "R17",
+      "revision": "MTFX-0.5.0-R17-SOFT-PROFIT-LOCK",
+      "date": "2026-08-18",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-18T09:15:00+08:00",
+      "activatedAt": null,
+      "title": "早期分批落袋",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "净+0.5R、+1R、+2R分别减原仓20%、30%、25%，保留25%跟踪。",
+        "前两档后分别计算整单净+0.05R、+0.50R保护底线，止损只收紧。",
+        "旧仓继续原版本退出规则，不追溯补做分批。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-SOFT-PROFIT-LOCK-R17-20260818"
+      ]
+    },
+    {
+      "version": "R16",
+      "revision": "MTFX-0.5.0-R16-CURRENT-STRUCTURE-CAPACITY-10",
+      "date": "2026-08-18",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-18T02:15:00+08:00",
+      "activatedAt": null,
+      "title": "总持仓容量十笔",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "总持仓上限由8笔提高至10笔，所有活跃模拟账本共同计数。",
+        "保留同币一仓、确认反向结构替换及原有风险约束。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-CURRENT-STRUCTURE-CAPACITY-R16-20260818"
+      ]
+    },
+    {
+      "version": "R15",
+      "revision": "MTFX-0.5.0-R15-CURRENT-STRUCTURE-REPLACEMENT",
+      "date": "2026-08-17",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-17T18:05:00+08:00",
+      "activatedAt": null,
+      "title": "确认反向结构后替换",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "更晚的当前4H结构反向信号完成确认后，允许先平原仓，再开新反向仓。",
+        "新仓先校验报价、止损保护侧及平旧仓后的容量，不能安全创建则保留旧仓。",
+        "同向新计划继续跳过，不同时持有同币多空仓。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-CURRENT-STRUCTURE-REPLACEMENT-R15-20260817"
+      ]
+    },
+    {
+      "version": "R14",
+      "revision": "MTFX-0.5.0-R14-SINGLE-SYMBOL-EXPOSURE",
+      "date": "2026-08-17",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-17T00:00:00+08:00",
+      "activatedAt": null,
+      "title": "同币单一敞口",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "所有活跃模拟账本合计同币最多一笔持仓，同向或反向新计划均受限制。",
+        "当时不因新信号自动反手，已有仓位继续原有管理。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-SINGLE-SYMBOL-EXPOSURE-R14-20260817"
+      ]
+    },
+    {
+      "version": "R13",
+      "revision": "MTFX-0.5.0-R13-TIER1-EVENT-ENTRY-FREEZE",
+      "date": "2026-08-15",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-15T17:20:00+08:00",
+      "activatedAt": null,
+      "title": "重要事件入场冻结",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "FOMC、美国CPI、就业及PCE等已排期重要事件前后各30分钟冻结新开仓。",
+        "已有仓位继续按原止损和分批退出管理，入场窗口不因此延长。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-TIER1-EVENT-ENTRY-FREEZE-R13-20260815"
+      ]
+    },
+    {
+      "version": "R12",
+      "revision": "MTFX-0.5.0-R12-TWO-BAR-CROSS-CLOSE-BUFFER-STOP",
+      "date": "2026-08-13",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-13T02:37:00+08:00",
+      "activatedAt": null,
+      "title": "两根内首次收盘确认",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "交汇所在及紧随下一根15M中，首个越过±5bps缓冲的收盘锁定方向。",
+        "两根都未达标则放弃，禁止用第三根补确认。",
+        "初始止损继续按交汇价±5bps计算。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-TWO-BAR-CROSS-BUFFER-R12-20260813"
+      ]
+    },
+    {
+      "version": "R11",
+      "revision": "MTFX-0.5.0-R11-CROSS-CLOSE-PX-BUFFER-STOP",
+      "date": "2026-08-13",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-13T02:18:00+08:00",
+      "activatedAt": null,
+      "title": "交汇价初始止损",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "新多仓初损设在交汇价下方5bps，新空仓设在上方5bps。",
+        "替代新仓的1H结构初损；旧仓维持原止损，报价须位于止损的保护侧。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-INTERSECTION-BUFFER-STOP-R11-20260813"
+      ]
+    },
+    {
+      "version": "R10",
+      "revision": "MTFX-0.5.0-R10-CROSS-CLOSE-BUFFER",
+      "date": "2026-08-13",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-13T02:08:00+08:00",
+      "activatedAt": null,
+      "title": "交汇收盘与固定缓冲",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "以交汇所在15M K线的收盘价相对数学交汇价定向，缓冲为±5bps。",
+        "移除阴阳、实体比例、影线和组合形态门槛；该根收盘未越过缓冲则不定向。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-CROSS-CLOSE-BUFFER-R10-20260813"
+      ]
+    },
+    {
+      "version": "R9",
+      "revision": "MTFX-0.5.0-R9-H1-PROTECTIVE-STOP",
+      "date": "2026-08-11",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-11T12:32:09+08:00",
+      "activatedAt": null,
+      "title": "1H结构初始止损",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "15M继续决定入场方向与时机，初始止损改取已确认的1H结构。",
+        "使用最近两个合格同向锚点计算0.618止损，确认时不得使用未来K线。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-ONE-HOUR-PROTECTIVE-STOP-R9-20260811"
+      ]
+    },
+    {
+      "version": "R8",
+      "revision": "MTFX-0.5.0-R8-RELAXED-PRICE-CONFIRMATION",
+      "date": "2026-08-10",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-10T23:41:43+08:00",
+      "activatedAt": null,
+      "title": "放宽价格形态门槛",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "将实体占振幅比例下限调至35%，多头收盘位置下限65%，空头上限35%。",
+        "仍使用1–3根组合和原4根15M窗口，止损结构与风险边界保持。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-RELAXED-PRICE-CONFIRMATION-R8-20260810"
+      ]
+    },
+    {
+      "version": "R7",
+      "revision": "MTFX-0.5.0-R7-DEFERRED-PROTECTIVE-STRUCTURE",
+      "date": "2026-08-08",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-08T13:46:06+08:00",
+      "activatedAt": null,
+      "title": "等待止损结构与断点恢复",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "价格方向已确认但止损结构未成熟时，在原4根15M窗口内继续等待。",
+        "止损结构和容量满足后才用新鲜报价开仓，窗口不延长。",
+        "先持久化开仓与仓位状态，再更新运行状态，支持账本恢复。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-DEFERRED-PROTECTIVE-STRUCTURE-R7-20260808"
+      ]
+    },
+    {
+      "version": "R6",
+      "revision": "MTFX-0.5.0-R6-MULTI-ANCHOR-CONSENSUS",
+      "date": "2026-08-07",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-07T20:08:50+08:00",
+      "activatedAt": null,
+      "title": "多锚点与交汇稳定性",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "趋势线锚点取真实K线最高、最低价和交易所时间，按方程计算交点。",
+        "保留多个合格锚点假设，将临近交点聚类为时间和价格窗口。",
+        "记录锚点扰动后的稳定性；低稳定度当时仅供观察。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-MULTI-ANCHOR-CONSENSUS-R6-20260807"
+      ]
+    },
+    {
+      "version": "R5",
+      "revision": "MTFX-0.5.0-R5-POST-CROSS-PRICE-CONFIRMATION",
+      "date": "2026-08-07",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-07T19:17:21+08:00",
+      "activatedAt": null,
+      "title": "交汇后价格确认",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "在交汇后的4根完整15M K线内，允许1–3根连续K线组合确认方向。",
+        "以首个合格收盘形态锁定方向，窗口结束仍未通过则放弃。",
+        "纳入H1结构修补：止损锚点之间须有反向结构，排除近乎水平的微小推进。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-POST-CROSS-PRICE-CONFIRMATION-R5-20260807",
+        "OWNER-DIRECTIVE-MTFX-050-STRUCTURE-HYGIENE-H1-20260807"
+      ]
+    },
+    {
+      "version": "R4",
+      "revision": "MTFX-0.5.0-R4-ONE-SIDED-EXPANSION",
+      "date": "2026-08-07",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-07T01:14:00+08:00",
+      "activatedAt": null,
+      "title": "结构质量优先",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "候选排序先比较4H与1H的结构规模和质量，再用交汇远近排序。",
+        "记录可归因报价路径中的单边扩张及剩余仓位表现。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-ONE-SIDED-EXPANSION-R4-20260807"
+      ]
+    },
+    {
+      "version": "R3",
+      "revision": "MTFX-0.5.0-R3-BALANCED-LEAD-WINDOW",
+      "date": "2026-08-06",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-06T23:36:56+08:00",
+      "activatedAt": null,
+      "title": "交汇提前量与计划锁定",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "首次发现的交汇须在未来2–72小时，避免过远或临场追入。",
+        "进入交汇前2小时后锁定合格计划，保留锚点至原确认窗口结束。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-BALANCED-LEAD-WINDOW-R3-20260806"
+      ]
+    },
+    {
+      "version": "R2",
+      "revision": "MTFX-0.5.0-R2-CONTINUATION-LINEAGE",
+      "date": "2026-08-06",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-06T23:16:59+08:00",
+      "activatedAt": null,
+      "title": "趋势线向右续接",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "4H趋势线优先采用最近合格的第二锚点，跟随新结构向右推进。",
+        "上一条趋势线保留为父级候选，减少旧线长期占据优先级。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-CONTINUATION-LINEAGE-R2-20260806"
+      ]
+    },
+    {
+      "version": "R1",
+      "revision": "MTFX-0.5.0-R1-HIERARCHICAL-PARENT",
+      "date": "2026-08-06",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-06T19:18:45+08:00",
+      "activatedAt": null,
+      "title": "多尺度父级结构",
+      "status": "HISTORICAL",
+      "statusLabel": "历史修订",
+      "bullets": [
+        "用多尺度确认窗口识别更有代表性的父级趋势线。",
+        "允许跨过较小波动选取锚点，并检查锚点之间是否穿越趋势线。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-MTFX-050-HIERARCHICAL-PARENT-R1-20260806"
+      ]
+    },
+    {
+      "version": "0.5.0 基线",
+      "revision": "MTFX-0.5.0-BASELINE",
+      "date": "2026-08-06",
+      "dateLabel": "授权日期",
+      "authorizedAt": "2026-08-06T16:42:00+08:00",
+      "activatedAt": null,
+      "title": "价格与时间结构策略",
+      "status": "HISTORICAL",
+      "statusLabel": "历史基线",
+      "bullets": [
+        "建立4H主趋势线、1H反向趋势线与未来交汇的框架。",
+        "当时按交汇所在15M收盘K线阴阳定向，初损取15M结构的0.618位置。",
+        "净+1R减仓50%、+2R减仓25%，其余25%按1H结构跟踪。"
+      ],
+      "sourceIds": [
+        "OWNER-AUTH-MTFX-PRICE-TIME-STRUCTURE-050-20260806",
+        "OWNER-DIRECTIVE-MTFX-050-HIERARCHICAL-PARENT-R1-20260806"
+      ]
+    }
+  ],
+  "unnumberedUpdates": [
+    {
+      "id": "V2-RISK-20260911",
+      "date": "2026-09-11",
+      "dateLabel": "授权记录日期",
+      "title": "独立风险授权更新",
+      "bullets": [
+        "V2未来合格新仓的同一交汇合计计划风险上限2%，组合计划风险上限10%。",
+        "不改变初始止损位置，不追溯调整旧仓；这是独立风险授权，不另造R版本。"
+      ],
+      "sourceIds": [
+        "OWNER-DIRECTIVE-V2-RISK-2PCT-10PCT-20260911"
+      ]
+    }
+  ],
+  "displayNotes": [
+    "历史条目描述当次改动，后续修订可能替代其中规则。",
+    "R22继续作为基础执行规则，R22.1标识已落实的保护修复；页面实时状态应读取运行快照。",
+    "R21于9月13日及14日的补丁归入R22.1说明，不代表它们在发生当时已命名为R22.1。"
+  ]
+}

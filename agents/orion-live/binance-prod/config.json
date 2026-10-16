@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "runtimeId": "AEGIS-BINANCE-USDM-PROD-READONLY-1.0",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "mode": "PRODUCTION_READ_ONLY_SHADOW",
+  "host": {
+    "identityEnvironmentVariable": "AEGIS_PRODUCTION_HOST_ID",
+    "requiredIdentity": "demo-server",
+    "requiredHostname": "PUBLIC_USER_CONFIGURATION_REQUIRED"
+  },
+  "venue": {
+    "name": "BINANCE_USDM_MAINNET",
+    "restBaseUrl": "https://demo-fapi.binance.com",
+    "userStreamBaseUrl": "wss://fstream.binancefuture.com/ws",
+    "signedReadPaths": [
+      "/fapi/v2/account",
+      "/fapi/v2/positionRisk",
+      "/fapi/v1/accountConfig",
+      "/fapi/v1/openOrders",
+      "/fapi/v1/openAlgoOrders"
+    ],
+    "userStreamControlPath": "/fapi/v1/listenKey"
+  },
+  "credentials": {
+    "apiKeyLabel": "BN-KEY-PROD",
+    "secretKeyLabel": "BN-SECRET-PROD",
+    "apiKeyFile": "/etc/aegis/secrets/binance-prod/BN-KEY-PROD",
+    "secretKeyFile": "/etc/aegis/secrets/binance-prod/BN-SECRET-PROD",
+    "requiredOwnerUid": 0,
+    "requiredMode": "0440"
+  },
+  "runtime": {
+    "root": "/var/lib/aegis/binance-prod",
+    "cycleIntervalMs": 60000,
+    "requestTimeoutMs": 8000,
+    "recvWindowMs": 5000,
+    "accountStaleAfterMs": 120000,
+    "userStreamStaleAfterMs": 120000,
+    "userStreamKeepaliveMs": 3000000,
+    "userStreamReconnectMaximumMs": 30000
+  },
+  "retention": {
+    "rawManagement": "SEGMENTED_WRITER_OBSERVER",
+    "minimumFreeBytes": 5368709120,
+    "rawRoot": "/var/lib/aegis/binance-prod/evidence/raw",
+    "rawRetentionDays": 7,
+    "rawMaximumBytes": 42949672960,
+    "segmentMaximumBytes": 268435456,
+    "segmentMaximumDurationMs": 3600000,
+    "diskWarningPercent": 70,
+    "diskEvictionPercent": 78,
+    "diskBlockNewEntriesPercent": 85,
+    "pinnedEvidenceEvictionAllowed": false,
+    "compactLedgerEvictionAllowed": false,
+    "diskTargetPercent": 72
+  },
+  "execution": {
+    "strategyAssigned": false,
+    "realOrdersAllowed": false,
+    "orderTestAllowed": false,
+    "tradingMutationMethodsAllowed": [],
+    "newEntriesBlocked": true,
+    "singleWriterRequired": true
+  }
+}

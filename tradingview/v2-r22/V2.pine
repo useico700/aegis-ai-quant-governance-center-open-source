@@ -1,0 +1,368 @@
+//@version=6
+indicator("V2", shorttitle="V2 · 三线", overlay=true, max_lines_count=100, max_labels_count=300, max_bars_back=1500)
+// R22 chart companion. Auto anchors approximate server consensus; no orders.
+const int M15 = 900000
+if timeframe.period != "15" or not chart.is_standard
+    runtime.error("V2 请使用标准15分钟K线")
+mode = input.string("自动研究", "锚点模式", options=["自动研究", "服务器四锚点"], group="结构")
+compact = input.bool(true, "K线三线视图", group="显示")
+fragmentBars = input.int(48, "右侧标注距离（15M根数）", minval=16, maxval=288, group="显示")
+showHistory = input.bool(false, "显示历史交汇（研究）", group="显示")
+displayZone = input.string("Asia/Shanghai", "标记时区", options=["Asia/Shanghai", "Etc/UTC"], group="显示")
+showLines = input.bool(false, "显示4H/1H结构线", group="显示")
+showCrossTime = input.bool(true, "显示交汇时间竖线", group="显示")
+showBuffer = input.bool(true, "显示Px与5bp缓冲", group="显示")
+showStages = input.bool(false, "显示单币收线管理观察", group="显示")
+showPanel = input.bool(true, "显示状态与图例", group="显示")
+labelFont = input.string("正常", "三线文字大小", options=["小", "正常", "大"], group="显示")
+levelTextSize = labelFont == "大" ? size.large : labelFont == "小" ? size.small : size.normal
+fee = input.float(0.05, "单边手续费 %（模型参数）", minval=0, step=0.01, group="成本") / 100
+slip = input.float(0.02, "单边不利滑点 %（模型参数）", minval=0, step=0.01, group="成本") / 100
+aTime = input.time(timestamp("01 Oct 2026 00:00 +0000"), "4H A 时间", group="服务器四锚点", inline="a")
+aPrice = input.float(0, "价格", minval=0, group="服务器四锚点", inline="a")
+bTime = input.time(timestamp("02 Oct 2026 00:00 +0000"), "4H B 时间", group="服务器四锚点", inline="b")
+bPrice = input.float(0, "价格", minval=0, group="服务器四锚点", inline="b")
+cTime = input.time(timestamp("01 Oct 2026 00:00 +0000"), "1H C 时间", group="服务器四锚点", inline="c")
+cPrice = input.float(0, "价格", minval=0, group="服务器四锚点", inline="c")
+dTime = input.time(timestamp("02 Oct 2026 00:00 +0000"), "1H D 时间", group="服务器四锚点", inline="d")
+dPrice = input.float(0, "价格", minval=0, group="服务器四锚点", inline="d")
+knownAt = input.time(timestamp("03 Oct 2026 00:00 +0000"), "四锚点全部确认时间", group="服务器四锚点")
+longColor = input.color(#22C99A, "多头 / LONG", group="颜色")
+shortColor = input.color(#FF617D, "空头 / SHORT", group="颜色")
+parentColor = input.color(#669DFF, "4H 结构", group="颜色")
+localColor = input.color(#AD8FFF, "1H 结构", group="颜色")
+pxColor = input.color(#FFC95C, "交汇 / Px", group="颜色")
+stopColor = input.color(#FF8A52, "保护 / SL", group="颜色")
+profitColor = input.color(#40C9E7, "减仓 / TP", group="颜色")
+mutedColor = input.color(#8A96AC, "等待 / 过期", group="颜色")
+f_auto(int strength, int window, int separation, float prominenceFloor, float spanFloor, float tolerance, bool support) =>
+    var array<float> prices = array.new_float()
+    var array<int> stamps = array.new_int()
+    var array<int> indices = array.new_int()
+    var array<float> prominences = array.new_float()
+    var array<int> opposite = array.new_int()
+    float ph = ta.pivothigh(high, strength, strength)
+    float pl = ta.pivotlow(low, strength, strength)
+    float promHigh = high[strength] - ta.lowest(low, strength * 2 + 1)
+    float promLow = ta.highest(high, strength * 2 + 1) - low[strength]
+    float visibleRange = ta.highest(high, window) - ta.lowest(low, window)
+    float value = support ? pl : ph
+    float opp = support ? ph : pl
+    if not na(opp)
+        array.push(opposite, bar_index - strength)
+        if array.size(opposite) > 40
+            array.shift(opposite)
+    if not na(value)
+        array.push(prices, value)
+        array.push(stamps, time[strength])
+        array.push(indices, bar_index - strength)
+        array.push(prominences, support ? promLow : promHigh)
+        if array.size(prices) > 12
+            array.shift(prices)
+            array.shift(stamps)
+            array.shift(indices)
+            array.shift(prominences)
+    float p1 = na
+    float p2 = na
+    int t1 = na
+    int t2 = na
+    float best = -1.0
+    int n = array.size(prices)
+    if n >= 2 and visibleRange > 0
+        for j = n - 1 to 1
+            int bj = array.get(indices, j)
+            if bj >= bar_index - window
+                for i = 0 to j - 1
+                    int bi = array.get(indices, i)
+                    float pi = array.get(prices, i)
+                    float pj = array.get(prices, j)
+                    int span = bj - bi
+                    bool between = false
+                    if array.size(opposite) > 0
+                        for k = 0 to array.size(opposite) - 1
+                            int oi = array.get(opposite, k)
+                            between := between or (oi > bi and oi < bj)
+                    float prom = (array.get(prominences, i) + array.get(prominences, j)) / (2 * visibleRange)
+                    bool eligible = bi >= bar_index - window and span >= separation and span / float(window) >= spanFloor and prom >= prominenceFloor and math.abs(pj - pi) / visibleRange >= 0.02 and between and (support ? pj > pi : pj < pi)
+                    bool envelope = eligible
+                    if eligible
+                        for k = 1 to span - 1
+                            int off = bar_index - bi - k
+                            float linePrice = pi + (pj - pi) * k / span
+                            if support ? low[off] < linePrice - visibleRange * tolerance : high[off] > linePrice + visibleRange * tolerance
+                                envelope := false
+                    float quality = span * (array.get(prominences, i) + array.get(prominences, j))
+                    if envelope and quality > best
+                        best := quality
+                        p1 := pi
+                        p2 := pj
+                        t1 := array.get(stamps, i)
+                        t2 := array.get(stamps, j)
+                if not na(t2)
+                    break
+    [t1[1], p1[1], t2[1], p2[1]]
+[h4t1, h4p1, h4t2, h4p2] = request.security(syminfo.tickerid, "240", f_auto(12, 360, 3, 0.06, 0.015, 0.003, false), lookahead=barmerge.lookahead_on, calc_bars_count=1500)
+[l4t1, l4p1, l4t2, l4p2] = request.security(syminfo.tickerid, "240", f_auto(12, 360, 3, 0.06, 0.015, 0.003, true), lookahead=barmerge.lookahead_on, calc_bars_count=1500)
+[h1t1, h1p1, h1t2, h1p2] = request.security(syminfo.tickerid, "60", f_auto(4, 1000, 6, 0.05, 0.006, 0.004, false), lookahead=barmerge.lookahead_on, calc_bars_count=1500)
+[l1t1, l1p1, l1t2, l1p2] = request.security(syminfo.tickerid, "60", f_auto(4, 1000, 6, 0.05, 0.006, 0.004, true), lookahead=barmerge.lookahead_on, calc_bars_count=1500)
+[trailLow, trailHigh] = request.security(syminfo.tickerid, "60", [ta.valuewhen(not na(ta.pivotlow(low, 2, 2)), ta.pivotlow(low, 2, 2), 0)[1], ta.valuewhen(not na(ta.pivothigh(high, 2, 2)), ta.pivothigh(high, 2, 2), 0)[1]], lookahead=barmerge.lookahead_on)
+f_cross(int t1, float p1, int t2, float p2, int u1, float q1, int u2, float q2) =>
+    float m = t2 > t1 ? (p2 - p1) / ((t2 - t1) / float(M15)) : na
+    float n = u2 > u1 ? (q2 - q1) / ((u2 - u1) / float(M15)) : na
+    float x = not na(m) and not na(n) and math.abs(m - n) > 1e-12 ? (q1 - n * (u1 / float(M15)) - p1 + m * (t1 / float(M15))) / (m - n) : na
+    float px = p1 + m * (x - t1 / float(M15))
+    [x * M15, px]
+[xRise, pxRise] = f_cross(l4t1, l4p1, l4t2, l4p2, h1t1, h1p1, h1t2, h1p2)
+[xFall, pxFall] = f_cross(h4t1, h4p1, h4t2, h4p2, l1t1, l1p1, l1t2, l1p2)
+[xManual, pxManual] = f_cross(aTime, aPrice, bTime, bPrice, cTime, cPrice, dTime, dPrice)
+bool manual = mode == "服务器四锚点"
+bool rise = not na(xRise) and xRise > time_close and (na(xFall) or xFall <= time_close or xRise <= xFall)
+float proposedX = manual ? xManual : rise ? xRise : xFall
+float proposedPx = manual ? pxManual : rise ? pxRise : pxFall
+int sourceKnown = manual ? knownAt : time_close
+bool manualValid = not manual or (aPrice > 0 and bPrice > 0 and cPrice > 0 and dPrice > 0 and knownAt >= math.max(bTime, dTime))
+var float activeX = na
+var float activePx = na
+var int direction = 0
+var bool consumed = true
+var float lastUsedX = na
+var string status = "等待合格交汇"
+var line parent = na
+var line local = na
+var label crossLabel = na
+var line crossTimeLine = na
+var array<line> crossHistory = array.new_line()
+bool newPlan = barstate.isconfirmed and (consumed or na(activeX) or time_close < activeX - 7200000) and manualValid and proposedPx > 0 and proposedX - time_close >= 7200000 and proposedX - time_close <= 259200000 and sourceKnown <= time_close and (na(lastUsedX) or math.abs(proposedX - lastUsedX) > 1) and (na(activeX) or math.abs(proposedX - activeX) > 1)
+if newPlan
+    // A replaced pre-commit forecast is removed; completed forecasts remain.
+    if (not consumed or not showHistory) and not na(crossTimeLine)
+        line.delete(crossTimeLine)
+    activeX := proposedX
+    activePx := proposedPx
+    direction := 0
+    consumed := false
+    status := "交汇预备 · 提前≥2小时"
+    if not na(parent)
+        line.delete(parent)
+        line.delete(local)
+        label.delete(crossLabel)
+    int tA = manual ? aTime : rise ? l4t1 : h4t1
+    float pA = manual ? aPrice : rise ? l4p1 : h4p1
+    int tB = manual ? bTime : rise ? l4t2 : h4t2
+    float pB = manual ? bPrice : rise ? l4p2 : h4p2
+    int tC = manual ? cTime : rise ? h1t1 : l1t1
+    float pC = manual ? cPrice : rise ? h1p1 : l1p1
+    int tD = manual ? dTime : rise ? h1t2 : l1t2
+    float pD = manual ? dPrice : rise ? h1p2 : l1p2
+    parent := line.new(tA, pA, tB, pB, xloc=xloc.bar_time, extend=extend.right, color=showLines and not compact ? parentColor : color.new(parentColor, 100), width=3)
+    local := line.new(tC, pC, tD, pD, xloc=xloc.bar_time, extend=extend.right, color=showLines and not compact ? localColor : color.new(localColor, 100), width=1)
+    if showCrossTime
+        crossTimeLine := line.new(int(activeX), low, int(activeX), math.max(high, low + syminfo.mintick), xloc=xloc.bar_time, extend=extend.both, color=pxColor, style=line.style_dashed, width=1)
+        if showHistory
+            array.push(crossHistory, crossTimeLine)
+            if array.size(crossHistory) > 40
+                line.delete(array.shift(crossHistory))
+    if not compact
+        crossLabel := label.new(int(activeX), activePx, "交汇 " + str.format_time(int(activeX), "MM-dd HH:mm", syminfo.timezone) + "\nPx " + str.tostring(activePx, format.mintick), xloc=xloc.bar_time, style=label.style_label_up, color=chart.bg_color, textcolor=pxColor, size=size.small)
+int crossBar = not na(activeX) ? int(math.floor(activeX / M15)) * M15 : na
+float edgeDistance = not na(activeX) ? math.min(activeX - crossBar, crossBar + M15 - activeX) : na
+bool ambiguous = not na(edgeDistance) and edgeDistance > 0 and edgeDistance <= 60000
+float upper = activePx * 1.0005
+float lower = activePx * 0.9995
+var float entry = na
+var float stop = na
+var float risk = na
+var int observedSide = 0
+var int entryBar = na
+var int stage = 0
+var float realized = 0.0
+var float remaining = 1.0
+var float costR = na
+bool markLong = false
+bool markShort = false
+bool markReject = false
+bool markHalf = false
+bool markOne = false
+bool markTwo = false
+bool markStop = false
+bool markAmbiguous = false
+if barstate.isconfirmed and not consumed and (time == crossBar or time == crossBar + M15)
+    if ambiguous
+        consumed := true
+        status := "边界≤1分钟 · 跳过"
+        markReject := true
+    else if direction == 0
+        direction := close >= upper ? 1 : close <= lower ? -1 : 0
+        if direction != 0
+            consumed := true
+            lastUsedX := activeX
+            float proposedStop = activePx * (1 - direction * 0.0005)
+            float initialRisk = math.abs(close - proposedStop)
+            costR := initialRisk > 0 ? close * 2 * (fee + slip) / initialRisk : na
+            bool pass = initialRisk > 0 and direction * (close - proposedStop) > 0 and costR <= 0.12
+            if pass and observedSide == 0
+                entry := close
+                stop := proposedStop
+                risk := initialRisk
+                observedSide := direction
+                entryBar := bar_index
+                stage := 0
+                realized := 0
+                remaining := 1
+                markLong := direction == 1
+                markShort := direction == -1
+                status := "收线确认 · 非BBO成交"
+            else
+                markReject := true
+                status := not pass ? "成本>0.12R · 拒绝" : "单币观察尚未结束"
+        else if time == crossBar + M15
+            consumed := true
+            lastUsedX := activeX
+            status := "两根收线均在缓冲内 · 过期"
+            markReject := true
+        else
+            status := "缓冲内 · 仅等下一根15M"
+if barstate.isconfirmed and not consumed and time > crossBar + M15
+    consumed := true
+    lastUsedX := activeX
+    status := "确认窗口过期"
+float netAtClose = observedSide != 0 ? (observedSide * (close - entry) - fee * (entry + close)) / risk : na
+if barstate.isconfirmed and observedSide != 0 and bar_index > entryBar
+    bool hitStop = observedSide == 1 ? low <= stop : high >= stop
+    float best = observedSide == 1 ? high : low
+    float bestNet = (observedSide * (best - entry) - fee * (entry + best)) / risk
+    float nextLevel = stage == 0 ? 0.5 : stage == 1 ? 1.0 : 2.0
+    if hitStop and stage < 3 and bestNet >= nextLevel
+        markAmbiguous := true
+        observedSide := 0
+        status := "同K止损/减仓路径不明 · 停止观察"
+    else if hitStop
+        markStop := true
+        observedSide := 0
+        status := "保护价触达 · OHLC观察结束"
+    else
+        float reduction = 0
+        if stage == 0 and netAtClose >= 0.5
+            reduction += 0.40
+            stage := 1
+            markHalf := true
+        if stage == 1 and netAtClose >= 1
+            reduction += 0.25
+            stage := 2
+            markOne := true
+        if stage == 2 and netAtClose >= 2
+            reduction += 0.20
+            stage := 3
+            markTwo := true
+        if reduction > 0
+            realized += reduction * netAtClose
+            remaining -= reduction
+            float floorR = stage >= 2 ? 0.60 : 0.15
+            float needed = (floorR - realized) * risk / remaining
+            float fillPrice = observedSide == 1 ? (needed + entry * (1 + fee)) / (1 - fee) : (entry * (1 - fee) - needed) / (1 + fee)
+            float floorStop = fillPrice / (1 - observedSide * slip)
+            stop := observedSide == 1 ? math.max(stop, floorStop) : math.min(stop, floorStop)
+            status := stage == 3 ? "85%减仓观察 · 15%尾仓" : "净R减仓观察 · 保护收紧"
+        if stage == 3
+            float structureStop = observedSide == 1 ? trailLow : trailHigh
+            if not na(structureStop) and (observedSide == 1 ? structureStop < close : structureStop > close)
+                stop := observedSide == 1 ? math.max(stop, structureStop) : math.min(stop, structureStop)
+plot(not compact and showBuffer and not consumed ? activePx : na, "Px", color=pxColor, linewidth=2, style=plot.style_linebr, display=display.pane)
+plot(not compact and showBuffer and not consumed ? upper : na, "Px +5bp", color=color.new(pxColor, 65), style=plot.style_linebr, display=display.pane)
+plot(not compact and showBuffer and not consumed ? lower : na, "Px -5bp", color=color.new(pxColor, 65), style=plot.style_linebr, display=display.pane)
+plot(not compact and observedSide != 0 ? entry : na, "收线参考入场", color=observedSide == 1 ? longColor : shortColor, style=plot.style_linebr, display=display.pane)
+plot(not compact and observedSide != 0 ? stop : na, "保护观察", color=stopColor, linewidth=2, style=plot.style_linebr, display=display.pane)
+plotshape(markLong and (not compact or bar_index >= last_bar_index - fragmentBars), "多头收线确认", shape.labelup, location.belowbar, longColor, text="V2 多", textcolor=#102923, size=size.small, display=display.pane)
+plotshape(markShort and (not compact or bar_index >= last_bar_index - fragmentBars), "空头收线确认", shape.labeldown, location.abovebar, shortColor, text="V2 空", textcolor=color.white, size=size.small, display=display.pane)
+plotshape(showStages and markReject and (not compact or bar_index >= last_bar_index - fragmentBars), "拒绝 / 过期", shape.xcross, location.abovebar, mutedColor, size=size.tiny, display=display.pane)
+plotshape(showStages and markHalf and (not compact or bar_index >= last_bar_index - fragmentBars), "0.5净R / 减40%", shape.circle, location.abovebar, profitColor, text="40", textcolor=profitColor, size=size.tiny, display=display.pane)
+plotshape(showStages and markOne and (not compact or bar_index >= last_bar_index - fragmentBars), "1净R / 再减25%", shape.diamond, location.abovebar, profitColor, text="25", textcolor=profitColor, size=size.tiny, display=display.pane)
+plotshape(showStages and markTwo and (not compact or bar_index >= last_bar_index - fragmentBars), "2净R / 再减20%", shape.square, location.abovebar, profitColor, text="20", textcolor=profitColor, size=size.tiny, display=display.pane)
+plotshape(showStages and markStop and (not compact or bar_index >= last_bar_index - fragmentBars), "保护触达", shape.xcross, location.abovebar, stopColor, text="SL", textcolor=stopColor, size=size.small, display=display.pane)
+plotshape(showStages and markAmbiguous and (not compact or bar_index >= last_bar_index - fragmentBars), "同K路径不明", shape.flag, location.abovebar, pxColor, text="?", textcolor=pxColor, size=size.small, display=display.pane)
+// Price-scale projection is display only: use the actual frozen line anchors.
+f_project(line structure, int atTime) =>
+    float result = na
+    if not na(structure)
+        int x1 = line.get_x1(structure)
+        int x2 = line.get_x2(structure)
+        result := x2 != x1 ? line.get_y1(structure) + (line.get_y2(structure) - line.get_y1(structure)) * (atTime - x1) / float(x2 - x1) : na
+    result
+float parentNow = f_project(parent, time)
+float localNow = f_project(local, time)
+plot(not compact and showLines and not newPlan ? parentNow : na, "4H 当前投影", color=parentColor, linewidth=3, style=plot.style_linebr, display=display.pane)
+var label parentTag = na
+if barstate.islast and not compact and showLines and not na(parentNow)
+    if not na(parentTag)
+        label.delete(parentTag)
+    parentTag := label.new(time, parentNow, "4H · " + str.tostring(parentNow, format.mintick), xloc=xloc.bar_time, style=label.style_label_left, color=parentColor, textcolor=color.white, size=size.small)
+plot(compact and not consumed ? activePx : na, "当前Px价格尺度", color=color.new(pxColor, 100), style=plot.style_line, show_last=1, display=display.pane)
+// Three thin rays begin at the true intersection time and extend right. Labels advance after the intersection; prices retain the frozen Px.
+var line pxSegment = na
+var line upperSegment = na
+var line lowerSegment = na
+var line liveSegment = na
+var line stopSegment = na
+var label pxTag = na
+var label upperTag = na
+var label lowerTag = na
+var label liveTag = na
+var label timeTag = na
+if barstate.islast and compact
+    line.delete(pxSegment)
+    line.delete(upperSegment)
+    line.delete(lowerSegment)
+    line.delete(liveSegment)
+    line.delete(stopSegment)
+    label.delete(pxTag)
+    label.delete(upperTag)
+    label.delete(lowerTag)
+    label.delete(liveTag)
+    label.delete(timeTag)
+    int fragmentStart = na(activeX) ? time : int(activeX)
+    int fragmentEnd = math.max(fragmentStart + fragmentBars * M15, time + 8 * M15)
+    bool currentPlan = not na(activeX) and not consumed
+    if showBuffer and currentPlan
+        pxSegment := line.new(fragmentStart, activePx, fragmentEnd, activePx, xloc=xloc.bar_time, extend=extend.right, color=pxColor, width=1)
+        upperSegment := line.new(fragmentStart, upper, fragmentEnd, upper, xloc=xloc.bar_time, extend=extend.right, color=longColor, style=line.style_solid, width=1)
+        lowerSegment := line.new(fragmentStart, lower, fragmentEnd, lower, xloc=xloc.bar_time, extend=extend.right, color=shortColor, style=line.style_solid, width=1)
+        pxTag := label.new(fragmentEnd, activePx, "Px " + str.tostring(activePx, format.mintick), xloc=xloc.bar_time, style=label.style_label_left, color=chart.bg_color, textcolor=pxColor, size=levelTextSize)
+        upperTag := label.new(fragmentEnd, upper, "上沿 +0.05% · " + str.tostring(upper, format.mintick), xloc=xloc.bar_time, style=label.style_label_down, color=chart.bg_color, textcolor=longColor, size=levelTextSize)
+        lowerTag := label.new(fragmentEnd, lower, "下沿 −0.05% · " + str.tostring(lower, format.mintick), xloc=xloc.bar_time, style=label.style_label_up, color=chart.bg_color, textcolor=shortColor, size=levelTextSize)
+    if showCrossTime and not na(activeX)
+        timeTag := label.new(int(activeX), close, (activeX > time_close ? "预测交汇 · " : "交汇 · ") + str.format_time(int(activeX), "MM-dd HH:mm", displayZone), xloc=xloc.bar_time, style=label.style_label_up, color=chart.bg_color, textcolor=pxColor, size=size.small)
+    liveSegment := line.new(time - 4 * M15, close, time + 4 * M15, close, xloc=xloc.bar_time, color=mutedColor, style=line.style_dotted)
+    liveTag := label.new(time + 4 * M15, close, "现价 " + str.tostring(close, format.mintick), xloc=xloc.bar_time, style=label.style_label_left, color=chart.bg_color, textcolor=mutedColor, size=size.small)
+    if showStages and observedSide != 0
+        stopSegment := line.new(fragmentStart, stop, fragmentEnd, stop, xloc=xloc.bar_time, color=stopColor, width=2)
+// Compact context keeps a distant mathematical intersection explicit without moving it.
+var table compactContext = table.new(position.bottom_right, 1, 2, bgcolor=color.new(chart.bg_color, 15), frame_width=0)
+if barstate.islast and compact and showPanel
+    float gapPercent = not na(activePx) and close > 0 ? (activePx / close - 1) * 100 : na
+    string gapText = na(gapPercent) or consumed ? "暂无有效交汇" : "Px 距现价 " + (gapPercent >= 0 ? "+" : "") + str.tostring(gapPercent, "0.00") + "%"
+    table.cell(compactContext, 0, 0, gapText, text_color=pxColor, text_size=size.normal, text_halign=text.align_right)
+    table.cell(compactContext, 0, 1, manual ? "服务器四锚点 · 图表观察" : "自动研究 · 近似锚点", text_color=mutedColor, text_size=size.small, text_halign=text.align_right)
+var table panel = table.new(compact ? position.bottom_left : position.top_right, 2, compact ? 8 : 10, bgcolor=color.new(#111A2B, 10), frame_color=#31415C, frame_width=1)
+if barstate.islast and showPanel and not compact
+    table.cell(panel, 0, 0, "V2", text_color=pxColor, text_size=size.large)
+    table.cell(panel, 1, 0, "R22 · 图表观察", text_color=color.white)
+    table.cell(panel, 0, 1, "模式", text_color=mutedColor)
+    table.cell(panel, 1, 1, manual ? "四锚点几何" : "自动锚点近似", text_color=pxColor)
+    table.cell(panel, 0, 2, "状态", text_color=mutedColor)
+    table.cell(panel, 1, 2, status, text_color=color.white)
+    table.cell(panel, 0, 3, "结构", text_color=parentColor)
+    table.cell(panel, 1, 3, "4H 蓝 / 1H 紫 / Px 金", text_color=localColor)
+    table.cell(panel, 0, 4, "确认", text_color=longColor)
+    table.cell(panel, 1, 4, "多 绿 / 空 玫红 / 拒绝 灰", text_color=shortColor)
+    table.cell(panel, 0, 5, "管理观察", text_color=profitColor)
+    table.cell(panel, 1, 5, "40% → 25% → 20% → 尾15%", text_color=profitColor)
+    table.cell(panel, 0, 6, "执行边界", text_color=stopColor)
+    table.cell(panel, 1, 6, "无BBO / 组合门 / 真实成交", text_color=mutedColor)
+    table.cell(panel, 0, 7, "交汇时间", text_color=pxColor)
+    table.cell(panel, 1, 7, na(activeX) ? "暂无合格交汇" : str.format_time(int(activeX), "MM-dd HH:mm", syminfo.timezone) + " · " + syminfo.timezone, text_color=pxColor)
+    table.cell(panel, 0, 8, "时间轴", text_color=mutedColor)
+    table.cell(panel, 1, 8, na(activeX) ? "等待结构" : activeX > time_close ? "未来 " + str.tostring((activeX - time_close) / 3600000, "#.##") + "h · 右侧金色竖线" : "交汇已发生 · 金色历史竖线", text_color=pxColor)
+    table.cell(panel, 0, 9, "4H 蓝线现价", text_color=parentColor)
+    table.cell(panel, 1, 9, na(parentNow) ? "暂无锚点" : str.tostring(parentNow, format.mintick), text_color=parentColor)
+alertcondition(markLong, "V2 多头收线确认", "V2 R22 chart observation LONG — not a live order")
+alertcondition(markShort, "V2 空头收线确认", "V2 R22 chart observation SHORT — not a live order")

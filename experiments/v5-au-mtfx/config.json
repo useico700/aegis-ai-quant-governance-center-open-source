@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "strategyId": "ORION-V5-AU-MTFX-0.5.0",
+  "implementationRevision": "ORION-V5-AU-R22-END-TO-END-2.0.0",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "sourceStrategy": {
+    "strategyVersion": "ORION-V2-RESEARCH-MTFX-0.5.0",
+    "implementationRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+    "readOnlyIntentMigration": true
+  },
+  "scope": {
+    "exchange": "SHFE",
+    "product": "AU",
+    "currency": "CNY",
+    "initialPaperCapitalCny": 500000,
+    "singleProductOnly": true,
+    "paperAccountingOnly": true
+  },
+  "signal": {
+    "structure": "4H_1H_PRICE_TIME_INTERSECTION",
+    "confirmation": "FIRST_ELIGIBLE_FULLY_CLOSED_15M_CONFIRMATION",
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "maximumCompleteLifecycleCostR": 0.12,
+    "eventFreeze": [
+      "FOMC",
+      "US_CPI",
+      "US_EMPLOYMENT_SITUATION",
+      "US_PCE"
+    ],
+    "pivotDefinition": {
+      "fourHour": {
+        "leftBars": 3,
+        "rightBars": 3
+      },
+      "oneHour": {
+        "leftBars": 4,
+        "rightBars": 4
+      }
+    },
+    "minimumDiscoveryLeadHours": 2,
+    "maximumLeadHours": 72,
+    "crossCloseBufferBps": 5,
+    "maximumDirectionDecisionBars": 2,
+    "r15Replacement": "OPPOSITE_CURRENT_FULLY_CONFIRMED_CLOSE_OLD_LEDGER_FIRST_THEN_NEXT_FRESH_BBO_OPEN_NEW"
+  },
+  "risk": {
+    "maximumRiskPerEntryFraction": 0.01,
+    "maximumManagedPortfolioRiskFraction": 0.05,
+    "riskSizingUtilizationFraction": 0.98,
+    "maximumEffectiveNotionalLeverage": 4,
+    "maximumOpenPositionsTotal": 10,
+    "maximumOpenPositionsPerProduct": 1,
+    "effectiveMaximumOpenPositions": 1,
+    "integerLotsOnly": true,
+    "zeroLotEntryAction": "REJECT",
+    "averagingDownAllowed": false,
+    "stopWideningAllowed": false
+  },
+  "exits": {
+    "targetFractionsOfOriginalLots": [
+      0.4,
+      0.25,
+      0.2,
+      0.15
+    ],
+    "targetCumulativeFractions": [
+      0.4,
+      0.65,
+      0.85,
+      1
+    ],
+    "aggregateNetRFloors": {
+      "afterHalfNetR": 0.15,
+      "afterOneNetR": 0.6
+    },
+    "runner": "TIGHTER_OF_CONFIRMED_1H_STRUCTURE_AND_CLOSED_15M_ATR_NO_TIME_EXIT",
+    "integerAllocation": "CLOSEST_CUMULATIVE_FRACTIONS_LEXICOGRAPHIC_DELAY_TIEBREAK",
+    "finalStageMustLiquidateRemainder": true
+  },
+  "market": {
+    "instrumentPattern": "^au[0-9]{4}$",
+    "instrumentMetadata": "AUTHORITATIVE_CTP_INSTRUMENT_METADATA_REQUIRED",
+    "continuousAdjustedPricesAllowedForFills": false,
+    "officialTradingCalendarRequired": true,
+    "calendarSchema": "AUTHORITATIVE_TRADING_DAY_RECORD_WITH_DAY_ACTION_DAY_NIGHT_ACTION_DAY_PAIRS_AND_HAS_NIGHT_SESSION",
+    "instrumentMetadataRequiredFields": [
+      "volumeMultiple",
+      "priceTick",
+      "longMarginRatio",
+      "shortMarginRatio",
+      "lastTradingDay",
+      "exchangeOpenCloseTodayCloseYesterdayFees",
+      "brokerOpenCloseTodayCloseYesterdaySurcharges",
+      "deliveryRuleVersionAndLotMultiples"
+    ],
+    "sessionsAsiaShanghai": [
+      {
+        "id": "NIGHT_1",
+        "start": "21:00:00",
+        "end": "24:00:00",
+        "tradingDayOffset": 1
+      },
+      {
+        "id": "NIGHT_2",
+        "start": "00:00:00",
+        "end": "02:30:00",
+        "tradingDayOffset": 0
+      },
+      {
+        "id": "DAY_AM_1",
+        "start": "09:00:00",
+        "end": "10:15:00",
+        "tradingDayOffset": 0
+      },
+      {
+        "id": "DAY_AM_2",
+        "start": "10:30:00",
+        "end": "11:30:00",
+        "tradingDayOffset": 0
+      },
+      {
+        "id": "DAY_PM",
+        "start": "13:30:00",
+        "end": "15:00:00",
+        "tradingDayOffset": 0
+      }
+    ]
+  },
+  "evidence": {
+    "historicalRole": "WARMUP_ONLY",
+    "gate1Plus": "FORWARD_CTP_TICK_AND_BBO_ONLY",
+    "unknownSameBarPath": "EXCLUDE",
+    "dataGap": "EXCLUDE_AND_RECORD",
+    "unknownQueuePosition": "EXCLUDE"
+  },
+  "roll": {
+    "ranking": [
+      "TRADING_DAY_VOLUME_DESC",
+      "OPEN_INTEREST_DESC",
+      "INSTRUMENT_ID_ASC"
+    ],
+    "minimumConsecutiveCompletedTradingDays": 2,
+    "openPositionSwitch": "BLOCK_AND_REQUIRE_EXPLICIT_ROLL_PLAN",
+    "adjustedSeriesFill": "FORBIDDEN",
+    "newOpenDisabledContract": "EXCLUDE",
+    "completedObservationBatch": "FIRST_NEXT_TRADING_DAY_TICK_FINALIZES_ALL_SUBSCRIBED_OBSERVED_OR_EXPLICIT_MISSING",
+    "contractStrategyStatePartition": "INSTRUMENT_ID_NO_CROSS_CONTRACT_BARS_CANDIDATES_CONFIRMATIONS",
+    "deliveryConstraintWindowContract": "EXCLUDE_USING_AUTHORITATIVE_RULE_VERSION"
+  },
+  "positionBatches": {
+    "identity": "INSTRUMENT_SIDE_OPEN_TRADING_DAY_AND_OPEN_TIMESTAMP",
+    "closeAllocation": "TODAY_FIRST_THEN_YESTERDAY_FIFO",
+    "nightAndDaySameTradingDay": "CLOSE_TODAY",
+    "fees": "ACTUAL_CLOSE_TODAY_CLOSE_YESTERDAY_LEG_SPLIT"
+  },
+  "efficacy": {
+    "forwardCtpTickBboOnly": true,
+    "interimReviewEveryClosedTrades": 20,
+    "maximumTradingDaysWithoutReview": 5,
+    "primaryMinimumAttributableClosedTrades": 100,
+    "minimumWins": 20,
+    "minimumLosses": 20,
+    "automaticStrategyMutationAllowed": false,
+    "automaticRealPromotionAllowed": false
+  }
+}

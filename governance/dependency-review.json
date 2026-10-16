@@ -1,0 +1,139 @@
+{
+  "recordedDate": "2026-10-16",
+  "criticalPackagesUpdated": true,
+  "scope": "Installation dependency audit; residual upstream build-tool advisories are not waived",
+  "profiles": {
+    "root": {
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 3,
+        "high": 8,
+        "critical": 0,
+        "total": 11
+      },
+      "packages": [
+        {
+          "name": "@next/eslint-plugin-next",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "@vercel/og",
+          "severity": "moderate",
+          "advisories": []
+        },
+        {
+          "name": "braces",
+          "severity": "high",
+          "advisories": [
+            "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
+          ]
+        },
+        {
+          "name": "eslint-config-next",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "fast-glob",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "fflate",
+          "severity": "moderate",
+          "advisories": [
+            "https://github.com/advisories/GHSA-px8p-9vwx-vf98"
+          ]
+        },
+        {
+          "name": "micromatch",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "satori",
+          "severity": "moderate",
+          "advisories": []
+        },
+        {
+          "name": "vinext",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "vite-plugin-commonjs",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "vite-plugin-dynamic-import",
+          "severity": "high",
+          "advisories": []
+        }
+      ]
+    },
+    "jev": {
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 3,
+        "high": 6,
+        "critical": 0,
+        "total": 9
+      },
+      "packages": [
+        {
+          "name": "@vercel/og",
+          "severity": "moderate",
+          "advisories": []
+        },
+        {
+          "name": "braces",
+          "severity": "high",
+          "advisories": [
+            "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm"
+          ]
+        },
+        {
+          "name": "fast-glob",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "fflate",
+          "severity": "moderate",
+          "advisories": [
+            "https://github.com/advisories/GHSA-px8p-9vwx-vf98"
+          ]
+        },
+        {
+          "name": "micromatch",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "satori",
+          "severity": "moderate",
+          "advisories": []
+        },
+        {
+          "name": "vinext",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "vite-plugin-commonjs",
+          "severity": "high",
+          "advisories": []
+        },
+        {
+          "name": "vite-plugin-dynamic-import",
+          "severity": "high",
+          "advisories": []
+        }
+      ]
+    }
+  }
+}

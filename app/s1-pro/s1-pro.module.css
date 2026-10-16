@@ -1,0 +1,170 @@
+/* S1 Pro motion layer. Everything is scoped under .pro and only decorates the unchanged classic page. */
+.pro { position: relative; isolation: isolate; }
+.particles { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 3; pointer-events: none; mix-blend-mode: screen; }
+.demoBadge { position: fixed; z-index: 120; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); padding: 7px 14px; border: 1px dashed #f5c46a; border-radius: 999px; background: rgba(8, 12, 18, .82); color: #f5c46a; font: 600 12px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .06em; white-space: nowrap; backdrop-filter: blur(10px); }
+
+/* ---- heartbeat: a live ECG trace beside each of the three heartbeats ---- */
+.pro :global(section[aria-labelledby="heartbeat-title"] article) { position: relative; }
+.pro :global(section[aria-labelledby="heartbeat-title"] article)::after {
+  content: ""; position: absolute; right: 0; top: 50%; width: min(48%, 190px); height: 28px; transform: translateY(-50%); pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%2228%22%20viewBox%3D%220%200%20120%2028%22%3E%3Cpath%20d%3D%22M0%2014%20H66%20L70%2010%20L74%2018%20L78%2014%20H120%22%20fill%3D%22none%22%20stroke%3D%22%23f5c46a%22%20stroke-width%3D%221.4%22/%3E%3C/svg%3E") repeat-x 0 50% / 120px 28px; opacity: .6;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 30%, #000 82%, transparent);
+  animation: proEcg 3.6s linear infinite;
+}
+.pro :global(section[aria-labelledby="heartbeat-title"] article[data-pro-ok="true"])::after { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%2228%22%20viewBox%3D%220%200%20120%2028%22%3E%3Cpath%20d%3D%22M0%2014%20H38%20L44%2012%20L48%2017%20L52%2014%20H60%20L64%203%20L69%2025%20L74%208%20L79%2014%20H120%22%20fill%3D%22none%22%20stroke%3D%22%234fe0d6%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E"); opacity: .85; animation-duration: 1.6s; filter: drop-shadow(0 0 4px rgba(79, 224, 214, .7)); }
+@keyframes proEcg { to { background-position: -120px 50%; } }
+
+/* ---- signal flow: classic cube/brain glow (only visible if the 3D skin is not active) ---- */
+.pro :global(section[aria-labelledby="signal-flow-title"] [class*="cubeField"]) { animation: proGlow 3.2s ease-in-out infinite; }
+.pro :global(section[aria-labelledby="signal-flow-title"] [class*="brainGlyph"]) { animation: proGlow 2.4s ease-in-out infinite; }
+@keyframes proGlow { 0%, 100% { filter: drop-shadow(0 0 4px rgba(92, 200, 245, .35)); } 50% { filter: drop-shadow(0 0 16px rgba(92, 200, 245, .85)); } }
+
+/* ---- countdowns under one hour glow ---- */
+.pro :global([data-pro-soon="true"]) { color: #fff !important; text-shadow: 0 0 14px rgba(118, 222, 234, .85); animation: proSoon 1s ease-in-out infinite alternate; }
+@keyframes proSoon { from { text-shadow: 0 0 6px rgba(118, 222, 234, .5); } to { text-shadow: 0 0 18px rgba(118, 222, 234, 1); } }
+
+/* ---- quiet hover feedback on the main panels and rows ---- */
+.pro :global(#equity > section), .pro :global(#positions), .pro :global(#candidates), .pro :global(section[aria-labelledby="signal-flow-title"]), .pro :global(section[aria-labelledby="heartbeat-title"]) { transition: box-shadow .45s ease, border-color .45s ease; }
+.pro :global(#equity > section):hover, .pro :global(#positions):hover, .pro :global(#candidates):hover, .pro :global(section[aria-labelledby="signal-flow-title"]):hover { box-shadow: 0 0 0 1px rgba(118, 222, 234, .22), 0 26px 70px -36px rgba(118, 222, 234, .45); }
+.pro :global(#positions article), .pro :global(#candidates article) { transition: background-color .3s ease, transform .45s cubic-bezier(.34, 1.4, .64, 1); }
+.pro :global(#positions article):hover, .pro :global(#candidates article):hover { background-color: rgba(118, 222, 234, .045); transform: translateX(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pro :global(*)::after, .pro :global(*) { animation: none !important; transition: none !important; }
+  .particles { display: none; }
+}
+
+/* ================= 3D skin for brain / cube / outcome cards ================= */
+/* classic visuals are hidden only after the skin has located them (host[data-skin="on"]) */
+.pro[data-skin="on"] :global(section[aria-labelledby="signal-flow-title"] [class*="brainGlyph"]),
+.pro[data-skin="on"] :global(section[aria-labelledby="signal-flow-title"] [class*="cubeField"]),
+.pro[data-skin="on"] :global(section[aria-labelledby="signal-flow-title"] [class*="gate"] dl),
+.pro[data-skin="on"] :global(section[aria-labelledby="signal-flow-title"] [class*="outcomes"] > div) { opacity: 0 !important; }
+
+.skin { position: absolute; inset: 0; pointer-events: none; }
+.skin, .skin * { box-sizing: border-box; }
+.skinBrain { position: absolute; z-index: 2; }
+.skinCubeWrap { position: absolute; z-index: 2; }
+.skinCube { position: absolute; inset: 0; width: 100%; height: 100%; }
+.skinPending { position: absolute; left: 50%; top: 50%; display: grid; justify-items: center; gap: 2px; transform: translate(-50%, -52%); padding: 10px 14px; border-radius: 50%; background: radial-gradient(closest-side, rgba(4, 10, 18, .82), rgba(4, 10, 18, .5) 60%, transparent); }
+.skinPending b { font: 800 34px/1 Inter, -apple-system, "SF Pro Display", sans-serif; letter-spacing: -.03em; background: linear-gradient(180deg, #fff 30%, #8fe3ff); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 12px rgba(92, 200, 245, .7)); }
+.skinPending small { color: rgba(214, 236, 248, .72); font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
+.skinCubeWrap[data-live="true"] .skinPending b { animation: skinBreath 2.6s ease-in-out infinite; }
+@keyframes skinBreath { 50% { filter: drop-shadow(0 0 22px rgba(92, 200, 245, 1)); } }
+
+.skinCard {
+  --tone: 79, 224, 214; --tone-glow: rgba(79, 224, 214, .55);
+  --card-depth: 0 22px 44px -22px rgba(0, 0, 0, .9), 0 0 46px -16px rgba(var(--tone), .55);
+  position: absolute; z-index: 4; pointer-events: auto; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 0 18px 0 22px; border-radius: 18px; overflow: hidden; cursor: default;
+  background: linear-gradient(135deg, rgba(var(--tone), .2), rgba(10, 20, 30, .9) 46%, rgba(5, 10, 16, .96));
+  box-shadow: var(--card-depth), inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -14px 28px -18px rgba(var(--tone), .6);
+  transform: perspective(760px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transform-style: preserve-3d;
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), filter .4s, opacity .4s;
+  backdrop-filter: blur(12px);
+}
+.skinCard[data-dir="short"] { --tone: 255, 134, 180; --tone-glow: rgba(255, 134, 180, .55); }
+.skinCard::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from var(--skin-spin, 0deg), rgba(var(--tone), .15), rgba(var(--tone), .95) 18%, rgba(255, 255, 255, .9) 24%, rgba(var(--tone), .15) 40%, rgba(var(--tone), .15));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: skinSpin 5s linear infinite; }
+.skinCard[data-lit="false"] { filter: saturate(.55) brightness(.85); }
+.skinCard[data-lit="false"]::before { animation-duration: 12s; opacity: .55; }
+@property --skin-spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes skinSpin { to { --skin-spin: 360deg; } }
+.skinReceiver { position: absolute; left: 0; top: 22%; bottom: 22%; width: 3px; border-radius: 0 3px 3px 0; background: rgb(var(--tone)); box-shadow: 0 0 16px 2px rgba(var(--tone), .8); }
+.skinCard[data-lit="true"] .skinReceiver { animation: skinReceive 1.6s ease-in-out infinite; }
+@keyframes skinReceive { 50% { box-shadow: 0 0 26px 5px rgba(var(--tone), 1); } }
+.skinIcon { position: relative; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .25), rgba(var(--tone), .18) 45%, rgba(0, 0, 0, .35)); box-shadow: inset 0 0 0 1px rgba(var(--tone), .6), 0 0 18px -4px rgba(var(--tone), .9); transform: translateZ(26px); }
+.skinIcon svg { width: 20px; height: 20px; fill: none; stroke: rgb(var(--tone)); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(var(--tone), .9)); }
+.skinCard[data-lit="true"] .skinIcon svg { animation: skinNudge 1.8s ease-in-out infinite; }
+.skinCard[data-dir="short"][data-lit="true"] .skinIcon svg { animation-name: skinNudgeDown; }
+@keyframes skinNudge { 50% { transform: translateY(-3px); } }
+@keyframes skinNudgeDown { 50% { transform: translateY(3px); } }
+.skinCopy { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-width: 0; transform: translateZ(18px); }
+.skinCopy small { color: rgba(226, 240, 248, .78); font-size: 13px; letter-spacing: .04em; white-space: nowrap; }
+.skinCopy b { display: flex; align-items: baseline; gap: 5px; font: 800 32px/1 Inter, -apple-system, "SF Pro Display", sans-serif; letter-spacing: -.03em; background: linear-gradient(180deg, #fff 25%, rgb(var(--tone))); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 10px rgba(var(--tone), .55)); }
+.skinCopy b em { font-style: normal; font: 600 11px/1 -apple-system, sans-serif; letter-spacing: 0; -webkit-text-fill-color: rgba(var(--tone), .9); }
+.skinSheen { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(220px circle at var(--mx, -200px) 50%, rgba(255, 255, 255, .12), transparent 60%), linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .1) 48%, transparent 60%); background-size: 100% 100%, 260% 100%; animation: skinSheen 6s ease-in-out infinite; }
+@keyframes skinSheen { 0%, 55% { background-position: 0 0, 160% 0; } 100% { background-position: 0 0, -60% 0; } }
+.skinCard[data-stacked="true"] { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 6px; padding: 10px 8px; }
+.skinCard[data-stacked="true"] .skinIcon { width: 30px; height: 30px; }
+.skinCard[data-stacked="true"] .skinIcon svg { width: 15px; height: 15px; }
+.skinCard[data-stacked="true"] .skinCopy { flex-direction: column; gap: 4px; }
+.skinCard[data-stacked="true"] .skinCopy b { font-size: 24px; }
+.skinCard[data-stacked="true"] .skinReceiver { left: 30%; right: 30%; top: 0; bottom: auto; width: auto; height: 3px; border-radius: 0 0 3px 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skinCard, .skinCard::before, .skinReceiver, .skinIcon svg, .skinSheen, .skinPending b { animation: none !important; transition: none !important; }
+}
+
+/* ================= Theme: the whole monitor follows the 多空信号流 texture ================= */
+/* deep-space palette fed into the classic page's own tokens */
+.pro { background: radial-gradient(1200px 640px at 72% -12%, rgba(92, 200, 245, .14), transparent 62%), radial-gradient(900px 600px at 6% 40%, rgba(79, 224, 214, .06), transparent 70%), linear-gradient(180deg, #050c16 0%, #06101c 40%, #040911 100%); min-height: 100vh; }
+.ambient { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100vh; pointer-events: none; }
+.pro :global(main) {
+  position: relative; z-index: 1; background: transparent !important;
+  --ink: oklch(14% .035 245); --ink-deep: oklch(9.5% .03 248); --surface: oklch(17% .045 240); --surface-raised: oklch(21% .05 236);
+  --line: oklch(46% .07 225 / .5); --line-soft: oklch(38% .06 228 / .42); --cyan: oklch(84% .12 210); --cyan-soft: oklch(80% .08 215);
+}
+.pro :global(main)::before { opacity: .18 !important; }
+
+/* glass panels with a gradient rim and a slow travelling highlight */
+.pro :global(:is(#equity > section, #positions, #candidates, #more-data, section[aria-labelledby="heartbeat-title"], section[aria-labelledby="signal-flow-title"])) {
+  position: relative; border: 1px solid transparent !important; border-radius: 20px !important;
+  background:
+    linear-gradient(150deg, rgba(92, 200, 245, .085), rgba(9, 18, 30, .86) 34%, rgba(5, 11, 20, .93)) padding-box,
+    linear-gradient(120deg, rgba(130, 220, 250, .55), rgba(92, 200, 245, .08) 30%, rgba(79, 224, 214, .06) 68%, rgba(79, 224, 214, .42)) border-box !important;
+  box-shadow: 0 40px 80px -50px rgba(0, 0, 0, .95), 0 0 70px -42px rgba(92, 200, 245, .5), inset 0 1px 0 rgba(255, 255, 255, .07) !important;
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+.pro :global(section[aria-labelledby="signal-flow-title"]) {
+  background:
+    radial-gradient(ellipse at 54% 58%, rgba(92, 200, 245, .16), transparent 52%) padding-box,
+    linear-gradient(150deg, rgba(92, 200, 245, .085), rgba(9, 18, 30, .86) 34%, rgba(5, 11, 20, .93)) padding-box,
+    linear-gradient(120deg, rgba(130, 220, 250, .6), rgba(92, 200, 245, .08) 30%, rgba(79, 224, 214, .06) 68%, rgba(79, 224, 214, .5)) border-box !important;
+}
+.pro :global(:is(#equity > section, #positions, #candidates, #more-data, section[aria-labelledby="heartbeat-title"]))::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 1;
+  background: conic-gradient(from var(--pro-spin, 0deg), transparent 0 74%, rgba(190, 240, 255, .85) 83%, transparent 91%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: proSpin 14s linear infinite; opacity: .55;
+}
+@property --pro-spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes proSpin { to { --pro-spin: 360deg; } }
+
+/* frozen header + side navigation as glass */
+/* no backdrop-filter here: it would become the containing block of the fixed side navigation */
+.pro :global(#monitor-chrome) { background: linear-gradient(180deg, rgba(4, 10, 18, .94), rgba(5, 12, 22, .88)) !important; border-bottom: 1px solid rgba(120, 210, 245, .14); }
+.pro :global(#overview [class*="headerRight"] :is(a, button)) { border-radius: 12px !important; border-color: rgba(120, 210, 245, .3) !important; background: linear-gradient(135deg, rgba(92, 200, 245, .12), rgba(8, 16, 28, .6)) !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 10px 26px -18px rgba(92, 200, 245, .8); transition: box-shadow .3s, border-color .3s; }
+.pro :global(#overview [class*="headerRight"] :is(a, button):hover) { border-color: rgba(160, 230, 255, .7) !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 0 26px -6px rgba(92, 200, 245, .7); }
+.pro :global(#s1-navigation) { background: linear-gradient(180deg, rgba(6, 14, 26, .86), rgba(4, 9, 16, .9)) !important; backdrop-filter: blur(16px); border-right: 1px solid rgba(120, 210, 245, .14) !important; }
+.pro :global(#s1-navigation a[aria-current]) { background: linear-gradient(135deg, rgba(92, 200, 245, .22), rgba(79, 224, 214, .08)) !important; border-color: rgba(150, 230, 255, .45) !important; box-shadow: 0 0 24px -6px rgba(92, 200, 245, .7), inset 0 1px 0 rgba(255, 255, 255, .1); }
+
+/* hero numbers in the same luminous gradient as the outcome cards */
+.pro :global(#equity :is([class*="fundHero"], [class*="currentEquity"]) strong) { background: linear-gradient(180deg, #ffffff 25%, #8fe3ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 14px rgba(92, 200, 245, .35)); }
+.pro :global(section[aria-labelledby="heartbeat-title"] strong) { text-shadow: 0 0 14px currentColor; }
+
+/* equity chart as a glowing fiber */
+.pro :global(#equity svg path[class*="curve"]) { filter: drop-shadow(0 0 6px rgba(92, 200, 245, .75)); }
+.pro :global(#equity div[class*="chart"]) { border-color: rgba(120, 210, 245, .18) !important; background: radial-gradient(ellipse at 70% 0%, rgba(92, 200, 245, .08), transparent 60%), rgba(3, 8, 15, .45) !important; }
+
+/* tabs, badges and rows */
+.pro :global(:is(#positions, #candidates) [class*="tabs"]) { border-radius: 14px !important; border-color: rgba(120, 210, 245, .2) !important; background: rgba(3, 9, 16, .55) !important; }
+.pro :global(:is(#positions, #candidates) [class*="tabs"] button) { border-radius: 10px !important; transition: background .3s, box-shadow .3s, color .3s; }
+.pro :global(:is(#positions, #candidates) [class*="tabs"] button[aria-pressed="true"]) { background: linear-gradient(135deg, rgba(92, 200, 245, .34), rgba(79, 224, 214, .14)) !important; color: #effbff !important; box-shadow: inset 0 0 0 1px rgba(160, 230, 255, .55), 0 0 18px -4px rgba(92, 200, 245, .8); }
+.pro :global(:is(#positions, #candidates) [class*="badge"]) { border-radius: 999px !important; border-color: rgba(120, 210, 245, .35) !important; background: rgba(92, 200, 245, .08) !important; color: #bfeeff !important; }
+.pro :global(:is(#positions, #candidates) article) { border-color: rgba(120, 210, 245, .1) !important; }
+.pro :global(:is(#positions, #candidates) article [class*="identity"] i) { border-radius: 12px !important; border: 0 !important; background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .22), rgba(92, 200, 245, .18) 45%, rgba(0, 0, 0, .4)) !important; box-shadow: inset 0 0 0 1px rgba(120, 210, 245, .55), 0 0 16px -4px rgba(92, 200, 245, .8); color: #e8f8ff !important; }
+.pro :global(#candidates [class*="notice"]) { background: linear-gradient(90deg, rgba(92, 200, 245, .12), rgba(92, 200, 245, .02)) !important; border-color: rgba(120, 210, 245, .14) !important; }
+
+/* secondary data drawers and calendar cards */
+.pro :global(#more-data :is(details, section)) { border-color: rgba(120, 210, 245, .14) !important; border-radius: 16px !important; background: rgba(4, 10, 18, .5) !important; }
+.pro :global(#risk-calendar article) { border-color: rgba(120, 210, 245, .16) !important; border-radius: 14px !important; background: linear-gradient(160deg, rgba(92, 200, 245, .08), rgba(5, 11, 20, .7)) !important; }
+.pro :global(#more-data table tbody tr:hover) { background: rgba(92, 200, 245, .05); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient { display: none; }
+}
+@media (max-width: 760px) {
+  .pro :global(section[aria-labelledby="heartbeat-title"] article)::after { display: none; }
+  .demoBadge { font-size: 10.5px; padding: 6px 10px; }
+}

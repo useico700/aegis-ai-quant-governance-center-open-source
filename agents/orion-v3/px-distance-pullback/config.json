@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "researchId": "ORION-V3-HF14-PX-DISTANCE-PULLBACK-FORWARD-20260914",
+  "status": "ACTIVE_FORWARD_OBSERVE_ONLY",
+  "sourceImplementationRevision": "MTFX-V3-HF14-SINGLE-Z-STRUCTURE-GATE",
+  "sourceEvaluationCohortId": "ORION-V3-HF14-SINGLE-Z-FORWARD-20260914",
+  "prospectiveStart": "2026-09-14T15:56:12.232Z",
+  "venue": {
+    "name": "BINANCE_USDM_DEMO_PUBLIC_MARKET_DATA",
+    "publicStreamBaseUrl": "wss://fstream.binancefuture.com/public/stream",
+    "marketStreamBaseUrl": "wss://fstream.binancefuture.com/market/stream",
+    "allowedHost": "fstream.binancefuture.com",
+    "credentialsAllowed": false,
+    "signedRequestsAllowed": false,
+    "orderRequestsAllowed": false
+  },
+  "researchBoundary": {
+    "executionGate": false,
+    "rankingInput": false,
+    "ordersAffected": false,
+    "hf14ReloadRequired": false,
+    "redResetAllowed": false,
+    "historicalBackfillAllowed": false,
+    "automaticThresholdPromotionAllowed": false,
+    "maximumUniverseSize": 30
+  },
+  "signal": {
+    "minimumDistanceFromPxBps": 5,
+    "maximumLegacyBboDisplacementFromSecond15mCloseBps": 75,
+    "maximumSignalAgeMs": 300000,
+    "frozenStructureDistanceDenominator": "ABS_PRIMARY_1H_B_MINUS_C"
+  },
+  "frozenParameterGrid": {
+    "percentageDistanceBps": [
+      10,
+      15,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200
+    ],
+    "structureDistanceMultipliers": [
+      0.05,
+      0.1,
+      0.15,
+      0.25,
+      0.4,
+      0.6,
+      1
+    ]
+  },
+  "statistics": {
+    "correlationBlockMs": 14400000,
+    "rollingValidationWindowMs": 604800000,
+    "minimumEligibleSignals": 100,
+    "minimumIndependentTimeBlocks": 30,
+    "confidenceLevel": 0.95,
+    "unknownEvidenceValue": null,
+    "unfilledOutcomeValue": 0
+  },
+  "runtime": {
+    "cycleIntervalMs": 5000,
+    "streamStaleAfterMs": 60000,
+    "reconnectDelayMs": 1000,
+    "maximumRawEvidenceBytes": 268435456,
+    "sourceSnapshot": ".runtime/orion-v3-binance-demo/latest.json",
+    "root": ".runtime/orion-v3-px-distance-pullback"
+  }
+}

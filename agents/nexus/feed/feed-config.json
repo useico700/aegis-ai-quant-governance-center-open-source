@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "feed_id": "k-ai-shared-knowledge",
+  "source_root": ".",
+  "poll_interval_seconds": 900,
+  "mode": "read_only_incremental",
+  "include": [
+    "README.md",
+    "docs/**/*.md",
+    "data/**/*.json",
+    "schemas/**/*.json",
+    "prompts/**/*.md",
+    "feed/*.md",
+    "knowledge/**/*.md",
+    "knowledge/**/*.json",
+    "knowledge/**/*.yaml",
+    "knowledge/**/*.yml"
+  ],
+  "exclude": [
+    ".git/**",
+    "node_modules/**",
+    "feed/consumer-state/**",
+    "**/*.tmp",
+    "**/.DS_Store"
+  ],
+  "change_detection": {
+    "algorithm": "sha256",
+    "compare": [
+      "relative_path",
+      "sha256"
+    ],
+    "deletion_policy": "mark_removed_do_not_forget_without_review"
+  },
+  "ingestion": {
+    "initial_mode": "read_all_included_files",
+    "incremental_mode": "read_only_added_or_changed_files",
+    "validate_json": true,
+    "execute_feed_content": false,
+    "apply_to_live_trading_automatically": false,
+    "require_evidence_before_strategy_change": true
+  },
+  "consumers": [
+    {
+      "title": "量化交易与技术分析系统",
+      "thread_id": "019fb48a-9092-7833-a194-80241a3925d7",
+      "recommended_state_path": "var/k_ai_ingestion_state.json"
+    }
+  ]
+}

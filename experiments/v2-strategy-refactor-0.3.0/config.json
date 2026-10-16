@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "V2-STRATEGY-REFACTOR-MTF-ABLATION-0.3.0",
+  "candidateVersion": "ORION-V2-RESEARCH-0.3.0",
+  "status": "PREREGISTERED_RESEARCH_ONLY_OWNER_PAUSED",
+  "owner": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "governor": "AEGIS PRIME",
+  "authorization": {
+    "paperExecutionAllowed": false,
+    "realExecutionAllowed": false,
+    "automaticRestartAllowed": false,
+    "ownerApprovalRequiredToResume": true
+  },
+  "frozenBaseline": {
+    "strategyVersion": "ORION-V2-PAPER-0.2.2",
+    "configSha256": "a9e884e12eaa449274428e4b381534b482978a69e4ffd388091a348874ebde4b",
+    "strategySha256": "19b4c98a769261c56843edaeeaa526b0b1036417d8d84ae95fb6b3f317614f70",
+    "oosReportSha256": "20d55446184d13d7ba4d1c529f302e320f74fd472fa1cd73f6bd98ad806bf75f",
+    "performanceClaim": "NOT_VALIDATED"
+  },
+  "hypotheses": {
+    "null": "NO_HIGHER_TIMEFRAME_CELL_HAS_POSITIVE_AND_ROBUST_INCREMENTAL_NET_EXPECTANCY_VERSUS_15M_ONLY",
+    "alternative": "AT_LEAST_ONE_PREREGISTERED_HIGHER_TIMEFRAME_CELL_ADDS_ROBUST_COST_ADJUSTED_NET_EXPECTANCY"
+  },
+  "primaryEvent": {
+    "interval": "15m",
+    "direction": "INDEPENDENT_LONG_AND_SHORT_20_BAR_BREAKOUT",
+    "closedBarOnly": true,
+    "ohlcUse": "SIGNAL_SCREENING_ONLY",
+    "tickBboRequiredForPromotion": true
+  },
+  "phase1TimeframeCells": [
+    {
+      "id": "TF0_15M_ONLY",
+      "fourHourMode": "OFF",
+      "oneHourMode": "OFF",
+      "primaryControl": true
+    },
+    {
+      "id": "TF1_15M_PLUS_4H",
+      "fourHourMode": "HARD_DIRECTIONAL_AGREEMENT",
+      "oneHourMode": "OFF"
+    },
+    {
+      "id": "TF2_15M_PLUS_1H",
+      "fourHourMode": "OFF",
+      "oneHourMode": "HARD_MINIMUM_SCORE",
+      "minimumOneHourScore": 65
+    },
+    {
+      "id": "TF3_15M_PLUS_4H_PLUS_1H",
+      "fourHourMode": "HARD_DIRECTIONAL_AGREEMENT",
+      "oneHourMode": "HARD_MINIMUM_SCORE",
+      "minimumOneHourScore": 65
+    }
+  ],
+  "exploratoryCells": [
+    {
+      "id": "TF4_4H_SOFT",
+      "fourHourMode": "SOFT_RISK_MULTIPLIER",
+      "oneHourMode": "OFF",
+      "riskMultipliers": {
+        "agree": 1,
+        "neutral": 0.75,
+        "oppose": 0.5
+      },
+      "eligibleForPrimaryWinner": false
+    }
+  ],
+  "frozenDuringPhase1": [
+    "POINT_IN_TIME_UNIVERSE",
+    "BREAKOUT_LOOKBACK",
+    "BREAKOUT_BUFFER",
+    "VOLUME_POLICY",
+    "ENTRY_ROUTE",
+    "INITIAL_STOP",
+    "TARGETS",
+    "TRAILING_STOP",
+    "COSTS",
+    "FUNDING",
+    "ADMINISTRATIVE_EXIT",
+    "CAPACITY_MODEL"
+  ],
+  "phase2SingleVariableQueue": [
+    {
+      "id": "ENTRY_BREAKOUT_DISTANCE",
+      "control": 0.05,
+      "candidate": 0.15,
+      "unit": "ATR"
+    },
+    {
+      "id": "ENTRY_VOLUME_TAIL",
+      "control": 0.6,
+      "candidate": 0.975,
+      "unit": "PERCENTILE"
+    },
+    {
+      "id": "ENTRY_ROUTE",
+      "control": "RETEST_ONLY",
+      "candidate": "FOLLOW_ONLY"
+    }
+  ],
+  "walkForward": {
+    "type": "ANCHORED",
+    "purgeBars15m": 144,
+    "embargoBars15m": 144,
+    "minimumPositiveFoldFraction": 0.6,
+    "finalBlindOpened": false
+  },
+  "promotionGate": {
+    "minimumOosNetExpectancyRExclusive": 0,
+    "minimumProbabilityPositiveExpectancy": 0.9,
+    "minimumProfitFactor": 1.1,
+    "minimumTwoXCostNetExpectancyR": 0,
+    "minimumTwoXCostProfitFactor": 1,
+    "minimumPositiveWalkForwardFoldFraction": 0.6,
+    "bestFiveRemovalMustRemainNonNegative": true,
+    "parameterNeighborhoodDirectionAgreementRequired": true,
+    "tickBboExecutionReplayRequired": true,
+    "ownerApprovalRequired": true
+  }
+}

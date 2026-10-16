@@ -1,0 +1,54 @@
+{
+  "revision": "S2-2-INDEPENDENT-FVG-V1-SCREENING",
+  "name": "S2-2",
+  "mode": "HISTORICAL_SCREENING",
+  "orderAuthority": false,
+  "accountDependency": null,
+  "rulesDraft": "reports/strategy-research/20261014-s1-4h-fvg-rules/S1验证规则-V1.md",
+  "universe": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "ZECUSDT",
+    "HYPEUSDT",
+    "LINKUSDT",
+    "AAVEUSDT"
+  ],
+  "tickSizes": {
+    "BTCUSDT": 0.1,
+    "ETHUSDT": 0.01,
+    "SOLUSDT": 0.01,
+    "XRPUSDT": 0.0001,
+    "BNBUSDT": 0.01,
+    "DOGEUSDT": 1e-05,
+    "ZECUSDT": 0.01,
+    "HYPEUSDT": 0.001,
+    "LINKUSDT": 0.001,
+    "AAVEUSDT": 0.01
+  },
+  "minimumNetR": 3,
+  "maxCostR": 0.12,
+  "feeRate": 0.0005,
+  "slippageRate": 0.0002,
+  "fundingReserveRate": 0.0003,
+  "costStatus": "FIXED_RESEARCH_ASSUMPTIONS_NOT_ACCOUNT_FEES",
+  "risk": {
+    "initialEquity": 10000,
+    "perTrade": 0.04,
+    "portfolio": 0.1,
+    "maxPositions": 8,
+    "grossLeverage": 4
+  },
+  "entry": "D0_NEXT_1M_OPEN_WITHIN_180_SECONDS_MODEL_NOT_BBO",
+  "D1Enabled": false,
+  "ambiguity": "EXCLUDE_UNRESOLVED_PATHS_NO_PROFIT_ATTRIBUTION",
+  "scopeLimitations": [
+    "费用单边5bp、滑点单边2bp、资金费全程预留3bp，均为研究假设",
+    "OHLC筛选不等于Tick/BBO成交验收",
+    "本轮评估信号与退出；组合资金曲线、事件日历及真实成交率尚未验证",
+    "新规则独立模拟，不依附S1/S2账户；不自动晋级实盘"
+  ]
+}

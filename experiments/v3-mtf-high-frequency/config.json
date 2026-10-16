@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "V3-MTF-HIGH-FREQUENCY-PRICE-TIME-STRUCTURE-0.5.0",
+  "candidateVersion": "ORION-V3-RESEARCH-MTFX-HF-0.5.0",
+  "displayName": "V3 高频交汇 · HF14 单Z结构门",
+  "implementationRevision": "MTFX-V3-HF14-SINGLE-Z-STRUCTURE-GATE",
+  "implementationDirectiveId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "scanUniverseAuthorizationId": "OWNER-DIRECTIVE-ORION-V3-V4-TIERED-SCAN-UNIVERSE30-20260820",
+  "riskPolicyRevision": "V3-RISK-2-AGGRESSIVE-GROWTH-1PCT-10PCT-20260820",
+  "riskPolicyAuthorizationId": "OWNER-DIRECTIVE-ORION-V3-AGGRESSIVE-GROWTH-RISK-1PCT-10PCT-20260820",
+  "status": "OWNER_AUTHORIZED_AUTOMATED_BINANCE_DEMO_EXECUTION",
+  "evaluationIsolation": {
+    "baselineCohortId": "ORION-V3-PRE-HF11-BASELINE-20260826",
+    "forwardCohortId": "ORION-V3-HF14-SINGLE-Z-FORWARD-20260914",
+    "assignmentRule": "ENTRY_OPENED_UNDER_IMPLEMENTATION_REVISION",
+    "existingPositionsAndClosedTrades": "ORIGINAL_IMPLEMENTATION_AND_COHORT_EVIDENCE_UNCHANGED",
+    "forwardTrades": "HF14_COHORT_ONLY"
+  },
+  "shadowEvaluation": {
+    "experimentId": "ORION-V3-HF12A-COST-GATE-SHADOW-20260830",
+    "displayName": "HF12-A · 完整成本闸门影子测试",
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "status": "ACTIVE_OBSERVE_ONLY",
+    "prospectiveStart": "2026-08-30T15:22:58.300Z",
+    "sourceImplementationRevision": "MTFX-V3-HF11-TRUE-4H-MARKET-STATE-GATE",
+    "maximumCompleteLifecycleCostR": 0.12,
+    "takerFeeRate": 0.0007,
+    "adverseSlippageRate": 0.0002,
+    "minimumAttributableClosedPositions": 100,
+    "minimumObservationsPerBucket": 20,
+    "historicalBackfillAllowed": false,
+    "executionGate": false,
+    "ordersOrPositionsAffected": false,
+    "automaticPromotionAllowed": false,
+    "phaseB": {
+      "experimentId": "ORION-V3-HF12B-CONSENSUS-2-SHADOW",
+      "status": "LOCKED_PENDING_HF12A_REVIEW_AND_OWNER_APPROVAL",
+      "proposedMinimumConsensusSupport": 2,
+      "recordingActive": false
+    }
+  },
+  "baseStrategy": {
+    "version": "ORION-V2-RESEARCH-MTFX-0.5.0",
+    "implementationRevision": "MTFX-0.5.0-R17-SOFT-PROFIT-LOCK",
+    "preservedRules": [
+      "PRICE_TIME_ONLY",
+      "SYMMETRIC_TRENDLINE_CROSS",
+      "MATHEMATICAL_ANCHORS",
+      "TWO_BAR_CLOSE_DIRECTION",
+      "PX_5BPS_INITIAL_STOP",
+      "R17_SOFT_PROFIT_LOCK",
+      "FIFTEEN_MINUTE_RUNNER",
+      "TIER1_EVENT_FREEZE"
+    ]
+  },
+  "timeframes": {
+    "marketState": "4h",
+    "primaryStructure": "1h",
+    "opposingStructure": "15m",
+    "entryDecision": "15m",
+    "runnerTrail": "15m",
+    "commonCoordinate": "INTEGER_5M_BAR_INDEX"
+  },
+  "marketModel": {
+    "signalInputs": [
+      "EXCHANGE_OPEN_TIME",
+      "OPEN",
+      "HIGH",
+      "LOW",
+      "CLOSE"
+    ],
+    "indicatorSignalFilters": [],
+    "drawingCoordinatesUsed": false
+  },
+  "marketStateGate": {
+    "enabled": false,
+    "executionGate": false,
+    "observationOnly": true,
+    "requestInExecutionScan": false,
+    "interval": "4h",
+    "source": "BINANCE_USDM_DEMO_FULLY_CLOSED_OHLC",
+    "requestLimit": 500,
+    "pivotPolicy": {
+      "leftBars": 2,
+      "rightBars": 2,
+      "hierarchyWindowMultipliers": [
+        1
+      ]
+    },
+    "comparisonRule": "LAST_TWO_CONFIRMED_4H_HIGHS_AND_LAST_TWO_CONFIRMED_4H_LOWS",
+    "longOnlyRule": "BOTH_HIGHS_AND_LOWS_RISING",
+    "shortOnlyRule": "BOTH_HIGHS_AND_LOWS_FALLING",
+    "otherwiseState": "RANGE_OR_TRANSITION",
+    "missingEvidenceAction": "NOT_AN_EXECUTION_INPUT",
+    "unfinishedBarsAllowed": false,
+    "historicalSignalBackfillAllowed": false,
+    "symbolSpecificOverridesAllowed": false
+  },
+  "pivots": {
+    "anchorTimestamp": "EXCHANGE_BAR_OPEN_TIME",
+    "sameTypePairRequiresInterveningOppositeSwing": true,
+    "primary": {
+      "leftBars": 3,
+      "rightBars": 3,
+      "hierarchyWindowMultipliers": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "minimumRealtimeHierarchyMultiplier": 4,
+      "maximumSecondAnchorAgeFraction": 0.35,
+      "minimumAnchorSeparationBars": 3,
+      "searchWindowBars": 360,
+      "minimumAnchorProminenceFractionOfVisibleRange": 0.06,
+      "minimumPairMoveFractionOfVisibleRange": 0.02,
+      "minimumPairSpanFractionOfSearchWindow": 0.015,
+      "maximumIntermediateViolationFractionOfVisibleRange": 0.003,
+      "preferredSecondAnchorAgeFraction": {
+        "minimum": 0.02,
+        "maximum": 0.35
+      },
+      "maximumAnchorHypothesesPerLineage": 4,
+      "nonAdjacentParentAnchorsAllowed": true
+    },
+    "opposing": {
+      "leftBars": 4,
+      "rightBars": 4,
+      "hierarchyWindowMultipliers": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "minimumRealtimeHierarchyMultiplier": 2,
+      "maximumSecondAnchorAgeFraction": 0.5,
+      "minimumAnchorSeparationBars": 6,
+      "searchWindowBars": 1000,
+      "minimumAnchorProminenceFractionOfVisibleRange": 0.05,
+      "minimumPairMoveFractionOfVisibleRange": 0.02,
+      "minimumPairSpanFractionOfSearchWindow": 0.006,
+      "maximumIntermediateViolationFractionOfVisibleRange": 0.004,
+      "preferredSecondAnchorAgeFraction": {
+        "minimum": 0.01,
+        "maximum": 0.5
+      },
+      "maximumAnchorHypothesesPerLineage": 4,
+      "nonAdjacentParentAnchorsAllowed": true,
+      "adaptiveBackwardSearch": true
+    },
+    "runner": {
+      "leftBars": 3,
+      "rightBars": 3
+    }
+  },
+  "patterns": [
+    {
+      "id": "1H_DESC_HIGH__15M_ASC_LOW",
+      "primaryType": "HIGH",
+      "primaryDirection": -1,
+      "opposingType": "LOW",
+      "opposingDirection": 1
+    },
+    {
+      "id": "1H_ASC_LOW__15M_DESC_HIGH",
+      "primaryType": "LOW",
+      "primaryDirection": 1,
+      "opposingType": "HIGH",
+      "opposingDirection": -1
+    }
+  ],
+  "intersection": {
+    "minimumDiscoveryLeadMinutes": 5,
+    "maximumLeadHours": 6,
+    "minimumSlopeDifferencePer5m": 1e-12,
+    "primaryPairCandidates": 8,
+    "opposingPairCandidates": 12,
+    "ambiguousBoundaryMs": 20000,
+    "priceProximityRequired": false,
+    "discoveryPriceReference": "LATEST_FULLY_CLOSED_15M_CLOSE",
+    "maximumDiscoveryPriceDistanceBps": 750,
+    "maximumFormalCandidateDiscoveryDistanceBps": 200,
+    "observationCandidateAction": "RANK_RETAIN_AND_REEVALUATE_FOR_FRESH_BBO_PROMOTION",
+    "observationCandidateAutomaticSubmissionAtDiscovery": false,
+    "observationCandidatePromotionRequiresFreshExecutionBbo": true,
+    "maximumPrimaryProjectionSpanMultiples": 2,
+    "maximumOpposingProjectionSpanMultiples": 2,
+    "minimumAutomaticExecutionConsensusSupport": 1,
+    "conditionalSingleHypothesisExecution": {
+      "enabled": false,
+      "minimumAnchorQualityScore": 0.9,
+      "minimumStabilityScore": 0.7,
+      "minimumPrimaryHierarchyMultiplier": 4,
+      "minimumOpposingHierarchyMultiplier": 4
+    },
+    "insufficientConsensusAction": "DIRECT_HF14_15M_CONFIRMATION_FOR_EACH_RETAINED_HYPOTHESIS",
+    "realtimeCrossMustBeInFutureBlankAreaAtDiscovery": true,
+    "maximumQueuedCandidatesPerSymbol": 2,
+    "maximumRankedCandidatesGlobal": 12,
+    "candidateQueuePolicy": "GLOBAL_NEAR_TERM_SCORE_TOP12_MAX2_PER_SYMBOL",
+    "anchorConsensus": {
+      "clusterTimeRadiusMinutes": 30,
+      "clusterPriceRadiusBps": 100,
+      "highStabilityMinimumSupport": 3,
+      "gradeThresholds": {
+        "high": 0.75,
+        "medium": 0.55
+      }
+    }
+  },
+  "signal": {
+    "interval": "15m",
+    "maximumDirectionDecisionBars": 2,
+    "maximumReserveBars": 4,
+    "crossCloseBufferBps": 5,
+    "confirmationPolicy": "TWO_CONSECUTIVE_15M_CLOSES_SAME_SIDE_BEYOND_INTERSECTION_BUFFER",
+    "failedPersistenceAction": "EXPIRE_INTERSECTION_WITHOUT_REVERSE",
+    "maximumEntryDisplacementBps": 75,
+    "maximumEntrySignalAgeMs": 300000,
+    "entryDisplacementReference": "LATEST_EXECUTABLE_BBO_VERSUS_CONFIRMED_15M_DECISION_CLOSE",
+    "retryPolicy": "REVALIDATE_SIGNAL_AGE_AND_EXECUTABLE_BBO_DISPLACEMENT_BEFORE_EVERY_ATTEMPT",
+    "overDistanceAction": "WAIT_FOR_REENTRY_ONLY_WITHIN_ORIGINAL_SIGNAL_FRESHNESS_WINDOW",
+    "longRule": "BOTH_CONSECUTIVE_ELIGIBLE_15M_CLOSES_GREATER_THAN_OR_EQUAL_TO_PX_PLUS_5_BPS",
+    "shortRule": "BOTH_CONSECUTIVE_ELIGIBLE_15M_CLOSES_LESS_THAN_OR_EQUAL_TO_PX_MINUS_5_BPS",
+    "candleColorBodyAndWicks": "NOT_EXECUTION_INPUTS",
+    "oneEntryMaximumPerIntersection": true
+  },
+  "reentryLineageGate": {
+    "enabled": true,
+    "enforcedFrom": "2026-08-26T01:55:13.411+08:00",
+    "scope": "SAME_SYMBOL_AFTER_POST_ENFORCEMENT_POSITION_OR_COMPLETED_TRADE",
+    "requiredChange": "BOTH_PRIMARY_1H_AND_OPPOSING_15M_CONFIRMED_ANCHOR_PAIRS",
+    "fingerprintInputs": [
+      "PATTERN",
+      "PRIMARY_ANCHOR_TYPES_AND_OPEN_TIMES",
+      "OPPOSING_ANCHOR_TYPES_AND_OPEN_TIMES"
+    ],
+    "missingEvidenceAction": "FAIL_CLOSED",
+    "legacyPreHf9CompletedTrades": "BASELINE_ONLY_UNLESS_CARRIED_POSITION_CLOSES_AFTER_ENFORCEMENT"
+  },
+  "risk": {
+    "maximumRiskPerIntersectionFraction": 0.01,
+    "maximumPortfolioRiskFraction": 0.1,
+    "maximumOpenPositionsTotal": 18,
+    "maximumOpenPositionsPerSymbol": 1,
+    "maximumLeverage": 10,
+    "initialStopMode": "INTERSECTION_BUFFER",
+    "intersectionBufferBps": 5,
+    "lossAveragingAllowed": false,
+    "stopWideningAllowed": false
+  },
+  "exit": {
+    "atHalfNetR": {
+      "closeFractionOfOriginal": 0.2,
+      "moveStopToAggregateNetRFloor": 0.05
+    },
+    "atOneNetR": {
+      "closeFractionOfOriginal": 0.3,
+      "moveStopToAggregateNetRFloor": 0.5
+    },
+    "atTwoNetR": {
+      "closeFractionOfOriginal": 0.25
+    },
+    "runner": {
+      "fractionOfOriginal": 0.25,
+      "interval": "15m",
+      "longRule": "NEW_CONFIRMED_HIGHER_LOW",
+      "shortRule": "NEW_CONFIRMED_LOWER_HIGH",
+      "maximumHoldingTime": null
+    }
+  },
+  "eventRisk": {
+    "mode": "SCHEDULED_TIER1_EVENT_NEW_ENTRY_FREEZE",
+    "freezeBeforeMinutes": 30,
+    "freezeAfterMinutes": 30,
+    "entryWindowExtensionAllowed": false
+  },
+  "execution": {
+    "venue": "BINANCE_USDM_TESTNET",
+    "residentScannerAutomaticOrderSubmissionAllowed": true,
+    "realOrdersAllowed": false,
+    "productionEndpointsAllowed": false,
+    "maximumNewEntriesPerCycle": 2,
+    "structuralDiscoveryIntervalMs": 300000,
+    "candidatePositionAndReconciliationIntervalMs": 60000
+  },
+  "dualZ": {
+    "enabled": true,
+    "bothRequired": false,
+    "primaryRequired": true,
+    "opposingComparisonOnly": true,
+    "primaryInterval": "1h",
+    "opposingInterval": "15m",
+    "pointSource": "CONFIRMED_NATIVE_OHLC_HIGH_LOW",
+    "priceOrderUp": "A<C<B<D",
+    "priceOrderDown": "A>C>B>D",
+    "anchorBinding": "ORIGINAL_TRENDLINE_A_C",
+    "extremePolicy": "UNIQUE_THREE_LEG_ENVELOPE",
+    "confirmationPolicy": "INHERIT_CAUSAL_STRUCTURAL_PIVOTS",
+    "scanOrder": "LATEST_D_THEN_PRICE_DISTANCE_THEN_SCALE",
+    "pendingPriorRevisionAllowed": false,
+    "forwardOnlyFrom": "2026-09-14T12:07:47.688Z"
+  }
+}

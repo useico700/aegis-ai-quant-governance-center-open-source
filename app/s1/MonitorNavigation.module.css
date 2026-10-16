@@ -1,0 +1,54 @@
+.navigation{
+  position:fixed;
+  z-index:20;
+  inset:0 auto 0 0;
+  display:flex;
+  width:88px;
+  flex-direction:column;
+  padding:18px 10px;
+  border-right:1px solid var(--line-soft);
+  background:color-mix(in oklch,var(--ink-deep) 91%,transparent);
+  backdrop-filter:blur(18px);
+}
+.identity{display:grid;place-items:center;min-height:64px;padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
+.identity img{width:44px;height:44px}
+.links{display:grid;gap:7px;margin:16px 0 0;padding:0;list-style:none}
+.link{
+  position:relative;
+  display:flex;
+  min-height:58px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  border:1px solid transparent;
+  border-radius:10px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.2;
+  text-decoration:none;
+  touch-action:manipulation;
+}
+.link svg{flex-shrink:0}
+.link:hover{background:color-mix(in oklch,var(--surface) 72%,transparent);color:var(--text)}
+.link[aria-current]{border-color:color-mix(in oklch,var(--cyan) 28%,var(--line));background:color-mix(in oklch,var(--cyan) 10%,var(--surface));color:var(--cyan);font-weight:650}
+.link[aria-current]::before{content:"";position:absolute;left:-11px;top:17px;bottom:17px;width:3px;border-radius:0 3px 3px 0;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.link:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media(max-width:700px){
+  .navigation{
+    position:relative;
+    inset:auto;
+    flex-direction:row;
+    align-items:center;
+    width:auto;
+    margin:0 -16px;
+    padding:calc(7px + env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 7px max(8px,env(safe-area-inset-left));
+    border-right:0;
+    border-bottom:1px solid var(--line-soft);
+    overflow-x:auto;
+  }
+  .identity{display:none}
+  .links{display:grid;width:100%;min-width:390px;grid-template-columns:repeat(6,minmax(58px,1fr));gap:4px;margin:0}
+  .link{min-height:55px;padding:6px 2px;border-radius:8px}
+  .link[aria-current]::before{top:auto;right:28%;bottom:-8px;left:28%;width:auto;height:2px;border-radius:2px 2px 0 0}
+}

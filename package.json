@@ -1,0 +1,56 @@
+{
+  "name": "aegis-ai-quant-governance-center-open-source",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "setup": "node scripts/public/setup.mjs",
+    "dev": "vinext dev --host 127.0.0.1 --port 3000",
+    "build": "vinext build",
+    "start": "vinext start --host 127.0.0.1 --port 3000",
+    "demo": "node scripts/public/demo.mjs",
+    "demo:watch": "node scripts/public/demo.mjs --watch",
+    "test": "node scripts/public/test.mjs",
+    "test:upstream": "node --test tests/s1-execution-engine.test.mjs tests/s1-precision.test.mjs tests/s1-position-lifecycle.test.mjs tests/jev-filter.test.mjs",
+    "verify:public": "node scripts/public/verify.mjs",
+    "verify:migration": "node scripts/public/verify.mjs && node scripts/public/verify-jev.mjs",
+    "verify:jev-sync": "node scripts/public/verify-jev.mjs",
+    "jev:dev": "npm --prefix apps/jev-filter run dev -- --host 127.0.0.1 --port 3001",
+    "jev:build": "npm --prefix apps/jev-filter run build",
+    "demo:network": "node scripts/public/network-check.mjs"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2",
+    "next": "^16.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.50.0",
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "@vitejs/plugin-rsc": "^0.5.37",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.4",
+    "eslint-config-next": "^16.4.2",
+    "react-server-dom-webpack": "^19.3.1",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vinext": "1.2.1",
+    "vite": "^8.2.0",
+    "wrangler": "^4.118.0"
+  },
+  "overrides": {
+    "undici": "7.29.1",
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.12"
+    }
+  },
+  "type": "module",
+  "license": "MIT"
+}

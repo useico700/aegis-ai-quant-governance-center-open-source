@@ -1,0 +1,3 @@
+# 用户自己的授权
+
+此目录不包含任何已生效授权。authorization.example.json只是disabled模板，不允许复制原操作者授权或改一个enabled字段就宣称完成Demo集成。

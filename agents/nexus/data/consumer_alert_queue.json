@@ -1,0 +1,1263 @@
+{
+  "version": "2026-08-03T13:24:18+08:00",
+  "timezone": "Asia/Shanghai",
+  "feed_id": "k-ai-high-priority-alert-queue",
+  "consumer": {
+    "title": "量化交易与技术分析系统",
+    "thread_id": "019fb48a-9092-7833-a194-80241a3925d7"
+  },
+  "queue_policy": {
+    "minimum_priority": "P1",
+    "dedup_key": "alert_id",
+    "mode": "read_only_reference",
+    "execute_content": false,
+    "apply_to_live_trading_automatically": false,
+    "requires_cross_asset_confirmation": true,
+    "consumer_owns_ingestion_ledger": true
+  },
+  "pending": [
+    {
+      "alert_id": "p0-us-japan-yen-intervention-carry-unwind-20260731-v1",
+      "event_ids": [
+        "us_japan_coordinated_yen_intervention_2026_07_31",
+        "boj_hawkish_hold_carry_risk_2026_07_31"
+      ],
+      "priority": "P0",
+      "score": 96,
+      "confidence": {
+        "level": "high_for_reported_execution_pending_official_transaction_disclosure",
+        "probability": 0.93,
+        "basis": "FT cites three transaction sources, Reuters independently reported the prior bank alert and photographed the Treasury Secretary's yen-purchase note, and official sources confirm the New York Fed-ESF execution mechanism; official size and settlement disclosure remain pending."
+      },
+      "created_at": "2026-08-01T20:50:32+08:00",
+      "last_verified_at": "2026-08-02T01:36:53+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_weekend_to_monday_cash_market_reopen",
+        "review_cadence_minutes": 5,
+        "official_transaction_confirmation": "pending",
+        "latest_japan_monthly_release_coverage": "2026-06-29_through_2026-07-29_amount_zero_excludes_reported_event",
+        "next_japan_monthly_release_status": "officially_scheduled",
+        "next_japan_monthly_release_at": "2026-08-28T19:00:00+09:00",
+        "next_japan_monthly_release_at_asia_shanghai": "2026-08-28T18:00:00+08:00",
+        "next_japan_monthly_release_coverage": "2026-07-30_through_2026-08-26",
+        "reported_event_inside_next_japan_period": true,
+        "next_high_information_window": "Asia FX, JGB and equity reopen followed by Europe and U.S. cash markets; absent earlier U.S. disclosure, Japan monthly confirmation is scheduled for 28 August at 19:00 JST"
+      },
+      "verified_facts": [
+        "The Financial Times reports that the New York Fed sold euros and bought yen on 31 July on behalf of the U.S. Treasury, citing three people familiar with the transaction",
+        "Two FT sources said Goldman Sachs and Morgan Stanley executed the sales; the institutions had not immediately confirmed the transaction or amount",
+        "Reuters had already reported that Treasury notified banks to stand ready for possible yen intervention and separately photographed a Treasury Secretary note referring to buying 5 to 10 billion dollars of yen",
+        "Official New York Fed and Treasury pages confirm that the New York Fed can execute FX intervention for Treasury's Exchange Stabilization Fund and that ESF assets include euros and yen",
+        "FT reports that the dollar fell about 4 percent against the yen on Thursday and another 1.9 percent on Friday to 157.57 yen",
+        "Japan's 31 July 19:00 JST official monthly release reports zero intervention for 29 June through 29 July; that period excludes the reported 30-31 July actions and therefore does not disconfirm them",
+        "Japan's Ministry of Finance now officially schedules its next monthly release for 28 August at 19:00 JST, covering 30 July through 26 August and therefore including the reported 31 July event"
+      ],
+      "market_confirmation": {
+        "fx_source": "Financial Times market reporting",
+        "usd_jpy_friday_level": 157.57,
+        "usd_jpy_thursday_change_percent_approx": -4.0,
+        "usd_jpy_friday_change_percent": -1.9,
+        "crypto_source": "Binance public spot and USD-M perpetual APIs",
+        "crypto_snapshot_at": "2026-08-02T01:36:53+08:00",
+        "btc_usdt_last": 62760.01,
+        "btc_24h_percent": -0.507,
+        "eth_24h_percent": -0.779,
+        "sol_24h_percent": -2.304,
+        "xrp_24h_percent": -1.168,
+        "btc_funding_rate": 5.206e-05,
+        "btc_open_interest": 108961.548,
+        "btc_global_account_long_short_ratio": 2.0294,
+        "assessment": "Crypto spot weakness has broadened and altcoins underperform, while BTC open interest is essentially flat, funding remains positive and USDC plus FDUSD remain stable; this raises downside sensitivity but does not confirm acute cross-asset carry deleveraging or a liquidation cascade."
+      },
+      "impact_path": "Coordinated yen purchases and intervention expectations -> rapid JPY appreciation and short covering -> contraction of yen-funded carry trades -> equity, credit, high-yield FX and crypto volatility -> BTC open-interest reduction, funding compression and liquidation risk.",
+      "scenarios": {
+        "further_intervention_and_disorderly_yen_strength": "The strongest deleveraging branch requires renewed JPY gains together with higher volatility, weaker global equities and credit, falling BTC open interest, funding compression and rising liquidations.",
+        "orderly_yen_strength_and_broad_dollar_weakness": "A controlled FX adjustment can reduce dollar pressure and may support some risk assets; do not assume that every yen gain is automatically bearish for BTC.",
+        "intervention_fades_or_yen_reverses": "Carry-unwind risk can recede if USDJPY rebounds without renewed official action and equities, credit and crypto remain orderly.",
+        "official_denial_or_transaction_reclassification": "Downgrade the reported-execution confidence if Treasury or the New York Fed denies intervention or identifies the trades as routine customer activity.",
+        "monday_cross_asset_gap": "Treat Asia, Europe and U.S. cash-market reopenings as separate confirmation windows; price gaps without persistence or volume confirmation are insufficient."
+      },
+      "invalidation": "Official sources deny intervention or classify the trades as non-intervention activity, USDJPY reverses without renewed action, and JGBs, global equities, credit, BTC open interest, funding and liquidations remain orderly through the Monday reopen.",
+      "sources": [
+        "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8",
+        "https://www.reuters.com/world/asia-pacific/us-treasury-undertakes-intervention-yen-market-ft-reports-2026-08-01/",
+        "https://www.reuters.com/world/asia-pacific/bessents-to-do-list-buy-5-10-billion-worth-japanese-yen-reuters-photo-shows-2026-07-31/",
+        "https://www.newyorkfed.org/markets/international-market-operations/foreign-exchange-operations",
+        "https://home.treasury.gov/policy-issues/international/exchange-stabilization-fund/finances-and-operations",
+        "https://www.mof.go.jp/policy/international_policy/reference/feio/index.html",
+        "https://www.mof.go.jp/english/policy/international_policy/reference/feio/monthly/20260731e.html",
+        "https://www.mof.go.jp/english/public_relations/weekly_schedule/index.htm",
+        "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260731a.pdf"
+      ],
+      "permitted_use": "Raise weekend and Monday-reopen volatility sensitivity and compare JPY, JGBs, global equities, credit and crypto leverage with the scenario tree before updating regime probabilities.",
+      "prohibited_use": "Do not treat the reported transaction size as official settlement data, infer a fixed BTC direction from yen strength alone, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-opec-plus-seven-review-20260802-v1",
+      "event_ids": [
+        "opec_plus_seven_review_2026_08_02",
+        "us_iran_hormuz_red_sea_2026_07"
+      ],
+      "priority": "P1",
+      "score": 89,
+      "created_at": "2026-08-01T18:13:31+08:00",
+      "last_verified_at": "2026-08-03T01:28:27+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "date_local": "2026-08-02",
+        "exact_time_status": "completed_official_release_published",
+        "pre_meeting_consensus": "approximately_188_kbd_september_nominal_target_increase",
+        "decision_status": "official_188_kbd_september_adjustment_confirmed",
+        "next_meeting_date": "2026-09-06"
+      },
+      "verified_facts": [
+        "Seven OPEC+ voluntary-adjustment countries will meet on 2 August to review market conditions, conformity and compensation",
+        "Their July baseline set a 188 thousand barrels-per-day nominal adjustment for August within the framework for phasing out and returning voluntary cuts",
+        "They retained full flexibility to increase, pause or reverse the phase-out of voluntary adjustments",
+        "Reuters reported on 23 July that three sources expected another approximately 188 thousand barrels-per-day nominal target increase for September at the 2 August meeting",
+        "OPEC's 2 August official release confirms the seven countries decided on a 188 thousand barrels-per-day September production adjustment",
+        "The official release reiterates full conformity and compensation for overproduction since January 2024 and sets the next meeting for 6 September 2026"
+      ],
+      "official_outcome": {
+        "case": "another_188_kbd_nominal_increase_for_september",
+        "probability": 0.99,
+        "confidence": "high_official_decision_conditional_for_net_delivered_supply",
+        "boundary": "This would complete the remainder of the currently unwinding path, not all OPEC+ voluntary cuts, and does not prove equivalent net barrels reach the market."
+      },
+      "interpretation_limits": [
+        "The 188 thousand barrels per day is a nominal quota-path adjustment, not guaranteed net barrels reaching the market",
+        "Compensation cuts, compliance, overproduction correction, inventories and Hormuz transport losses can offset the nominal relaxation",
+        "The official decision confirms the nominal path but not actual production, exports or delivered barrels"
+      ],
+      "impact_path": "OPEC+ supply guidance -> Brent and WTI -> inflation expectations and sovereign yields -> dollar and equity valuation -> BTC and high-beta crypto; the active Hormuz shipping disruption can amplify every step.",
+      "scenarios": {
+        "faster_phase_out_small_compensation": "More net supply can lower oil and inflation premia and ease rate pressure; confirm with official quota tables, compensation plans, crude curves, breakevens, yields, the dollar, equities and BTC.",
+        "expected_188_kbd_hike_but_constrained_flows": "A consensus-sized paper increase may have limited effect when Hormuz disruption, compensation or capacity constraints prevent equivalent barrels reaching buyers.",
+        "pause_reverse_or_larger_compensation": "Less net supply can raise oil and inflation premia and tighten financial conditions; confirm the same evidence chain before drawing direction.",
+        "larger_or_additional_tranche_acceleration": "An official move beyond the expected 188 thousand barrels per day can strengthen oil-downside and disinflation channels, but only if actual production and transport rise.",
+        "ambiguous_statement": "Treat as no signal until actual production guidance and market confirmation become clear."
+      },
+      "invalidation": "Compensation, compliance, capacity or Hormuz transport constraints offset the nominal increase, actual output and exports fail to rise, and no persistent oil or cross-asset repricing follows.",
+      "sources": [
+        "https://www.opec.org/pr-detail/1835609-5-july-2026.html",
+        "https://www.opec.org/pr-detail/604-16-june-2026.html",
+        "https://www.spa.gov.sa/en/N2627610",
+        "https://www.reuters.com/business/energy/opec-likely-raise-oil-output-targets-september-again-sources-say-2026-07-23/",
+        "https://ca.marketscreener.com/news/opec-likely-to-again-raise-oil-output-targets-from-september-sources-say-ce7f51dede81ff26",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+        "https://www.ukmto.org/-/media/ukmto/products/update-068-jmic-advisory-note-07-july.pdf",
+        "https://www.opec.org/pr-detail/1854611-2-august-2026.html"
+      ],
+      "permitted_use": "Raise monitoring sensitivity and compare confirmed cross-asset reactions with the stated scenarios.",
+      "prohibited_use": "Do not use this alert alone to place an order or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-boj-carry-risk-20260810-v1",
+      "event_ids": [
+        "boj_hawkish_hold_carry_risk_2026_07_31",
+        "boj_summary_of_opinions_2026_08_10"
+      ],
+      "priority": "P1",
+      "score": 82,
+      "created_at": "2026-08-01T18:05:07+08:00",
+      "last_verified_at": "2026-08-01T18:05:07+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "time_local": "2026-08-10T07:50:00+08:00",
+        "event": "BOJ Summary of Opinions"
+      },
+      "verified_facts": [
+        "The BOJ held the overnight call rate near 1.0 percent by an 8 to 1 vote on 31 July",
+        "One member preferred 1.25 percent",
+        "The BOJ retained a further-hike path and judged inflation risks tilted to the upside"
+      ],
+      "impact_path": "A broader earlier-hike preference -> stronger JPY and higher JGB yields -> carry-trade deleveraging -> global high-beta volatility -> BTC and crypto liquidations.",
+      "scenarios": {
+        "broader_hawkish_distribution": "Carry-risk rises only if JPY strengthens, JGB yields rise and global high-beta assets weaken together.",
+        "isolated_dissent_or_softer_language": "The carry-risk premium may fade if the dissent remains isolated and JPY or JGB markets do not confirm.",
+        "mixed_cross_asset_response": "Treat as no directional signal."
+      },
+      "invalidation": "The opinions show no broader urgency to hike, or JPY and JGB yields fail to confirm the hawkish interpretation.",
+      "sources": [
+        "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260731a.pdf",
+        "https://www.boj.or.jp/en/mopo/outlook/gor2607a.pdf"
+      ],
+      "permitted_use": "Increase attention to JPY, JGB yields and cross-asset deleveraging confirmation.",
+      "prohibited_use": "Do not use this alert alone to place an order or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-us-leading-data-cluster-20260803-05-v1",
+      "event_ids": [
+        "us_ism_manufacturing_2026_08_03",
+        "us_jolts_2026_08_04",
+        "us_ism_services_2026_08_05",
+        "us_jobs_2026_08_07"
+      ],
+      "priority": "P1",
+      "score": 82,
+      "component_scores": {
+        "ism_manufacturing": 74,
+        "jolts": 78,
+        "ism_services": 76,
+        "employment_report": 92
+      },
+      "created_at": "2026-08-01T18:50:49+08:00",
+      "last_verified_at": "2026-08-01T18:50:49+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "start_local": "2026-08-03T22:00:00+08:00",
+        "end_local": "2026-08-07T20:30:00+08:00"
+      },
+      "verified_facts": [
+        "July ISM manufacturing is due 3 August at 22:00 Asia/Shanghai",
+        "June JOLTS is due 4 August at 22:00 Asia/Shanghai",
+        "July ISM services is due 5 August at 22:00 Asia/Shanghai",
+        "The July employment report follows on 7 August at 20:30 Asia/Shanghai"
+      ],
+      "impact_path": "Activity, employment and price evidence -> Federal Reserve path and Treasury yields -> dollar and equity valuation -> BTC and high-beta crypto.",
+      "scenarios": {
+        "strong_growth_high_prices": "Higher yields and a stronger dollar can pressure duration and crypto, unless risk appetite clearly dominates.",
+        "weak_growth_high_prices": "Stagflation is the most adverse combination for broad risk assets; require sustained yield, dollar and equity confirmation.",
+        "weak_growth_cooling_prices": "Easing expectations may lower yields, but a growth scare can offset the benefit.",
+        "mixed_sequence": "Do not extrapolate the first release; wait for the sequence and revisions."
+      },
+      "invalidation": "The releases are internally mixed and do not create a persistent change in Treasury yields, the dollar, equities or crypto market structure.",
+      "sources": [
+        "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/june/",
+        "https://www.bls.gov/news.release/jolts.nr0.htm",
+        "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/june/",
+        "https://www.bls.gov/schedule/2026/08_sched.htm"
+      ],
+      "permitted_use": "Use the sequence to update scenario probabilities and confirmation thresholds ahead of the employment report.",
+      "prohibited_use": "Do not use a single headline or this queue item alone to place an order or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-fed-credit-communication-window-20260803-05-v1",
+      "event_ids": [
+        "fed_sloos_2026_08_03",
+        "fed_cook_economic_outlook_2026_08_05"
+      ],
+      "priority": "P1",
+      "score": 80,
+      "component_scores": {
+        "sloos": 68,
+        "cook_economic_outlook": 79
+      },
+      "created_at": "2026-08-01T19:04:24+08:00",
+      "last_verified_at": "2026-08-01T19:04:24+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "start_local": "2026-08-04T02:00:00+08:00",
+        "end_local": "2026-08-06T04:05:00+08:00"
+      },
+      "verified_facts": [
+        "The Federal Reserve schedules SLOOS for 3 August at 2:00 p.m. ET, or 4 August at 02:00 Asia/Shanghai",
+        "The April SLOOS reported tighter C&I lending standards and tighter standards across all nondepository financial institution loan categories",
+        "Governor Lisa Cook is scheduled to discuss the economic outlook on 5 August at 4:05 p.m. ET, or 6 August at 04:05 Asia/Shanghai",
+        "Cook said on 15 July that elevated inflation concerned her more than employment risks at that time"
+      ],
+      "impact_path": "Bank credit standards and post-FOMC communication -> growth and inflation expectations -> Treasury yields, credit spreads and the dollar -> equities and liquidity-sensitive BTC and crypto.",
+      "scenarios": {
+        "tighter_credit_hawkish_speech": "A joint rise in credit stress, yields and the dollar with weaker equities and BTC is the clearest adverse risk-asset configuration.",
+        "easier_credit_softer_speech": "Lower yields and tighter credit spreads may support risk assets, but verify that the move is not driven by an acute growth scare.",
+        "offsetting_or_repeated_messages": "Treat as no new signal if SLOOS and the speech offset each other, repeat priced information or lack persistent cross-asset confirmation."
+      },
+      "invalidation": "Credit conditions do not materially shift, Cook repeats already-priced guidance, or Treasury yields, credit spreads, the dollar, equities and BTC fail to confirm a common regime change.",
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/2026-august.htm",
+        "https://www.federalreserve.gov/data/sloos/sloos-202604.htm",
+        "https://www.federalreserve.gov/newsevents/speech/cook20260715a.htm"
+      ],
+      "permitted_use": "Raise monitoring sensitivity around the two low-liquidity windows and update macro scenario probabilities only after cross-asset confirmation.",
+      "prohibited_use": "Do not use this queue item alone to place an order or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-us-tariff-implementation-canada-window-20260724-0819-v1",
+      "event_ids": [
+        "us_trade_tariff_policy_2026_07",
+        "us_canada_section338_tariffs_2026_08_19"
+      ],
+      "priority": "P1",
+      "score": 84,
+      "created_at": "2026-08-01T19:09:51+08:00",
+      "last_verified_at": "2026-08-01T19:11:45+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "active_from_local": "2026-07-24T12:01:00+08:00",
+        "next_known_step_local": "2026-08-19T12:01:00+08:00"
+      },
+      "verified_facts": [
+        "USTR implemented 10 or 12.5 percent Section 301 tariffs on most imports from 60 economies from 24 July at 12:01 Asia/Shanghai, with specified product exemptions",
+        "The in-transit grace period ended 28 July at 12:01 Asia/Shanghai",
+        "USTR states the 60 trading partners account for 99.4 percent of U.S. imports",
+        "Separate 50 percent additional duties on specified Canadian goods take effect 19 August at 12:01 Asia/Shanghai, while energy, potash, Section 232 goods and specified other products are excluded",
+        "Canada's prime minister said Canada would intensify negotiations and take necessary measures to support its economy, but no new specific retaliation list for the 19 August action was verified"
+      ],
+      "impact_path": "Broad tariffs and retaliation risk -> import costs, inflation expectations and growth -> Treasury curve and dollar -> global equities, commodity currencies and liquidity-sensitive BTC and crypto.",
+      "scenarios": {
+        "inflation_and_retaliation": "Higher breakevens, yields and the dollar with weaker equities and BTC would confirm a tighter-financial-conditions shock.",
+        "growth_dominant_shock": "Lower yields with weaker equities can signal growth damage; the dollar and BTC response must determine whether easing expectations or risk aversion dominates.",
+        "negotiation_pause_or_exemptions": "A suspension, negotiated rollback or broader exemptions can reduce the tariff risk premium if confirmed across CAD, yields, equities and BTC.",
+        "no_persistent_repricing": "Treat implementation as already priced when cross-asset moves do not persist."
+      },
+      "invalidation": "The tariffs are materially suspended or withdrawn, exemptions expand enough to reduce macro transmission, retaliation does not occur and markets show no persistent cross-asset repricing.",
+      "sources": [
+        "https://ustr.gov/sites/default/files/files/Press/Releases/2026/FLIP%20301%20Investigation%20Final%20Action%20FRN%207-23-26%20FINAL.pdf",
+        "https://ustr.gov/about/policy-offices/press-office/fact-sheets/2026/july/fact-sheet-ustr-section-301-action-response-failure-60-economies-ban-imports-produced-forced-labor",
+        "https://www.whitehouse.gov/fact-sheets/2026/07/fact-sheet-president-donald-j-trump-imposes-additional-tariffs-on-canada/",
+        "https://www.whitehouse.gov/presidential-actions/2026/07/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united-states-with-respect-to-alcoholic-beverages/",
+        "https://www.pm.gc.ca/en/news/statements/2026/07/20/statement-prime-minister-carney-united-states-administrations-intention"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for retaliation, inflation expectations and the 19 August implementation window, then update scenario probabilities only after cross-asset confirmation.",
+      "prohibited_use": "Do not infer an immediate bearish trade from the tariff headline alone or change orders, position size, leverage, stops or live-trading permissions from this alert."
+    },
+    {
+      "alert_id": "p1-fomc-minutes-hawkish-dissent-20260819-v1",
+      "event_ids": [
+        "us_macro_stagflation_fragility_2026_07",
+        "fomc_minutes_2026_08_19"
+      ],
+      "priority": "P1",
+      "score": 88,
+      "confidence": {
+        "level": "high",
+        "probability": 0.96,
+        "basis": "The release time and 9-to-3 vote are official; directional interpretation remains conditional on the breadth of hawkish views, intervening data and cross-asset confirmation."
+      },
+      "created_at": "2026-08-01T19:18:44+08:00",
+      "last_verified_at": "2026-08-01T19:18:44+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "time_local": "2026-08-20T02:00:00+08:00",
+        "event": "Minutes of the 28-29 July FOMC meeting"
+      },
+      "verified_facts": [
+        "The July FOMC maintained the 3.50 to 3.75 percent federal funds target range by a 9-to-3 vote",
+        "Hammack, Kashkari and Logan preferred a 25 basis point rate increase",
+        "The statement described economic activity as solid and inflation as elevated, partly due to supply shocks including energy",
+        "The minutes are scheduled for 19 August at 2:00 p.m. ET, or 20 August at 02:00 Asia/Shanghai"
+      ],
+      "impact_path": "Breadth of hike or higher-for-longer support -> Treasury yields and dollar -> equity duration and liquidity conditions -> BTC and high-beta crypto.",
+      "scenarios": {
+        "hawkish_views_broader_than_three_dissents": "A broader concern about inflation, tariffs or energy would raise tightening risk if yields and the dollar rise while equities and BTC weaken.",
+        "dissents_isolated_growth_concern_broader": "If the three dissenters appear isolated and more members emphasize employment or growth risk, the hawkish tail may fade, subject to current-data confirmation.",
+        "minutes_overtaken_by_new_data": "Give greater weight to intervening employment and CPI evidence when it materially changes the July information set.",
+        "mixed_cross_asset_response": "Treat as no actionable direction when yields, the dollar, equities and BTC do not confirm the same regime."
+      },
+      "invalidation": "Intervening data clearly supersede the July debate, the minutes show no broader inclination to hike, or market reactions fail to persist across yields, the dollar, equities and BTC.",
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/2026-august.htm",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for the 02:00 Asia/Shanghai release and compare the breadth of policy views with intervening data and cross-asset confirmation.",
+      "prohibited_use": "Do not trade from the historical vote count or minutes headline alone, and do not change orders, position size, leverage, stops or live-trading permissions from this alert."
+    },
+    {
+      "alert_id": "p0-us-cpi-ppi-retail-sequence-20260812-14-v1",
+      "event_ids": [
+        "us_cpi_2026_08_12",
+        "us_ppi_2026_08_13",
+        "us_retail_sales_2026_08_14"
+      ],
+      "priority": "P0",
+      "score": 96,
+      "component_scores": {
+        "cpi": 96,
+        "ppi": 80,
+        "retail_sales": 83
+      },
+      "confidence": {
+        "level": "high",
+        "probability": 0.97,
+        "basis": "All three release windows are published by BLS or the Census Bureau; direction depends on the joint inflation-demand pattern and cross-asset confirmation."
+      },
+      "created_at": "2026-08-01T19:24:07+08:00",
+      "last_verified_at": "2026-08-01T19:24:07+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "start_local": "2026-08-12T20:30:00+08:00",
+        "end_local": "2026-08-14T20:30:00+08:00"
+      },
+      "verified_facts": [
+        "July CPI is scheduled for 12 August at 20:30 Asia/Shanghai",
+        "July PPI is scheduled for 13 August at 20:30 Asia/Shanghai",
+        "July retail and food-services sales are scheduled for 14 August at 20:30 Asia/Shanghai",
+        "June retail and food-services sales rose 0.2 percent month over month and 6.7 percent year over year, with the prior monthly gain revised upward"
+      ],
+      "impact_path": "Inflation and consumer-demand sequence -> Federal Reserve path and Treasury curve -> dollar and equity valuation -> BTC, crypto funding and liquidation risk.",
+      "scenarios": {
+        "hot_inflation_strong_demand": "Higher yields and a stronger dollar with weaker equities and BTC would confirm a tighter-financial-conditions shock.",
+        "hot_inflation_weak_demand": "A stagflation mix is adverse when breakevens stay high, real growth expectations fall and risk assets weaken together.",
+        "cool_inflation_weak_demand": "Lower yields can support duration and crypto, but an acute growth scare may dominate; require equities, credit and BTC confirmation.",
+        "mixed_sequence_or_revisions": "Do not extrapolate the first headline; wait for components, revisions and persistent cross-asset agreement."
+      },
+      "invalidation": "The sequence is internally offsetting or fails to cause a persistent change in Treasury yields, the dollar, equities, credit conditions or crypto market structure.",
+      "sources": [
+        "https://www.bls.gov/schedule/2026/08_sched.htm",
+        "https://www.census.gov/retail/release_schedule.html",
+        "https://www.census.gov/retail/sales.html"
+      ],
+      "permitted_use": "Raise monitoring sensitivity across the three releases and update macro-regime probabilities only after components, revisions and cross-asset confirmation are assessed.",
+      "prohibited_use": "Do not use a single headline or this queue item alone to place an order or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-jackson-hole-financial-innovation-20260827-29-v1",
+      "event_ids": [
+        "jackson_hole_symposium_2026_08_27_29"
+      ],
+      "priority": "P1",
+      "score": 89,
+      "confidence": {
+        "level": "high",
+        "probability": 0.98,
+        "basis": "The dates and theme are confirmed by the Kansas City Fed; the agenda, speakers, exact times and policy direction remain unconfirmed."
+      },
+      "created_at": "2026-08-01T19:29:22+08:00",
+      "last_verified_at": "2026-08-01T19:29:22+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "start_date_local": "2026-08-27",
+        "end_date_local": "2026-08-29",
+        "exact_times_status": "official_not_published"
+      },
+      "verified_facts": [
+        "The 2026 Jackson Hole Economic Policy Symposium will take place from 27 to 29 August",
+        "The official theme is Financial Innovation: Implications for Payments and Policy",
+        "The agenda, speakers and exact speech times have not yet been published"
+      ],
+      "impact_path": "Central-bank policy communication -> global yields and dollar -> equity duration and liquidity -> BTC and high-beta crypto; concrete payment, stablecoin, tokenization or digital-asset policy content can also reprice regulatory expectations directly.",
+      "scenarios": {
+        "hawkish_macro_message": "Higher global yields and a stronger dollar with weaker equities and BTC would confirm tighter financial conditions.",
+        "dovish_or_disinflation_message": "Lower yields may support risk assets, but verify that the move is not an acute growth scare.",
+        "constructive_payments_policy": "Specific, implementable support for payment innovation, stablecoins or tokenization may improve crypto policy expectations only when the content and affected asset classes are explicit.",
+        "restrictive_or_ambiguous_policy": "Do not infer a crypto direction from the theme alone; wait for exact language, scope and market confirmation."
+      },
+      "invalidation": "The agenda contains no market-relevant policy communication, remarks repeat already-priced guidance, or yields, the dollar, equities and crypto do not show persistent confirmation.",
+      "sources": [
+        "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/",
+        "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/jackson-hole-faqs/"
+      ],
+      "permitted_use": "Monitor for the agenda, named speakers and exact times, then update macro and digital-payments scenario probabilities only after the actual remarks and cross-asset response are verified.",
+      "prohibited_use": "Do not treat the conference theme as a crypto endorsement or restriction, and do not place orders or change position size, leverage, stops or live-trading permissions from this alert alone."
+    },
+    {
+      "alert_id": "p0-us-gdp-pce-profits-durables-cluster-20260826-v1",
+      "event_ids": [
+        "us_gdp_pce_2026_08_26"
+      ],
+      "priority": "P0",
+      "score": 95,
+      "confidence": {
+        "level": "high",
+        "probability": 0.98,
+        "basis": "BEA and Census schedules independently confirm the simultaneous 8:30 a.m. ET releases; market direction depends on the joint data pattern, components and revisions."
+      },
+      "created_at": "2026-08-01T19:34:58+08:00",
+      "last_verified_at": "2026-08-01T19:34:58+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "time_local": "2026-08-26T20:30:00+08:00",
+        "release_mode": "simultaneous_multi_report_cluster"
+      },
+      "verified_facts": [
+        "Second-quarter GDP second estimate and corporate profits are due 26 August at 20:30 Asia/Shanghai",
+        "July personal income, outlays and PCE are due at the same time",
+        "July advance durable-goods orders are also due at the same time",
+        "The advance baseline is 1.5 percent annualized real GDP growth, while June durable-goods orders rose 0.3 percent and orders excluding transportation rose 0.6 percent"
+      ],
+      "impact_path": "Growth, profits, inflation, household demand and capital-expenditure evidence -> Federal Reserve path and Treasury curve -> dollar, credit and equity valuation -> BTC, crypto funding and liquidation risk.",
+      "scenarios": {
+        "strong_growth_orders_hot_pce": "Higher yields and a stronger dollar with weaker duration assets and BTC would confirm tighter financial conditions.",
+        "weak_growth_orders_hot_pce": "A stagflation configuration is adverse when breakevens stay elevated, growth expectations fall and equities, credit and BTC weaken together.",
+        "weak_growth_orders_cool_pce": "Lower yields may support duration and crypto, but an acute growth or profit scare can dominate; require credit and equity confirmation.",
+        "conflicting_components_or_revisions": "Separate volatile transportation and defense orders, core capital goods and GDP revision sources before drawing any direction."
+      },
+      "invalidation": "The reports offset one another or fail to create a persistent change in yields, the dollar, credit, equities or crypto market structure.",
+      "sources": [
+        "https://www.bea.gov/news/schedule/full",
+        "https://www.census.gov/economic-indicators/calendar-listview.html",
+        "https://www.census.gov/manufacturing/m3/release_schedule.html",
+        "https://www.census.gov/manufacturing/m3/adv/current/index.html"
+      ],
+      "permitted_use": "Increase monitoring sensitivity for the simultaneous release and update regime probabilities only after separating components, revisions and cross-asset confirmation.",
+      "prohibited_use": "Do not react to the first headline alone or place orders or change position size, leverage, stops or live-trading permissions from this queue item."
+    },
+    {
+      "alert_id": "p1-us-treasury-financing-refunding-20260803-05-v1",
+      "event_ids": [
+        "us_treasury_financing_estimates_2026_08_03",
+        "us_treasury_quarterly_refunding_2026_08_05"
+      ],
+      "priority": "P1",
+      "score": 79,
+      "confidence": {
+        "level": "high",
+        "probability": 0.98,
+        "basis": "The Treasury quarterly-refunding page confirms the 3:00 p.m. ET Monday financing-estimate slot and the 8:30 a.m. ET Wednesday refunding slot, while market direction remains conditional on the amounts, maturity mix, TGA path and buyback details."
+      },
+      "created_at": "2026-08-01T19:51:36+08:00",
+      "last_verified_at": "2026-08-01T19:51:36+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "start_local": "2026-08-04T03:00:00+08:00",
+        "end_local": "2026-08-05T20:30:00+08:00",
+        "sequence": "financing_estimates_then_quarterly_refunding"
+      },
+      "verified_facts": [
+        "Treasury schedules the next financing-estimate release for 3 August in the 3:00 p.m. ET Monday slot, or 4 August at 03:00 Asia/Shanghai",
+        "Treasury schedules the next quarterly-refunding documents for 5 August in the 8:30 a.m. ET Wednesday slot, or 5 August at 20:30 Asia/Shanghai",
+        "The May baseline estimated 671 billion dollars of privately held net marketable borrowing for July through September and a 950 billion dollar end-September cash balance"
+      ],
+      "impact_path": "Borrowing need, maturity mix, TGA path and buybacks -> bill and coupon supply, market liquidity and Treasury yields -> dollar and equity valuation -> BTC, crypto funding and liquidation risk.",
+      "scenarios": {
+        "higher_borrowing_more_duration_or_higher_tga": "Higher coupon supply, less supportive buybacks or a higher cash target can tighten liquidity and raise term premium; require higher yields or a stronger dollar with weaker equities and BTC for confirmation.",
+        "lower_borrowing_shorter_mix_more_buybacks_or_lower_tga": "Lower duration supply or a more supportive liquidity path can ease term premium, but distinguish benign technical relief from weaker growth or fiscal-receipt deterioration.",
+        "mixed_headlines": "Separate total borrowing, bill-versus-coupon composition, TGA assumptions, auction sizes and buyback operations; do not assign direction from the headline amount alone."
+      },
+      "invalidation": "Amounts and issuance structure remain near the May baseline or cross-asset moves fail to persist across Treasury yields, the dollar, equities and crypto market structure.",
+      "sources": [
+        "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents",
+        "https://home.treasury.gov/news/press-releases/sb0485"
+      ],
+      "permitted_use": "Raise monitoring sensitivity across the two-release sequence and update liquidity-regime probabilities only after the financing amount, maturity composition, TGA path, buybacks and cross-asset response are verified.",
+      "prohibited_use": "Do not use the May baseline or either first headline alone to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-hormuz-maritime-energy-sanctions-weekend-20260729-v1",
+      "event_ids": [
+        "us_iran_hormuz_red_sea_2026_07"
+      ],
+      "priority": "P0",
+      "score": 97,
+      "confidence": {
+        "level": "high",
+        "probability": 0.96,
+        "basis": "IMO, OFAC and UKMTO/JMIC provide independent incident, sanctions and operational evidence. The existence and severity of the risk environment are well supported, while the next directional market move remains conditional."
+      },
+      "created_at": "2026-08-01T19:55:33+08:00",
+      "last_verified_at": "2026-08-01T19:55:33+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_continuous_weekend_gap_risk",
+        "exact_end_status": "unknown",
+        "review_cadence_minutes": 5
+      },
+      "verified_facts": [
+        "IMO reports 62 confirmed regional maritime incidents and 17 confirmed seafarer fatalities as of 27 July 2026",
+        "IMO says around 20,000 seafarers are affected and its evacuation plan is currently paused",
+        "UKMTO/JMIC assessed the regional maritime threat as SEVERE on 7 July, reported recurring GNSS interference and described commercial transit routes that were still operating at that dated baseline",
+        "OFAC published Iran-related sanctions actions on 29 and 30 July covering shipping, petroleum, finance, aviation and military-support networks",
+        "An OFAC designation narrative says a named transit-insurance entity accepted bitcoin and other digital assets; this is entity-specific evidence and not a broad prohibition on crypto assets"
+      ],
+      "impact_path": "New attack, transit disruption, insurance withdrawal or sanctions expansion -> oil and freight shock -> inflation expectations, sovereign yields and dollar -> equities and credit -> BTC weekend gaps, funding stress and liquidation cascades; named digital-asset sanctions exposure can separately affect specific counterparties and flows.",
+      "scenarios": {
+        "physical_escalation_or_transit_deterioration": "Oil and freight premia can rise while risk assets weaken; the yield and dollar response may differ between inflation shock and flight-to-safety regimes, so require crude, gold, yields, dollar, equities, BTC funding and liquidation confirmation.",
+        "verified_safe_passage_or_sustained_transit_recovery": "Energy and insurance premia may ease, but treat relief as actionable only if official operational data and cross-asset repricing persist.",
+        "sanctions_or_compliance_expansion_without_physical_change": "Assess named entities, addresses, intermediaries and jurisdictions; do not generalize an entity-specific bitcoin reference into a market-wide crypto ban or direction.",
+        "stale_or_unconfirmed_report": "Do not react until a second authoritative source or primary operational notice confirms the event."
+      },
+      "invalidation": "Official sources verify sustained transit normalization, the evacuation constraint is lifted, incident and insurance conditions materially improve, and oil, freight, dollar, equities and crypto cease pricing an elevated risk premium.",
+      "sources": [
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-highlighted-incidents.aspx",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+        "https://www.ukmto.org/-/media/ukmto/products/update-068-jmic-advisory-note-07-july.pdf",
+        "https://www.ukmto.org/recent-incidents",
+        "https://ofac.treasury.gov/recent-actions/20260729",
+        "https://home.treasury.gov/news/press-releases/sb0581",
+        "https://ofac.treasury.gov/recent-actions/20260730",
+        "https://home.treasury.gov/news/press-releases/sb0582"
+      ],
+      "permitted_use": "Maintain five-minute official-source monitoring, raise volatility and liquidity-risk sensitivity, and update regime probabilities only after source and cross-asset confirmation.",
+      "prohibited_use": "Do not trade an unverified report, infer broad crypto illegality from an entity-specific designation, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-black-sea-cpc-tanker-recurrence-20260717-27-v1",
+      "event_ids": [
+        "black_sea_cpc_tanker_attacks_2026_07"
+      ],
+      "priority": "P1",
+      "score": 85,
+      "confidence": {
+        "level": "high",
+        "probability": 0.94,
+        "basis": "The operator, Kazakhstan's foreign ministry and AP independently confirm the attacks and route importance; CPC confirms loading resumed on 27 July, so current risk is recurrence rather than a verified ongoing shutdown."
+      },
+      "created_at": "2026-08-01T20:00:51+08:00",
+      "last_verified_at": "2026-08-01T20:00:51+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_recurrence_risk",
+        "last_verified_operational_change": "2026-07-27_loading_resumed",
+        "exact_end_status": "unknown"
+      },
+      "verified_facts": [
+        "CPC says ASIA and NISSOS IOS were struck by drones during loading on 19 July, causing a fire on ASIA and a loading halt without casualties or an oil spill",
+        "CPC says loading resumed on the evening of 19 July but NELSA was attacked during loading on 20 July, causing another fire, crew evacuation and another loading stop",
+        "CPC says its pipeline transports more than two thirds of Kazakhstan's export crude, while AP estimates about 80 percent",
+        "CPC's official 2026 release list says oil lifting resumed on 27 July with two tankers berthed at single-point moorings"
+      ],
+      "impact_path": "Repeated tanker or terminal attack -> CPC loading interruption, insurance and Black Sea freight shock -> crude supply and Brent risk premium -> inflation expectations, yields and dollar -> equities, credit and BTC; simultaneous Hormuz disruption can amplify the supply shock nonlinearly.",
+      "scenarios": {
+        "new_attack_or_loading_suspension": "Treat as renewed supply-risk escalation only after CPC or another authoritative operational source confirms the event; require crude curves, freight, yields, dollar, equities and BTC to confirm persistence.",
+        "sustained_loading_and_falling_freight_premium": "Continued operation without further attacks can reduce the risk premium, but it does not invalidate the broader Black Sea conflict risk by itself.",
+        "physical_disruption_offset_by_supply_elsewhere": "Separate actual lost CPC barrels from OPEC+ nominal quota changes, inventories and alternative routes before assigning an inflation or BTC direction.",
+        "unattributed_or_conflicting_claims": "Do not assign responsibility or market direction from belligerent statements alone; prioritize operator status and independently verified physical effects."
+      },
+      "invalidation": "CPC loadings remain sustained, no further tanker or terminal attacks are verified, insurance and freight conditions normalize, and crude and cross-asset markets stop carrying a material recurrence premium.",
+      "sources": [
+        "https://www.cpc.ru/EN/press/releases/2026/Pages/20260719.aspx",
+        "https://www.cpc.ru/EN/press/releases/2026/Pages/20260720.aspx",
+        "https://www.cpc.ru/EN/press/releases/2026/Pages/default.aspx",
+        "https://www.gov.kz/memleket/entities/mfa/press/news/details/1260128",
+        "https://apnews.com/article/russia-ukraine-attack-ballistic-missiles-ddea9c0a10367fc84b3cb563896102e3"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for CPC operator notices, tanker attacks, loading status, insurance and freight changes, and update energy-risk probabilities only after physical and cross-asset confirmation.",
+      "prohibited_use": "Do not describe the terminal as currently shut based on the 19-20 July events, assign attack responsibility from one side's claim, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-us-iran-energy-strike-consideration-weekend-20260731-v1",
+      "event_ids": [
+        "us_iran_hormuz_red_sea_2026_07"
+      ],
+      "priority": "P0",
+      "score": 99,
+      "confidence": {
+        "level": "high_for_consideration_low_for_execution",
+        "probability": 0.92,
+        "basis": "The President and White House press secretary publicly signaled continued military pressure, and Axios independently reports active consideration of Iranian energy targets. No final strike order or completed new U.S. strike was confirmed at the scan time."
+      },
+      "created_at": "2026-08-01T20:04:33+08:00",
+      "last_verified_at": "2026-08-03T01:28:27+08:00",
+      "status": "superseded_by_conditional_strike_pause_alert",
+      "superseded_by_alert_id": "p0-us-iran-conditional-strike-pause-hormuz-dispute-20260802-v1",
+      "window": {
+        "start_local": "2026-08-01T00:00:00+08:00",
+        "end_status": "superseded_by_conditional_pause_pending_rapid_deal",
+        "review_cadence_minutes": 5,
+        "execution_status": "new_strikes_paused_by_president_subject_to_rapid_deal"
+      },
+      "verified_facts": [
+        "AP directly quotes President Trump on 31 July saying the United States will keep hitting Iran very hard",
+        "AP directly quotes the White House press secretary saying Iran will continue to pay until it enters meaningful talks",
+        "Axios reports that attacks on Iranian energy targets are being seriously considered for the next few days while explicitly stating that no final orders have been issued",
+        "AP reports that Iran's Revolutionary Guard claimed attacks on two more tankers and that Kuwait intercepted drones, but this scan did not obtain complete second-source operational confirmation for those immediate battle-damage claims",
+        "The pre-existing U.S. naval blockade, repeated attacks on shipping and Strait of Hormuz disruption provide a verified escalation baseline"
+      ],
+      "impact_path": "Confirmed U.S. energy-target strike or Iranian retaliation -> oil production, refining, export and shipping risk -> crude and freight spike -> inflation expectations, yields and dollar -> equities, credit and BTC weekend gap, funding and liquidation stress.",
+      "scenarios": {
+        "final_order_and_energy_strikes_confirmed": "Treat as the highest escalation case; distinguish physical output or export loss from rhetoric, then require crude curves, freight, gold, yields, dollar, equities, BTC funding and liquidations to confirm persistence.",
+        "limited_military_strikes_without_energy_damage": "Risk-off may be smaller or short-lived if energy flows remain stable; do not transfer the energy-target scenario mechanically.",
+        "no_order_and_negotiation_progress": "A verified pause, talks or safe-passage arrangement can compress oil and weekend risk premia, subject to transport and cross-asset confirmation.",
+        "iranian_retaliation_or_regional_spillover": "Confirmed tanker, base, refinery or Gulf-state infrastructure damage can produce nonlinear escalation even without a new U.S. energy strike.",
+        "rhetoric_or_unverified_claims_only": "Maintain P0 monitoring but do not assign trade direction until a primary operational source and a second independent source confirm physical effects."
+      },
+      "invalidation": "The White House or Defense Department confirms no strike order, diplomacy produces a durable stand-down, no new physical attacks are verified, and shipping, energy and cross-asset risk premia normalize.",
+      "sources": [
+        "https://apnews.com/article/mideast-gaza-iran-israel-palestinians-strait-hormuz-9304893b474a48d18913d6f70fae4a8e",
+        "https://www.axios.com/2026/07/31/trump-iran-strikes-energy-infrastructure-war",
+        "https://www.centcom.mil/MEDIA/PRESS-RELEASES/Article/4499878/us-blockade-of-iran-reaches-milestone-of-redirecting-100-ships/",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-highlighted-incidents.aspx",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx"
+      ],
+      "permitted_use": "Keep five-minute official-source monitoring active and raise weekend volatility and liquidity-risk sensitivity; update regime probabilities only after strike orders, physical effects and cross-asset confirmation are verified.",
+      "prohibited_use": "Do not report a final strike order that has not been issued, trade on anonymous-source planning alone, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-hormuz-tanker-kuwait-drone-confirmed-20260801-v1",
+      "event_ids": [
+        "us_iran_hormuz_red_sea_2026_07"
+      ],
+      "priority": "P0",
+      "score": 99,
+      "confidence": {
+        "level": "high_for_physical_incidents_conditional_for_market_direction",
+        "probability": 0.97,
+        "basis": "AP directly attributes the maritime details to UKMTO and the regional damage statement to Kuwait's Defense Ministry. IMO's official incident list remains at its 27 July baseline, so the new incidents are not yet incorporated in its count."
+      },
+      "created_at": "2026-08-01T20:10:19+08:00",
+      "last_verified_at": "2026-08-01T21:58:24+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_immediate_weekend_physical_escalation",
+        "review_cadence_minutes": 5,
+        "us_energy_strike_execution_status": "no_final_order_or_execution_confirmed",
+        "confirmed_supply_effect_status": "severe_transit_contraction_confirmed_exact_lost_volume_unquantified",
+        "shipping_flow_status": "severe_contraction_not_zero_passage"
+      },
+      "verified_facts": [
+        "UKMTO reported that an unknown projectile struck a tanker about 11 nautical miles northeast of Limah, Oman, damaging its engine room; no casualties were reported",
+        "UKMTO reported a large splash and explosion close to another tanker about 21 nautical miles northwest of Khasab on 1 August; no casualties were reported",
+        "Kuwait's Defense Ministry said drones struck several vital facilities, including a government structure in the north, with material damage but no casualties",
+        "IMO's public confirmed-incident list still shows 62 incidents and 17 seafarer fatalities as of 27 July and has not yet incorporated the new reports",
+        "AP cited Lloyd's List Intelligence data showing Strait of Hormuz transits fell from 82 ships in 13-19 July to 39 ships in 20-26 July, a decline of about 52.4 percent; some passage continued, so this is not evidence of literal zero transit",
+        "No final U.S. order or executed strike on Iranian energy targets was confirmed at the scan time"
+      ],
+      "market_confirmation": {
+        "source": "Binance public spot and USD-M perpetual APIs",
+        "snapshot_at": "2026-08-01T21:58:24+08:00",
+        "btc_usdt_last": 63067.98,
+        "btc_24h_percent": -0.398,
+        "eth_24h_percent": 0.156,
+        "sol_24h_percent": -0.396,
+        "xrp_24h_percent": -0.244,
+        "btc_funding_rate": 2.713e-05,
+        "btc_open_interest": 108848.942,
+        "btc_global_account_long_short_ratio": 2.0912,
+        "btc_taker_buy_sell_ratio_latest_5m": 0.7948,
+        "assessment": "Mixed spot performance, slightly positive funding, stable open interest and stablecoin quotes near par do not confirm an acute liquidation cascade or persistent cross-asset risk-off regime; this is a single-venue snapshot."
+      },
+      "impact_path": "Repeated tanker and Gulf-facility attacks -> transit avoidance, insurance and freight shock or verified energy damage -> oil and inflation repricing -> yields and dollar plus equity and credit stress -> BTC weekend gaps, funding compression and liquidation risk.",
+      "scenarios": {
+        "additional_ship_strike_or_transit_deterioration": "Escalation becomes more market-relevant if authoritative sources confirm more damage, abandonment, route closure, insurance withdrawal or freight spikes; require oil, gold, yields, dollar, equities and crypto structure to confirm persistence.",
+        "confirmed_energy_output_or_export_loss": "Treat as the strongest inflationary supply-shock branch, but measure actual lost barrels and duration before assigning direction to yields, dollar or BTC.",
+        "no_further_incidents_and_flows_stable": "Risk premium may fade if passage continues, damage remains contained and insurance or freight conditions normalize; require sustained operational and market evidence.",
+        "separate_us_strike_order_confirmation": "A confirmed U.S. energy-target order or strike is a distinct escalation and must not be inferred from the tanker or Kuwait incidents."
+      },
+      "invalidation": "No further attacks are verified, the damaged tanker remains operational or is safely recovered, shipping and energy flows continue, insurance and freight premia normalize, and crypto plus broader risk markets do not develop persistent stress.",
+      "sources": [
+        "https://apnews.com/article/trump-iran-strait-hormuz-israel-gaza-mideast-e61e88c14d8aca48c1c56368650baea5",
+        "https://www.ukmto.org/recent-incidents",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-highlighted-incidents.aspx",
+        "https://apnews.com/article/mideast-gaza-iran-israel-palestinians-strait-hormuz-9304893b474a48d18913d6f70fae4a8e",
+        "https://www.axios.com/2026/07/31/trump-iran-strikes-energy-infrastructure-war",
+        "https://apnews.com/article/8dc77ed6a65f389ea4af84635d2473bd"
+      ],
+      "permitted_use": "Raise immediate volatility, liquidity and weekend-gap sensitivity and update scenario probabilities only after operational damage, energy-flow effects and cross-asset confirmation are verified.",
+      "prohibited_use": "Do not infer a U.S. energy strike order, major oil-supply loss or fixed crypto direction from these incidents, and do not use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-red-sea-bab-el-mandeb-saudi-selective-blockade-20260720-0801-v1",
+      "event_ids": [
+        "red_sea_bab_el_mandeb_houthi_saudi_blockade_2026_07"
+      ],
+      "priority": "P0",
+      "score": 94,
+      "confidence": {
+        "level": "high_for_selective_rerouting_conditional_for_broader_disruption",
+        "probability": 0.96,
+        "basis": "Official Saudi coalition and regional statements establish vessel-protection measures, a commercial-vessel attack and military response; independent ship tracking confirms selective reversals, while AP reports an eighth rerouting claim."
+      },
+      "created_at": "2026-08-01T20:16:33+08:00",
+      "last_verified_at": "2026-08-01T20:20:27+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_selective_blockade_and_attack_risk",
+        "review_cadence_minutes": 5,
+        "exact_end_status": "unknown",
+        "general_closure_status": "not_confirmed"
+      },
+      "verified_facts": [
+        "The Houthis announced a maritime embargo against Saudi-linked shipping on 20 July",
+        "Saudi Arabia's Foreign Ministry officially rejected the Houthi allegations and the claimed blockade rationale, while the United Nations expressed concern over threats to Saudi Arabia and freedom of navigation",
+        "Lloyd's List and MarineTraffic analysis reported by the Washington Post identified seven vessels that reversed course, including cargo and oil vessels, while many other ships continued through Bab el-Mandeb",
+        "AP reported on 1 August that the Houthi military spokesperson claimed eight Saudi ships had rerouted around the Cape of Good Hope",
+        "Saudi-led coalition forces officially said they initiated protection measures for commercial vessels in Bab el-Mandeb and would respond swiftly to threats",
+        "The coalition officially said the Houthis targeted commercial vessels and announced a military response against Hodeida targets on 25 July",
+        "Bahrain's Foreign Ministry, carried by SPA, confirmed that an attack on a Saudi-company vessel caused a fire in the forward section without casualties, while a U.S. Navy-overseen maritime body said traffic through Bab el-Mandeb remained steady on 27 July"
+      ],
+      "impact_path": "Selective Saudi-linked blockade and attacks -> vessel reversals, longer Cape routes, higher insurance and freight plus reduced effective tanker capacity -> weaker Red Sea bypass for Saudi exports during Hormuz disruption -> oil and inflation repricing -> yields, dollar, equities, credit and BTC weekend liquidity risk.",
+      "scenarios": {
+        "selective_saudi_linked_disruption_persists": "Expect higher freight and delivery uncertainty concentrated in Saudi-linked routes; do not model a global chokepoint closure while other traffic remains steady.",
+        "attacks_broaden_or_total_traffic_falls": "A verified expansion to non-Saudi vessels, material traffic decline, port damage or pipeline damage would create a stronger global supply and trade shock and should trigger immediate rescoring.",
+        "safe_passage_and_traffic_stability": "Continued transits, no new attacks and declining war-risk insurance or freight premia would reduce the blockade's market relevance.",
+        "simultaneous_hormuz_deterioration": "Concurrent disruption of Hormuz and Bab el-Mandeb can amplify oil, freight and inflation effects nonlinearly; separate actual lost flows from nominal capacity and political claims."
+      },
+      "invalidation": "No further attacks or coercive rerouting are verified, Saudi-linked and general traffic continue normally, military retaliation does not broaden the conflict, and freight, insurance, oil and cross-asset risk premia normalize.",
+      "sources": [
+        "https://www.spa.gov.sa/en/N2638094",
+        "https://www.spa.gov.sa/w2638100",
+        "https://www.spa.gov.sa/en/N2638932",
+        "https://spa.gov.sa/en/N2640956",
+        "https://www.spa.gov.sa/fr/N2640125",
+        "https://www.washingtonpost.com/world/2026/07/21/ships-bound-saudi-arabia-turn-around-sign-new-red-sea-blockade/",
+        "https://apnews.com/article/fd7c4a3911f7eee18251483fc8af768c",
+        "https://apnews.com/article/iran-us-hormuz-strait-war-qatar-pakistan-d57e675a7be6dbdd34561909ced240d0",
+        "https://apnews.com/article/trump-iran-strait-hormuz-israel-gaza-mideast-e61e88c14d8aca48c1c56368650baea5"
+      ],
+      "permitted_use": "Raise five-minute monitoring sensitivity for attacks, traffic, freight, insurance, Saudi Red Sea export capacity and simultaneous Hormuz stress; update regime probabilities only after operational and cross-asset confirmation.",
+      "prohibited_use": "Do not describe Bab el-Mandeb as fully closed, treat a Houthi claim as complete operational proof, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-poland-russian-missile-nato-airspace-20260730-v1",
+      "event_ids": [
+        "poland_russian_cruise_missile_nato_airspace_2026_07_30"
+      ],
+      "priority": "P0",
+      "score": 92,
+      "confidence": {
+        "level": "high_for_incursion_and_impact_medium_high_for_exact_model_low_for_deliberate_intent",
+        "probability": 0.96,
+        "basis": "NATO, Poland's Armed Forces and Prime Minister Donald Tusk, as reported by AP, establish the violation, impact site and defensive response. Polish evidence points to a Russian Kh-101, but the detailed model and intent investigation was not final in the latest verified reporting."
+      },
+      "created_at": "2026-08-01T21:27:21+08:00",
+      "last_verified_at": "2026-08-01T21:37:47+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_recurrence_and_nato_response_risk",
+        "last_confirmed_incursion_date": "2026-07-30",
+        "review_cadence_minutes": 5,
+        "nato_article_4_or_5_status": "not_confirmed",
+        "next_high_information_window": "Further Russian western-Ukraine barrages, official Polish investigation updates and Monday European cash-market reopen"
+      },
+      "verified_facts": [
+        "NATO said a Russian missile entered Polish airspace during Russia's 30 July barrage against Ukraine and landed in a rural part of Lublin province",
+        "The incident caused no reported injury or property damage",
+        "NATO forces in Poland scrambled two fighter jets, an attack helicopter and two other aircraft and activated ground defenses",
+        "Poland's Armed Forces found a probable impact site after the object disappeared from radar",
+        "Investigators and Polish reporting indicated a Kh-101 cruise missile, while the detailed investigation remained open",
+        "Prime Minister Donald Tusk called the incident very serious but said there was no reason to believe Poland was the intended target",
+        "Poland's Foreign Ministry summoned Russian Ambassador Georgy Mikhno, handed him a diplomatic note and demanded an end to actions threatening Polish citizens and aviation safety",
+        "No NATO Article 4 consultation, Article 5 invocation, retaliatory strike or state of war was confirmed"
+      ],
+      "market_confirmation": {
+        "source": "Binance public spot and USD-M perpetual APIs",
+        "snapshot_at": "2026-08-01T21:37:47+08:00",
+        "btc_usdt_last": 63094.0,
+        "btc_24h_percent": -0.888,
+        "eth_24h_percent": -0.792,
+        "sol_24h_percent": -0.964,
+        "xrp_24h_percent": -0.653,
+        "btc_funding_rate": 2.752e-05,
+        "btc_open_interest": 108937.41,
+        "btc_global_account_long_short_ratio": 2.0941,
+        "usdc_usdt_last": 1.00078,
+        "fdusd_usdt_last": 0.9979,
+        "assessment": "Broad crypto weakness and long-account crowding create downside sensitivity, but slightly positive funding, stable open interest and stablecoin pricing do not confirm a forced deleveraging regime. Spot prices are from 21:36:40 and perpetual metrics from 21:37:47 after a transient retry failure; this is single-venue evidence."
+      },
+      "impact_path": "Russian missile impact on Polish NATO territory -> higher Russia-NATO escalation and European defense premium -> gas, oil, gold, EUR, USD, sovereign yields and equities repricing -> BTC weekend-gap, funding-compression and liquidation risk.",
+      "scenarios": {
+        "repeat_incursion_or_intercept": "A further missile or drone crossing, especially one requiring kinetic interception, raises recurrence probability and can broaden European risk repricing; require official attribution and cross-asset persistence.",
+        "casualties_damage_or_deliberate_targeting": "This is the strongest escalation branch. Distinguish national self-defense, Article 4 consultations and Article 5 collective defense before changing regime probabilities.",
+        "contained_non_deliberate_incident": "A completed investigation supporting malfunction, diversion or unintended entry, followed by no repeat event and no collective NATO escalation, can reduce the risk premium.",
+        "sanctions_or_air_defense_reinforcement": "Additional sanctions or defensive deployments may lift defense and energy premia while their effect on yields, currencies and BTC remains conditional on scale and market confirmation."
+      },
+      "invalidation": "The investigation supports non-deliberate entry, no further incursions or casualties occur, NATO takes no escalatory collective action and European security, energy and cross-asset risk premia normalize.",
+      "sources": [
+        "https://apnews.com/article/russia-ukraine-war-zelenskyy-missile-attack-63ab11e0ebe6a9aefdb547fe442bef3f",
+        "https://elpais.com/internacional/2026-07-30/rusia-lanza-un-ataque-combinado-de-drones-y-misiles-contra-varias-ciudades-de-ucrania.html",
+        "https://tvpworld.com/94626465/-poland-summons-russian-ambassador-mikhno-over-missile-breach"
+      ],
+      "permitted_use": "Raise five-minute monitoring sensitivity for repeat incursions, attribution, casualties, Polish or NATO response and cross-asset confirmation; use only as scenario and volatility context.",
+      "prohibited_use": "Do not call the incident a deliberate Russian attack on Poland, claim Article 4 or Article 5 action, infer NATO-Russia war, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-romania-nato-airspace-three-drone-shootdowns-20260724-26-v1",
+      "event_ids": [
+        "romania_nato_airspace_drone_shootdowns_2026_07"
+      ],
+      "priority": "P0",
+      "score": 90,
+      "confidence": {
+        "level": "high_for_intercepts_and_russian_origin_low_for_deliberate_intent",
+        "probability": 0.98,
+        "basis": "Romania's Defense Ministry confirms three shootdowns, and AP quotes the foreign minister saying recovered fragments and the prosecutor investigation confirm the downed drones' Russian origin beyond doubt. The exact models for 25 and 26 July and deliberate-intent question remain unresolved."
+      },
+      "created_at": "2026-08-01T20:23:44+08:00",
+      "last_verified_at": "2026-08-03T01:45:15+08:00",
+      "status": "superseded_by_august_2_twenty_minute_incursion_alert",
+      "superseded_by_alert_id": "p0-romania-aug2-twenty-minute-airspace-incursion-20260802-v1",
+      "window": {
+        "status": "active_recurrence_and_misattribution_risk",
+        "last_confirmed_shootdown": "2026-07-26T10:13:00+03:00",
+        "last_confirmed_incursion_date": "2026-08-02",
+        "review_cadence_minutes": 5,
+        "nato_article_4_or_5_status": "not_confirmed"
+      },
+      "verified_facts": [
+        "Romanian F-16 aircraft shot down unauthorized drones in national airspace on 24, 25 and 26 July, three consecutive days",
+        "The 26 July drone entered Romanian airspace at 10:08 and was shot down at 10:13 over Romanian territorial waters about 12 kilometers northeast of Sulina",
+        "On 27 July, Romania's Defense Ministry detected another target about 36 kilometers east of Sulina, scrambled two F-16 aircraft at 08:53, and confirmed that the target briefly entered Romanian airspace before crossing back toward Ukraine; no shootdown or casualty was reported",
+        "Romania's foreign minister said recovered fragments and the prosecutor investigation confirm beyond doubt that the downed drones were of Russian origin; the 24 July drone was identified as Shahed-type, while exact models for 25 and 26 July were not final",
+        "The incidents occurred during Russian attacks on Ukrainian civilian and infrastructure targets near Romania's river border",
+        "Romania expelled a Russian diplomat after the repeated violations",
+        "No casualty, deliberate attack on NATO territory, NATO Article 4 consultation, Article 5 invocation or collective NATO military response was confirmed in this scan"
+      ],
+      "impact_path": "Renewed NATO-airspace incursion or kinetic intercept -> higher Russia-NATO escalation probability and Black Sea security premium -> European gas, sovereign yields, euro, dollar, gold, defense equities and broad risk repricing -> BTC volatility, weekend gaps and liquidation risk.",
+      "scenarios": {
+        "further_incursion_without_casualties": "Repeated interceptions can raise the geopolitical premium but may remain contained if Romania treats them as air-defense incidents and NATO takes no collective step.",
+        "casualties_damage_or_deliberate_targeting_evidence": "This is the strongest escalation branch; distinguish national response, Article 4 consultation and Article 5 collective-defense decisions before assigning probabilities or market direction.",
+        "investigation_supports_stray_or_diverted_drones": "A non-deliberate finding plus sustained absence of new incursions can reduce the tail-risk premium, though border-security costs may persist.",
+        "russian_diplomatic_or_military_retaliation": "A verified retaliatory move can broaden the conflict channel; require official confirmation and persistent reaction across European gas, EUR, yields, gold, equities and BTC."
+      },
+      "invalidation": "Investigations find no deliberate targeting, no further incursions occur, diplomatic measures remain contained, NATO takes no escalatory collective action and European security plus cross-asset risk premia normalize.",
+      "sources": [
+        "https://english.mapn.ro/cpresa/6824_drone-shot-down-by-a-romanian-air-force-f-16-fighting-falcon-aircraft",
+        "https://english.mapn.ro/cpresa/6825_press-information",
+        "https://english.mapn.ro/cpresa/6826_Press-Information",
+        "https://english.mapn.ro/",
+        "https://apnews.com/article/91a70ccfe31d0efd11ca57309281c1f4",
+        "https://apnews.com/article/ee9775ba338f5408bfa9ab3cb5f2ad1d",
+        "https://ca.marketscreener.com/news/romania-shoots-down-third-russian-drone-as-president-calls-breaches-intolerable-ce7f51dcd889f42d",
+        "https://in.marketscreener.com/news/romania-expels-russian-diplomat-in-protest-of-airspace-breaches-ce7f51dcdf89f426"
+      ],
+      "permitted_use": "Maintain five-minute official-source monitoring for further incursions, attribution, casualties, Russian response and NATO consultation status; update regime probabilities only after official and cross-asset confirmation.",
+      "prohibited_use": "Do not report a deliberate Russian attack on NATO, Article 4 or Article 5 action that has not been confirmed, claim the exact models or launch paths of the 25 and 26 July drones are settled, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-us-treasury-long-end-steepening-fed-hike-dissent-20260728-31-v1",
+      "event_ids": [
+        "us_treasury_long_end_steepening_fed_hike_dissent_2026_07_31",
+        "us_treasury_financing_estimates_2026_08_03",
+        "us_treasury_quarterly_refunding_2026_08_05"
+      ],
+      "priority": "P1",
+      "score": 89,
+      "confidence": {
+        "level": "high_for_official_curve_and_vote_medium_for_causal_narrative_and_direction",
+        "probability": 0.98,
+        "basis": "Treasury's official daily curve and the Federal Reserve's statement directly establish the yield move and 9-3 vote. The dominant causal mix and persistence into the next cash-session reopen remain conditional."
+      },
+      "created_at": "2026-08-01T20:37:42+08:00",
+      "last_verified_at": "2026-08-01T20:37:42+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_weekend_reopen_and_next_week_macro_supply_risk",
+        "next_cash_market_reopen": "2026-08-03 Asia session and U.S. session",
+        "next_amplifiers_local": [
+          "2026-08-03T22:00:00+08:00 ISM manufacturing",
+          "2026-08-04T03:00:00+08:00 Treasury financing estimate",
+          "2026-08-05T20:30:00+08:00 Treasury quarterly refunding"
+        ],
+        "review_cadence_minutes": 15,
+        "p0_upgrade_condition": "verified Treasury-market dysfunction or nonlinear cross-asset liquidation"
+      },
+      "verified_facts": [
+        "Treasury's official curve shows the 2-year yield rising from 4.09 percent on 28 July to 4.28 percent on 31 July",
+        "The 10-year yield rose from 4.61 percent to 4.75 percent and the 30-year yield from 5.09 percent to 5.27 percent over the same dates",
+        "The 31 July 2s10s and 2s30s slopes were about 47 and 99 basis points respectively",
+        "The Federal Reserve held the target range at 3.50 to 3.75 percent by a 9-3 vote, with Hammack, Kashkari and Logan preferring a 25-basis-point increase",
+        "No verified evidence in this scan established disorderly Treasury liquidity, repo stress, failed market functioning or a single dominant cause for the selloff"
+      ],
+      "market_confirmation": {
+        "source": "Binance public spot and USD-M perpetual APIs",
+        "snapshot_at": "2026-08-01T20:35:38+08:00",
+        "btc_usdt_last": 63090.01,
+        "btc_24h_percent": -0.876,
+        "eth_24h_percent": -0.396,
+        "sol_24h_percent": -0.681,
+        "xrp_24h_percent": -0.645,
+        "btc_funding_rate": 2.365e-05,
+        "btc_global_account_long_short_ratio": 2.1046,
+        "assessment": "Crypto showed mild broad weakness with positive funding and a long-account skew, indicating downside sensitivity but not an acute liquidation regime; this is single-venue evidence."
+      },
+      "impact_path": "Long-end Treasury yields and term premium -> mortgage and corporate funding costs plus equity duration -> dollar and global liquidity -> BTC valuation, funding and liquidation risk; fiscal supply and energy inflation can amplify the path.",
+      "scenarios": {
+        "inflation_or_term_premium_tightening": "Persistent higher long yields and dollar with weaker equities, credit and BTC would confirm tighter financial conditions and increase downside-liquidation risk.",
+        "growth_scare_yield_reversal": "Falling yields can ease duration pressure, but BTC benefits only if credit and equities stabilize rather than signaling an acute growth shock.",
+        "orderly_steepening_without_cross_asset_stress": "Treat the move as context rather than a directional trigger if Treasury liquidity stays normal and equities, credit and crypto do not confirm persistent stress.",
+        "treasury_market_dysfunction": "A severe auction tail, repo pressure, deteriorating depth or nonlinear cross-asset liquidation warrants immediate P0 escalation and independent confirmation."
+      },
+      "invalidation": "Long yields retrace, curve steepening stabilizes, Treasury liquidity remains orderly, upcoming financing and refunding details do not worsen duration supply, and dollar, credit, equities and crypto fail to confirm tighter financial conditions.",
+      "sources": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202607&type=daily_treasury_yield_curve",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm",
+        "https://www.axios.com/2026/07/29/fed-warsh-rates-inflation",
+        "https://www.axios.com/2026/07/30/warsh-fed-inflation-bonds",
+        "https://apnews.com/article/6a7e8b53a187b1193a0ee7b58df680c2"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for the cash-market reopen, Treasury liquidity, the dollar, credit, equities and crypto funding; update regime probabilities only after persistent cross-asset confirmation.",
+      "prohibited_use": "Do not label the move a proven Fed credibility crisis, infer Treasury-market dysfunction without liquidity evidence, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-egypt-damietta-lng-drone-attack-20260729-v1",
+      "event_ids": [
+        "egypt_damietta_lng_drone_attack_2026_07_29"
+      ],
+      "priority": "P0",
+      "score": 93,
+      "confidence": {
+        "level": "high_for_drone_cause_two_vessel_fires_and_no_casualties_medium_for_operational_disruption_low_for_attribution",
+        "probability": 0.95,
+        "basis": "Egypt's Prime Minister's office, as reported by AP and El Pais, established the preliminary drone finding. AP, Ambrey-linked reporting and industry sources establish two affected LNG vessels and no injuries; attribution, lasting equipment damage, terminal recovery and a wider Suez effect remain unresolved."
+      },
+      "created_at": "2026-08-01T21:48:02+08:00",
+      "last_verified_at": "2026-08-01T21:48:02+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_attribution_terminal_recovery_and_repeat_attack_risk",
+        "review_cadence_minutes": 5,
+        "attacker_status": "unconfirmed",
+        "terminal_normal_operations_status": "not_confirmed",
+        "suez_canal_closure_status": "not_confirmed"
+      },
+      "verified_facts": [
+        "Egypt's Prime Minister's office said a preliminary investigation found that a drone caused fires affecting two gas vessels at Damietta port on 29 July",
+        "AP and Ambrey-linked reporting identified the U.S.-owned Energos Winter floating storage and regasification unit as the initially struck vessel and GasLog Salem as the second affected vessel",
+        "The fires were brought under control and no injuries were reported",
+        "No group had credibly claimed responsibility at the latest verification, and the Houthis denied involvement",
+        "Egyptian official material identifies Energos Winter as one of four operating FSRUs supplying the national gas grid, with three other units at Ain Sokhna",
+        "No Suez Canal closure, prolonged nationwide LNG outage, major leak, casualty or sustained supply loss was confirmed"
+      ],
+      "market_confirmation": {
+        "source": "Binance public spot and USD-M perpetual APIs",
+        "snapshot_at": "2026-08-01T21:48:02+08:00",
+        "btc_usdt_last": 63064.53,
+        "btc_24h_percent": -0.485,
+        "eth_24h_percent": -0.044,
+        "sol_24h_percent": -0.423,
+        "xrp_24h_percent": -0.44,
+        "btc_funding_rate": 2.699e-05,
+        "btc_open_interest": 108908.801,
+        "btc_global_account_long_short_ratio": 2.0921,
+        "usdc_usdt_last": 1.00078,
+        "fdusd_usdt_last": 0.9979,
+        "assessment": "Crypto declines had narrowed, funding remained slightly positive, open interest eased only gradually and stablecoins remained close to their normal venue levels. Sell-biased taker flow and long-account crowding create downside sensitivity, but the snapshot does not confirm forced deleveraging or systemic stress; this is single-venue evidence."
+      },
+      "impact_path": "Drone damage at a Mediterranean LNG import and regasification facility -> repair, cargo rescheduling, port-security, insurance and freight costs -> Egyptian power and industrial gas plus East Mediterranean and European marginal gas repricing -> inflation, yields, dollar, equities and BTC volatility.",
+      "scenarios": {
+        "isolated_attack_and_fast_recovery": "Contained fires, rapid technical clearance, continued cargo handling and no repeat attack would reduce the event premium; require official operational confirmation.",
+        "sustained_fsru_or_terminal_outage": "Verified long-duration damage, unloading cancellations or national gas-supply constraints would strengthen the energy and inflation channel; quantify lost capacity and duration before assigning market direction.",
+        "repeat_attack_or_confirmed_state_proxy_attribution": "Additional attacks or credible attribution to a state or proxy would signal wider conflict expansion and can amplify maritime, insurance and cross-asset risk nonlinearly.",
+        "suez_or_broader_mediterranean_disruption": "A verified Suez traffic interruption or threat to additional Mediterranean energy assets is a separate and stronger global trade branch; it is not established by the present incident."
+      },
+      "invalidation": "Official inspection confirms limited damage and normal operations, no repeat attack or credible escalation occurs, Suez traffic and LNG cargo handling remain normal, and energy, freight and cross-asset risk premia fade.",
+      "sources": [
+        "https://apnews.com/article/8dc77ed6a65f389ea4af84635d2473bd",
+        "https://elpais.com/internacional/2026-07-30/egipto-confirma-que-un-dron-provoco-el-incendio-de-dos-buques-de-gas-en-su-costa-cerca-del-canal-de-suez.html",
+        "https://www.petroleum.gov.eg/en/media-center/news/news-pages/Pages/mop_26062026_02.aspx",
+        "https://sis.gov.eg/ar/%D8%A7%D9%84%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A5%D8%B9%D9%84%D8%A7%D9%85%D9%8A/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D8%A8%D8%AA%D8%B1%D9%88%D9%84-%D9%8A%D8%A4%D9%83%D8%AF-%D8%B9%D9%84%D9%89-%D8%A7%D9%84%D8%AC%D8%A7%D9%87%D8%B2%D9%8A%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84%D8%A9-%D9%84%D8%AA%D8%A3%D9%85%D9%8A%D9%86-%D8%A7%D8%AD%D8%AA%D9%8A%D8%A7%D8%AC%D8%A7%D8%AA-%D8%A7%D9%84%D8%AF%D9%88%D9%84%D8%A9-%D9%85%D9%86-%D8%A7%D9%84%D8%BA%D8%A7%D8%B2-%D8%AE%D9%84%D8%A7%D9%84-%D8%A7%D9%84%D8%B5%D9%8A%D9%81/"
+      ],
+      "permitted_use": "Raise five-minute monitoring sensitivity for attribution, repeat attacks, terminal recovery, LNG cargo movements, Suez traffic, gas prices, freight, insurance and cross-asset confirmation; use only as scenario and volatility context.",
+      "prohibited_use": "Do not attribute the attack to Iran, the Houthis or another actor without evidence, claim Suez closure or sustained gas-supply loss, infer a fixed crypto direction, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-kyiv-lithuanian-embassy-strike-spillover-20260801-v1",
+      "event_ids": [
+        "russia_kyiv_ballistic_strike_lithuanian_embassy_2026_08_01"
+      ],
+      "priority": "P1",
+      "score": 83,
+      "confidence": {
+        "level": "high_for_strike_casualties_and_embassy_damage_low_for_deliberate_diplomatic_targeting",
+        "probability": 0.93,
+        "basis": "AP combines Ukrainian emergency-service casualty and damage figures, Lithuania's foreign minister's confirmation of embassy damage, and Russia's Defense Ministry acknowledgment of a massive strike. Deliberate targeting and NATO collective action are unconfirmed."
+      },
+      "created_at": "2026-08-01T22:11:19+08:00",
+      "last_verified_at": "2026-08-01T22:11:19+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_next_24_to_72_hours_diplomatic_and_security_response",
+        "review_cadence_minutes": 15,
+        "deliberate_embassy_targeting_status": "not_confirmed",
+        "diplomatic_casualty_status": "not_reported",
+        "nato_article_4_or_5_status": "not_confirmed"
+      },
+      "verified_facts": [
+        "AP reports an intense Russian ballistic-missile and drone barrage on Kyiv overnight into 1 August",
+        "Ukrainian authorities reported at least nine civilians killed and 33 injured",
+        "Lithuania's foreign minister said the country's embassy in Kyiv was damaged when missiles struck nearby",
+        "Russia's Defense Ministry acknowledged a massive strike and said it targeted military-industrial and logistics facilities",
+        "The embassy is in Ukraine rather than NATO territory, and no diplomatic casualty, deliberate targeting finding, NATO Article 4 or Article 5 action was confirmed"
+      ],
+      "market_confirmation": {
+        "source": "Binance public spot and USD-M perpetual APIs",
+        "snapshot_at": "2026-08-01T22:11:19+08:00",
+        "btc_usdt_last": 63090.61,
+        "btc_24h_percent": 0.697,
+        "eth_24h_percent": 0.697,
+        "sol_24h_percent": -0.26,
+        "xrp_24h_percent": 0.311,
+        "btc_funding_rate": 2.726e-05,
+        "btc_open_interest": 108870.773,
+        "usdc_usdt_last": 1.00078,
+        "fdusd_usdt_last": 0.9979,
+        "assessment": "Mixed-to-firm spot performance, slightly positive funding, stable open interest and stablecoins near their venue norms do not confirm an acute geopolitical risk-off regime; this is single-venue evidence."
+      },
+      "impact_path": "Civilian casualties and NATO-member embassy damage in Kyiv -> Lithuanian, EU or NATO diplomatic response, sanctions and air-defense aid -> European geopolitical, fiscal, energy and gold premia -> euro, European bonds, dollar, equities and BTC volatility.",
+      "scenarios": {
+        "limited_nearby_blast_damage_no_collective_action": "If damage is limited, the mission remains operational and responses stay diplomatic, the incremental market premium may fade quickly.",
+        "stronger_sanctions_or_air_defense_aid": "A coordinated sanctions or military-aid package can raise European fiscal and escalation premia; require official measures and persistent cross-asset confirmation.",
+        "deliberate_targeting_or_diplomatic_casualties": "Credible evidence of intentional diplomatic targeting or casualties would materially raise escalation risk and warrants immediate repricing and P0 review.",
+        "nato_article_4_or_broader_mission_damage": "Formal Article 4 consultations or repeated damage to NATO missions would broaden the geopolitical tail, but neither is currently established."
+      },
+      "invalidation": "Official inspection confirms limited incidental damage, no diplomatic casualties or deliberate targeting, the embassy continues normal operations, no material sanctions or collective NATO response follows, and cross-asset risk premia do not persist.",
+      "sources": [
+        "https://apnews.com/article/eb62397d10bca2d6db4269a3bcfc9dc6",
+        "https://www.mfa.lt/en/news/928/lithuania-categorically-rejects-russias-new-threats-against-kyiv-and-its-diplomats%3A46078"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for Lithuanian, EU and NATO responses, sanctions, air-defense aid and cross-asset confirmation; use only as conditional geopolitical context.",
+      "prohibited_use": "Do not describe embassy damage inside Ukraine as an attack on NATO territory, infer deliberate targeting or Article 4 or 5 action, assign a fixed crypto direction, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p1-us-senate-russia-energy-secondary-tariff-bill-20260728-v1",
+      "event_ids": [
+        "us_senate_russia_energy_secondary_tariff_bill_2026_07_28"
+      ],
+      "priority": "P1",
+      "score": 89,
+      "confidence": {
+        "level": "high_for_procedural_vote_and_bill_scope_medium_for_final_passage_and_execution",
+        "probability": 0.95,
+        "basis": "AP and Axios establish the 86-12 procedural vote, and official sponsor releases establish the sanctions and tariff framework. Final passage, enactment and implementation details remain conditional."
+      },
+      "created_at": "2026-08-02T00:57:07+08:00",
+      "last_verified_at": "2026-08-02T00:57:07+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_legislative_and_implementation_risk",
+        "review_cadence_minutes": 15,
+        "senate_final_passage_status": "not_confirmed",
+        "house_action_status": "not_confirmed",
+        "presidential_signature_status": "not_confirmed",
+        "country_rate_and_effective_date_status": "not_confirmed"
+      },
+      "verified_facts": [
+        "The Senate voted 86-12 on 28 July on a procedural step that moves the Russia sanctions bill forward; this was not final passage",
+        "Official sponsor material describes primary and secondary sanctions on Russian officials, banks, financial institutions, energy projects and the shadow fleet",
+        "The updated framework permits tariffs of up to 100 percent on the five largest purchasers of Russian oil or gas or facilitators of sanctions evasion, rather than an automatic universal 100 percent tariff",
+        "The framework contains a gas exception for countries below the stated 15 percent threshold that are taking significant reduction steps and preserves presidential national-interest waiver authority",
+        "Final Senate passage, House action, presidential signature, designated countries, actual rates, effective dates and enforcement intensity are not confirmed"
+      ],
+      "market_confirmation": {
+        "status": "not_yet_established_for_final_enactment_or_execution",
+        "required": "Confirm persistent repricing in crude curves, Russian oil discounts and flows, freight, inflation expectations, Treasury yields, the dollar, equities and crypto before inferring direction"
+      },
+      "impact_path": "Procedural advancement and possible enactment -> trade conflict and Russian-energy purchasing changes by major buyers -> Russian discounts, rerouting or verified global net-supply loss -> crude curves, inflation expectations, yields and dollar -> equities and BTC volatility.",
+      "scenarios": {
+        "binding_fast_enforcement_and_retaliation": "Final enactment followed by near-term country designations, material tariffs, retaliation and verifiable import, refinery or shipping cuts could create an oil and inflation shock and warrants immediate P0 review.",
+        "waivers_delay_or_lower_effective_rates": "Broad waivers, delayed implementation or rates materially below the cap would weaken the direct energy and trade shock.",
+        "rerouting_without_global_supply_loss": "Russian barrels may be redirected or discounted without reducing global supply, limiting the oil-price channel despite bilateral trade disruption.",
+        "deescalation_or_revenue_pressure_without_supply_loss": "If the measure pressures Russian revenue while preserving global supply and supports negotiation, geopolitical risk premia may fall rather than rise."
+      },
+      "invalidation": "The bill stalls, is amended to remove the material tariff mechanism, receives broad waivers or prolonged non-implementation, and fails to produce persistent energy-flow or cross-asset repricing.",
+      "sources": [
+        "https://apnews.com/article/russia-sanctions-senate-graham-ukraine-zelenskyy-1d5b6ee3082e409422ace0993becdd54",
+        "https://www.britt.senate.gov/news/press-releases/u-s-senators-katie-britt-darline-graham-richard-blumenthal-jeanne-shaheen-roger-wicker-lead-bipartisan-group-of-62-senators-in-announcing-russia-sanctions-legislation-in-honor-of-u-s-senator-lin/",
+        "https://www.blumenthal.senate.gov/newsroom/press/release/blumenthal-graham-shaheen-and-wicker-announce-agreement-on-legislation-to-hold-purchasers-of-russian-oil-accountable",
+        "https://www.investing.com/news/commodities-news/us-russia-sanctions-bill-eases-threat-of-tariffs-on-china-and-india-4791514",
+        "https://www.axios.com/2026/07/29/senate-russia-sanctions-lindsey-graham"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for final Senate and House votes, presidential action, named countries, rates, waivers, effective dates, retaliation, Russian-energy flows and cross-asset confirmation; use only as conditional legislative and volatility context.",
+      "prohibited_use": "Do not state that the bill has finally passed or become law, assume China or India already face a 100 percent tariff, infer a fixed crypto direction, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-us-iran-conditional-strike-pause-hormuz-dispute-20260802-v1",
+      "event_ids": [
+        "us_iran_hormuz_red_sea_2026_07"
+      ],
+      "priority": "P0",
+      "score": 99,
+      "confidence": {
+        "level": "high_for_conditional_us_pause_and_iranian_denial_low_for_deal_execution",
+        "probability": 0.98,
+        "basis": "AP reports Trump's conditional pause and quotes Iran's Foreign Ministry spokesperson denying talks to reopen Hormuz; Reuters independently reports the pause. AP's later chronology documents that every prior announced pause in this conflict was followed by renewed attacks within days or weeks. No signed agreement, Iranian acceptance or physical transit normalization is confirmed."
+      },
+      "created_at": "2026-08-03T01:28:27+08:00",
+      "last_verified_at": "2026-08-03T13:24:18+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_conditional_pause_with_high_reversal_risk",
+        "review_cadence_minutes": 5,
+        "us_israel_new_strike_status": "paused_subject_to_rapid_deal",
+        "iran_acceptance_status": "not_confirmed_and_hormuz_talks_denied",
+        "hormuz_reopening_status": "not_confirmed",
+        "next_high_information_window": "Trump said negotiations were expected to resume Monday afternoon, but did not specify the participants, timezone or exact time; treat this as a time-uncertain high-information window alongside Iranian official response and physical transit data"
+      },
+      "verified_facts": [
+        "Trump said the United States would hold off on new strikes subject to being able to make a rapid deal",
+        "Trump described the proposed parameters as immediate and complete opening of the Strait of Hormuz and an end to Iran's nuclear threat, and said Israel would join the pause",
+        "AP later quoted Iranian Foreign Ministry spokesperson Esmail Baghaei saying there were no talks about reopening the strait and it would not return to its pre-war status",
+        "The prior severe transit contraction and confirmed tanker plus Gulf-facility incidents remain active baselines; no durable ceasefire, signed agreement or flow normalization is established",
+        "AP's 2 August chronology shows that the conflict's previous announced pauses or preliminary agreements in April, May, June and July were each followed by renewed attacks within days or weeks; this is historical reversal evidence, not proof that a new strike has already occurred",
+        "AP reports U.S. crude fell about 5 percent to 80.79 dollars per barrel on Sunday night after the planned strikes were held off; a later public cross-asset snapshot independently showed WTI near 79.76 dollars and down about 5.80 percent",
+        "Trump said negotiations were expected to resume Monday afternoon but did not state who would participate or provide an exact time; this is a time-uncertain information window, not confirmation that a meeting or agreement has occurred"
+      ],
+      "market_confirmation": {
+        "source": "Binance public spot and USD-M perpetual APIs, TradingView public cross-asset scanner and AP market reporting",
+        "snapshot_at": "2026-08-03T13:23:49+08:00",
+        "btc_usdt_last": 62806.0,
+        "btc_24h_percent": -1.087,
+        "eth_24h_percent": -1.147,
+        "sol_24h_percent": -0.964,
+        "xrp_24h_percent": -1.108,
+        "btc_funding_rate": 0.0001,
+        "btc_open_interest": 109275.231,
+        "btc_taker_buy_sell_ratio_latest_5m": 2.5902,
+        "usdc_usdt_last": 1.00105,
+        "fdusd_usdt_last": 0.998,
+        "dxy_last": 99.708,
+        "dxy_change_percent": -0.0942,
+        "us10y_yield_percent": 4.692,
+        "us10y_change_basis_points_approx": -2.6,
+        "sp500_futures_change_percent": 0.5985,
+        "nasdaq_futures_change_percent": 0.8564,
+        "wti_front_month_last": 79.41,
+        "wti_change_percent": -6.2124,
+        "gold_change_percent": 0.3635,
+        "usdjpy_change_percent": -0.575,
+        "assessment": "Oil extended its decline while yields, the dollar and USDJPY stayed lower and equity futures positive, reinforcing lower immediate energy-escalation and inflation-risk pricing. Crypto still does not confirm durable risk-on: BTC and major alts remain negative and a 2.59 taker buy-sell ratio produced no price acceptance, while stablecoins remain orderly. The divergence, positive gold response and time-uncertain Monday-afternoon negotiation window preserve headline and reversal risk; this is de-escalation pricing, not proof of a signed deal, reopened strait or fixed crypto direction."
+      },
+      "impact_path": "Conditional strike pause -> lower immediate energy-attack probability and weekend risk premium -> oil and inflation relief expectations -> rates, dollar and equity valuation -> crypto relief; Iranian rejection or negotiation failure -> rapid reversal through oil, freight, yields, dollar, equities, BTC funding and liquidations.",
+      "scenarios": {
+        "verified_rapid_deal_and_transit_recovery": "Confirmed Iranian acceptance, a named negotiation channel and sustained Hormuz traffic recovery would strengthen the relief branch; require oil, freight, inflation expectations, yields, dollar, equities and crypto to confirm persistence.",
+        "conditional_pause_without_agreement": "Risk premium can remain two-sided and headline-sensitive while the strike pause holds but Iran rejects the stated terms; avoid treating the pause as a ceasefire.",
+        "talks_fail_or_new_strike_occurs": "A reversed pause, new U.S., Israeli or Iranian strike, or fresh tanker and Gulf infrastructure damage can reactivate the strongest escalation branch immediately.",
+        "market_relief_becomes_crowded": "Rising funding, recovered open interest and concentrated taker buying can amplify a reversal even without a new physical event; require sustained spot breadth and stable leverage before interpreting the move as durable."
+      },
+      "invalidation": "A signed or formally accepted agreement is implemented, Hormuz transit and insurance conditions normalize, no new attacks occur, and oil plus cross-asset risk premia remain compressed; alternatively, a confirmed new strike supersedes the pause and moves the event back to acute escalation.",
+      "sources": [
+        "https://apnews.com/article/iran-war-trump-saudi-crown-prince-call-814164417aa284dc8a6d34ac22ea1a8e",
+        "https://apnews.com/article/trump-iran-strait-hormuz-israel-gaza-mideast-f4c225f6667d9fd171616304701825a0",
+        "https://apnews.com/article/trump-iran-war-us-canceled-strikes-670f077d2cf5de7614cfce4ad40e4aaa",
+        "https://apnews.com/article/194ab3d3130bb44de445cf3d05954beb",
+        "https://scanner.tradingview.com/global/scan",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+        "https://www.ukmto.org/recent-incidents"
+      ],
+      "permitted_use": "Update immediate escalation and relief probabilities, increase headline-reversal and leverage-sensitivity monitoring, and require physical transit plus cross-asset confirmation before changing regime assumptions.",
+      "prohibited_use": "Do not describe the conditional pause as a signed ceasefire or reopened strait, do not infer a fixed crypto direction, and do not use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    },
+    {
+      "alert_id": "p0-romania-aug2-twenty-minute-airspace-incursion-20260802-v1",
+      "event_ids": [
+        "romania_nato_airspace_drone_shootdowns_2026_07"
+      ],
+      "priority": "P0",
+      "score": 92,
+      "confidence": {
+        "level": "high_for_incursion_and_f16_scramble_low_for_deliberate_intent",
+        "probability": 0.98,
+        "basis": "Romania's Defense Ministry official post says the aerial target spent about 20 minutes over territorial waters and along the Sulina branch inside national airspace before leaving toward Ukraine; The Kyiv Independent reports it was then shot down by Ukrainian forces. Intent and collective NATO action are not established."
+      },
+      "created_at": "2026-08-03T01:45:15+08:00",
+      "last_verified_at": "2026-08-03T01:45:15+08:00",
+      "status": "pending_direct_delivery_available_via_feed",
+      "window": {
+        "status": "active_new_incursion_and_recurrence_risk",
+        "event_date": "2026-08-02",
+        "time_in_national_airspace_minutes_approx": 20,
+        "review_cadence_minutes": 5,
+        "romanian_f16_scramble": true,
+        "romanian_shootdown_status": "not_reported_target_left_territory",
+        "ukrainian_shootdown_status": "reported_after_target_returned_to_ukraine",
+        "casualty_or_damage_status": "not_confirmed",
+        "nato_article_4_or_5_status": "not_confirmed"
+      },
+      "verified_facts": [
+        "Romania's Defense Ministry said an aerial target operated for about 20 minutes over Romanian territorial waters and along the Sulina branch inside national airspace",
+        "Romania scrambled two F-16 aircraft and the target later left Romanian territory toward Ukraine",
+        "The Kyiv Independent, citing the ministry, reports Ukrainian forces shot down the target after it returned to Ukraine",
+        "This follows Romanian F-16 shootdowns of Russian-origin drones on 24, 25 and 26 July and another brief incursion on 27 July",
+        "No Romanian casualty, damage, deliberate attack finding, NATO Article 4 consultation, Article 5 invocation or collective military response is confirmed"
+      ],
+      "impact_path": "Renewed and longer NATO-airspace incursion -> higher interception, miscalculation and Russia-NATO escalation probability -> European gas, EUR, sovereign yields, gold, defense equities and broad risk repricing -> BTC volatility, leverage stress and liquidation risk.",
+      "scenarios": {
+        "contained_incursion_no_damage": "If the target remains an isolated spillover incident, Romania limits its response to national air defense and NATO takes no collective step, the incremental premium may fade.",
+        "repeated_incursion_or_romanian_intercept": "Another incursion, a Romanian shootdown or cross-border debris can raise escalation sensitivity, especially if accompanied by official Russian retaliation or NATO consultations.",
+        "casualties_damage_or_deliberate_targeting": "This is the strongest escalation branch; require official attribution and distinguish Romanian action, Article 4 consultation and Article 5 collective defense before assigning market direction.",
+        "diplomatic_containment": "A formal protest, investigation and sustained absence of new events without collective military action can reduce the tail-risk premium."
+      },
+      "invalidation": "Investigation finds no deliberate targeting, no further incursions occur, the incident produces no casualty or damage, NATO takes no escalatory collective action, and European security plus cross-asset risk premia normalize.",
+      "sources": [
+        "https://www.facebook.com/mapn.ro/posts/update%C8%9Binta-aerian%C4%83-a-evoluat-pentru-aproximativ-20-de-minute-deasupra-apelor-te/1549976470500805/",
+        "https://kyivindependent.com/romania-scrambles-f-16s-as-russian-drone-crosses-ukraines-danube-river-border/",
+        "https://english.mapn.ro/cpresa/6824_drone-shot-down-by-a-romanian-air-force-f-16-fighting-falcon-aircraft",
+        "https://english.mapn.ro/cpresa/6825_press-information",
+        "https://english.mapn.ro/cpresa/6826_Press-Information"
+      ],
+      "permitted_use": "Raise monitoring sensitivity for renewed incursions, Romanian intercept decisions, casualties, Russian response, NATO consultations and cross-asset confirmation.",
+      "prohibited_use": "Do not describe the event as a deliberate Russian attack on NATO or an Article 4 or Article 5 action, infer a fixed crypto direction, or use this alert to place orders or change position size, leverage, stops or live-trading permissions."
+    }
+  ]
+}

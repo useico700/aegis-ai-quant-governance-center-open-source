@@ -1,0 +1,539 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aegis:orion-v2:account-compound-candidate-summary:1",
+  "title": "ORION V2 Account Compound Candidate C Summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "studyId",
+    "candidateRevision",
+    "sequence",
+    "sourceAsOf",
+    "startedAt",
+    "status",
+    "sourceScope",
+    "account",
+    "inputs",
+    "gates",
+    "validation"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "studyId": {
+      "const": "V2-ACCOUNT-COMPOUND-ABC-20260906"
+    },
+    "candidateRevision": {
+      "const": "V2-ACCOUNT-COMPOUND-C1-20260906"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sourceAsOf": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "startedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "WAITING_HEALTHY_FORWARD_BASELINE",
+        "ACTIVE_OBSERVE_ONLY",
+        "EVIDENCE_HOLD",
+        "RED_LATCHED_MANUAL_RESET_REQUIRED"
+      ]
+    },
+    "sourceScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "baselineLedger",
+        "fullIndependentSignalUniverse",
+        "baselineRejectedOpportunitiesSynthesized",
+        "historicalBackfillAllowed",
+        "carryInDisposition",
+        "carryInPositionCount",
+        "inferenceBoundary"
+      ],
+      "properties": {
+        "mode": {
+          "const": "BASELINE_EXECUTED_OPPORTUNITY_SUBSET_ONLY"
+        },
+        "baselineLedger": {
+          "const": "V2_APPEND_ONLY_PAPER_LEDGER_READ_ONLY"
+        },
+        "fullIndependentSignalUniverse": {
+          "const": false
+        },
+        "baselineRejectedOpportunitiesSynthesized": {
+          "const": false
+        },
+        "historicalBackfillAllowed": {
+          "const": false
+        },
+        "carryInDisposition": {
+          "const": "EXCLUDED_NOT_COPIED_AS_CANDIDATE_ENTRIES"
+        },
+        "carryInPositionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inferenceBoundary": {
+          "const": "INCOMPLETE_FOR_FULL_ACCOUNT_OR_ANNUAL_PROBABILITY_INFERENCE"
+        }
+      }
+    },
+    "account": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "initialEquityUsdt",
+        "cashRealizedEquityUsdt",
+        "liquidationNetEquityUsdt",
+        "confirmedHighEquityUsdt",
+        "protectionFloorUsdt",
+        "remainingProtectionCushionUsdt",
+        "existingStressRiskUsdt",
+        "availableCandidateRiskUsdt",
+        "portfolioPlannedRiskUsdt",
+        "grossNotionalUsdt",
+        "openPositionCount",
+        "closedPositionCount",
+        "cumulativeEntryFeesUsdt",
+        "cumulativeExitFeesUsdt",
+        "cumulativeFundingUsdt",
+        "cumulativeRebalanceCostsUsdt",
+        "realizedPnlUsdt",
+        "markToMarketNetPnlUsdt",
+        "maximumDrawdownFraction"
+      ],
+      "properties": {
+        "currency": {
+          "const": "USDT"
+        },
+        "initialEquityUsdt": {
+          "$ref": "#/$defs/nullableFinite"
+        },
+        "cashRealizedEquityUsdt": {
+          "$ref": "#/$defs/nullableFinite"
+        },
+        "liquidationNetEquityUsdt": {
+          "$ref": "#/$defs/nullableFinite"
+        },
+        "confirmedHighEquityUsdt": {
+          "$ref": "#/$defs/nullableFinite"
+        },
+        "protectionFloorUsdt": {
+          "$ref": "#/$defs/nullableFinite"
+        },
+        "remainingProtectionCushionUsdt": {
+          "$ref": "#/$defs/nullableNonnegative"
+        },
+        "existingStressRiskUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "availableCandidateRiskUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "portfolioPlannedRiskUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "grossNotionalUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "openPositionCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "closedPositionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cumulativeEntryFeesUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "cumulativeExitFeesUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "cumulativeFundingUsdt": {
+          "type": "number"
+        },
+        "cumulativeRebalanceCostsUsdt": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "realizedPnlUsdt": {
+          "type": "number"
+        },
+        "markToMarketNetPnlUsdt": {
+          "type": "number"
+        },
+        "maximumDrawdownFraction": {
+          "$ref": "#/$defs/nonnegative"
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baselineAccount",
+        "eventLedger",
+        "quote",
+        "depth",
+        "funding",
+        "metadata"
+      ],
+      "properties": {
+        "baselineAccount": {
+          "$ref": "#/$defs/inputStatus"
+        },
+        "eventLedger": {
+          "$ref": "#/$defs/cursorInputStatus"
+        },
+        "quote": {
+          "$ref": "#/$defs/cursorInputStatus"
+        },
+        "depth": {
+          "$ref": "#/$defs/cursorInputStatus"
+        },
+        "funding": {
+          "$ref": "#/$defs/cursorInputStatus"
+        },
+        "metadata": {
+          "$ref": "#/$defs/hashInputStatus"
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executionInputAllowed",
+        "kellySizingActivationAllowed",
+        "automaticPromotionAllowed",
+        "realizedOnlyCompounding",
+        "correlatedRiskShared",
+        "riskLimits",
+        "strategyInheritance",
+        "abnormalLoss",
+        "blockers"
+      ],
+      "properties": {
+        "executionInputAllowed": {
+          "const": false
+        },
+        "kellySizingActivationAllowed": {
+          "const": false
+        },
+        "automaticPromotionAllowed": {
+          "const": false
+        },
+        "realizedOnlyCompounding": {
+          "const": true
+        },
+        "correlatedRiskShared": {
+          "const": true
+        },
+        "riskLimits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "candidateFraction",
+            "perIntersectionFraction",
+            "portfolioFraction",
+            "cushionUseFraction",
+            "maximumLeverage",
+            "maximumPositions"
+          ],
+          "properties": {
+            "candidateFraction": {
+              "const": 0.0075
+            },
+            "perIntersectionFraction": {
+              "const": 0.01
+            },
+            "portfolioFraction": {
+              "const": 0.05
+            },
+            "cushionUseFraction": {
+              "const": 0.25
+            },
+            "maximumLeverage": {
+              "const": 4
+            },
+            "maximumPositions": {
+              "const": 10
+            }
+          }
+        },
+        "strategyInheritance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "baselineRevision",
+            "r13",
+            "r15",
+            "r19",
+            "r20",
+            "r21",
+            "r22"
+          ],
+          "properties": {
+            "baselineRevision": {
+              "const": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION"
+            },
+            "r13": {
+              "const": "REQUIRED"
+            },
+            "r15": {
+              "const": "REQUIRED"
+            },
+            "r19": {
+              "const": "REQUIRED"
+            },
+            "r20": {
+              "const": "REQUIRED"
+            },
+            "r21": {
+              "const": "REQUIRED"
+            },
+            "r22": {
+              "const": "REQUIRED"
+            }
+          }
+        },
+        "abnormalLoss": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "yellowAboveR",
+            "orangeAboveR",
+            "redAboveR",
+            "automaticRedReleaseAllowed"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "CLEAR",
+                "YELLOW",
+                "ORANGE",
+                "RED"
+              ]
+            },
+            "yellowAboveR": {
+              "const": 1.2
+            },
+            "orangeAboveR": {
+              "const": 1.5
+            },
+            "redAboveR": {
+              "const": 2
+            },
+            "automaticRedReleaseAllowed": {
+              "const": false
+            }
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "performanceValidated",
+        "annualTargetProbability",
+        "annualTargetProbabilityPublicationAllowed",
+        "eligibleCompletedCampaigns",
+        "excludedCompletedCampaigns",
+        "minimumEligibleCampaigns",
+        "completeIndependentSignalUniverse",
+        "missingDataInvented"
+      ],
+      "properties": {
+        "performanceValidated": {
+          "const": false
+        },
+        "annualTargetProbability": {
+          "const": null
+        },
+        "annualTargetProbabilityPublicationAllowed": {
+          "const": false
+        },
+        "eligibleCompletedCampaigns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "excludedCompletedCampaigns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minimumEligibleCampaigns": {
+          "const": 20
+        },
+        "completeIndependentSignalUniverse": {
+          "const": false
+        },
+        "missingDataInvented": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nonnegative": {
+      "type": "number",
+      "minimum": 0
+    },
+    "nullableFinite": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "nullableNonnegative": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "inputStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "sourceAsOf",
+        "freshnessMs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "WAITING",
+            "HEALTHY",
+            "STALE",
+            "GAP",
+            "INVALID"
+          ]
+        },
+        "sourceAsOf": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "freshnessMs": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "cursorInputStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "sourceAsOf",
+        "freshnessMs",
+        "cursor"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "WAITING",
+            "HEALTHY",
+            "STALE",
+            "GAP",
+            "INVALID"
+          ]
+        },
+        "sourceAsOf": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "freshnessMs": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cursor": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "hashInputStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "sourceAsOf",
+        "freshnessMs",
+        "sha256"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "WAITING",
+            "HEALTHY",
+            "STALE",
+            "GAP",
+            "INVALID"
+          ]
+        },
+        "sourceAsOf": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "freshnessMs": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

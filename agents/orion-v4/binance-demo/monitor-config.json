@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "enabled": true,
+  "url": "https://your-cockpit.example.invalid",
+  "publishIntervalMs": 60000,
+  "keychainService": "aegis-v4-monitor-online",
+  "keychainAccount": "ORION-V4-MONITOR",
+  "sitesBypassKeychainService": "aegis-sites-bypass",
+  "sitesBypassKeychainAccount": "PUBLIC_PROJECT_ID_REQUIRED",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED"
+}

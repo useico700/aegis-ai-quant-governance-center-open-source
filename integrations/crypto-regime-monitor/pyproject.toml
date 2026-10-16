@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crypto-regime-monitor"
+version = "0.1.0"
+description = "Multi-timeframe crypto market regime monitor with TradingView companion indicator"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+crypto-regime = "crypto_regime.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

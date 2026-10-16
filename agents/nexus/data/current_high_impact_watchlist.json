@@ -1,0 +1,834 @@
+{
+  "version": "2026-08-03T14:23:27+08:00",
+  "timezone": "Asia/Shanghai",
+  "status": "active_monitoring",
+  "scheduled": [
+    {
+      "event_id": "opec_plus_seven_review_2026_08_02",
+      "date_local": "2026-08-02",
+      "time_status": "completed_official_outcome_published",
+      "event": "OPEC+七个自愿减产国月度供给复核会议",
+      "priority": "P1",
+      "base_score": 89,
+      "last_verified_at": "2026-08-03T01:28:27+08:00",
+      "confidence": {
+        "level": "high_for_official_decision_conditional_for_net_supply_effect",
+        "probability": 0.99,
+        "basis": "OPEC's 2 August official release confirms a 188 thousand barrels-per-day September production adjustment, continued conformity and compensation commitments, and a 6 September next meeting. Net delivered barrels remain conditional on compensation, compliance, capacity and transport."
+      },
+      "sources": [
+        "https://www.opec.org/pr-detail/1835609-5-july-2026.html",
+        "https://www.opec.org/pr-detail/604-16-june-2026.html",
+        "https://www.spa.gov.sa/en/N2627610",
+        "https://www.reuters.com/business/energy/opec-likely-raise-oil-output-targets-september-again-sources-say-2026-07-23/",
+        "https://ca.marketscreener.com/news/opec-likely-to-again-raise-oil-output-targets-from-september-sources-say-ce7f51dede81ff26",
+        "https://www.opec.org/pr-detail/1854611-2-august-2026.html"
+      ],
+      "baseline": "沙特、俄罗斯、伊拉克、科威特、哈萨克斯坦、阿尔及利亚和阿曼7月5日决定，8月在逐步退出/返还自愿减产框架内实施18.8万桶/日的名义产量调整；同时保留增加、暂停或反转退出过程的完整灵活性。",
+      "official_outcome": "OPEC+七国于8月2日正式决定，2026年9月从2023年4月额外自愿减产中实施18.8万桶/日的名义产量调整；重申完全履约并补偿2024年1月以来超产量，下次月度会议定于9月6日。",
+      "interpretation_limit": "18.8万桶/日是名义产量路径调整，不是保证到达市场的净新增桶数。补偿性减产、执行率、超产纠偏、实际产能、库存以及霍尔木兹运输收缩可显著抵消纸面增量。",
+      "note": "正式结果与会前18.8万桶/日基准一致，直接惊喜有限。若补偿规模小、实际产量和装运增加且霍尔木兹流量改善，可能压低油价与通胀溢价；若补偿、产能或运输约束抵消，市场影响可能很小。方向仍须由官方配额表、补偿计划、实际装运、布油/WTI曲线、通胀预期、美元、收益率及BTC/股指联动确认。"
+    },
+    {
+      "event_id": "us_ism_manufacturing_2026_08_03",
+      "time_local": "2026-08-03T22:00:00+08:00",
+      "event": "美国7月ISM制造业PMI",
+      "priority": "P1",
+      "base_score": 74,
+      "source": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/june/",
+      "baseline": "6月制造业PMI为53.3，新订单56.0，生产52.2，就业49.7，价格73.0，供应商交付57.4；ISM明确下一期于8月3日10:00 ET发布。",
+      "note": "最重要的组合是新订单、就业、价格和供应交付。增长强且价格高可能推高收益率与美元并压制估值；增长弱但价格仍高是偏滞胀的风险组合；增长弱且价格、交付压力同步降温可能强化宽松预期。报告位于周末后首个美国交易日，需防止流动性恢复时快速重定价，并由美债、美元、股指及BTC共同确认。"
+    },
+    {
+      "event_id": "fed_sloos_2026_08_03",
+      "time_local": "2026-08-04T02:00:00+08:00",
+      "event_time_source": "Federal Reserve August calendar: 2:00 p.m. ET on 3 August 2026",
+      "event": "美联储高级信贷员调查（SLOOS）",
+      "priority": "P2",
+      "base_score": 68,
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/2026-august.htm",
+        "https://www.federalreserve.gov/data/sloos/sloos-202604.htm"
+      ],
+      "baseline": "4月调查显示，各规模企业C&I贷款标准净收紧、需求大致不变；非存款金融机构贷款各类别标准净收紧，消费贷款需求总体偏弱。",
+      "note": "重点比较企业与NDFI贷款标准、风险溢价、抵押要求和需求是否继续收紧。标准明显收紧且需求走弱，可能强化信用收缩与增长风险；标准放松且需求回升，可能改善流动性与风险偏好。报告位于亚洲凌晨，必须由信用利差、美债、美元、股指和BTC的持续反应确认。"
+    },
+    {
+      "event_id": "us_treasury_financing_estimates_2026_08_03",
+      "time_local": "2026-08-04T03:00:00+08:00",
+      "event_time_source": "Treasury quarterly-refunding page release slot: 3:00 PM Monday ET; next release August 3, 2026",
+      "event": "美国财政部市场化融资估算与TGA现金余额假设",
+      "priority": "P1",
+      "base_score": 74,
+      "source": "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents",
+      "baseline": "5月基线为2026年7月至9月私人持有净市场化借款6710亿美元、9月底现金余额9500亿美元。",
+      "note": "若净借款或TGA目标明显上调，可能增加短债供给、抽取市场流动性并推高收益率/美元；若低于担忧则可能缓和流动性压力。公告位于亚洲凌晨且加密全天交易，需防止低流动性快速重定价。"
+    },
+    {
+      "event_id": "us_trade_2026_08_04",
+      "time_local": "2026-08-04T20:30:00+08:00",
+      "event": "美国6月国际贸易数据",
+      "priority": "P2",
+      "base_score": 58,
+      "source": "https://www.bea.gov/news/schedule/full",
+      "note": "通常低于就业和通胀，但在关税政策敏感期可能放大美元与增长预期波动。"
+    },
+    {
+      "event_id": "us_jolts_2026_08_04",
+      "time_local": "2026-08-04T22:00:00+08:00",
+      "event": "美国6月职位空缺与劳动力流动调查（JOLTS）",
+      "priority": "P1",
+      "base_score": 78,
+      "source": "https://www.bls.gov/news.release/jolts.nr0.htm",
+      "baseline": "5月职位空缺760万、招聘520万、总离职510万、主动离职310万、裁员与解雇170万；BLS确认6月数据于8月4日10:00 ET发布。",
+      "note": "不能只看职位空缺标题。职位空缺和招聘同步走强、主动离职回升且裁员稳定，偏向劳动力需求韧性并可能推高收益率；空缺下降但招聘稳定属于温和再平衡；招聘下滑、裁员上升和向下修正同时出现，才更接近增长风险。该数据早于8月7日就业报告三天，需结合美债、美元、股指与BTC反应。"
+    },
+    {
+      "event_id": "us_treasury_quarterly_refunding_2026_08_05",
+      "date_local": "2026-08-05",
+      "time_local": "2026-08-05T20:30:00+08:00",
+      "time_status": "treasury_quarterly_refunding_release_slot_0830_et",
+      "event": "美国财政部季度再融资公告、发行结构与回购安排",
+      "priority": "P1",
+      "base_score": 76,
+      "sources": [
+        "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents",
+        "https://home.treasury.gov/news/press-releases/sb0489",
+        "https://home.treasury.gov/news/press-releases/sb0485"
+      ],
+      "baseline": "财政部5月估计2026年7月至9月私人持有净市场化借款为6710亿美元、9月底现金余额9500亿美元；当时预计至少未来数季维持名义附息券与FRN拍卖规模。",
+      "note": "关注净借款估计、附息券与短债供给、TGA路径和回购安排是否偏离基线。供给或期限显著上调可能经长端收益率、美元和估值压制风险资产；更多短债、回购或供给不及担忧可能缓解期限溢价。财政部页面将该类文件列于周三8:30 ET发布档并确认下一次为8月5日。"
+    },
+    {
+      "event_id": "us_ism_services_2026_08_05",
+      "time_local": "2026-08-05T22:00:00+08:00",
+      "event": "美国7月ISM服务业PMI",
+      "priority": "P1",
+      "base_score": 76,
+      "source": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/june/",
+      "baseline": "6月服务业PMI为54.0，商业活动55.4，新订单55.1，就业51.2，价格67.7，供应商交付54.4；ISM明确下一期于8月5日10:00 ET发布。",
+      "note": "服务业覆盖面和价格分项对核心通胀、收益率与美元更敏感。活动、就业和价格共同走强偏向更高利率；活动走弱但价格高企是风险资产更不利的滞胀组合；活动与价格同步降温可能支持宽松预期，但增长担忧可抵消。报告在季度再融资公告后90分钟发布，需区分财政供给与景气数据造成的利率波动。"
+    },
+    {
+      "event_id": "eia_weekly_petroleum_status_2026_08_05",
+      "time_local": "2026-08-05T22:30:00+08:00",
+      "event_time_source": "EIA standard Wednesday release at 10:30 a.m. Eastern Time; 5 August 2026 is not listed as a holiday exception",
+      "event": "美国EIA每周石油状况报告",
+      "priority": "P2",
+      "base_score": 69,
+      "source": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
+      "baseline_status": "No current numerical baseline is asserted because the official index retrieved during this scan did not expose the 29 July report; read the latest official tables at release time.",
+      "note": "在霍尔木兹P0与OPEC+供给复核背景下，库存、炼厂开工、进口、出口、成品油库存和战略储备变化可能放大油价与通胀预期。原油库存下降若伴随汽油/馏分油下降、需求强和出口高，偏向强化油价；仅原油下降而成品油累库或炼厂开工回落，方向可能相反。必须结合布油/WTI、期限结构、通胀预期、收益率、美元及BTC/股指确认，不能用单一标题库存变化触发交易。"
+    },
+    {
+      "event_id": "fed_cook_economic_outlook_2026_08_05",
+      "time_local": "2026-08-06T04:05:00+08:00",
+      "event_time_source": "Federal Reserve August calendar: 4:05 p.m. ET on 5 August 2026",
+      "event": "美联储理事Cook经济展望讲话",
+      "priority": "P1",
+      "base_score": 79,
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/2026-august.htm",
+        "https://www.federalreserve.gov/newsevents/speech/cook20260715a.htm"
+      ],
+      "baseline": "Cook在7月15日表示，相比就业风险，她当时更担忧持续偏高的通胀；8月5日讲话发生在7月FOMC与ISM服务业数据之后。",
+      "note": "若讲话强化通胀上行、延后宽松或更高更久，同时收益率与美元上行、股指和BTC走弱，则偏紧缩；若承认增长或信贷明显放缓并弱化通胀担忧，可能压低收益率，但增长担忧也可能抵消风险偏好。讲话位于美股收盘后、亚洲低流动性时段，不把单句标题当作方向信号。"
+    },
+    {
+      "event_id": "us_productivity_unit_labor_costs_2026_08_06",
+      "time_local": "2026-08-06T20:30:00+08:00",
+      "event": "美国二季度非农生产率与单位劳动力成本初值",
+      "priority": "P2",
+      "base_score": 67,
+      "sources": [
+        "https://www.bls.gov/schedule/news_release/prod2.htm",
+        "https://www.bls.gov/news.release/archives/prod2_06042026.htm"
+      ],
+      "baseline": "一季度修正后非农商业部门生产率环比年化增长0.3%，单位劳动力成本增长1.8%；BLS确认二季度初值于8月6日08:30 ET发布。",
+      "note": "生产率走强且单位劳动力成本降温，通常有利于缓和通胀与利润率压力；生产率偏弱同时单位劳动力成本偏高，是更不利于风险资产的滞胀组合。需结合小时薪酬、产出、工时及前值修正，不把单一生产率标题作为方向信号。该报告在就业报告前一天发布，重点观察美债收益率、美元、股指与BTC是否同步确认。"
+    },
+    {
+      "event_id": "us_jobs_2026_08_07",
+      "time_local": "2026-08-07T20:30:00+08:00",
+      "event": "美国7月就业报告：非农、失业率、工资",
+      "priority": "P0",
+      "base_score": 92,
+      "source": "https://www.bls.gov/schedule/2026/08_sched.htm",
+      "note": "需同时分析就业数量、失业率、工资和前值修正；单看非农标题可能误判。"
+    },
+    {
+      "event_id": "china_cpi_ppi_2026_08_09",
+      "time_local": "2026-08-09T09:30:00+08:00",
+      "event": "中国7月CPI与PPI",
+      "priority": "P2",
+      "base_score": 66,
+      "sources": [
+        "https://www.stats.gov.cn/xw/tjxw/tzgg/202512/t20251224_1962137.html",
+        "https://www.stats.gov.cn/zwfwck/sjfb/202607/t20260709_1964082.html"
+      ],
+      "baseline": "6月CPI同比1.0%、环比-0.3%，核心CPI同比1.0%；PPI同比4.1%、环比-0.3%。",
+      "note": "关注消费端温和通胀与生产端价格偏强是否继续背离。只有显著超预期并带动人民币、国债收益率、工业品及亚洲风险资产联动，才升级为方向参考。"
+    },
+    {
+      "event_id": "boj_summary_of_opinions_2026_08_10",
+      "time_local": "2026-08-10T07:50:00+08:00",
+      "event": "日本央行7月会议意见摘要",
+      "priority": "P1",
+      "base_score": 82,
+      "sources": [
+        "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260731a.pdf",
+        "https://www.boj.or.jp/en/mopo/outlook/gor2607a.pdf"
+      ],
+      "baseline": "7月31日日本央行以8比1维持隔夜拆借利率约1.0%，反对委员主张升至1.25%；央行仍明确表示，若经济、物价和金融条件支持，将继续加息并调整宽松程度。",
+      "note": "重点核对加息时点、步伐、日元贬值、油价与中东风险、AI需求及通胀上行风险的委员分布。若摘要显示更广泛的提前加息倾向，可能通过日元走强和套息交易去杠杆压制全球风险资产；若分歧仅限一票且风险措辞缓和，则影响可能衰减。"
+    },
+    {
+      "event_id": "rba_policy_decision_smp_2026_08_11",
+      "time_local": "2026-08-11T12:30:00+08:00",
+      "event": "澳洲联储利率决议与季度货币政策声明",
+      "priority": "P1",
+      "base_score": 81,
+      "sources": [
+        "https://www.rba.gov.au/schedules-events/board-meeting-schedules.html",
+        "https://www.rba.gov.au/publications/smp/",
+        "https://www.rba.gov.au/media-releases/2026/mr-26-15.html"
+      ],
+      "baseline": "澳洲联储6月16日一致维持现金利率4.35%；2026年以来已累计加息75个基点。央行认为通胀仍过高、金融条件已收紧且经济出现放缓迹象，但保留必要时进一步加息的选项。",
+      "note": "8月11日14:30 AEST发布，对应北京时间12:30，并同步发布季度预测。重点看通胀预测、终端利率倾向、中东能源冲击与增长下修。影响先观察澳元和澳债，再看亚洲股指、工业品、美元与加密风险偏好是否共振。"
+    },
+    {
+      "event_id": "iea_oil_market_report_2026_08_12",
+      "time_local": "2026-08-12T16:00:00+08:00",
+      "event": "国际能源署8月石油市场报告",
+      "priority": "P2",
+      "base_score": 67,
+      "source": "https://www.iea.org/data-and-statistics/data-product/oil-market-report-omr",
+      "note": "重点看全球需求、非OPEC供应、OPEC+执行、库存、炼厂与霍尔木兹运输假设是否显著修订。报告为订阅产品，未取得全文前只使用IEA公开摘要和可核验数据；方向需由油价、通胀预期和风险资产确认。"
+    },
+    {
+      "event_id": "us_cpi_2026_08_12",
+      "time_local": "2026-08-12T20:30:00+08:00",
+      "event": "美国7月消费者价格指数",
+      "priority": "P0",
+      "base_score": 96,
+      "source": "https://www.bls.gov/schedule/2026/08_sched.htm",
+      "note": "核心、总体、环比、同比及住房/服务分项均需核对；关注美元与实际利率确认。"
+    },
+    {
+      "event_id": "us_ppi_2026_08_13",
+      "time_local": "2026-08-13T20:30:00+08:00",
+      "event": "美国7月生产者价格指数",
+      "priority": "P1",
+      "base_score": 80,
+      "source": "https://www.bls.gov/schedule/2026/08_sched.htm",
+      "note": "若与CPI方向冲突，优先评估能否改变PCE和利率预期。"
+    },
+    {
+      "event_id": "us_retail_sales_2026_08_14",
+      "time_local": "2026-08-14T20:30:00+08:00",
+      "event_time_source": "U.S. Census Bureau release schedule: 8:30 a.m. ET on 14 August 2026",
+      "event": "美国7月零售与餐饮销售",
+      "priority": "P1",
+      "base_score": 83,
+      "confidence": {
+        "level": "high",
+        "probability": 0.97,
+        "basis": "发布时间和上一期数据来自美国人口普查局；市场方向取决于控制组、修正值及与CPI/PPI的组合。"
+      },
+      "sources": [
+        "https://www.census.gov/economic-indicators/calendar-listview.html",
+        "https://www.census.gov/retail/release_schedule.html",
+        "https://www.census.gov/retail/sales.html"
+      ],
+      "baseline": "6月零售与餐饮销售经季调为7686亿美元，环比增长0.2%、同比增长6.7%；4月至5月环比增幅由0.9%上修至1.0%。",
+      "note": "该数据位于CPI、PPI之后，重点比较总额、剔除汽车与汽油后的核心需求、控制组和前值修正。销售强且通胀高会增强更高更久压力；销售弱且通胀高偏滞胀；销售弱且通胀同步降温可能降低收益率，但增长担忧可抵消风险资产利好。必须由美债曲线、美元、股指与BTC持续联动确认。"
+    },
+    {
+      "event_id": "china_activity_2026_08_17",
+      "time_local": "2026-08-17T10:00:00+08:00",
+      "event": "中国7月国民经济运行：工业、消费、投资、房地产",
+      "priority": "P1",
+      "base_score": 75,
+      "sources": [
+        "https://www.stats.gov.cn/xw/tjxw/tzgg/202512/t20251224_1962137.html",
+        "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964124.html",
+        "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964126.html"
+      ],
+      "baseline": "6月规模以上工业增加值同比5.3%，上半年社零同比1.3%；1至6月固定资产投资同比-5.7%，房地产开发投资-18.0%，商品房销售额-13.6%。",
+      "note": "重点判断工业韧性是否扩散至内需，以及投资和房地产下行是否恶化。传导观察人民币、铜和其他工业品、A股/港股、亚洲股指与BTC风险偏好；数据方向冲突时不做单指标结论。"
+    },
+    {
+      "event_id": "us_canada_section338_tariffs_2026_08_19",
+      "time_local": "2026-08-19T12:01:00+08:00",
+      "event_time_source": "White House proclamations: 12:01 a.m. ET on 19 August 2026",
+      "event": "美国对加拿大特定商品额外50% Section 338关税生效",
+      "priority": "P1",
+      "base_score": 82,
+      "sources": [
+        "https://www.whitehouse.gov/fact-sheets/2026/07/fact-sheet-president-donald-j-trump-imposes-additional-tariffs-on-canada/",
+        "https://www.whitehouse.gov/presidential-actions/2026/07/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united-states-with-respect-to-alcoholic-beverages/",
+        "https://www.whitehouse.gov/presidential-actions/2026/07/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united-states-with-respect-to-motor-vehicles/",
+        "https://www.whitehouse.gov/presidential-actions/2026/07/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united-states-with-respect-to-dairy/",
+        "https://www.pm.gc.ca/en/news/statements/2026/07/20/statement-prime-minister-carney-united-states-administrations-intention"
+      ],
+      "baseline": "三项公告对加拿大汽车、酒类、乳制品及其他附件商品加征50%额外关税；能源、钾肥、Section 232商品、部分鱼类与关键矿产等不适用。",
+      "note": "若加拿大报复、供应链成本和通胀预期上升，同时美债收益率与美元走高、股指与BTC走弱，则偏向紧金融条件；若谈判、暂停或扩大豁免降低执行强度，可能形成风险缓和。若市场主要交易增长损失而非通胀，收益率与美元可能不一致，因此必须结合加元、通胀预期、收益率、北美股指和BTC确认。"
+    },
+    {
+      "event_id": "fomc_minutes_2026_08_19",
+      "time_local": "2026-08-20T02:00:00+08:00",
+      "event_time_source": "Federal Reserve August calendar: 2:00 p.m. ET on 19 August 2026",
+      "event": "美联储7月28至29日FOMC会议纪要",
+      "priority": "P1",
+      "base_score": 88,
+      "confidence": {
+        "level": "high",
+        "probability": 0.96,
+        "basis": "发布时间与9比3表决均来自美联储官方页面；市场方向仍取决于纪要分布、发布前数据与跨资产反应。"
+      },
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/2026-august.htm",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm"
+      ],
+      "baseline": "7月会议以9比3维持联邦基金目标区间3.50%至3.75%；Hammack、Kashkari和Logan支持加息25个基点。声明称经济活动稳健、通胀仍高，能源等供应冲击推高部分价格。",
+      "note": "若纪要显示加息或更高更久倾向不止三名异议者，且通胀、关税和能源风险被广泛强调，可能通过收益率和美元上行压制股指与BTC；若三票被证明孤立，更多委员担忧就业或增长，鹰派尾部可能回落。纪要反映的是7月会议信息，8月就业与CPI等更新数据可能覆盖其信号，必须按发布时美债曲线、美元、股指和BTC的持续联动判断。"
+    },
+    {
+      "event_id": "us_gdp_pce_2026_08_26",
+      "time_local": "2026-08-26T20:30:00+08:00",
+      "event": "美国二季度GDP二次估计、企业利润、7月个人收入/PCE及耐用品订单同刻发布",
+      "priority": "P0",
+      "base_score": 95,
+      "confidence": {
+        "level": "high",
+        "probability": 0.98,
+        "basis": "BEA和人口普查局分别确认四组数据在8月26日08:30 ET同刻发布；方向取决于联合结果、分项与修正。"
+      },
+      "sources": [
+        "https://www.bea.gov/news/schedule/full",
+        "https://www.census.gov/economic-indicators/calendar-listview.html",
+        "https://www.census.gov/manufacturing/m3/release_schedule.html",
+        "https://www.census.gov/manufacturing/m3/adv/current/index.html"
+      ],
+      "baseline": "二季度实际GDP初值年化增长1.5%；季度PCE价格指数增长5.1%、核心3.4%。6月耐用品新订单环比增长0.3%至3348亿美元，剔除运输增长0.6%、剔除国防增长0.3%。",
+      "note": "同一分钟同时提供增长修正、企业利润、收入消费、PCE通胀和资本开支需求。增长/订单强且PCE高会强化更高更久；增长弱、订单弱但PCE高偏滞胀；增长与订单弱且PCE降温可能降低收益率，但衰退担忧可压制风险资产。需先拆分飞机/国防等波动项、核心资本品与GDP修正来源，再以美债曲线、美元、信用、股指及BTC持续联动识别主导叙事。"
+    },
+    {
+      "event_id": "nvidia_q2_fy2027_results_2026_08_26",
+      "date_local": "2026-08-26",
+      "date_market_local": "2026-08-26",
+      "time_status": "official_date_confirmed_exact_time_not_published_on_event_page",
+      "event": "英伟达2027财年第二季度业绩",
+      "priority": "P1",
+      "base_score": 83,
+      "sources": [
+        "https://investor.nvidia.com/events-and-presentations/events-and-presentations/event-details/2026/NVIDIA-2nd-Quarter-FY27-Financial-Results/default.aspx",
+        "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-First-Quarter-Fiscal-2027/default.aspx"
+      ],
+      "baseline": "第一季度收入816.15亿美元、同比增长85%，数据中心收入752亿美元；公司给出的第二季度收入指引为910亿美元上下2%，且指引未假设来自中国的数据中心计算收入。",
+      "note": "重点看AI资本开支需求、数据中心增速、毛利率、中国业务约束和下一季度指引。它可能通过美国科技股、半导体、长端估值与整体风险偏好传导至BTC；方向须由股指期货、NVDA盘后幅度、收益率与BTC同步确认。官方事件页只确认美国市场日期，未显示准确时刻，故不做时区推测。"
+    },
+    {
+      "event_id": "jackson_hole_symposium_2026_08_27_29",
+      "date_local": "2026-08-27",
+      "end_date_local": "2026-08-29",
+      "time_status": "official_dates_and_theme_confirmed_agenda_and_speech_times_not_published",
+      "event": "2026年杰克逊霍尔经济政策研讨会：金融创新、支付与政策",
+      "priority": "P1",
+      "base_score": 89,
+      "confidence": {
+        "level": "high",
+        "probability": 0.98,
+        "basis": "日期和主题由堪萨斯城联储官网与FAQ交叉确认；参会者、议程、主席讲话及具体政策方向尚未公布。"
+      },
+      "sources": [
+        "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/",
+        "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/jackson-hole-faqs/",
+        "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/about-jackson-hole-economic-symposium/"
+      ],
+      "baseline": "堪萨斯城联储确认年会于8月27日至29日举行，主题为“Financial Innovation: Implications for Payments and Policy”。该会议通常汇集主要央行官员、政策制定者和市场参与者，但2026年议程与讲话时刻尚未发布。",
+      "note": "两条传导路径必须分开：一是央行对通胀、增长和利率路径的沟通，经全球收益率、美元与股指估值影响BTC；二是支付创新、稳定币、代币化或数字资产监管架构的具体讨论，可能改变加密制度预期。主题本身不等于支持或限制加密。若讲话偏鹰且收益率、美元上行、股指与BTC走弱，偏紧金融条件；若确认降温或支付创新的建设性制度路径，可能支持风险偏好或相关资产，但均需持续跨资产确认。议程、主席/主要央行行长讲话时刻或明确数字资产议题公布时应重新评分，必要时升级P0。"
+    },
+    {
+      "event_id": "russia_crypto_market_regulation_effective_2026_09_01",
+      "date_local": "2026-09-01",
+      "time_status": "effective_date_stated_by_central_bank_final_presidential_signature_and_promulgation_not_independently_verified",
+      "event": "俄罗斯加密资产流通、受监管交易与跨境结算制度计划生效",
+      "priority": "P2",
+      "base_score": 64,
+      "last_verified_at": "2026-08-02T01:52:31+08:00",
+      "confidence": {
+        "level": "high_for_duma_and_federation_council_approval_and_central_bank_drafts_medium_for_final_effective_status",
+        "probability": 0.88,
+        "basis": "俄罗斯央行确认国家杜马已于7月21日通过二读和三读并称制度计划9月1日生效；Interfax报道联邦委员会7月24日批准；央行7月27日公布首批实施规则草案。总统签署及正式公布尚未由本轮一手来源独立核实。"
+      },
+      "sources": [
+        "https://www.cbr.ru/eng/press/event/?id=32724",
+        "https://www.cbr.ru/press/event/?id=32728",
+        "https://www.interfax.ru/amp/1105282",
+        "https://sozd.duma.gov.ru/bill/1194918-8"
+      ],
+      "status": "parliament_approved_central_bank_draft_rules_published_pending_verified_presidential_promulgation_and_final_rules",
+      "baseline": "国家杜马通过、联邦委员会批准的框架拟允许非合格投资者经测试后通过单一中介每年购买不超过30万卢布的高流动性加密资产，合格投资者经测试后可不限额交易；将建立加密交易所、数字存管、经纪、资管、组织化交易和清算基础设施，外国稳定币适用同类要求。境内以加密资产支付商品和服务仍被禁止；出口商与进口商拟可不受金额限制地使用加密资产进行跨境结算。央行已发布组织化交易、数字存管资本与记账要求草案，相关草案仍处于监管影响评估阶段。",
+      "note": "传导路径具有双向性且以中期制度变化为主。受监管通道和跨境结算可能增加俄罗斯境内对BTC、稳定币及链上结算基础设施的需求，但牌照、托管、资产范围和资本要求也会把流量集中到受控中介；欧美若将其视为制裁规避通道，可能扩大对俄罗斯关联交易所、钱包、稳定币发行人和跨境对手方的限制。当前没有总统签署、正式公布、最终规则、合资格资产清单、获牌机构、实际结算规模或制裁反制确认，禁止据此生成即时多空方向。重点复核总统签署与法律公报、央行最终规则、9月1日实施状态、7月1日2027过渡期、首批交易量及OFAC/欧盟和稳定币发行人的回应；只有出现全球流动性、主要稳定币、主流交易所或制裁渠道的可量化冲击时才考虑升级至P1。"
+    }
+  ],
+  "unscheduled_risks": [
+    {
+      "event_id": "us_japan_coordinated_yen_intervention_2026_07_31",
+      "event": "美国财政部与日本协同买入日元及全球套息交易去杠杆风险",
+      "priority": "P0",
+      "base_score": 96,
+      "score_breakdown": {
+        "historical_market_sensitivity": 24,
+        "surprise_or_expectation_gap": 19,
+        "transmission_breadth": 16,
+        "time_proximity": 15,
+        "source_credibility": 13,
+        "market_fragility": 9
+      },
+      "status": "active_reported_us_japan_coordinated_yen_purchase_weekend_reopen_risk",
+      "last_verified_at": "2026-08-02T02:13:43+08:00",
+      "confidence": {
+        "level": "high_for_reported_execution_pending_official_transaction_disclosure",
+        "probability": 0.93,
+        "basis": "The Financial Times cites three people familiar with the New York Fed transaction, Reuters independently reported the prior bank notice and photographed the Treasury Secretary's yen-purchase note, and official New York Fed and Treasury materials confirm the institutional mechanism. Immediate official transaction disclosure is still absent."
+      },
+      "sources": [
+        "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8",
+        "https://www.reuters.com/world/asia-pacific/us-treasury-undertakes-intervention-yen-market-ft-reports-2026-08-01/",
+        "https://www.reuters.com/world/asia-pacific/bessents-to-do-list-buy-5-10-billion-worth-japanese-yen-reuters-photo-shows-2026-07-31/",
+        "https://www.newyorkfed.org/markets/international-market-operations/foreign-exchange-operations",
+        "https://home.treasury.gov/policy-issues/international/exchange-stabilization-fund/finances-and-operations",
+        "https://www.mof.go.jp/policy/international_policy/reference/feio/index.html",
+        "https://www.mof.go.jp/english/policy/international_policy/reference/feio/monthly/20260731e.html",
+        "https://www.mof.go.jp/english/public_relations/weekly_schedule/index.htm",
+        "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260731a.pdf"
+      ],
+      "latest_verified_update": "《金融时报》引述三名知情人士称，纽约联储7月31日代表美国财政部通过卖出欧元、买入日元实施干预，两名消息人士称交易经高盛和摩根士丹利执行；路透此前报道美国财政部已通知多家银行准备干预，并拍到财长贝森特写有购买50亿至100亿美元日元的待办记录。日本财务省国际事务副财务官表示美方支持超越口头支持。日本财务省7月31日19:00发布的月度数据明确只覆盖6月29日至7月29日且金额为0，因此不包含、也不能否定7月30日至31日的干预报道。财务省现已正式排期于8月28日19:00日本时间发布覆盖7月30日至8月26日的月度数据，该区间覆盖报道事件；纽约联储、美国财政部及相关银行仍未即时确认成交金额。",
+      "official_disclosure_boundary": {
+        "latest_japan_release_at": "2026-07-31T19:00:00+09:00",
+        "latest_japan_coverage": "2026-06-29_through_2026-07-29",
+        "latest_japan_amount_yen": 0,
+        "reported_event_inside_latest_japan_period": false,
+        "next_japan_monthly_release_status": "officially_scheduled",
+        "next_japan_monthly_release_at": "2026-08-28T19:00:00+09:00",
+        "next_japan_monthly_release_at_asia_shanghai": "2026-08-28T18:00:00+08:00",
+        "next_japan_monthly_release_coverage": "2026-07-30_through_2026-08-26",
+        "reported_event_inside_next_japan_period": true
+      },
+      "operational_baseline": "《金融时报》报道美元兑日元周四约下跌4%，周五再跌1.9%至157.57；日本当局周四疑似干预规模被分析人士估计约8.45万亿日元。日本财务省现有官方月报只到7月29日，不能用于验证7月30日至31日；财务省已正式排期于8月28日19:00日本时间发布覆盖7月30日至8月26日的下一期月度数据，该期将覆盖报道事件。美方行动若最终确认，将是1998年以来首次买入日元；不得把媒体引述的成交、待办金额或分析人士估算当作官方结算数据。",
+      "note": "传导路径为协同买入日元与后续干预预期→日元快速升值、日元空头回补→以低息日元融资的全球套息仓位收缩→股票、信用、高收益货币及BTC等高贝塔资产波动放大。方向并非固定看空：若日元升值有序且美元广泛走弱，流动性与估值渠道可能支撑部分风险资产；若伴随日债和美债收益率冲击、股指下跌、信用利差扩大、BTC未平仓量下降及清算上升，则去杠杆分支占优。周末加密市场弱势扩大，但未平仓量近乎持平、资金费率为正且稳定币正常，尚未确认急性套息平仓。维持P0五分钟复核至周一现金市场重开；若美国财政部或纽约联储未提前披露，则把8月28日18:00北京时间视为日本月度数据的正式确认窗口。"
+    },
+    {
+      "event_id": "boj_hawkish_hold_carry_risk_2026_07_31",
+      "event": "日本央行鹰派维持利率、加息异议与日元套息交易脆弱性",
+      "priority": "P1",
+      "base_score": 82,
+      "status": "active_policy_regime_context_pending_august_10_opinions",
+      "sources": [
+        "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260731a.pdf",
+        "https://www.boj.or.jp/en/mopo/outlook/gor2607a.pdf"
+      ],
+      "note": "已确认事实：7月31日政策利率维持约1.0%，表决8比1；反对委员要求1.25%，央行基线仍是继续加息。日本央行预计2026财年核心CPI中值2.5%，并判断通胀风险偏上行。推断：若日元快速升值、日债收益率上行并伴随全球高贝塔资产走弱，套息交易去杠杆可能放大波动；若日元和利率无确认，不把鹰派措辞机械解释为风险资产卖出信号。"
+    },
+    {
+      "event_id": "boe_hawkish_hold_energy_inflation_2026_07_30",
+      "event": "英国央行鹰派维持利率与能源冲击二轮通胀风险",
+      "priority": "P1",
+      "base_score": 74,
+      "score_breakdown": {
+        "historical_market_sensitivity": 17,
+        "surprise_or_expectation_gap": 13,
+        "transmission_breadth": 11,
+        "time_proximity": 9,
+        "source_credibility": 15,
+        "market_fragility": 9
+      },
+      "status": "active_hawkish_policy_context_not_standalone_direction_signal",
+      "sources": [
+        "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026",
+        "https://www.bankofengland.co.uk/monetary-policy-report/2026/july-2026"
+      ],
+      "latest_verified_update": "英国央行7月29日会议以6比3维持银行利率3.75%，三名委员支持加息至4%，较6月两名加息异议者更鹰；央行称通胀风险相对中央预测偏上行，但国内通胀下降和劳动力市场宽松仍提供制衡。",
+      "note": "影响路径具有双向性。若油气价格再升、英国通胀预期和英债收益率上行、更多委员转向加息，可能经欧洲利率与全球期限溢价压制BTC和高贝塔资产；若能源降温、工资与服务通胀继续回落、英债收益率下降，则紧缩溢价可能消退。英镑变化会反向影响美元指数，因此不得只凭鹰派票数机械判断BTC方向；需要油气、英债、GBP、美元、全球股指与加密市场共同确认。失效条件为后续能源冲击持续缓和、二轮效应未出现且委员会加息倾向回落。"
+    },
+    {
+      "event_id": "ecb_energy_inflation_hold_2026_07_23",
+      "event": "欧洲央行加息后维持利率与能源冲击通胀传导",
+      "priority": "P1",
+      "base_score": 76,
+      "score_breakdown": {
+        "historical_market_sensitivity": 19,
+        "surprise_or_expectation_gap": 10,
+        "transmission_breadth": 14,
+        "time_proximity": 8,
+        "source_credibility": 15,
+        "market_fragility": 10
+      },
+      "status": "active_energy_sensitive_policy_context_pending_september_10_meeting",
+      "sources": [
+        "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260723~29f24d99bc.en.html",
+        "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2026/html/ecb.is260723~b6fadd48f4.en.html",
+        "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html"
+      ],
+      "latest_verified_update": "欧洲央行6月加息25个基点后，于7月23日维持三大利率不变；当前存款机制利率2.25%。央行称能源价格仍显著高于冲突前水平、完整通胀影响尚未显现，将重点观察冲击强度、持续时间及间接和二轮效应。下一次货币政策会议为9月10日。",
+      "note": "若油气再升、欧元区通胀预期和国债收益率上行并推高进一步收紧概率，全球折现率上升可能压制BTC和高贝塔资产；但欧元走强可能压低美元指数，形成相反通道。若能源持续回落且增长走弱，欧债收益率下降可能支持风险偏好，但欧元走弱和美元走强可能抵消。必须联合观察油气、欧债、EUR、美元、美国收益率、股指与加密结构；失效条件为能源冲击消退、二轮效应保持受控且政策预期重新转向宽松。"
+    },
+    {
+      "event_id": "us_treasury_long_end_steepening_fed_hike_dissent_2026_07_31",
+      "event": "美国长端国债抛售、曲线陡峭化与联储三票加息异议的即时金融条件风险",
+      "priority": "P1",
+      "base_score": 89,
+      "score_breakdown": {
+        "historical_market_sensitivity": 22,
+        "surprise_or_expectation_gap": 15,
+        "transmission_breadth": 15,
+        "time_proximity": 12,
+        "source_credibility": 15,
+        "market_fragility": 10
+      },
+      "status": "active_long_end_tightening_and_steepening_cause_mixed_no_treasury_market_dysfunction_confirmed",
+      "last_verified_at": "2026-08-02T01:57:49+08:00",
+      "confidence": {
+        "level": "high_for_yields_and_fomc_vote_medium_for_dominant_cause_and_crypto_direction",
+        "probability": 0.98,
+        "basis": "U.S. Treasury official closing curves establish the yield move and the Federal Reserve confirms the 9-3 decision with three hike dissents. Independent reporting confirms investor concern about inflation and Fed reaction, but energy, fiscal supply, term premium and policy credibility cannot yet be cleanly separated as causes."
+      },
+      "sources": [
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202607&type=daily_treasury_yield_curve",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm",
+        "https://www.axios.com/2026/07/29/fed-warsh-rates-inflation",
+        "https://www.axios.com/2026/07/30/warsh-fed-inflation-bonds",
+        "https://apnews.com/article/6a7e8b53a187b1193a0ee7b58df680c2"
+      ],
+      "latest_verified_update": "美国财政部官方收盘曲线显示，7月28日至31日2年、10年和30年期国债收益率分别从4.09%、4.61%、5.09%升至4.28%、4.75%、5.27%，约上升19、14和18个基点；7月31日2年—10年和2年—30年利差约为47和99个基点。联储7月29日以9比3维持目标区间3.50%—3.75%，三名异议者主张加息25个基点。",
+      "operational_baseline": "收益率上行和曲线陡峭化已确认，但不能据此断言单一的‘联储可信度危机’。能源通胀、财政与久期供给、增长韧性、期限溢价和政策反应函数都可能参与定价。尚未核实国债买卖价差、回购市场、拍卖承接或做市深度出现失灵，因此维持P1而非P0。",
+      "note": "传导路径为长端收益率与期限溢价上升，经住房和企业融资成本、股权久期估值、美元和全球流动性影响BTC。若美债重开后长端继续上行、美元走强、股指和BTC同步走弱，偏向紧金融条件；若收益率因增长担忧下行，BTC方向取决于宽松预期能否盖过信用和风险厌恶；若曲线只是有序陡峭且信用、股票和加密结构稳定，信号可能衰减。8月3日ISM与财政部融资估算、8月5日季度再融资是下一组放大或失效窗口。若出现拍卖严重尾部、回购压力、流动性恶化或跨资产急跌，应立即升级P0复核。"
+    },
+    {
+      "event_id": "poland_russian_cruise_missile_nato_airspace_2026_07_30",
+      "event": "俄罗斯巡航导弹进入波兰北约领空并落地、北约防空响应与冲突外溢风险",
+      "priority": "P0",
+      "base_score": 92,
+      "score_breakdown": {
+        "historical_market_sensitivity": 24,
+        "surprise_or_expectation_gap": 18,
+        "transmission_breadth": 15,
+        "time_proximity": 12,
+        "source_credibility": 14,
+        "market_fragility": 9
+      },
+      "status": "active_confirmed_nato_airspace_incursion_and_rural_impact_no_casualties_damage_or_deliberate_targeting_confirmed",
+      "last_verified_at": "2026-08-02T02:13:43+08:00",
+      "confidence": {
+        "level": "high_for_incursion_and_impact_medium_high_for_exact_model_low_for_deliberate_intent",
+        "probability": 0.96,
+        "basis": "NATO, Poland's Armed Forces and Prime Minister Donald Tusk, as reported by AP, establish the airspace violation, rural impact site and military response. Investigators and Polish reporting point to a Russian Kh-101, while Tusk said the detailed investigation was still required and there was no reason to believe Poland was the target."
+      },
+      "sources": [
+        "https://apnews.com/article/russia-ukraine-war-zelenskyy-missile-attack-63ab11e0ebe6a9aefdb547fe442bef3f",
+        "https://elpais.com/internacional/2026-07-30/rusia-lanza-un-ataque-combinado-de-drones-y-misiles-contra-varias-ciudades-de-ucrania.html",
+        "https://tvpworld.com/94626465/-poland-summons-russian-ambassador-mikhno-over-missile-breach"
+      ],
+      "latest_verified_update": "北约确认，7月30日俄罗斯大规模袭击乌克兰期间，一枚俄罗斯导弹进入波兰领空并落在卢布林省农村区域，未造成人员伤亡或财产损失。北约在波兰升空两架战斗机、一架攻击直升机和另外两架军机，并启动地面防御；北约秘书长吕特称其为俄罗斯又一次鲁莽行为。波兰军方发现疑似撞击点，调查人员和波兰媒体证据指向Kh-101巡航导弹，但总理图斯克强调详细调查仍需完成，并表示没有任何理由认为波兰是预定目标。7月31日波兰外交部召见俄罗斯驻波兰大使Georgy Mikhno并递交外交照会，要求停止危及波兰公民生命、航空安全和国家安全的行动。",
+      "operational_baseline": "该事件是对北约领空和领土的实际越境与落地，不应降格为纯口头威胁；波兰召见俄方大使并递交外交照会属于已确认的外交响应，但不等同于军事报复或北约集体防御升级。当前仍无伤亡、无财损、无蓄意攻击认定，也未确认北约第四条磋商、第五条集体防御、对俄报复性打击或战争状态。必须把单次偏航/失控、外交抗议、重复越境、蓄意攻击与集体防御行动分成不同等级。",
+      "note": "传导路径为俄乌空袭外溢至波兰北约领土→欧洲安全与防务溢价上升→天然气、原油、黄金、美元、欧元、欧洲利率和股指重定价→BTC周末跳空与杠杆清算风险。方向不是固定看空：若调查确认非蓄意、无后续越境且北约响应保持防御性，风险溢价可快速衰减；若再次有导弹或无人机进入波兰、出现伤亡或关键设施损失、启动第四条磋商或军事拦截升级，风险厌恶与能源溢价可能非线性放大。当前BTC仅温和走弱、资金费率微正且持仓稳定，尚未确认急性风险出清。"
+    },
+    {
+      "event_id": "romania_nato_airspace_drone_shootdowns_2026_07",
+      "event": "罗马尼亚连续四天发生北约领空无人机侵入、前三天击落与俄乌冲突外溢升级风险",
+      "priority": "P0",
+      "base_score": 92,
+      "score_breakdown": {
+        "historical_market_sensitivity": 23,
+        "surprise_or_expectation_gap": 17,
+        "transmission_breadth": 15,
+        "time_proximity": 12,
+        "source_credibility": 15,
+        "market_fragility": 10
+      },
+      "status": "active_new_august_2_twenty_minute_national_airspace_incursion_f16_scramble_no_casualty_or_article_4_5",
+      "last_verified_at": "2026-08-03T01:45:15+08:00",
+      "confidence": {
+        "level": "high_for_intercepts_and_russian_origin_low_for_deliberate_intent",
+        "probability": 0.98,
+        "basis": "Romania's Defense Ministry confirms the 24-26 July shootdowns and now states that a new aerial target spent about 20 minutes over territorial waters and along the Sulina branch inside national airspace on 2 August before leaving toward Ukraine. The Kyiv Independent reports it was then shot down by Ukrainian forces. Deliberate intent and any NATO collective response remain unresolved."
+      },
+      "sources": [
+        "https://english.mapn.ro/cpresa/6824_drone-shot-down-by-a-romanian-air-force-f-16-fighting-falcon-aircraft",
+        "https://english.mapn.ro/cpresa/6825_press-information",
+        "https://english.mapn.ro/cpresa/6826_Press-Information",
+        "https://english.mapn.ro/",
+        "https://apnews.com/article/91a70ccfe31d0efd11ca57309281c1f4",
+        "https://apnews.com/article/ee9775ba338f5408bfa9ab3cb5f2ad1d",
+        "https://ca.marketscreener.com/news/romania-shoots-down-third-russian-drone-as-president-calls-breaches-intolerable-ce7f51dcd889f42d",
+        "https://www.facebook.com/mapn.ro/posts/update%C8%9Binta-aerian%C4%83-a-evoluat-pentru-aproximativ-20-de-minute-deasupra-apelor-te/1549976470500805/",
+        "https://kyivindependent.com/romania-scrambles-f-16s-as-russian-drone-crosses-ukraines-danube-river-border/"
+      ],
+      "latest_verified_update": "罗马尼亚国防部8月2日官方通报称，一架空中目标在罗马尼亚领海上空并沿Sulina支流进入本国领空活动约20分钟，随后离开罗马尼亚返回乌克兰方向；两架罗马尼亚F-16紧急升空。The Kyiv Independent援引国防部称，该目标随后在乌克兰境内被乌军击落。此前7月24、25、26日罗马尼亚F-16连续三天击落侵入领空的俄罗斯来源无人机，7月27日另有短暂越境。新事件未报告罗马尼亚境内伤亡或损坏，也未见北约第四条、第五条或集体军事响应。",
+      "operational_baseline": "当前基线是7月24至27日连续四天侵入/拦截后，8月2日再次出现约20分钟的本国领空侵入并触发F-16升空；目标离境后由乌方在乌境内击落。反复侵入和停留时间延长提高误判、拦截与跨境残骸风险，但仍无蓄意瞄准罗马尼亚、北约集体行动或俄罗马尼亚直接交战证据。",
+      "note": "传导路径不是机械风险厌恶。若出现人员伤亡、军事设施受损、罗方在本国领空再次击落、俄罗斯报复或北约正式磋商，可推高欧洲地缘、天然气与防务溢价，影响欧元、欧洲债券、黄金、美元、股指和BTC；若调查支持偏航、事件结束且无集体行动，风险溢价可衰减。必须区分单国防空响应、北约第四条磋商与第五条集体防御，禁止把现状描述为北约已与俄罗斯交战。"
+    },
+    {
+      "event_id": "russia_kyiv_ballistic_strike_lithuanian_embassy_2026_08_01",
+      "event": "俄罗斯大规模导弹与无人机袭击基辅并波及立陶宛使馆的外交与北约升级监测",
+      "priority": "P1",
+      "base_score": 83,
+      "score_breakdown": {
+        "historical_market_sensitivity": 18,
+        "surprise_or_expectation_gap": 14,
+        "transmission_breadth": 14,
+        "time_proximity": 12,
+        "source_credibility": 15,
+        "market_fragility": 10
+      },
+      "status": "active_confirmed_mass_kyiv_strike_civilian_casualties_and_lithuanian_embassy_damage_no_deliberate_targeting_or_nato_collective_action_confirmed",
+      "last_verified_at": "2026-08-02T01:57:49+08:00",
+      "confidence": {
+        "level": "high_for_strike_casualties_and_embassy_damage_low_for_deliberate_diplomatic_targeting",
+        "probability": 0.93,
+        "basis": "AP reports Ukrainian emergency-service casualty and damage figures, quotes Lithuania's foreign minister on embassy damage from nearby missile strikes, and reports Russia's Defense Ministry acknowledgment of a massive strike while claiming military-industrial and logistics targets. No evidence establishes deliberate targeting of Lithuania's mission or NATO collective-defense action."
+      },
+      "sources": [
+        "https://apnews.com/article/eb62397d10bca2d6db4269a3bcfc9dc6",
+        "https://www.mfa.lt/en/news/928/lithuania-categorically-rejects-russias-new-threats-against-kyiv-and-its-diplomats%3A46078"
+      ],
+      "latest_verified_update": "AP报道，俄罗斯8月1日凌晨对基辅发动密集弹道导弹与无人机袭击，乌克兰当局称至少9名平民死亡、33人受伤；立陶宛外长表示，该国驻基辅使馆因附近导弹爆炸受损。俄罗斯国防部承认实施大规模打击，但称目标为乌克兰军工设施和物流中心。",
+      "operational_baseline": "使馆位于乌克兰交战区而非立陶宛或其他北约领土；本轮未见外交人员伤亡、使馆被蓄意瞄准的证据、立陶宛请求北约第四条磋商、北约第五条集体防御或对俄军事报复。此前审计因当时检索到的AP正文未保留使馆受损细节而未建项；当前完整AP正文已明确引述立陶宛外长并同时给出乌克兰与俄方来源，因此补录。",
+      "note": "主要传导路径为使馆受损与平民伤亡→立陶宛、欧盟或北约外交回应、追加制裁和防空军援→欧洲地缘与财政溢价、能源和黄金→欧元、欧洲债券、美元、股指与BTC。若后续仅为附近爆炸造成有限财损、使馆继续运作且无集体行动，市场影响可能快速衰减；若确认蓄意瞄准、外交人员伤亡、更多北约使团受损、第四条磋商或显著扩大制裁与军援，则风险可升级。当前只用于提高监测敏感度，禁止把发生在乌克兰境内的使馆受损表述为对北约领土的攻击或固定交易方向。"
+    },
+    {
+      "event_id": "egypt_damietta_lng_drone_attack_2026_07_29",
+      "event": "埃及达米埃塔港无人机袭击两艘LNG船舶、地中海能源基础设施与苏伊士外溢风险",
+      "priority": "P0",
+      "base_score": 93,
+      "score_breakdown": {
+        "historical_market_sensitivity": 24,
+        "surprise_or_expectation_gap": 18,
+        "transmission_breadth": 15,
+        "time_proximity": 13,
+        "source_credibility": 14,
+        "market_fragility": 9
+      },
+      "status": "active_confirmed_drone_caused_two_lng_vessel_fires_contained_no_casualties_attribution_and_terminal_status_unresolved",
+      "last_verified_at": "2026-08-02T02:13:43+08:00",
+      "confidence": {
+        "level": "high_for_drone_cause_two_vessel_fires_and_no_casualties_medium_for_operational_disruption_low_for_attribution",
+        "probability": 0.95,
+        "basis": "Egypt's Prime Minister's office, as reported by AP and El Pais, said the preliminary investigation found a drone caused the fires. AP, Ambrey-linked reporting and industry sources identify two affected LNG vessels and no injuries. The attacker, lasting equipment damage, terminal operating status and any wider Suez effect remain unresolved."
+      },
+      "sources": [
+        "https://apnews.com/article/8dc77ed6a65f389ea4af84635d2473bd",
+        "https://elpais.com/internacional/2026-07-30/egipto-confirma-que-un-dron-provoco-el-incendio-de-dos-buques-de-gas-en-su-costa-cerca-del-canal-de-suez.html",
+        "https://www.petroleum.gov.eg/en/media-center/news/news-pages/Pages/mop_26062026_02.aspx",
+        "https://sis.gov.eg/ar/%D8%A7%D9%84%D9%85%D8%B1%D9%83%D8%B2-%D8%A7%D9%84%D8%A5%D8%B9%D9%84%D8%A7%D9%85%D9%8A/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D9%88%D8%B2%D9%8A%D8%B1-%D8%A7%D9%84%D8%A8%D8%AA%D8%B1%D9%88%D9%84-%D9%8A%D8%A4%D9%83%D8%AF-%D8%B9%D9%84%D9%89-%D8%A7%D9%84%D8%AC%D8%A7%D9%87%D8%B2%D9%8A%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84%D8%A9-%D9%84%D8%AA%D8%A3%D9%85%D9%8A%D9%86-%D8%A7%D8%AD%D8%AA%D9%8A%D8%A7%D8%AC%D8%A7%D8%AA-%D8%A7%D9%84%D8%AF%D9%88%D9%84%D8%A9-%D9%85%D9%86-%D8%A7%D9%84%D8%BA%D8%A7%D8%B2-%D8%AE%D9%84%D8%A7%D9%84-%D8%A7%D9%84%D8%B5%D9%8A%D9%81/"
+      ],
+      "latest_verified_update": "埃及总理办公室表示，初步调查认定7月29日达米埃塔港两艘天然气船舶起火由无人机造成。AP与《国家报》援引Ambrey及行业消息称，至少一架无人机击中美国公司拥有的浮式LNG储存再气化装置Energos Winter，火势随后波及GasLog Salem；火灾已被控制，未报告人员伤亡。无人机来源和责任方尚未确认，胡塞方面否认参与。",
+      "operational_baseline": "这是埃及在当前中东战争中的首起已确认无人机袭击外溢，并直接触及LNG接收、储存和再气化设施。埃及官方资料显示Energos Winter是全国四艘在役FSRU之一，另外三艘位于Ain Sokhna，四艘合计再气化能力约27亿立方英尺/日，因此单船受损具有边际供应意义但并不等于全国LNG接收能力归零。截至本轮核验，未确认苏伊士运河关闭、长期港口停运、重大气体泄漏、人员伤亡或持续供应损失。",
+      "note": "传导路径为地中海LNG设施遇袭→设备检修、卸货改期、保险与港口安全成本上升→埃及电力与工业用气、东地中海LNG及欧洲边际气价重定价→通胀、收益率、美元、股指与BTC波动。若确认只是孤立事件、设备快速恢复且无后续袭击，风险溢价可衰减；若出现重复袭击、长期FSRU停运、港口或苏伊士航运受阻、明确国家或代理人归因，则能源与跨资产风险可非线性放大。方向必须由天然气、原油、运费、黄金、美元、收益率、股指和加密市场共同确认。"
+    },
+    {
+      "event_id": "red_sea_bab_el_mandeb_houthi_saudi_blockade_2026_07",
+      "event": "红海曼德海峡胡塞武装针对沙特关联航运的选择性封锁、袭击与绕航风险",
+      "priority": "P0",
+      "base_score": 94,
+      "score_breakdown": {
+        "historical_market_sensitivity": 23,
+        "surprise_or_expectation_gap": 16,
+        "transmission_breadth": 15,
+        "time_proximity": 15,
+        "source_credibility": 15,
+        "market_fragility": 10
+      },
+      "status": "active_selective_saudi_linked_blockade_rerouting_and_attack_risk_not_total_closure",
+      "last_verified_at": "2026-08-02T02:13:43+08:00",
+      "confidence": {
+        "level": "high_for_selective_effect_conditional_for_generalized_closure",
+        "probability": 0.96,
+        "basis": "Saudi coalition and regional official statements confirm vessel-protection measures, a commercial-vessel attack and military response, while AP and ship-tracking analysis independently confirm selective vessel reversals. Evidence does not support a total closure of Bab el-Mandeb."
+      },
+      "sources": [
+        "https://www.spa.gov.sa/en/N2638094",
+        "https://www.spa.gov.sa/w2638100",
+        "https://www.spa.gov.sa/en/N2638932",
+        "https://spa.gov.sa/en/N2640956",
+        "https://www.spa.gov.sa/fr/N2640125",
+        "https://www.washingtonpost.com/world/2026/07/21/ships-bound-saudi-arabia-turn-around-sign-new-red-sea-blockade/",
+        "https://apnews.com/article/fd7c4a3911f7eee18251483fc8af768c",
+        "https://apnews.com/article/iran-us-hormuz-strait-war-qatar-pakistan-d57e675a7be6dbdd34561909ced240d0",
+        "https://apnews.com/article/trump-iran-strait-hormuz-israel-gaza-mideast-e61e88c14d8aca48c1c56368650baea5"
+      ],
+      "latest_verified_update": "胡塞武装7月20日宣布针对沙特关联航运的海上封锁。Lloyd's List与MarineTraffic船舶追踪经华盛顿邮报确认至少7艘船曾掉头；8月1日AP引述胡塞军事发言人称已有8艘沙特船舶改走好望角。沙特联军已正式启动曼德海峡商船保护措施，并于7月25日因胡塞针对商船对荷台达目标实施相称军事回应；巴林外交部经SPA确认一艘沙特公司所属船舶遇袭后船艏起火、没有人员伤亡。",
+      "operational_baseline": "封锁范围是沙特关联航运而非全部商业航运。7月22日船舶追踪仍显示许多船舶通过曼德海峡、三艘沙特关联油轮仍穿越或接近海峡；7月27日美国海军监督的海事机构称该航道交通总体保持稳定。因此不得把选择性掉头和袭击风险表述为整个海峡已经关闭。",
+      "note": "这是与霍尔木兹不同的第二个能源和贸易瓶颈。选择性绕航会增加航程、燃油、保险和可用船舶占用，并可能削弱沙特以红海出口绕开霍尔木兹风险的能力；若袭击扩大至非沙特船舶、通行量显著下降或港口/管线受损，原油、运费、通胀预期与全球风险资产可能出现非线性重定价。若交通持续稳定、无新袭击且保险和运费回落，风险溢价应下降。方向须由油价曲线、海运费、黄金、美元、收益率、股指与BTC结构确认，不能依据胡塞单方声明直接交易。"
+    },
+    {
+      "event_id": "us_iran_hormuz_red_sea_2026_07",
+      "event": "美伊冲突升级与霍尔木兹海峡控制风险威胁全球航运",
+      "priority": "P0",
+      "base_score": 99,
+      "status": "active_conditional_us_israel_strike_pause_iran_denies_hormuz_reopening_talks",
+      "last_verified_at": "2026-08-03T13:24:18+08:00",
+      "confidence": {
+        "level": "high_for_conditional_us_pause_and_iranian_denial_low_for_deal_execution",
+        "probability": 0.98,
+        "basis": "AP directly reports Trump's conditional pause and separately quotes Iran's Foreign Ministry spokesperson saying there were no talks about reopening Hormuz. Reuters independently reports the pause. A later AP chronology documents that every prior announced strike pause in this conflict was followed by renewed attacks within days or weeks. A durable deal, Iranian acceptance and physical transit normalization are not established."
+      },
+      "sources": [
+        "https://www.un.org/en/middle-east-un-warns-against-wider-escalation-after-houthi-attacks-red-sea",
+        "https://www.imo.org/en/mediacentre/pressbriefings/pages/statement-on-recent-attacks-in-the-red-sea.aspx",
+        "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+        "https://www.ukmto.org/-/media/ukmto/products/update-068-jmic-advisory-note-07-july.pdf",
+        "https://www.ukmto.org/recent-incidents",
+        "https://main.un.org/securitycouncil/en/content/resolutions-0",
+        "https://ofac.treasury.gov/recent-actions/20260729",
+        "https://home.treasury.gov/news/press-releases/sb0581",
+        "https://ofac.treasury.gov/recent-actions/20260730",
+        "https://home.treasury.gov/news/press-releases/sb0582",
+        "https://apnews.com/article/mideast-gaza-iran-israel-palestinians-strait-hormuz-9304893b474a48d18913d6f70fae4a8e",
+        "https://www.axios.com/2026/07/31/trump-iran-strikes-energy-infrastructure-war",
+        "https://www.centcom.mil/MEDIA/PRESS-RELEASES/Article/4499878/us-blockade-of-iran-reaches-milestone-of-redirecting-100-ships/",
+        "https://apnews.com/article/trump-iran-strait-hormuz-israel-gaza-mideast-e61e88c14d8aca48c1c56368650baea5",
+        "https://apnews.com/article/8dc77ed6a65f389ea4af84635d2473bd",
+        "https://apnews.com/article/iran-war-trump-saudi-crown-prince-call-814164417aa284dc8a6d34ac22ea1a8e",
+        "https://apnews.com/article/trump-iran-strait-hormuz-israel-gaza-mideast-f4c225f6667d9fd171616304701825a0",
+        "https://apnews.com/article/trump-iran-war-us-canceled-strikes-670f077d2cf5de7614cfce4ad40e4aaa",
+        "https://apnews.com/article/194ab3d3130bb44de445cf3d05954beb",
+        "https://scanner.tradingview.com/global/scan"
+      ],
+      "latest_verified_update": "特朗普称中东盟友已形成结束战争的协议参数，并表示美国将暂缓原计划的新打击，前提是能够迅速达成协议；他所述条件包括立即、完全开放霍尔木兹海峡和结束伊朗核威胁，并称以色列同意共同暂缓。美联社随后引述伊朗外交部发言人Esmail Baghaei称，没有关于重新开放海峡的谈判，海峡也不会恢复战前状态。美联社8月2日晚发布的时间线进一步显示，本轮冲突中此前4月、5月、6月和7月的暂停或协议公告均在数日或数周后被新袭击推翻；该历史证据提高了当前条件性暂停的反转风险，但不等同于已发生新袭击。美联社随后确认美国原油周日晚间一度下跌约5%至80.79美元。特朗普另称谈判预计于周一下午恢复，但没有说明参与方或精确时间；该表述形成时间不确定的高信息窗口，而非已安排的可精确倒计时会议。13:23跨资产快照显示WTI跌幅扩大至约6.21%，股指期货仍上涨且收益率、美元和USDJPY走低，市场继续定价即时升级风险下降。协议仍未获伊朗接受，霍尔木兹也未确认恢复，谈判破裂、误判或新袭击仍可快速反转。此前严重通航收缩、油轮与科威特设施袭击基线继续有效。",
+      "operational_baseline": "最新可量化通航基准已取代7月7日的相对稳定状态：Lloyd's List Intelligence经AP报告，7月20日至26日过境船舶仅39艘，较前一周82艘减少约52.4%，构成严重贸易流量收缩；仍有部分交通继续，沙特部分出口也可经曼德海峡和埃及SUMED管线绕行，因此不等于霍尔木兹物理关闭或全球供应损失已被完整量化。7月7日UKMTO/JMIC的稳定通行记录仅保留为恶化前基线。",
+      "note": "13:23跨资产快照显示DXY约99.708、跌0.09%，美国10年期收益率约4.692%、下降约2.6bp，标普与纳指期货分别涨约0.60%和0.86%，WTI约79.41美元、跌约6.21%，黄金涨约0.36%，USDJPY跌约0.57%。这与AP报道的美国原油周日晚间一度跌约5%至80.79美元相互确认，说明市场继续压缩即时能源升级与通胀风险溢价。加密市场没有同步确认持久风险偏好：BTC约62806美元、24小时跌约1.09%，资金费率0.000100，未平仓量约109275 BTC，最新5分钟主动买卖比升至2.59却未获得价格接受；USDCUSDT和FDUSDUSDT约1.00105和0.9980，未见稳定币压力。跨资产缓和与加密走弱的分化意味着不能机械推导做多；周一下午谈判窗口的精确时间和参与方未知，AP所列暂停后反转历史、伊朗否认和黄金上涨仍保留尾部风险。这不是停火、海峡重开或供给恢复确认。维持P0/99五分钟复核，重点观察伊朗正式回应、谈判机制、实际通航、保险运费、原油曲线、黄金、美元、收益率、股指期货、BTC跳价、资金费率和清算；禁止从条件性暂停直接推导固定交易方向。"
+    },
+    {
+      "event_id": "us_senate_russia_energy_secondary_tariff_bill_2026_07_28",
+      "event": "美国参议院86比12程序性推进俄罗斯能源制裁及对主要买家最高100%二级关税法案",
+      "priority": "P1",
+      "base_score": 89,
+      "score_breakdown": {
+        "historical_market_sensitivity": 21,
+        "surprise_or_expectation_gap": 15,
+        "transmission_breadth": 16,
+        "time_proximity": 12,
+        "source_credibility": 15,
+        "market_fragility": 10
+      },
+      "status": "active_legislative_passage_risk_procedural_vote_completed_not_final_passage_or_law",
+      "last_verified_at": "2026-08-02T02:13:43+08:00",
+      "confidence": {
+        "level": "high_for_procedural_vote_and_bill_scope_medium_for_final_passage_and_execution",
+        "probability": 0.95,
+        "basis": "AP and Axios report an 86-12 Senate procedural vote to advance the bill, while official sponsor releases describe its sanctions, top-five-buyer tariff cap, exceptions and waiver structure. Final Senate passage, House action, presidential signature, country designation, tariff rate and effective date remain unresolved."
+      },
+      "sources": [
+        "https://apnews.com/article/russia-sanctions-senate-graham-ukraine-zelenskyy-1d5b6ee3082e409422ace0993becdd54",
+        "https://www.britt.senate.gov/news/press-releases/u-s-senators-katie-britt-darline-graham-richard-blumenthal-jeanne-shaheen-roger-wicker-lead-bipartisan-group-of-62-senators-in-announcing-russia-sanctions-legislation-in-honor-of-u-s-senator-lin/",
+        "https://www.blumenthal.senate.gov/newsroom/press/release/blumenthal-graham-shaheen-and-wicker-announce-agreement-on-legislation-to-hold-purchasers-of-russian-oil-accountable",
+        "https://www.investing.com/news/commodities-news/us-russia-sanctions-bill-eases-threat-of-tariffs-on-china-and-india-4791514",
+        "https://www.axios.com/2026/07/29/senate-russia-sanctions-lindsey-graham"
+      ],
+      "latest_verified_update": "美国参议院7月28日以86比12完成推进该法案的程序性表决，为后续审议打开通道，但这不是最终通过，更不是已经生效。现有文本允许总统对俄罗斯石油和天然气的五个最大购买国或协助规避制裁者征收最高100%关税，并制裁俄罗斯高级官员、银行、金融机构、能源项目与影子船队；对进口俄罗斯天然气占其总出口低于15%且正在显著削减的国家设有例外，并保留国家利益豁免。",
+      "operational_baseline": "法案仍可能被修订，且必须经过参议院最终表决、众议院行动或文本协调及总统签署后才可能成为法律；即使成为法律，最高100%是上限而非自动税率，具体国家、税率、豁免、实施日期与执法强度仍取决于后续决定。因此禁止把86比12描述为国会最终通过，也禁止假定中国、印度已经被征收100%关税。",
+      "note": "传导路径为立法与执行升级→中国、印度等主要俄油买家的贸易摩擦、采购与炼厂调整、俄油折价和航运改道或实际供应损失→原油曲线、通胀预期、收益率与美元→全球股指及BTC。若最终快速实施、点名主要买家并引发报复或可验证的进口、炼厂、航运和全球净供应下降，应升级P0复核；若广泛豁免、延迟实施、税率显著低于上限或原油只改道且全球净供应未下降，冲击可能有限。法案停滞、删除关税条款或长期无实施与跨资产重定价构成失效条件；方向必须由油价曲线、通胀预期、美元、收益率、股指与加密市场共同确认。"
+    },
+    {
+      "event_id": "black_sea_cpc_tanker_attacks_2026_07",
+      "event": "黑海CPC油轮连续遇袭与哈萨克斯坦原油出口通道复发风险",
+      "priority": "P1",
+      "base_score": 85,
+      "status": "active_recurrence_risk_after_july27_loading_resumption",
+      "last_verified_at": "2026-08-02T01:57:49+08:00",
+      "confidence": {
+        "level": "high",
+        "probability": 0.94,
+        "basis": "CPC operator releases confirm the tanker attacks, loading stops and later resumption; Kazakhstan's foreign ministry and AP independently confirm the event and its energy-route relevance. Future recurrence and market direction remain conditional."
+      },
+      "sources": [
+        "https://www.cpc.ru/EN/press/releases/2026/Pages/20260719.aspx",
+        "https://www.cpc.ru/EN/press/releases/2026/Pages/20260720.aspx",
+        "https://www.cpc.ru/EN/press/releases/2026/Pages/default.aspx",
+        "https://www.gov.kz/memleket/entities/mfa/press/news/details/1260128",
+        "https://apnews.com/article/russia-ukraine-attack-ballistic-missiles-ddea9c0a10367fc84b3cb563896102e3"
+      ],
+      "latest_verified_update": "CPC称7月19日ASIA和NISSOS IOS在装油时遭无人机袭击、装运停止；7月20日恢复后NELSA再次遇袭并再度停止装油。CPC官方发布列表显示7月27日海上终端已由两艘油轮靠泊单点系泊装置并恢复装运。",
+      "operational_baseline": "CPC称管线承担哈萨克斯坦超过三分之二的出口原油；AP估计约80%。已恢复装运意味着不能把7月20日停运状态延续到当前，但连续袭击、保险和船东回避仍构成复发风险。",
+      "note": "新的袭击、再次停装、系泊设施受损或保险/运费跳升可经原油供应、Brent与通胀预期、收益率和美元传导至股指与BTC；若装运持续、无新攻击且运费和价差回落，则风险溢价应下降。与霍尔木兹或OPEC+同时变化时，需要分离实际净供给、运输损失与名义配额。"
+    },
+    {
+      "event_id": "us_macro_stagflation_fragility_2026_07",
+      "event": "美联储按兵不动但出现三票加息异议；二季度增长放缓且价格压力仍高",
+      "priority": "P1",
+      "base_score": 84,
+      "status": "active_macro_regime_context",
+      "sources": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm",
+        "https://www.bea.gov/news/2026/gdp-advance-estimate-2nd-quarter-2026",
+        "https://www.bea.gov/news/2026/personal-income-and-outlays-june-2026"
+      ],
+      "note": "联邦基金目标区间维持3.5%-3.75%，9比3通过，三名异议者主张加息25基点。二季度实际GDP年化增1.5%，低于一季度2.1%；季度PCE价格指数5.1%、核心3.4%。但6月月度PCE环比-0.1%、核心0.1%，显示短期降温与同比仍高并存。下一步以就业和CPI是否打破这种混合状态为核心。"
+    },
+    {
+      "event_id": "us_trade_tariff_policy_2026_07",
+      "event": "美国近期新增关税与贸易行动的执行、反制和通胀传导",
+      "priority": "P1",
+      "base_score": 84,
+      "score_breakdown": {
+        "historical_market_sensitivity": 17,
+        "surprise_or_expectation_gap": 11,
+        "transmission_breadth": 15,
+        "time_proximity": 12,
+        "source_credibility": 15,
+        "market_fragility": 14
+      },
+      "status": "active_implementation_and_retaliation_risk",
+      "sources": [
+        "https://www.whitehouse.gov/fact-sheets/2026/07/fact-sheet-president-donald-j-trump-imposes-additional-tariffs-on-canada/",
+        "https://www.whitehouse.gov/presidential-actions/2026/07/actions-by-the-united-states-in-the-investigations-under-section-301-of-the-trade-act-of-1974-of-the-acts-policies-and-practices-of-60-economies-related-to-the-failure-of-each-economy-to-impose-and/",
+        "https://ustr.gov/about/policy-offices/press-office/fact-sheets/2026/july/fact-sheet-ustr-section-301-action-response-failure-60-economies-ban-imports-produced-forced-labor",
+        "https://ustr.gov/sites/default/files/files/Press/Releases/2026/FLIP%20301%20Investigation%20Final%20Action%20FRN%207-23-26%20FINAL.pdf",
+        "https://www.pm.gc.ca/en/news/statements/2026/07/20/statement-prime-minister-carney-united-states-administrations-intention"
+      ],
+      "latest_verified_update": "美国已自7月24日00:01 ET起对60个经济体多数进口实施10%或12.5%的Section 301额外关税，运输途中宽限于7月28日结束；USTR称相关经济体覆盖美国99.4%的进口来源。另有针对加拿大特定商品的50%关税将于8月19日00:01 ET生效。加拿大总理表示将强化谈判并采取必要措施支持本国经济，但截至本轮核验未公布针对该8月19日措施的新一轮具体反制清单。",
+      "note": "方向不是机械看空。关税与报复若推高通胀预期、收益率和美元并压低股指，通常对BTC不利；若主要效果是增长走弱，收益率可能下降而美元方向取决于避险与相对增长；若谈判、暂停或扩大豁免，则风险溢价可能回落。必须联合观察美国通胀预期、美债曲线、美元、加元、全球股指、工业品与BTC。失效条件为关税被暂停、实质撤销、豁免显著扩大或市场未产生持续跨资产重定价。"
+    },
+    {
+      "event_id": "us_crypto_regulatory_agenda_2026",
+      "event": "SEC与CFTC加密资产分类解释及后续发行、托管、链上交易规则",
+      "priority": "P2",
+      "base_score": 65,
+      "status": "clarified_regime_with_follow_on_rulemaking_not_short_term_trigger",
+      "sources": [
+        "https://www.sec.gov/newsroom/speeches-statements/atkins-statement-2026-regulatory-agenda-070726",
+        "https://www.sec.gov/newsroom/press-releases/2026-30-sec-clarifies-application-federal-securities-laws-crypto-assets"
+      ],
+      "latest_verified_update": "SEC于3月17日发布并由CFTC共同参与的解释，区分数字商品、数字收藏品、数字工具、稳定币和数字证券，并说明空投、协议挖矿、质押及非证券加密资产包装等适用边界。",
+      "note": "这是制度清晰化基线，不等同于所有代币、发行安排或交易都不受证券法约束。中期风险偏建设性；只有后续具体规则、法院裁决、执法口径、生效范围或产品批准出现实质变化才升级为P1。"
+    },
+    {
+      "event_id": "cftc_crypto_short_covering_concentration_2026_07_28",
+      "event": "CME加密期货净多改善主要由空头回补驱动，BTC、ETH与SOL大户多头集中度偏高",
+      "priority": "P1",
+      "base_score": 78,
+      "status": "positioning_fragility_not_direction_signal",
+      "sources": [
+        "https://www.cftc.gov/dea/futures/deacmelf.htm"
+      ],
+      "note": "7月28日COT显示BTC、ETH、XRP、SOL非商业多头均下降，但空头下降更多，净多因此增加；BTC未平仓量下降，ETH/SOL多头集中度尤其高。仅用于提高确认门槛，需由现货量能、未平仓量、基差、资金费率和价格结构确认。"
+    },
+    {
+      "event_id": "global_geopolitical_shock",
+      "event": "战争升级、关键航道或能源设施、制裁与国家级网络事件",
+      "priority": "conditional_P0",
+      "base_score": 0,
+      "status": "event_driven",
+      "sources": [
+        "https://www.whitehouse.gov/presidential-actions/",
+        "https://ofac.treasury.gov/recent-actions"
+      ],
+      "note": "只有发生并完成来源核验后评分；监控原油、黄金、美元、股指期货与BTC同步反应。"
+    }
+  ],
+  "next_review": "2026-08-03T14:28:27+08:00",
+  "disclaimer": "Scenario intelligence only. Does not modify position sizing, stops, leverage, or trading permissions."
+}

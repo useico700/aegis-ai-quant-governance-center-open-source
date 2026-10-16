@@ -1,0 +1,57 @@
+{
+  "enabled": true,
+  "eligibleSymbols": [
+    "SOLUSDT",
+    "XRPUSDT",
+    "BNBUSDT",
+    "DOGEUSDT",
+    "ZECUSDT",
+    "HYPEUSDT",
+    "LINKUSDT",
+    "AAVEUSDT"
+  ],
+  "excludedSymbols": [
+    "BTCUSDT",
+    "ETHUSDT"
+  ],
+  "minimumSameDirectionPositions": 3,
+  "armProfitFractionOfEquity": 0.015,
+  "armProfitMultipleOfInitialRisk": 2,
+  "quoteSampleIntervalMs": 60000,
+  "shockLookbackMs": 180000,
+  "shockMinimumObservedSymbols": 6,
+  "shockMinimumAdverseSymbols": 6,
+  "shockMedianReturnFraction": -0.02,
+  "trendBreadthMinimumFraction": 0.625,
+  "normalThresholds": {
+    "warning": 0.2,
+    "defense": 0.3,
+    "hard": 0.4
+  },
+  "weakThresholds": {
+    "warning": 0.15,
+    "defense": 0.25,
+    "hard": 0.35
+  },
+  "initialDefenseReductionFractionOfOriginal": 0.25,
+  "freezeMs": 900000,
+  "initialStopsImmediate": true,
+  "protectiveStopsFullQuantity": true,
+  "runnerAtrPeriod": 14,
+  "runnerAtrTiers": [
+    {
+      "minimumNetR": 3,
+      "multiplier": 4
+    },
+    {
+      "minimumNetR": 5,
+      "multiplier": 3
+    },
+    {
+      "minimumNetR": 10,
+      "multiplier": 2.5
+    }
+  ],
+  "runnerAtrRatchetOnClosed15mBarsOnly": true,
+  "runnerTrailCombination": "TIGHTER_OF_CONFIRMED_1H_STRUCTURE_AND_15M_ATR"
+}

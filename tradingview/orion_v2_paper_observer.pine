@@ -1,0 +1,117 @@
+//@version=6
+indicator("ORION V2 PAPER OBSERVER 0.2.0", shorttitle="ORION V2", overlay=true, max_labels_count=300)
+
+// Visual/validation companion for ORION-V2-PAPER-0.2.0.
+// It never sends broker orders and must not replace the V2 ledger or risk engine.
+if timeframe.period != "15"
+    runtime.error("ORION V2 requires a standard 15-minute chart")
+
+f_dmi_confirmed() =>
+    [plusDi, minusDi, adx] = ta.dmi(14, 14)
+    [plusDi[1], minusDi[1], adx[1]]
+
+// Previous fully closed higher-timeframe values. lookahead_on is safe here
+// because every expression is explicitly shifted by one higher-timeframe bar.
+close4h = request.security(syminfo.tickerid, "240", close[1], lookahead=barmerge.lookahead_on)
+ema20_4h = request.security(syminfo.tickerid, "240", ta.ema(close, 20)[1], lookahead=barmerge.lookahead_on)
+ema50_4h = request.security(syminfo.tickerid, "240", ta.ema(close, 50)[1], lookahead=barmerge.lookahead_on)
+ema20_4h_lag3 = request.security(syminfo.tickerid, "240", ta.ema(close, 20)[4], lookahead=barmerge.lookahead_on)
+
+close1h = request.security(syminfo.tickerid, "60", close[1], lookahead=barmerge.lookahead_on)
+ema20_1h = request.security(syminfo.tickerid, "60", ta.ema(close, 20)[1], lookahead=barmerge.lookahead_on)
+ema20_1h_lag3 = request.security(syminfo.tickerid, "60", ta.ema(close, 20)[4], lookahead=barmerge.lookahead_on)
+ema50_1h = request.security(syminfo.tickerid, "60", ta.ema(close, 50)[1], lookahead=barmerge.lookahead_on)
+ema200_1h = request.security(syminfo.tickerid, "60", ta.ema(close, 200)[1], lookahead=barmerge.lookahead_on)
+rsi1h = request.security(syminfo.tickerid, "60", ta.rsi(close, 14)[1], lookahead=barmerge.lookahead_on)
+[plusDi1h, minusDi1h, adx1h] = request.security(syminfo.tickerid, "60", f_dmi_confirmed(), lookahead=barmerge.lookahead_on)
+
+long4h = close4h > ema20_4h and ema20_4h > ema50_4h and ema20_4h > ema20_4h_lag3
+short4h = close4h < ema20_4h and ema20_4h < ema50_4h and ema20_4h < ema20_4h_lag3
+direction = long4h ? 1 : short4h ? -1 : 0
+
+float score1h = 0.0
+if direction != 0
+    score1h += direction * (close1h - ema50_1h) > 0 ? 25 : 0
+    score1h += direction * (ema50_1h - ema200_1h) > 0 ? 20 : 0
+    score1h += direction * (ema20_1h - ema20_1h_lag3) > 0 ? 15 : 0
+    score1h += direction == 1 ? (rsi1h >= 52 and rsi1h <= 75 ? 15 : 0) : (rsi1h >= 25 and rsi1h <= 48 ? 15 : 0)
+    score1h += adx1h > 18 and (direction == 1 ? plusDi1h > minusDi1h : minusDi1h > plusDi1h) ? 25 : 0
+
+atr15 = ta.atr(14)
+priorHigh = ta.highest(high[1], 20)
+priorLow = ta.lowest(low[1], 20)
+priorHighPrevious = ta.highest(high[2], 20)
+priorLowPrevious = ta.lowest(low[2], 20)
+buffer = 0.05 * atr15
+previousBuffer = 0.05 * atr15[1]
+rawBreakout = direction == 1 ? close > priorHigh + buffer and close[1] <= priorHighPrevious + previousBuffer : direction == -1 ? close < priorLow - buffer and close[1] >= priorLowPrevious - previousBuffer : false
+
+float volumePercentile = 0.0
+if bar_index >= 80
+    for i = 1 to 80
+        volumePercentile += volume[i] <= volume ? 0.0125 : 0.0
+
+bodyAtr = atr15 > 0 ? math.abs(close - open) / atr15 : na
+distanceAtr = atr15 > 0 ? (direction == 1 ? (close - priorHigh) / atr15 : (priorLow - close) / atr15) : na
+distancePoints = distanceAtr <= 0.75 ? 15.0 : math.max(0.0, 15.0 - (distanceAtr - 0.75) * 20.0)
+qualityScore = math.round(math.min(35.0, score1h * 0.35) + math.min(30.0, volumePercentile * 30.0) + (bodyAtr <= 2.0 ? 20.0 : 0.0) + distancePoints)
+
+followPath = qualityScore >= 75 and volumePercentile >= 0.75
+breakoutLevel = direction == 1 ? priorHigh + buffer : priorLow - buffer
+entryLevel = followPath ? (direction == 1 ? high + syminfo.mintick : low - syminfo.mintick) : breakoutLevel
+
+pivotLow = ta.pivotlow(low, 3, 3)
+pivotHigh = ta.pivothigh(high, 3, 3)
+lastPivotLow = ta.valuewhen(not na(pivotLow), pivotLow, 0)
+lastPivotHigh = ta.valuewhen(not na(pivotHigh), pivotHigh, 0)
+structuralDistance = direction == 1 ? entryLevel - lastPivotLow + 0.2 * atr15 : lastPivotHigh - entryLevel + 0.2 * atr15
+fallbackDistance = 1.5 * atr15
+rawStopDistance = na(structuralDistance) or structuralDistance <= 0 ? fallbackDistance : structuralDistance
+stopDistance = math.max(1.25 * atr15, math.min(2.5 * atr15, rawStopDistance))
+stopLevel = entryLevel - direction * stopDistance
+
+feeRate = 0.0007
+slippageRate = 0.0002
+plannedCostR = stopDistance > 0 ? entryLevel * (2 * feeRate + 2 * slippageRate) / stopDistance : na
+target1Reference = entryLevel + direction * 2.0 * stopDistance
+target1Fill = target1Reference * (1 - direction * slippageRate)
+firstTargetNetR = stopDistance > 0 ? (direction * (target1Fill - entryLevel) - feeRate * (entryLevel + target1Fill)) / stopDistance : na
+
+qualityPass = volumePercentile >= 0.60 and bodyAtr <= 2.0 and qualityScore >= 60
+payoffPass = plannedCostR <= 0.20 and firstTargetNetR >= 1.50 and 2.0 / plannedCostR >= 2.0
+eligible = barstate.isconfirmed and rawBreakout and score1h >= 65 and qualityPass and payoffPass
+gradeA = eligible and qualityScore >= 85 and score1h >= 85 and volumePercentile >= 0.80 and bodyAtr <= 1.50 and plannedCostR <= 0.15
+grade = gradeA ? "A" : eligible ? "B" : "—"
+pathName = followPath ? "FOLLOW" : "RETEST"
+regimeName = direction == 1 ? "LONG" : direction == -1 ? "SHORT" : "NEUTRAL"
+
+plot(ema20_4h, "4H EMA20", color=color.new(color.aqua, 15), linewidth=2)
+plot(ema50_4h, "4H EMA50", color=color.new(color.purple, 20), linewidth=2)
+plot(priorHigh, "20-bar High", color=color.new(color.green, 70), style=plot.style_stepline)
+plot(priorLow, "20-bar Low", color=color.new(color.red, 70), style=plot.style_stepline)
+plot(eligible ? entryLevel : na, "V2 Entry", color=color.yellow, linewidth=2, style=plot.style_circles)
+plot(eligible ? stopLevel : na, "V2 Initial Stop", color=color.red, linewidth=2, style=plot.style_circles)
+plotshape(eligible and direction == 1, title="V2 Long", style=shape.labelup, text="V2 LONG", color=gradeA ? color.lime : color.green, textcolor=color.black, location=location.belowbar, size=size.tiny)
+plotshape(eligible and direction == -1, title="V2 Short", style=shape.labeldown, text="V2 SHORT", color=gradeA ? color.fuchsia : color.red, textcolor=color.white, location=location.abovebar, size=size.tiny)
+
+var table panel = table.new(position.top_right, 2, 8, bgcolor=color.new(color.black, 18), frame_color=color.new(color.aqua, 55), frame_width=1)
+if barstate.islast
+    table.cell(panel, 0, 0, "ORION V2", text_color=color.aqua)
+    table.cell(panel, 1, 0, "PAPER 0.2.0", text_color=color.white)
+    table.cell(panel, 0, 1, "4H regime", text_color=color.silver)
+    table.cell(panel, 1, 1, regimeName, text_color=direction == 1 ? color.lime : direction == -1 ? color.red : color.gray)
+    table.cell(panel, 0, 2, "1H score", text_color=color.silver)
+    table.cell(panel, 1, 2, str.tostring(score1h, "#"), text_color=score1h >= 65 ? color.lime : color.orange)
+    table.cell(panel, 0, 3, "Quality", text_color=color.silver)
+    table.cell(panel, 1, 3, str.tostring(qualityScore, "#"), text_color=qualityScore >= 60 ? color.lime : color.orange)
+    table.cell(panel, 0, 4, "Volume pct", text_color=color.silver)
+    table.cell(panel, 1, 4, str.tostring(volumePercentile * 100, "#.0") + "%", text_color=volumePercentile >= 0.60 ? color.lime : color.orange)
+    table.cell(panel, 0, 5, "Route", text_color=color.silver)
+    table.cell(panel, 1, 5, pathName, text_color=color.white)
+    table.cell(panel, 0, 6, "Signal", text_color=color.silver)
+    table.cell(panel, 1, 6, eligible ? direction == 1 ? "LONG " + grade : "SHORT " + grade : "WAIT", text_color=eligible ? color.lime : color.gray)
+    table.cell(panel, 0, 7, "Execution", text_color=color.silver)
+    table.cell(panel, 1, 7, "SIMULATION ONLY", text_color=color.orange)
+
+alertcondition(eligible and direction == 1, "ORION V2 LONG", "ORION V2 paper-only LONG candidate")
+alertcondition(eligible and direction == -1, "ORION V2 SHORT", "ORION V2 paper-only SHORT candidate")

@@ -1,0 +1,10 @@
+:root {
+  --monitor-type-caption: 11px;
+  --monitor-type-label: 12px;
+  --monitor-type-body: 13px;
+  --monitor-type-data: 13px;
+  --monitor-type-section: 19px;
+  --monitor-type-page-title: 23px;
+  --monitor-leading-compact: 1.35;
+  --monitor-leading-body: 1.55;
+}

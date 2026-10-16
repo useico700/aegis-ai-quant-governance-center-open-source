@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "ledgerId": "SMC",
+  "executionAccount": "S2",
+  "scope": "SMC_ONLY",
+  "initialAllocatedCapitalUsdt": null,
+  "allocationStatus": "CURRENT_RECONCILED_S2_MARGIN_BALANCE",
+  "dataStatus": "BINANCE_USDM_AND_SMC_ATTRIBUTION_CONNECTED",
+  "orderAuthority": true,
+  "strategyRevision": "SMC-EXEC-11",
+  "risk": {
+    "perTradeFraction": "0.04",
+    "portfolioFraction": "0.10",
+    "maximumOpenPositions": 4,
+    "maximumLeverage": 25,
+    "maximumGrossNotionalLeverage": 25
+  }
+}

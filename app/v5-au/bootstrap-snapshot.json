@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "runtimeId": "ORION-V5-AU-CTP-PAPER",
+  "sourceAsOf": "2026-09-04T00:00:00.000+08:00",
+  "status": "WAITING_CTP_CONFIGURATION_NOT_STARTED",
+  "connection": {
+    "status": "WAITING_CTP_CONFIGURATION",
+    "lastForwardTickAt": null,
+    "lastExecutableBboAt": null,
+    "evidence": "FORWARD_CTP_TICK_AND_BBO_ONLY_FOR_GATE1_PLUS"
+  },
+  "market": {
+    "exchange": "SHFE",
+    "product": "AU",
+    "currentInstrumentId": null,
+    "tradingDay": null,
+    "actionDay": null,
+    "session": "CLOSED_WAITING_CALENDAR",
+    "bidPrice1": null,
+    "bidVolume1": null,
+    "askPrice1": null,
+    "askVolume1": null
+  },
+  "account": {
+    "currency": "CNY",
+    "initialCapitalCny": 500000,
+    "equityCny": 500000,
+    "availableCny": 500000,
+    "marginUsedCny": 0,
+    "realizedPnlCny": 0,
+    "unrealizedPnlCny": 0,
+    "feesCny": 0
+  },
+  "risk": {
+    "maximumRiskPerEntryFraction": 0.01,
+    "maximumManagedPortfolioRiskFraction": 0.05,
+    "riskSizingUtilizationFraction": 0.98,
+    "maximumEffectiveNotionalLeverage": 4,
+    "managedRiskCny": 0,
+    "effectiveNotionalCny": 0,
+    "openPositionCount": 0,
+    "entriesBlocked": true,
+    "blockReason": "WAITING_CTP_CONFIGURATION"
+  },
+  "roll": {
+    "status": "WAITING_CAUSAL_OBSERVATIONS",
+    "currentInstrumentId": null,
+    "pendingInstrumentId": null
+  },
+  "positions": [],
+  "candidates": [],
+  "fills": [],
+  "fees": {
+    "totalCny": 0,
+    "openCny": 0,
+    "closeTodayCny": 0,
+    "closeYesterdayCny": 0,
+    "brokerSurchargeCny": 0
+  },
+  "partialPlan": {
+    "originalLots": 0,
+    "stageLots": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "cumulativeLots": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "deferredStages": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "system": {
+    "refreshSeconds": 30,
+    "residentProcessStarted": false,
+    "paperOrderCount": 0,
+    "realOrderCount": 0
+  }
+}

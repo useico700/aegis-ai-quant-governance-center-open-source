@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "V2-F1-MIN-BREAKOUT-DISTANCE-015",
+  "candidateVersion": "ORION-V2-F1-SHADOW-0.1.0",
+  "status": "ARCHIVED_OWNER_PAUSE_SUPERSEDED_BY_MTFX_0.4.0",
+  "owner": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "governor": "AEGIS PRIME",
+  "source": {
+    "paperVersion": "ORION-V2-PAPER-0.2.2",
+    "ledgerPath": "archive/runtime-snapshots/orion-v2/ledger.ndjson",
+    "paperRuntimeUnaffected": true,
+    "paperLedgerUnaffected": true
+  },
+  "singleMajorChange": {
+    "field": "minimumBreakoutDistanceAtr",
+    "control": 0.05,
+    "candidate": 0.15,
+    "longRule": "signal close >= prior 20-bar high + 0.15 ATR",
+    "shortRule": "signal close <= prior 20-bar low - 0.15 ATR"
+  },
+  "frozen": [
+    "UNIVERSE",
+    "REGIME",
+    "ONE_HOUR_SCORE",
+    "VOLUME_PERCENTILE",
+    "ENTRY_ROUTER",
+    "STOP",
+    "TARGETS",
+    "COSTS",
+    "RISK",
+    "POSITION_LIMITS"
+  ],
+  "evidencePhases": {
+    "beforeActivationSequence": "RETROSPECTIVE_SCREENING_ONLY",
+    "afterActivationSequence": "FORWARD_OOS"
+  },
+  "promotionGate": {
+    "minimumForwardClosedTrades": 30,
+    "minimumInitialStopRemovalFraction": 0.2,
+    "minimumWinnerRetentionFraction": 0.85,
+    "maximumTradeFrequencyReductionFraction": 0.25,
+    "minimumNetExpectancyR": 0,
+    "minimumProfitFactor": 1,
+    "tickBboValidationRequiredForGate1Plus": true
+  },
+  "limitations": [
+    "CONDITIONAL_FILTER_AUDIT_NOT_FULL_COUNTERFACTUAL_PORTFOLIO",
+    "FILTERED_CAPACITY_IS_NOT_REALLOCATED",
+    "OHLC_SIGNAL_SCREENING_ONLY",
+    "NO_PAPER_OR_REAL_ORDER_AUTHORITY"
+  ]
+}

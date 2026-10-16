@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "distribution": "FULL_SOURCE_PUBLIC_EDITION",
+  "mode": "LOCAL_SIMULATED_VENUE",
+  "productionDeployment": false,
+  "realOrdersAllowed": false,
+  "exchangeOrdersAllowed": false,
+  "sourceBaseline": "484fcddb3c69f213b0ef26586a2c49f852185bc2",
+  "activeOwnerAuthorizations": [],
+  "jev": {
+    "status": "DISABLED_UNCONFIGURED",
+    "orderAuthority": false
+  },
+  "supersedes": "Original account state and authorizations are excluded and grant no authority here."
+}

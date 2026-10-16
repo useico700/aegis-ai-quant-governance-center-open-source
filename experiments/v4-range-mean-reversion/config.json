@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "candidateVersion": "ORION-V4-RANGE-MEAN-REVERSION-1.0.0",
+  "displayName": "V4 区间回归 · RG1",
+  "implementationRevision": "ORION-V4-RG1-RESEARCH-PAPER-INITIALIZATION",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "lifecycle": "GATE_0_RESEARCH_AND_ISOLATED_PAPER_DEVELOPMENT",
+  "execution": {
+    "residentScannerAllowed": false,
+    "forwardPaperOrdersAllowed": false,
+    "testnetOrdersAllowed": false,
+    "realOrdersAllowed": false,
+    "automaticPromotionAllowed": false
+  },
+  "data": {
+    "source": "BINANCE_USDM_PUBLIC_FULLY_CLOSED_BARS",
+    "allowedIntervals": [
+      "15m",
+      "1h",
+      "4h"
+    ],
+    "gate": "GATE_0_SCREENING_ONLY",
+    "dataGapAction": "FAIL_CLOSED",
+    "sameBarPathUnknown": true
+  },
+  "universe": {
+    "mode": "RESEARCH_FIXED_TEN_NO_EXECUTION",
+    "symbols": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT"
+    ]
+  },
+  "hypothesis": {
+    "type": "RANGE_BOUND_MEAN_REVERSION",
+    "rangeDetectionInterval": "1h",
+    "entryDecisionInterval": "15m",
+    "contextInterval": "4h",
+    "rangeLookbackBars1h": 48,
+    "minimumBoundaryTouchesPerSide": 3,
+    "maximumAdx14": 22,
+    "maximumAbsoluteLinearSlopeAtrPer24Bars": 0.15,
+    "minimumRangeHeightAtr14": 2,
+    "maximumRangeHeightAtr14": 8,
+    "entryZoneFractionOfRange": 0.1,
+    "confirmation": "15M_TOUCH_OR_BRIEF_EXCURSION_THEN_CLOSE_BACK_INSIDE_RANGE",
+    "longEntry": "LOWER_BOUNDARY_REJECTION_ONLY",
+    "shortEntry": "UPPER_BOUNDARY_REJECTION_ONLY",
+    "initialStop": "OUTSIDE_BOUNDARY_PLUS_0_5_ATR14_15M",
+    "firstTarget": "RANGE_MIDLINE",
+    "secondTarget": "OPPOSITE_BOUNDARY",
+    "breakoutInvalidation": "FULLY_CLOSED_1H_OUTSIDE_BOUNDARY_PLUS_0_5_ATR14_1H",
+    "averagingDownAllowed": false,
+    "stopWideningAllowed": false,
+    "oppositePositionsPerSymbolAllowed": false
+  },
+  "researchControls": {
+    "parametersAreInitialFalsifiableHypotheses": true,
+    "parameterLearningAutomatic": false,
+    "walkForwardRequired": true,
+    "outOfSampleRequired": true,
+    "feesAndAdverseSlippageRequired": true,
+    "minimumClosedSamplesBeforeRuleReview": 100,
+    "minimumSamplesPerBucket": 20,
+    "paperRiskPolicy": "NOT_AUTHORIZED_PENDING_OWNER_REVIEW"
+  },
+  "gate0Replay": {
+    "rangeBoundaryMethod": "ROLLING_48H_EXTREMA",
+    "boundaryTouchTolerance": "ENTRY_ZONE_FRACTION_OF_RANGE",
+    "slopeNormalization": "ABS_OLS_CLOSE_SLOPE_X_24_DIV_ATR14_1H",
+    "fourHourContextUse": "OBSERVE_ONLY_NOT_AN_ENTRY_GATE",
+    "signalTiming": "FULLY_CLOSED_15M_REJECTION_BAR",
+    "fillTiming": "NEXT_15M_BAR_OPEN",
+    "breakoutInvalidationFillTiming": "NEXT_15M_BAR_OPEN",
+    "firstTargetExitFraction": 0.5,
+    "secondTargetExitFraction": 0.5,
+    "normalizedNotionalPerTradeUsdt": 1000,
+    "normalizedNotionalIsRiskAuthorization": false,
+    "takerFeeRatePerFill": 0.0005,
+    "adverseSlippageRatePerFill": 0.0002,
+    "fundingModeled": false,
+    "spreadModeled": false,
+    "queuePositionKnown": false,
+    "sameBarAmbiguityAction": "EXCLUDE_WHOLE_TRADE_FROM_PRIMARY_PERFORMANCE",
+    "rightCensoredTradeAction": "EXCLUDE_FROM_CLOSED_TRADE_PERFORMANCE",
+    "outOfSampleFraction": 0.3,
+    "walkForwardFolds": 4
+  }
+}

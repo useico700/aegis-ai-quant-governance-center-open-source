@@ -1,0 +1,2680 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/useico700/aegis-ai-quant-governance-center",
+  "commit": "484fcddb3c69f213b0ef26586a2c49f852185bc2",
+  "files": [
+    {
+      "path": "agents/nexus/data/consumer_alert_queue.json",
+      "upstreamSha256": "84501ea42244729e11fddc58495747ef693ef8271eca979d8ddd6abcc75a8ab5"
+    },
+    {
+      "path": "agents/nexus/data/current_high_impact_watchlist.json",
+      "upstreamSha256": "399971d8944e3b835e81cb8e0809050987e824f050388522ffaba0a6bc4c0594"
+    },
+    {
+      "path": "agents/nexus/data/fundamental_event_taxonomy.json",
+      "upstreamSha256": "485624765b51fc0c8dbbec01aecf32ccbbb514487e1f1eab174aa398604efc2f"
+    },
+    {
+      "path": "agents/nexus/data/fundamental_scan_audit.json",
+      "upstreamSha256": "2d0544af94b433e2760d15d4ff83f4ffd9694f1e0189318a4fdf48fdd349b3ef"
+    },
+    {
+      "path": "agents/nexus/data/market_expectations_watch.json",
+      "upstreamSha256": "2ff2c4349e6cda52b9992ebb0d4e6d0b17dcc07041a15bfdecfce44aee98b19b"
+    },
+    {
+      "path": "agents/nexus/data/mtfx-tier1-event-calendar.json",
+      "upstreamSha256": "619470fe402beb4da3f73a43b24572a725952676bbfa91c72e8b0aaf2096d2b7"
+    },
+    {
+      "path": "agents/nexus/data/pattern_catalog.json",
+      "upstreamSha256": "dac89f88839a22a2f7b6d9a5d6e3f95f26ae1aeb60957666e920d2ec11e9912b"
+    },
+    {
+      "path": "agents/nexus/data/recognition_profile.json",
+      "upstreamSha256": "d75b2659bbd4259dc63c71eb2b8757e9e598718a34e1c0523340a15fd960e668"
+    },
+    {
+      "path": "agents/nexus/feed/feed-config.json",
+      "upstreamSha256": "1b7f008119693a034cbf48a62864fbfc948caef877fe0a660b391a8a632d7b6b"
+    },
+    {
+      "path": "agents/nexus/schemas/recognition-output.schema.json",
+      "upstreamSha256": "eb6096fd4084e35c49d9389c3d9aa37808c7095f41951947734246517051fa05"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/config.json",
+      "upstreamSha256": "98addbff5c32849a5da39248edd4c7d5fbd54a6e186628ace86e37416da9e05e"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/control.mjs",
+      "upstreamSha256": "e897c8cc809fee5d6851ebc663a63a3bdaeb226debb4642e9ec427cdd4e43660"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/coordinated-reader.mjs",
+      "upstreamSha256": "4ebe647712a8bffab3ef3817ee8b1deffea5d30111b1c9ed18cc788b16500145"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/coordinated-resident.mjs",
+      "upstreamSha256": "2e6e01bc892bd4e71cfe302e7e7b157e146cf367057d31106b82b4d460215326"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/credentials.mjs",
+      "upstreamSha256": "f14558a36c9c4cb7cbc273cff555cb6e56d74034fb085c498c58e70b827555c8"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/mainnet-readonly-client.mjs",
+      "upstreamSha256": "2a006f3f7b881deddf863137e0ef610c0e463cbe93ac9d3fcbbc21e6ebb8a002"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/preflight.mjs",
+      "upstreamSha256": "1aca08a6c0968abceef791ba632bc5a09dea7b64283c961a44c59a2b44732fe8"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/resident-readonly.mjs",
+      "upstreamSha256": "4a09c303cf73d31ec12358b545c2fb44d5a15343131a5463f9d3354b000209a8"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/retention.mjs",
+      "upstreamSha256": "36a6e147935bdcb84a70c12ad255ee05b56ebe5d8026c1f2351b5750039b5db2"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/runtime-utils.mjs",
+      "upstreamSha256": "abc41456cc0637db7bfdc595683ff5a8d0d5f901cffbebb91a217be6874c9f9f"
+    },
+    {
+      "path": "agents/orion-live/binance-prod/user-stream.mjs",
+      "upstreamSha256": "3c8428b70e8db89cb80e6746983a93b3b54e3e26cd6e8399e3f52af9e406acbf"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/config.json",
+      "upstreamSha256": "f88ff0d3a44e5873106e9b8153f4a63ac825721056ec4bb59b394880e5c57bed"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/control.mjs",
+      "upstreamSha256": "e897c8cc809fee5d6851ebc663a63a3bdaeb226debb4642e9ec427cdd4e43660"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/coordinated-reader.mjs",
+      "upstreamSha256": "663eca70a49ba9938ccabd2bdec18da6e21fcd0857cd92f69fb57aaacd5479e0"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/coordinated-resident.mjs",
+      "upstreamSha256": "499f0882ed97a337652faea7e368f02c30f7aef7649eb78156519a45287e91db"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/credentials.mjs",
+      "upstreamSha256": "f14558a36c9c4cb7cbc273cff555cb6e56d74034fb085c498c58e70b827555c8"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/mainnet-readonly-client.mjs",
+      "upstreamSha256": "f347634bed91aae77bf210e5986a21b50b4609ff9b0e2a8bb6a7a3ddd1a3d2e2"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/preflight.mjs",
+      "upstreamSha256": "1aca08a6c0968abceef791ba632bc5a09dea7b64283c961a44c59a2b44732fe8"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/resident-readonly.mjs",
+      "upstreamSha256": "612aa9a1f2b9aea910a09e3e47f5ba72be9a2d3e4770f2d1102d0ebaa6080c60"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/retention.mjs",
+      "upstreamSha256": "36a6e147935bdcb84a70c12ad255ee05b56ebe5d8026c1f2351b5750039b5db2"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/runtime-utils.mjs",
+      "upstreamSha256": "abc41456cc0637db7bfdc595683ff5a8d0d5f901cffbebb91a217be6874c9f9f"
+    },
+    {
+      "path": "agents/orion-live/binance-prod2/user-stream.mjs",
+      "upstreamSha256": "3c8428b70e8db89cb80e6746983a93b3b54e3e26cd6e8399e3f52af9e406acbf"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/account-activity.mjs",
+      "upstreamSha256": "f04d2d1f63a6fcc12b5337f3a6a26f0e5edc155673fd5c3f2e4da1d6d36d689a"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/account-reader.mjs",
+      "upstreamSha256": "3d5d47743d1fcf83441bfadd701bfe54e719fa98fc49d4f81557546e7420d005"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/activity-monitor.mjs",
+      "upstreamSha256": "a99e1984555a42e795214487e69f5b61073b24ace0886dbbddcb51db1aa7b078"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/activity-probe.mjs",
+      "upstreamSha256": "8abc0fccf95c6d4f055bbe6aaca88a20470ff52e05fc67399d4e6b815c8e7117"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/admitted-http.mjs",
+      "upstreamSha256": "e7313bef6388a9d05bbe913a0145dd948e99534d710c71125ff3a1441b7196e4"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/audit-backup-drill.mjs",
+      "upstreamSha256": "6c61b6df911a82da349e00e1276a1f4287fe830c1b68f2ccf3fba3802adf6ca2"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/audit-backup.mjs",
+      "upstreamSha256": "f6959127da76d4b41f84d70c064bf0a6c2efcbd565e713a408d7778f03178874"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/bootstrap-receipt.mjs",
+      "upstreamSha256": "2d2fc91858900cdefcda9836311272d3912ef176cf05d726b59a621abd529092"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/bounded-http.mjs",
+      "upstreamSha256": "321450ca587caa24026c6683888fd2e71602db130066614a05bff5f3b16395b3"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/bounded-read-dispatch.mjs",
+      "upstreamSha256": "a5727005d343abaa4ad751dfc72871617b98dbf0f37205a993df98a0903c1bb0"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/closed-stop-reconciliation.mjs",
+      "upstreamSha256": "3bbf473f77a0501c8a3b6f8226ce6d06b54647e2e79370c87badfcec10688d04"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/common.mjs",
+      "upstreamSha256": "118259c504ef576db2933300b2b477565afec208c17f5df2b7ff12fec6aac066"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/coordinated-auxiliary-ports.mjs",
+      "upstreamSha256": "a46b200a36ddb9187f19693c6c4ba7cfeed3794763dce57c656ab90fec092e9a"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/coordinated-host-admission.mjs",
+      "upstreamSha256": "9fd9e72e157f47cbeabbe3cfd1818adf8013012cb95af4cfc9a64cf62d2f5f93"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/coordinated-public-reads.mjs",
+      "upstreamSha256": "9545394e821f562b1720c6139b8f90a4ecef75b54ff8e998caff1b322f34af03"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/coordinated-read-budget.mjs",
+      "upstreamSha256": "ef1f13a5f9cec661571702fdd3d7a3d63497f55943afa4dd8d66f0a71af22802"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/coordinated-read-session.mjs",
+      "upstreamSha256": "c1f6f2a936696e7eb429dbd4a29522707ea835a9cb96a97bda4243fcea682379"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/coordinated-shadow-reads.mjs",
+      "upstreamSha256": "957d95808cc07ffe611056f7f4b4101dcd18f09875d37bf7a4f51737cb8d3f14"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/directed-order.mjs",
+      "upstreamSha256": "eacb4b1706ee6b6c6ebe9fb0de472442b3a956f04782130342136092b28bfb4f"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/engine.mjs",
+      "upstreamSha256": "11f37bd41eb3ce6796fe77e6f73943529d35aed80da397b5b7d16135592b0ee1"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/entry-calendar-cache.mjs",
+      "upstreamSha256": "a303c5af5705e0c5699601106387bfb09fc03e151a2ca6ddd8515e6ca237fcfc"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/entry-confirmation-profile.json",
+      "upstreamSha256": "f5543fd26e1bb8b2ca1b19229da46ba76fe3332775c3ac031166c9f5f70312de"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/entry-evidence.mjs",
+      "upstreamSha256": "71b56b241ff38af1ea272988c1c9bd2ef24a52120469e669c6ace62aaac11fb9"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/entry-plan.mjs",
+      "upstreamSha256": "034fc2492d6ee23adf9f3bd573e5e90d74cbe0e9c7d16ea52fcecc57fcd515da"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/execution-authorization.mjs",
+      "upstreamSha256": "3d5fb8de53441e88bd4ce2d43f8ddbe5a4df144bec780ec171513e3393c38072"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/execution-host.mjs",
+      "upstreamSha256": "c972d45491ae7efc8eba377e9a60c428de01ed1d81cbcef96695ed3b0bcbeeb8"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/execution-runtime.mjs",
+      "upstreamSha256": "de9f49410e7441465f12b1cd5b3943202f8a5b21f6be8e53db1f904029b2d5f5"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/execution-transport.mjs",
+      "upstreamSha256": "9ccc2d404ac9f1b4618162a35d97b3d4c60f1062799d966aff571f3e37e58172"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/external-recovery.mjs",
+      "upstreamSha256": "4754e2f7b5031d2d14a49687a8963cbf383bd99c9dc8562922084b91e8e3a955"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/frame-provider.mjs",
+      "upstreamSha256": "298813dd73caf88912b3733a28d68f6f10a7b48179ab0af57fc691e76a5966af"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/history-reader.mjs",
+      "upstreamSha256": "741aefcdb3f618b907e515ec76ecda884cdd5e04f1e634a5f9cf2e6168c33811"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/host-admission.mjs",
+      "upstreamSha256": "4bda3ce281e513578e7782e1fa3d47e21b893e68ec57f2101a25af72831f5b63"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/intent-read-bridge.mjs",
+      "upstreamSha256": "e1cb7594f8d09a41e09e8b6c1cd58876d2c23ffd405ec31f1facfb900381b5dc"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/iq1-p1-profile.json",
+      "upstreamSha256": "bed7050e1e60f77510e24c405fb08165b388c5167e3f6dcdeed0394ae5e02b9d"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/iq1-p2-profile.json",
+      "upstreamSha256": "b0f0662142bc3466b68042239cffb361334b3fea2b17596abde263c6994444da"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/journal.mjs",
+      "upstreamSha256": "4483b1732a943c1cad5a8e7e563b056b8dbbb3798664792c9e1d8e388d440656"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/kernel.mjs",
+      "upstreamSha256": "ed2cf7e6f5650247a1ec84b1b276317af0952bcb39c581c6940e8bad219611f2"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/lifecycle.mjs",
+      "upstreamSha256": "a147aefa394d8e0eb26dc090cda6c7765ef600251458e4b7ff73ffc150449b15"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/market-evidence.mjs",
+      "upstreamSha256": "0e549ac61bcad1203ae30be7d97a06c3e521f682d358294d28635896718a8826"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/offline-acceptance.mjs",
+      "upstreamSha256": "1f31b00b38989a629d0ca9e28d95113cce5569168c9b2e10f4432b717ea7764d"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/ops-host.mjs",
+      "upstreamSha256": "d645fc5796389584646226f891b115f1ce50a8337c9a00d4b1b3c5d4a76e2cf2"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/ops-monitor.mjs",
+      "upstreamSha256": "ae5f21f251382d115b4670505f360b209329cffa571234497c9491791fc17be1"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/order-request-budget.mjs",
+      "upstreamSha256": "3d7a13a10e64f1c4465ba90f7fefb6675279d8cf860a51aaf417c903f8e6d3b1"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/owned-mutation.mjs",
+      "upstreamSha256": "ab8158f5a2414632262bc3a15fd0eaefa9da4e52c8bed06c0fc92bb09c43debb"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/portfolio-protection-profile.json",
+      "upstreamSha256": "b765c02acd43ac331b87a6534479778ed8ecbde15c6266cb0b899d1f65e81279"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/position-ledger.mjs",
+      "upstreamSha256": "5d1f04b424f084f25a57f8dfb8e102481da3a8c0cb367529641a760ac0346bd8"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/r22-management.mjs",
+      "upstreamSha256": "ada69fc433be7938df2194016aeaa95ce0ed5b7d75f4a0497816dbfa7fd872cc"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/r22-portfolio-integrity.mjs",
+      "upstreamSha256": "a268e5dd0992f2e98ab511f41368dd678897b6f82c4de089e6c5b071e57157bf"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/raw-directory-lease.mjs",
+      "upstreamSha256": "9e222ee357ed807f3f6a1f7148609c4ee089ccbcfc96f19f1538f43506b4ad7a"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/read-deadline-planner.mjs",
+      "upstreamSha256": "6e943b8f23f3265ab39a41cf27bea771a994614c774e7661e779fc7f0b426a92"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/read-eligibility.mjs",
+      "upstreamSha256": "478e51bb73e24d388ac37a925a01f5a6fa295919a7081fb377a3596f16580ac5"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/read-intent-catalog.mjs",
+      "upstreamSha256": "f1cb74ed09a04a4e8a0d471df89567fa36e5b2db808d0445966610d062569179"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/read-request-bindings.mjs",
+      "upstreamSha256": "e233a14854b06bb97b51275fa595aec9fc6376629465c6b7e6e47905febf2dac"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/readiness.json",
+      "upstreamSha256": "3e162d52a760f12a481474c0f38bae8ba5ea721ddcfdcd0c4546b0aff3b62331"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/readonly-host.mjs",
+      "upstreamSha256": "bb5fdf21e0fe9f8f01a178a8b542d16ecfe3aedc8ddeb47640d8f70249bc98fa"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/readonly-ports.mjs",
+      "upstreamSha256": "8972942b050acf04c0b6c49380f44efa2032d27e378b979b73fed4e2488521aa"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/readonly-probe.mjs",
+      "upstreamSha256": "c2a833da129165c1f23fdf6169e702c109f1460a8d322cb210e6b15372c5c2cc"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/reconcile.mjs",
+      "upstreamSha256": "4972119db847063d86a1cb2ebc4a5cc5ce0b77f99fc2cfc124c3c814a06798e1"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/recovery-state.mjs",
+      "upstreamSha256": "27a74a84cadabc9d5e4b53922518551411ce71a835d97e471884430e7cdbed57"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/request-budget.mjs",
+      "upstreamSha256": "54847ca64be453454958226078da7032465d67ca0e538f7168429f71405a15bd"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/resident.mjs",
+      "upstreamSha256": "c771ae10a6be735a97d5dff6888659c37e850564a2399a3b7cd4a5a2888dda34"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/segmented-evidence.mjs",
+      "upstreamSha256": "97de6b708f7ddc6fceb91a3e80f4f351417e7daed4a9e57a9c89ffb285f3509a"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/shadow-shutdown.mjs",
+      "upstreamSha256": "f9ceb2e969158f9c7ad81fbdce17e53326c090fa3212fc6cd2a82cbc511c7d61"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/shared-read-budget.mjs",
+      "upstreamSha256": "e34557da07811410997640959f3ba6350b73469c596738c5921dcddafe1afcd2"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/signal-adapter.mjs",
+      "upstreamSha256": "dcd94fa30846c56b5698df01972be50099230c81040a42c7fad41d4f7c99c21a"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/small-trial-limits.json",
+      "upstreamSha256": "f43be59f2ba0b4a6b831a742340adc45e53c57eec859b15dbfdcf5768c5d9a1a"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/sqlite-journal.mjs",
+      "upstreamSha256": "c2706e5ae90a0deb18ee278beea0e443bf6fdea07443ac59abdb7e4718f58a15"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/stop-replacement.mjs",
+      "upstreamSha256": "04025520f53cd57da4b248572ede12c62cffeb50063f9b041d4a84d54aa87ebf"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/streams.mjs",
+      "upstreamSha256": "92208998e577f6b0206e36610d31a1bd6240ab91b232d6c2ef79fdccc2541b2d"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/transport.mjs",
+      "upstreamSha256": "1a58bc553dbe1bf12aaa2328cad504513d76e29fa4dd4da8031477c2d69ce301"
+    },
+    {
+      "path": "agents/orion-live/s1-execution/trial-budget.mjs",
+      "upstreamSha256": "0cae95c77ac5c4daf5a26f5fe7f0e4e738d586ae466f0c850e7428cc2aebd755"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/candidate-discovery.mjs",
+      "upstreamSha256": "2f33e9fbe5d5f24d64e2d5dd668ceaf312728a747fdcefa8e5e45dd414f0c85e"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/candidate-lifecycle.mjs",
+      "upstreamSha256": "9a528a034cf4299b15db52538aea32fd17b4367fe9a40026fadeff47adc25e7a"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/candidate-selection.mjs",
+      "upstreamSha256": "49b3e8381dbfe3b272c2ffbaf52bee1d7f89eeeddd73e546d8b064f1fa5e4e3b"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/config.json",
+      "upstreamSha256": "16ae300525644e3bef08f96335869295ea45b009848869ed241d463340c2c4af"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/coordinated-host.mjs",
+      "upstreamSha256": "bb1c08a7143bd2f52750afb5e83097439c08b3910d96e6a2d16b76b4d2535009"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/coordinated-resident.mjs",
+      "upstreamSha256": "324c36177cd11edd77e2077c3ac863a9f9a41e7534e815b83f688353f2045750"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/engine.mjs",
+      "upstreamSha256": "d3abde19f7901f09eb812dbb7001477aa0262d0f1523da1e3b7e7067b735b64a"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/event-gate.mjs",
+      "upstreamSha256": "54c6890712f8e03826c6f71384901df0be7834db63d30ba737ba91080b192356"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/intersection-geometry.mjs",
+      "upstreamSha256": "65d1c2da5c2d2ef0dfe06e61222d02cd30bd821e7d75b066896f641336e2a121"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/r22-risk-profile.json",
+      "upstreamSha256": "3065fa90db2fa5e88e20a1bd2a87873e31d37a1a3f15b5be1b05ef132654d61a"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/resident.mjs",
+      "upstreamSha256": "caa903f019971f668c559f8bae5ac230d15ff52bdf71760ac1241a6cf8d72f01"
+    },
+    {
+      "path": "agents/orion-live/s1-scanner/risk-budget.mjs",
+      "upstreamSha256": "3c4850e81c9e6360ede737a0d141f269dce82ca706ee1c94c5c8ebeb261eeabb"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/account-activity.mjs",
+      "upstreamSha256": "f069f0fb866e10a5e3614100e0fcecb32c3f86819477782e2d84688c7a74bf64"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/account-reader.mjs",
+      "upstreamSha256": "3d5d47743d1fcf83441bfadd701bfe54e719fa98fc49d4f81557546e7420d005"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/activity-monitor.mjs",
+      "upstreamSha256": "08c5aafe5cf8a811f4abb1e7b5afe8ecaf40bf65231e0a5b29037f01d88a4d2e"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/activity-probe.mjs",
+      "upstreamSha256": "732de3cdcb6130f7786776f67966b499db493a247f7758b41b5bc3797971169b"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/admitted-http.mjs",
+      "upstreamSha256": "e7313bef6388a9d05bbe913a0145dd948e99534d710c71125ff3a1441b7196e4"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/audit-backup-drill.mjs",
+      "upstreamSha256": "1163d4b31486a0955eb0610766947a6afab5e33253c9f8907094119c80a80ccc"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/audit-backup.mjs",
+      "upstreamSha256": "b1ee7ac4accd61b9f72b59d9493d44bdeea388df1475aa352d38ff1920f48f2d"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/bootstrap-receipt.mjs",
+      "upstreamSha256": "af66517f539793676ab720d65985b52b103dae570ae2be60b809c51c7f2eed02"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/bounded-http.mjs",
+      "upstreamSha256": "321450ca587caa24026c6683888fd2e71602db130066614a05bff5f3b16395b3"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/bounded-read-dispatch.mjs",
+      "upstreamSha256": "a5727005d343abaa4ad751dfc72871617b98dbf0f37205a993df98a0903c1bb0"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/closed-stop-reconciliation.mjs",
+      "upstreamSha256": "3bbf473f77a0501c8a3b6f8226ce6d06b54647e2e79370c87badfcec10688d04"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/common.mjs",
+      "upstreamSha256": "119c966897d113065c6b0433b31190f188265df913650d12863e74bd8efc6447"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/conditional-stops.mjs",
+      "upstreamSha256": "312c53f4b95d8de7bfba539859344b7affd5f10ede033ab86924e61ef9061d93"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/coordinated-auxiliary-ports.mjs",
+      "upstreamSha256": "b200763619daad46ed2f1946e98ba275860ca4701ae1659d12c79872dcf706ab"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/coordinated-host-admission.mjs",
+      "upstreamSha256": "9fd9e72e157f47cbeabbe3cfd1818adf8013012cb95af4cfc9a64cf62d2f5f93"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/coordinated-public-reads.mjs",
+      "upstreamSha256": "9545394e821f562b1720c6139b8f90a4ecef75b54ff8e998caff1b322f34af03"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/coordinated-read-budget.mjs",
+      "upstreamSha256": "ef1f13a5f9cec661571702fdd3d7a3d63497f55943afa4dd8d66f0a71af22802"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/coordinated-read-session.mjs",
+      "upstreamSha256": "c1f6f2a936696e7eb429dbd4a29522707ea835a9cb96a97bda4243fcea682379"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/coordinated-shadow-reads.mjs",
+      "upstreamSha256": "957d95808cc07ffe611056f7f4b4101dcd18f09875d37bf7a4f51737cb8d3f14"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/directed-order.mjs",
+      "upstreamSha256": "8935443d2d27d6ed2167bb8572d487bea3cb353b2c07f6997abae7ea07b98d17"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/engine.mjs",
+      "upstreamSha256": "2b75e8fe8fc8d53f5cdc668f17885483a3c8480e6ffbdce25d35185b91af21d0"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/entry-calendar-cache.mjs",
+      "upstreamSha256": "a303c5af5705e0c5699601106387bfb09fc03e151a2ca6ddd8515e6ca237fcfc"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/entry-confirmation-profile.json",
+      "upstreamSha256": "5fc9e15917790a0bbfda3ea9685cc4aaf8c35aaa5a5acc8705d04cba90380759"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/entry-evidence.mjs",
+      "upstreamSha256": "549cc334a7be295131bc66d3e7b4d991f38a4b963e4b90dc52d7a841d987ccbc"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/entry-plan.mjs",
+      "upstreamSha256": "ec48ff22bfd966794aebdcb40ae9cf59aeb6aae344b06246ed06515035ea83e4"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/execution-authorization.mjs",
+      "upstreamSha256": "0bfd4587ba5fb9cd07bd74772bf4645d16eff42cd9f5998abc2bdf44a2a20225"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/execution-host.mjs",
+      "upstreamSha256": "cbe9fdeb67b2a435efdecfa8435bad13b7aa83243cfafb1f86319ec6c74bffd4"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/execution-runtime.mjs",
+      "upstreamSha256": "0bfd20c20867fc65fa5f622d13d10e424087c9315459f425977a6e84688bebdf"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/execution-transport.mjs",
+      "upstreamSha256": "9ccc2d404ac9f1b4618162a35d97b3d4c60f1062799d966aff571f3e37e58172"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/external-recovery.mjs",
+      "upstreamSha256": "9e8b2ba8e10f766c3eb9e5aa136c03d9fb9755aa502654cf07fafbcabd7dd951"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/frame-provider.mjs",
+      "upstreamSha256": "9d6b662ec564ab5cb6dcf55ac5a94017fc781eac58bdc8fa444b543ff008d258"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/history-reader.mjs",
+      "upstreamSha256": "cdb7b3cde002037b262f0676033ebcb7a769f4f489b06312b6265422c96f7d85"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/host-admission.mjs",
+      "upstreamSha256": "6690267ea428b58f37e8b209f00738865de8d697b0b1ad941bb5f990fbeac7d7"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/intent-read-bridge.mjs",
+      "upstreamSha256": "e1cb7594f8d09a41e09e8b6c1cd58876d2c23ffd405ec31f1facfb900381b5dc"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/iq1-entry-quality.mjs",
+      "upstreamSha256": "83041743f3318f7f7f74743df49b12824419d656dc304fec95706c10376890b0"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/iq1-p2-profile.json",
+      "upstreamSha256": "3d6f3e13bbbfe319a80c521b050ddb731d9fecd8fbc9818631fc2da91bb5f543"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/journal-limits.mjs",
+      "upstreamSha256": "c8f81332766ae80a9f4e4d1a38d934e376fbcf4f277644833b335812a4af2338"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/journal.mjs",
+      "upstreamSha256": "4483b1732a943c1cad5a8e7e563b056b8dbbb3798664792c9e1d8e388d440656"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/kernel.mjs",
+      "upstreamSha256": "10c163f2c6f4cdebc79a87067842305015efbc5ce6733edbddb8909693554c63"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/lifecycle.mjs",
+      "upstreamSha256": "7c0d7363813754b35d7f7b738e3d76b7795fa7d8483aa0672718cec9d5399d85"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/market-evidence.mjs",
+      "upstreamSha256": "0e549ac61bcad1203ae30be7d97a06c3e521f682d358294d28635896718a8826"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/offline-acceptance.mjs",
+      "upstreamSha256": "27205f480ed4b07b8d2cd3276813981845da8663538764d4162cea70dc7f0ebf"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/ops-host.mjs",
+      "upstreamSha256": "08e27aa6edd1eed07e6bd73b331f355480f94137a5e671483c36b5af9b2106bd"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/ops-monitor.mjs",
+      "upstreamSha256": "8917a947d06e1a84f29fe5dc3c356e0ce2acd99128669e47fdee2fb82b7596c5"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/order-request-budget.mjs",
+      "upstreamSha256": "3d7a13a10e64f1c4465ba90f7fefb6675279d8cf860a51aaf417c903f8e6d3b1"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/owned-mutation.mjs",
+      "upstreamSha256": "6b30ef9409fb5909bac8cf7bff8e997564c507bea282e847918a89b39b53d049"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/position-ledger.mjs",
+      "upstreamSha256": "062bbaca60d21432418e5a759fef3de37adb91241db0db96d21babab5887dfd4"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/r22-management.mjs",
+      "upstreamSha256": "725503a2c674cf0fa39ddcbacaf1689b416990366edbacecdb9b0ba61db5c2fd"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/raw-directory-lease.mjs",
+      "upstreamSha256": "9e222ee357ed807f3f6a1f7148609c4ee089ccbcfc96f19f1538f43506b4ad7a"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/read-deadline-planner.mjs",
+      "upstreamSha256": "6e943b8f23f3265ab39a41cf27bea771a994614c774e7661e779fc7f0b426a92"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/read-eligibility.mjs",
+      "upstreamSha256": "478e51bb73e24d388ac37a925a01f5a6fa295919a7081fb377a3596f16580ac5"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/read-intent-catalog.mjs",
+      "upstreamSha256": "f1cb74ed09a04a4e8a0d471df89567fa36e5b2db808d0445966610d062569179"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/read-request-bindings.mjs",
+      "upstreamSha256": "e233a14854b06bb97b51275fa595aec9fc6376629465c6b7e6e47905febf2dac"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/readiness.json",
+      "upstreamSha256": "6486ba960ef89cac7caa845ca102c6b465d80cfa736a04352f1d3a9b7314d0ea"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/readonly-host.mjs",
+      "upstreamSha256": "ddc415f6857006dda1c43dc983ed65ac54ea1dbbbed0b8631d68a82d7cdebb89"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/readonly-ports.mjs",
+      "upstreamSha256": "0918fccedf6e9115103d03467aebf3559da82b372769fa350e7a9ac2aa53305b"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/readonly-probe.mjs",
+      "upstreamSha256": "78eb5a1a1ba56dc10832b20bc4d293b6fccc3c14b67bceac7abafbc50213ac47"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/reconcile.mjs",
+      "upstreamSha256": "4972119db847063d86a1cb2ebc4a5cc5ce0b77f99fc2cfc124c3c814a06798e1"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/recovery-state.mjs",
+      "upstreamSha256": "a2cc9b06e8578f589c7b62bc298f9d034fdfc1b8647886cfbcd85d7d98e78218"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/request-budget.mjs",
+      "upstreamSha256": "54847ca64be453454958226078da7032465d67ca0e538f7168429f71405a15bd"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/resident.mjs",
+      "upstreamSha256": "39aea1f6eb02d3a114a8b458bd18e3f52de445ce4cf4f81aa537d45ac85bb043"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/segmented-evidence.mjs",
+      "upstreamSha256": "4ce04d1b41498de633a8fd7d14d1fdc77891e2b76b1b4e1b07981be6f157ee41"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/shadow-shutdown.mjs",
+      "upstreamSha256": "f9ceb2e969158f9c7ad81fbdce17e53326c090fa3212fc6cd2a82cbc511c7d61"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/shared-read-budget.mjs",
+      "upstreamSha256": "4d79f9e827c1d3b5a6045409db27e875543da86eb1ee8a68adcb7916bb7d3a78"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/signal-adapter.mjs",
+      "upstreamSha256": "ddd6a45c0cfe3a6680c4ad06d5f8ea13c24a9abba8f71279ce19f0ba442d480e"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/small-trial-limits.json",
+      "upstreamSha256": "9c7e95503829fa04d3467cdca00f6aec9686d1bdfda45d8a045c06e166efcde5"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/sqlite-journal.mjs",
+      "upstreamSha256": "95e51dd51afffbdf2167d4ba0849a33a675455856bbfd859a07e97f740d180b0"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/stop-replacement.mjs",
+      "upstreamSha256": "beb302d3fb437afa530ed8145551714f3b645aaa86c92eb51f45b512e8ed7c21"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/streams.mjs",
+      "upstreamSha256": "92208998e577f6b0206e36610d31a1bd6240ab91b232d6c2ef79fdccc2541b2d"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/transport.mjs",
+      "upstreamSha256": "3a54dddab9f85c0ba7ec1cd4bd1dc6c19e34df8c18c8d7f8e1a246425185f603"
+    },
+    {
+      "path": "agents/orion-live/s2-execution/trial-budget.mjs",
+      "upstreamSha256": "ce85dd8bd28d5fd1070fee1977fa66b7438776d748b88a97be1c86868671a5ed"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/config.json",
+      "upstreamSha256": "b2a1060af1295f4fdd860ebbbbac070998cdadce86ccc5b6e173456a86bfe7fe"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/coordinated-host.mjs",
+      "upstreamSha256": "84d386de2e6c3ae0a5e165e96b1e0f86affdf45b7a097961202ce9723feb4ea6"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/coordinated-resident.mjs",
+      "upstreamSha256": "d44211925693a7ae21babfe530b5d7ec4d215133b485ac8d2be70472d3078e0c"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/engine.mjs",
+      "upstreamSha256": "972d532ee7f86b4847dd3fce8e5cdac560ca1ea1c40073ab777fcfb33cae8e31"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/event-gate.mjs",
+      "upstreamSha256": "54c6890712f8e03826c6f71384901df0be7834db63d30ba737ba91080b192356"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/r22-risk-profile.json",
+      "upstreamSha256": "134d107aaed85193b2393859b40d7b63c1344380b415604f3d023205b562f61a"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/resident.mjs",
+      "upstreamSha256": "146614783d4b99991acf69a92ecfd7a4ba44be6b29e9cdabb51d46ab4fb65d15"
+    },
+    {
+      "path": "agents/orion-live/s2-scanner/risk-budget.mjs",
+      "upstreamSha256": "2c95d8707ba22dad931361406bc433705d3ec7f61b7eef221ba3f15224f3d314"
+    },
+    {
+      "path": "agents/orion-live/smc-execution/execution-host.mjs",
+      "upstreamSha256": "113c34770bb359f6d49d7d885519220d451ffb348f4ead7fd30d8533b5706436"
+    },
+    {
+      "path": "agents/orion-live/smc-execution/live-core.mjs",
+      "upstreamSha256": "a12b8f3a5e14d7abf711e9319b5827cfcd41815d05aa941867432cbb11008448"
+    },
+    {
+      "path": "agents/orion-live/smc-execution/opportunity-lifecycle.mjs",
+      "upstreamSha256": "339878cad9b51127fc129c30c162143e2cafcf9c88601442beaaca5dc612b081"
+    },
+    {
+      "path": "agents/orion-live/smc-execution/risk-profile.json",
+      "upstreamSha256": "4523eace2cae251d20e66a33bc9120b81aa4fc10b8c102a1df7255e978cb0fc7"
+    },
+    {
+      "path": "agents/orion-live/smc-execution/trial-limits.json",
+      "upstreamSha256": "bdd7d46421e8f7b1d7734b7532f6eea41b6e41919e4d9e6b365a5969a51d4f73"
+    },
+    {
+      "path": "agents/orion-live/smc-scanner/resident.mjs",
+      "upstreamSha256": "7f82d56c0ccc087c3b2658c85d50e1da811e72546177f37ffb20e3d38d307230"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/causal-reducer.mjs",
+      "upstreamSha256": "ae6b65eb79cffda668b28dcc5b29aa88e619a16d58ad63432fe5d298ea62c783"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/collector.mjs",
+      "upstreamSha256": "92581ae3634e4d953797d37623d1bf49cb2badb293d352b1fa89547770f51506"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/context-ingress.mjs",
+      "upstreamSha256": "56695286480a3a09098ab6950a0da263ada26cee743f765ca22298ffd4bc2136"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/continuous-capture.mjs",
+      "upstreamSha256": "ae55c713967d6eb86fb87cdca68f575d88e8b27b575b780d40226c80d9f37951"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/contracts.mjs",
+      "upstreamSha256": "4f2531f4d951f13932be43cb1ffa05a7b562ffa80e8364366e355df5d83dc252"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/control.mjs",
+      "upstreamSha256": "3e4ed1f6f73703db12cda8900262d6987292a7c0d588628eb49fa5e479325fc0"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/engine.mjs",
+      "upstreamSha256": "5e7be4bdbe63fddf37d7807d23100c1d63870ab0343ee92ccb51ea1443f94b25"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/evidence.mjs",
+      "upstreamSha256": "9cb9025171a892b050c2544c98d2ae612fdcbf3c7ed8b8ee39cc0d2ed21731ed"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/fixtures/candidate-summary.example.json",
+      "upstreamSha256": "250d51685a4caaf3921f75b93649e619525b5856abea717dd36f599e5246013b"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/ledger.mjs",
+      "upstreamSha256": "d3a7f21f3cfb7592669de83e4d7841a9cadeeadf10de23aec0d0efb625bbad3e"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/persistence.mjs",
+      "upstreamSha256": "40038c3006f5aeb6b3660c81639bcfc26f89dbc663497700461cc93e3cae61f0"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/policy.mjs",
+      "upstreamSha256": "e6a160170e2a6bf21b384528304a383f1a55ffada45adfb5650fc1f7c6c430ec"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/publisher.mjs",
+      "upstreamSha256": "f1871669c84108971a422df380f3924b72d1914599848f0e1583c8cf3f6c7d77"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/resident.mjs",
+      "upstreamSha256": "9001b05b3f5588434f8c5c765d033ac77f0647d6d5a4834de255aadb9c3094d8"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/resource-guard.mjs",
+      "upstreamSha256": "a1f47fd8d329ec840232174e8c4ecdcc1dd16f9967650de4b909724c9fed8345"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/runtime-source.mjs",
+      "upstreamSha256": "fcf83a5eb4dff09b18c67f2dba71fb00db0347409ab5e632e1a87de7291c6c6a"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/schemas/candidate-summary.schema.json",
+      "upstreamSha256": "b9806ec6e5a6df3733f3c052e426f455cd89dacea8d1c0845e93b17e525e000b"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/test/account-shadow.test.mjs",
+      "upstreamSha256": "ac0d5bd59079d3a120d5cd9a73a8e4259936d1292a6ebd6d104f060caf91eb9c"
+    },
+    {
+      "path": "agents/orion-v2/account-shadow/ws-protocol.mjs",
+      "upstreamSha256": "e582b31ba3ab6c2d8ebd550b91365b7ba27100c7d6830e783b3f6e00fdffc11e"
+    },
+    {
+      "path": "agents/orion-v2/paper/audit-ledger.mjs",
+      "upstreamSha256": "90b21c7e288438f279f9cbfffff2da57518e071b13eb162d1b055adc82eac048"
+    },
+    {
+      "path": "agents/orion-v2/paper/config.json",
+      "upstreamSha256": "c0ee918cd7136a210ffeeaac9d8f4f4cbf0399a24a98f351ddfeafd31982b96b"
+    },
+    {
+      "path": "agents/orion-v2/paper/control.mjs",
+      "upstreamSha256": "d5979c618a9e7e3d70c3d95fcdd33c703b26169c9fd08c358517d259dc9167df"
+    },
+    {
+      "path": "agents/orion-v2/paper/event-risk-alert.mjs",
+      "upstreamSha256": "e08bbbc50f4d8f532ef060edd6e35429d9301dbbc953f29d81d423d1ee5ce381"
+    },
+    {
+      "path": "agents/orion-v2/paper/event-risk.mjs",
+      "upstreamSha256": "c7a592f2abeda1189c46ce2d6a978305d7f8600f8777280f5e73933bc19cfa53"
+    },
+    {
+      "path": "agents/orion-v2/paper/execution-release.mjs",
+      "upstreamSha256": "e6c72392bf902bbc7e492fefebfa6188b46eb76f8dff97eacac85ed76db0298c"
+    },
+    {
+      "path": "agents/orion-v2/paper/health-supervisor.mjs",
+      "upstreamSha256": "b6bb9e48197de041d3bd09b4201991e43430473dd0f0dee895e683383ab7bf16"
+    },
+    {
+      "path": "agents/orion-v2/paper/iq1-entry-quality.mjs",
+      "upstreamSha256": "bf86c470f48430fe3c403a7ec4d495d454bc7c0be4c860b29c0834424d25463a"
+    },
+    {
+      "path": "agents/orion-v2/paper/iq1-profile.json",
+      "upstreamSha256": "25e204644db605dd9ed194dc11a0c9498eb1b4d22d58a5b9740b733799638b07"
+    },
+    {
+      "path": "agents/orion-v2/paper/paper-daemon.mjs",
+      "upstreamSha256": "ccef16dfe2d7278b4fe70051f4e10468c4bee31ad2680ee0b764bfc799d17b87"
+    },
+    {
+      "path": "agents/orion-v2/paper/paper-engine.mjs",
+      "upstreamSha256": "84abdb30c25f15e758836051b2701b50686542836250373c6eaa685e9ba7ffe1"
+    },
+    {
+      "path": "agents/orion-v2/paper/paper-entry-alert.mjs",
+      "upstreamSha256": "adcb9cc39b56b530147e17bfe8fa2d07a8e65bd5172f1fceaabea25104ee9d30"
+    },
+    {
+      "path": "agents/orion-v2/paper/position-state-records.mjs",
+      "upstreamSha256": "3a3ed6e4a61eb5d5b885951fa0f8790818dacc5b9a9ca399b3903a703398b21b"
+    },
+    {
+      "path": "agents/orion-v2/paper/preflight.mjs",
+      "upstreamSha256": "8331fa80daf79f8984b4c7ef78caaf21f393137f84d4227d35da773ca2bd5340"
+    },
+    {
+      "path": "agents/orion-v2/paper/r21-integrity.mjs",
+      "upstreamSha256": "cf927ed4ec868f5cecb9d50287734655ed32df71c51de817e038c67c4a3d5adf"
+    },
+    {
+      "path": "agents/orion-v2/paper/report.mjs",
+      "upstreamSha256": "88a4bc32d27cf57ccf3c3729013f8979586c9e65f667567c5b628c162143add2"
+    },
+    {
+      "path": "agents/orion-v2/paper/research-factor-miner.mjs",
+      "upstreamSha256": "0a8e86e6acd695a57ee6d3c5c84952f5aa26ea2232cbb070afae2d20bae0fa98"
+    },
+    {
+      "path": "agents/orion-v2/paper/research-factor-resident.mjs",
+      "upstreamSha256": "85a1809cbab81b7e462e31ebdde6c8b0974c34c0e0712145c62df5682cc99e06"
+    },
+    {
+      "path": "agents/orion-v2/paper/runtime-utils.mjs",
+      "upstreamSha256": "52720618ec0079a645960551db314f191940fc92d03b4450879c78c310b3b947"
+    },
+    {
+      "path": "agents/orion-v2/paper/strong-candidate-alert.mjs",
+      "upstreamSha256": "523293af96c90927514cfa7e04df098657179bcf92d22e938c670201c89f829f"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/auto-executor.mjs",
+      "upstreamSha256": "f36f5986b7f7e84b0183c7b2075de619f50bb5f89c7bb78bed5e2f5c840875c9"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/config.json",
+      "upstreamSha256": "3be0af8f1eee9bd8b1b7e566721b34ae2d957e27e72fed2cc884c77e05453147"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/control.mjs",
+      "upstreamSha256": "e39b01c521e6b8cc6e7cdacac107f2db3d17484a7d1d6493c04200d0a89cbea9"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/cost-gate-shadow.mjs",
+      "upstreamSha256": "be3964a99f7962dadb5ff26a6603bd3abdeea82fbcaad07d09d0faf5fe57bb4a"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/dual-z.mjs",
+      "upstreamSha256": "38477791e0f15ce963a25d7a3a040930f6e94fb7ddc7df7d7d9e8de3689eb504"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/equity-curve.mjs",
+      "upstreamSha256": "a0724fde0364a147a2aa980906f2fe66d74bc47315752f1b00d4ade8e44f62f4"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/equity-publisher.mjs",
+      "upstreamSha256": "d9b542dae90d64d10a47deb979e006efb57fd07722fa3c78d93de46a7789d33a"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/high-frequency-strategy.mjs",
+      "upstreamSha256": "8f532b1fef76385f22efe56630bd2c7dcb7af77726a48722b9f733172292e3a3"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/integrity-repair.mjs",
+      "upstreamSha256": "20b748a28100c12a1682ddae97c1df74fd68c7b2592f0594e44c5cf3dfbc5309"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/leverage-control.mjs",
+      "upstreamSha256": "557af803e01435dc7132c6670e7a3833c78abbd346e936e78a35e5f83815e4f6"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/preflight.mjs",
+      "upstreamSha256": "5978b94f5f3340097bbe5483c730b40e66c1d8153f94d25f084b10098837c45d"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/recover-sol-two-r-partial.mjs",
+      "upstreamSha256": "4d0970d9bd72f7fb917574ce99db9caf1e1c8ddcba00819ccf91d54016484f0e"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/release-policy.mjs",
+      "upstreamSha256": "c3454c10d0daaa699721d1bd9169cfe3b0cfa25c158603d3d403a31d952bb055"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/report.mjs",
+      "upstreamSha256": "fe1a0489f931ab3db774b133cbc54a1d888bec13ceaf00626f25e76cf2fc8cfb"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/resident-scan.mjs",
+      "upstreamSha256": "efb9d1d6f64124f16785875be862699369afb4b48a435e4fff2a3945cf5e6232"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/settlement-time-recovery.mjs",
+      "upstreamSha256": "47e7c126252e9cc6296e83eead0f2665acfd1b73d8fcc1407e577afa2b444a1d"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/snapshot.mjs",
+      "upstreamSha256": "c8054907e3273f6cb67278749099eec22ed9f75c4c270497592d3bc2b7e1245c"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/supervisor.mjs",
+      "upstreamSha256": "29c09d5978a6af969fd3335a88ce2e89278a5e73b889d6b66ccfb56cd407b166"
+    },
+    {
+      "path": "agents/orion-v3/binance-demo/trading-gateway.mjs",
+      "upstreamSha256": "e5f68ee4a8e80a4a5139c65db4c004296cbafbfd56fa0d2ece4281202d30b1e4"
+    },
+    {
+      "path": "agents/orion-v3/px-distance-pullback/config.json",
+      "upstreamSha256": "f17714a60fd4eab1bafb32c528c0a4c58f94aa308362b356deeff01e3c845b08"
+    },
+    {
+      "path": "agents/orion-v3/px-distance-pullback/control.mjs",
+      "upstreamSha256": "259e17250e5076b6e1ba595a86727469fd9fccadb054171c2a273bb27d9aad3e"
+    },
+    {
+      "path": "agents/orion-v3/px-distance-pullback/monitor-publisher.mjs",
+      "upstreamSha256": "1bd4bd15ee92da30136c68d2d31786f5aae6360ed7cfdf7deb7234391d6f9207"
+    },
+    {
+      "path": "agents/orion-v3/px-distance-pullback/resident.mjs",
+      "upstreamSha256": "3c507ad7724c95be4c4e1965726bb77b1ed7da77a6081aed7a3ec1bbf955bef1"
+    },
+    {
+      "path": "agents/orion-v3/px-distance-pullback/statistics.mjs",
+      "upstreamSha256": "464c3c648540d777d7f331d2544984f353ac6f65664c57592e22328914e376a7"
+    },
+    {
+      "path": "agents/orion-v3-shadow-kelly/shadow-kelly.mjs",
+      "upstreamSha256": "3aac441f3d2f1c38a2d97c92ae8cb00d5408c59d8180fda844125b951da2140c"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/auto-executor.mjs",
+      "upstreamSha256": "dbe90e173bfce0bdb597a60b7c2d5a2907a97c8bca5c3e871f7c6b4c00a60948"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/context.mjs",
+      "upstreamSha256": "6403005373d45deba25de840de62ea89b877902d126b79149c6cf7599c774f79"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/control.mjs",
+      "upstreamSha256": "fbc0aeff11ddcb8e66808eb43835f5b45546c2b72d58647a93727d32b1a165ba"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/event-risk.mjs",
+      "upstreamSha256": "5af799ccf07a9adda8fad9807e3efd2bbf7465be0914c92471011ab21656ee7e"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/execution-parity.mjs",
+      "upstreamSha256": "32b094ed41857b054281a57fa9c311392d2e1f44dc7ffb0439888c9e54fbfbcb"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/market-bars.mjs",
+      "upstreamSha256": "96445299803c20744fc780a5d12bf69dcb1bea540b8d8f86839602c97dc7c7ca"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/market-client.mjs",
+      "upstreamSha256": "454334516453352de3c8ac28d4fd5da2102a17f6423414a2fbb877b43757f312"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/monitor-config.json",
+      "upstreamSha256": "8eeba441b34739fa1a3e5ee084617befbf54e03fb4a4042eba5fde750c759245"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/monitor-control.mjs",
+      "upstreamSha256": "703bf5ac2a657727e0d6ae521efd30280a1066db6823344c316ba685fa51da48"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/monitor-publisher.mjs",
+      "upstreamSha256": "7d139448717095ae89291f44e8a17eb1819759ec9756992dd0b2b73aeb82cc85"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/monitor-resident.mjs",
+      "upstreamSha256": "7ab30a5f11f1b1f29df4df3e4f2e7df499823f01f85ec7de4bcf8780f2341077"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/monitor-supervisor.mjs",
+      "upstreamSha256": "3a558416484d9e75c5531f232856b34f45af65cffad0d80b37f16fe88be65c54"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/report.mjs",
+      "upstreamSha256": "e64c832236ae2f6efdb8586e763f24e32bb0baef29e89babd03490d5b68d2352"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/resident-scan.mjs",
+      "upstreamSha256": "4167a70964317ed7bb2ac964bcecac08d437b0c110ca39d75135b5ae85a8c05b"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/runtime-utils.mjs",
+      "upstreamSha256": "cb73976b0be7f8b397a1e44b373f853aec71aeec9c0d3a31ed9daabf77c6c183"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/snapshot.mjs",
+      "upstreamSha256": "284bd3b78d6c25573b30bdee16c8943ce0f46b3123292a6cd856acb0b563a9ed"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/strategy.mjs",
+      "upstreamSha256": "98a6116ec0d4a32241d83705bec4736fcdd7640db16bb2b8aadc9fffa4e6a617"
+    },
+    {
+      "path": "agents/orion-v4/binance-demo/supervisor.mjs",
+      "upstreamSha256": "5c10add83f1a1042a884e8d97f036d2d1e77fd47c27297938823698243fb5d1f"
+    },
+    {
+      "path": "agents/shared/abnormal-loss-gate.mjs",
+      "upstreamSha256": "3fea4e5af37fc469bc313b225b36c8bd176c3c84fe38a017f8f4111890417147"
+    },
+    {
+      "path": "agents/shared/candidate-proximity.mjs",
+      "upstreamSha256": "69112fdac461b6fadebf3f6d8b91666c4d8f1515d49f367dc3072b19183ae86c"
+    },
+    {
+      "path": "agents/shared/entry-confirmation.mjs",
+      "upstreamSha256": "965da917751254240464df27d6626e6410cf237510c5ac029829500cbc44f694"
+    },
+    {
+      "path": "agents/shared/entry-loss-context.mjs",
+      "upstreamSha256": "3c5df4649813f78c14e816a09ed66cb6488019dc43cdd204ee25cc5f3fdaaa60"
+    },
+    {
+      "path": "agents/shared/iq1-p2.mjs",
+      "upstreamSha256": "927b67a28f9404c9e785a157e88138406ebbcdad2cb4eb0f7edf8cdb949d7199"
+    },
+    {
+      "path": "agents/shared/leverage-stop-safety.mjs",
+      "upstreamSha256": "6952b0942467af699260e0359f0cbfdbbe4952f10abcebb54f4fe2a8ce13ff78"
+    },
+    {
+      "path": "agents/shared/live-entry-admission.mjs",
+      "upstreamSha256": "97c1725248ad6c433e3ecf70d85620240f2d07d32673efe7164247742cc83a8c"
+    },
+    {
+      "path": "agents/shared/profit-retention.mjs",
+      "upstreamSha256": "18395898d6e8989ef3f9590446f56b5934054ad8e8c440f3da692c70141a4dd1"
+    },
+    {
+      "path": "agents/shared/px-band-risk-only.mjs",
+      "upstreamSha256": "cc47055b8658459aaf5c1ad4a9152d810641b8fb0f4d4b1b2542d7e9a3b97672"
+    },
+    {
+      "path": "agents/shared/px-first-close.mjs",
+      "upstreamSha256": "7bed7b1e72a64d02ef57dea5caf57cb149ae38973d98e554bc83e10f3341d95b"
+    },
+    {
+      "path": "agents/shared/r21-profit-protection.mjs",
+      "upstreamSha256": "048b70c1509351de53b3396cd1de0cc768ef62501d993933355e5797582b6e5c"
+    },
+    {
+      "path": "agents/shared/s2-z-state-codec.mjs",
+      "upstreamSha256": "7c9f002a5de7a7f9e7fff0fad8bf923542b0281dd3415fe084b3b5f9c5ea0c27"
+    },
+    {
+      "path": "agents/shared/s2-z-structure.mjs",
+      "upstreamSha256": "6b381ba999f7fa4e06246b69a97cbec19da06951ade9668eef01fc0fd939ac03"
+    },
+    {
+      "path": "app/api/agent-mailbox/route.ts",
+      "upstreamSha256": "d3f2f120534fb31b58f6f9385f6556b8fb6872c6ca7898bd0024447a6d9265de"
+    },
+    {
+      "path": "app/api/mtfx-ledger/route.ts",
+      "upstreamSha256": "e3377b75b99a2adc928d3d8fd7547ec82256eecddc8bb7760719c488f189984a"
+    },
+    {
+      "path": "app/api/s1-execution-ledger/route.ts",
+      "upstreamSha256": "c45b224bdf87cc361f9f2ffcf3a504d198c5fa897f133ff3f59156e16ed1765c"
+    },
+    {
+      "path": "app/api/s1-monitor/route.ts",
+      "upstreamSha256": "6a20179e22824e130fd2d20c8142c15ac57a74794d97286b400a5c3b0f2810f9"
+    },
+    {
+      "path": "app/api/s1-risk-calendar/route.ts",
+      "upstreamSha256": "ed5430e15aba3170865eac384020f9ebe18078481cddd6ae8c8260cdb3076971"
+    },
+    {
+      "path": "app/api/s2-2-monitor/route.ts",
+      "upstreamSha256": "caa951e3c701087d0405e57a570dc54c46adbf8b08235bde3958dca62482ad5a"
+    },
+    {
+      "path": "app/api/s2-execution-ledger/route.ts",
+      "upstreamSha256": "55fdbc45b198fe67dc576915f8a9514d22c708fd8d980d88912e365c45603096"
+    },
+    {
+      "path": "app/api/s2-monitor/route.ts",
+      "upstreamSha256": "a3ff29abd10df51a56b7c30179658b1a4b15248cb4104897bc0e282f6b4c45e4"
+    },
+    {
+      "path": "app/api/smc-execution-ledger/route.ts",
+      "upstreamSha256": "0dc8a3a896ec1a3c3d89563adcced5bb64f03f99fa632468b2a5a3d543033cb7"
+    },
+    {
+      "path": "app/api/smc-jev/route.ts",
+      "upstreamSha256": "4375a1ee14172c2313311bff2ab82c69c33eaaa38c2eefeadb1b416d8d9723c8"
+    },
+    {
+      "path": "app/api/smc-live-quotes/route.ts",
+      "upstreamSha256": "3afa384e61b19425e9896dc0de0b871a27535114202f9664aacd71ac5cc47707"
+    },
+    {
+      "path": "app/api/smc-manual-candidates/route.ts",
+      "upstreamSha256": "3e9f4c028b02284009dfdd4a8026c9c05ff7c69d6c4df5f300ea7a675ee4be42"
+    },
+    {
+      "path": "app/api/smc-manual-order/route.ts",
+      "upstreamSha256": "f48f63f8bbfda498a728d3798d056f029d84359db5639ee35b6d052caf43c70f"
+    },
+    {
+      "path": "app/api/smc-opportunities/route.ts",
+      "upstreamSha256": "697dd494833465fed28fc6b793c9332c623caff3f5a2b125e885d05866ab58a1"
+    },
+    {
+      "path": "app/api/smc-position-action/route.ts",
+      "upstreamSha256": "58365282c6b3a6583fad0699946debf1d0e5f96bbfc850cb0223e36782fa44e5"
+    },
+    {
+      "path": "app/api/v2-account-candidate/route.ts",
+      "upstreamSha256": "fb99604b2166284d5cc99c6937488647885998e594412a2ccf14ef87c905f709"
+    },
+    {
+      "path": "app/api/v2-ledger/route.ts",
+      "upstreamSha256": "e974df26fc2f0ff55a7520d22f0ea63c9da74382548ca93900bf437fa4603509"
+    },
+    {
+      "path": "app/api/v3-equity/route.ts",
+      "upstreamSha256": "cd7bb36a737e2409c1ed6ab535b73edb1e04e63c4cd2996f64a3795c24e0a45b"
+    },
+    {
+      "path": "app/api/v3-px-research/route.ts",
+      "upstreamSha256": "b853d78467432da4d74be9d6277310b714f96fafd11b37c4a0d995e50794658f"
+    },
+    {
+      "path": "app/api/v4-monitor/route.ts",
+      "upstreamSha256": "084a6138da3de8b108ee5ff61522adc11aec040d8f778119614dc41485846fc6"
+    },
+    {
+      "path": "app/api/v5-au/route.ts",
+      "upstreamSha256": "0fa853af7f29be78f26d9d469bf2661514bed1da7c9cc06505e69d37b0a5ca6a"
+    },
+    {
+      "path": "app/chatgpt-auth.ts",
+      "upstreamSha256": "4265a2e7c2dcb3a6f4b7026f762bf5b6e4caec76cc13c0a45987ee9a9f2e42cc"
+    },
+    {
+      "path": "app/globals.css",
+      "upstreamSha256": "ac11196f07445b16586fac4724f1ea8d9b6ec91dae63ff2a128f254ab9a3bfef"
+    },
+    {
+      "path": "app/layout.tsx",
+      "upstreamSha256": "85d46c1898bae7138a82e23b9bb7ef8a7741aae11ce62d144cd887db50700092"
+    },
+    {
+      "path": "app/monitor-curve.ts",
+      "upstreamSha256": "f821e73da811be7e814a4fab9b54b8997d2b6f63f0f4bf6ec149f18de4b1090c"
+    },
+    {
+      "path": "app/monitor-sync.ts",
+      "upstreamSha256": "d8b9656d833a62918a523945c8393352aadfcc5aedc2f57039f60e28af27b158"
+    },
+    {
+      "path": "app/monitor-typography.css",
+      "upstreamSha256": "be62356f5ea744d244dbe3f4be76c08d6e1cd2217abd7596da8f75a62da8d28a"
+    },
+    {
+      "path": "app/page.tsx",
+      "upstreamSha256": "6ea358fa6b701a51fa1f8ce1d3ba88ecca7d0af1baf2b6af02533c6604a921c4"
+    },
+    {
+      "path": "app/s1/AccountWorkspace.tsx",
+      "upstreamSha256": "04f263c37fce0e98cf9686fcc5694ddd6e750cde3d60235bf14287ac29cf4ef3"
+    },
+    {
+      "path": "app/s1/CandidateFunnel.tsx",
+      "upstreamSha256": "4228ad585aef2107636139802ec952636d3a40b84dd3a56c046abd11b91b304d"
+    },
+    {
+      "path": "app/s1/CandidateHistory.tsx",
+      "upstreamSha256": "91d0b59f79236ad718fac917d5b7811a5fbf1e66fa1f7a5841b0f635b5c92d49"
+    },
+    {
+      "path": "app/s1/HeaderMarketBackdrop.tsx",
+      "upstreamSha256": "cb31af86a564d20791cf3041b51fed3c6b729ff389b9f39635bda9be5ee09667"
+    },
+    {
+      "path": "app/s1/MonitorNavigation.module.css",
+      "upstreamSha256": "3d611011f24eee686a8fa76966747a69d49c77a607e6715a5263702cd4d00942"
+    },
+    {
+      "path": "app/s1/MonitorNavigation.tsx",
+      "upstreamSha256": "fb2624fd80cde34de7c7ddbc12ae7cdd4f6b5c2f9b15f62100ba8eabcdbf0a0d"
+    },
+    {
+      "path": "app/s1/PriceCalibration.tsx",
+      "upstreamSha256": "edcd46afef24463753c5d14b9b2249e921d2dc7c6f354dac7dadc2f79df57aa9"
+    },
+    {
+      "path": "app/s1/RiskCalendar.tsx",
+      "upstreamSha256": "80bd3d99b62f6b5c3af88f38a3b7de7c72d0d209caa11b58108ceabd258b769f"
+    },
+    {
+      "path": "app/s1/SignalFlow.tsx",
+      "upstreamSha256": "9aed01966d2e18831a7ec398fa2e7bfb5d7b207cfd2f4796a8feb790ab78daa2"
+    },
+    {
+      "path": "app/s1/StrategyDetails.tsx",
+      "upstreamSha256": "1266dd5b1ca13688b9aab256fb00111eb360b513e645d4fa18c43a7990664501"
+    },
+    {
+      "path": "app/s1/TradeLedger.tsx",
+      "upstreamSha256": "1887901921effd1c1677dbdaa532bdcbf6875e0ca62698bd94465263145737e4"
+    },
+    {
+      "path": "app/s1/V2CandidatePlans.tsx",
+      "upstreamSha256": "fdffb00b47a39530d6930a52d54014272e952361897b47ff0e3528dcba0a4acb"
+    },
+    {
+      "path": "app/s1/V2Positions.tsx",
+      "upstreamSha256": "9be2e8dd5658d7ea9ffc9949a8c06c012c4220b473fab46a912cb3dc3196d559"
+    },
+    {
+      "path": "app/s1/account-workspace.module.css",
+      "upstreamSha256": "7024f025ed361973e7260355e4cfd161c40c49302f6713914ad0d78762239a60"
+    },
+    {
+      "path": "app/s1/calendar.module.css",
+      "upstreamSha256": "db1eaffa512aaadb28fd5b313ae3e09dad6f4fb8e21e3d87a70d314864010673"
+    },
+    {
+      "path": "app/s1/header-market-backdrop.module.css",
+      "upstreamSha256": "8fe2cb2186dffe7278a67adbb6272afce3bb562cc6b1154efc96a35c405b37be"
+    },
+    {
+      "path": "app/s1/layout.tsx",
+      "upstreamSha256": "1c7564189f7e6f9eb31bdd66a923bed382964eedc17c2c63e3fe573d2274b39d"
+    },
+    {
+      "path": "app/s1/page.tsx",
+      "upstreamSha256": "d25e5b763b6c099bcf0b7a44f5a95bfcc67d6d6630baf6c8ef36677b2a8aa2af"
+    },
+    {
+      "path": "app/s1/s1.module.css",
+      "upstreamSha256": "251ff101c7a569fb2863f9f555d0431bfbb7517519238660854eff84f456d6e0"
+    },
+    {
+      "path": "app/s1/signal-flow.module.css",
+      "upstreamSha256": "0130e5c8e22d590df1f114fc42abf5c21a0c1c5985843f1294e7265f03837994"
+    },
+    {
+      "path": "app/s1/strategy-details.module.css",
+      "upstreamSha256": "189a712be74f490a684733a774fe49e3a8d53e1777ea3ebab50116b1c3bb0a5f"
+    },
+    {
+      "path": "app/s1/trade-ledger.module.css",
+      "upstreamSha256": "df691f96e399a249c4e5de54137d02c7b3cae2b3888b603f52c95ef1399a08d8"
+    },
+    {
+      "path": "app/s1/useLiveMarketQuotes.ts",
+      "upstreamSha256": "55df4fa85419c9064f202d8928fe62a429ba750c2064c7db691a62be23ecc4e8"
+    },
+    {
+      "path": "app/s1/v2-panels.module.css",
+      "upstreamSha256": "f0f1fbbe5a914c382e51d43c9ed9511fb26f5fa877038b7507be63d7ae4e22a6"
+    },
+    {
+      "path": "app/s1-pro/AmbientField.tsx",
+      "upstreamSha256": "4d0f03533acfb7a22d4d123b156aaae78717fa66027b4a9b36b99cba3d840e65"
+    },
+    {
+      "path": "app/s1-pro/S1Pro.tsx",
+      "upstreamSha256": "3df9ddb804daa478eee24717be0dac1ddb7a9a9853fc37b3d81955218fdbe7d1"
+    },
+    {
+      "path": "app/s1-pro/SignalFlowSkin.tsx",
+      "upstreamSha256": "531d17405a8572616ccb8a12e17eee948842b79e3da4447d492d6ac94047a139"
+    },
+    {
+      "path": "app/s1-pro/SignalParticles.tsx",
+      "upstreamSha256": "df73a2c2b92e5b52eff2409915833ecbe6e9cbe904f3c602222d6abe90f74a61"
+    },
+    {
+      "path": "app/s1-pro/demo-data.ts",
+      "upstreamSha256": "6c7b77713dcaa3aebd65d8d37a776b58f817cba8973ed576bb0eb2a111fd2a77"
+    },
+    {
+      "path": "app/s1-pro/demo-mode.ts",
+      "upstreamSha256": "5b238331d2b210679a9a1b9108fed203c043317386f427b989833bda574b8127"
+    },
+    {
+      "path": "app/s1-pro/morph-cube.ts",
+      "upstreamSha256": "83dd60bd1110140019c40d819c906e4ded8a485f824e12874b5d15c093358607"
+    },
+    {
+      "path": "app/s1-pro/motion-layer.ts",
+      "upstreamSha256": "314bb2e10d48e590abd65600499fcc53e7e7b6d709ab86a4eb90c8266038c2fe"
+    },
+    {
+      "path": "app/s1-pro/page.tsx",
+      "upstreamSha256": "be9fa75b24250e232101cf2b57c1bf875a11ccb8659132765fe175538d6b6a16"
+    },
+    {
+      "path": "app/s1-pro/s1-pro.module.css",
+      "upstreamSha256": "3c5134c2f0770105ab31521266d082770bb4311ac8bb3e2a84076d77c10ffd44"
+    },
+    {
+      "path": "app/s1-pro/types.ts",
+      "upstreamSha256": "1b55f422de4f3da567ba66aaf2f209ca510052e67f119ae475c2fc92ef12b75a"
+    },
+    {
+      "path": "app/s1-pro-v1/Backdrop.tsx",
+      "upstreamSha256": "1e67c163230faa9b2d50cee57b6c8d5ed9e59257090a3482046eba44b692cf1f"
+    },
+    {
+      "path": "app/s1-pro-v1/Cinematic.tsx",
+      "upstreamSha256": "5f60ac9ff4ebdf03d20150a568c6e130b3e7e98a0ed04709048980e7de9e3e58"
+    },
+    {
+      "path": "app/s1-pro-v1/Panels.tsx",
+      "upstreamSha256": "881dca5a3c6833444db75c3a3309c08b5ca98c4a887e4c1a293a9ff168844691"
+    },
+    {
+      "path": "app/s1-pro-v1/S1ProWorkspace.tsx",
+      "upstreamSha256": "98dbf53fadba0b1bde0bef4b4d828cfae1bb59fe9b82fe986d3c7b67f86b56f3"
+    },
+    {
+      "path": "app/s1-pro-v1/Visuals.tsx",
+      "upstreamSha256": "f4243ddc62d266180325ab8556fc141eaea698d529ac1421c62b2878ba2c2b67"
+    },
+    {
+      "path": "app/s1-pro-v1/demo-data.ts",
+      "upstreamSha256": "6c7b77713dcaa3aebd65d8d37a776b58f817cba8973ed576bb0eb2a111fd2a77"
+    },
+    {
+      "path": "app/s1-pro-v1/motion.ts",
+      "upstreamSha256": "2174473e4c711f1e8de0013aa0702cab83b2442d8ca8bbfb95328a2b82d451d3"
+    },
+    {
+      "path": "app/s1-pro-v1/page.tsx",
+      "upstreamSha256": "20ad9d8257e9396351959caf501589d3c6e3a0fe1ab61d366ab31836c6b6c27b"
+    },
+    {
+      "path": "app/s1-pro-v1/s1-pro.module.css",
+      "upstreamSha256": "b00cc6a112fb02dc883278b371e0b4d6b379bd0098a9761eeb3766ff7524e8be"
+    },
+    {
+      "path": "app/s1-pro-v1/types.ts",
+      "upstreamSha256": "1b55f422de4f3da567ba66aaf2f209ca510052e67f119ae475c2fc92ef12b75a"
+    },
+    {
+      "path": "app/s2/SmcExecutor.tsx",
+      "upstreamSha256": "1e187a67a5f06849846f4f59c367610ddd9b8cce734b53859e87563cc7641fda"
+    },
+    {
+      "path": "app/s2/layout.tsx",
+      "upstreamSha256": "cea8c0af1febbc6a146e1da3d6cf350f799a54466484f4bb0d25c28f004e7851"
+    },
+    {
+      "path": "app/s2/page.tsx",
+      "upstreamSha256": "9e52d55aee1b889d12cfb658a84e43d3c87f8c32ce26ba9081fae5c5d5e3943f"
+    },
+    {
+      "path": "app/s2/smc/Cinematic.tsx",
+      "upstreamSha256": "173a3b226c8d2c96f4dda58e06cbf5f6d99124d9030df4fafced7cc47a3dd2ae"
+    },
+    {
+      "path": "app/s2/smc/HorizonField.tsx",
+      "upstreamSha256": "5d5b869ecb023515b0c6e55637ec18ce64870474dcfe7d90045e0b7b67d63564"
+    },
+    {
+      "path": "app/s2/smc/IntersectionGuide.tsx",
+      "upstreamSha256": "477cd0d9a3c3263d426839041f8cf09ef280ca2668842d28f773f1ddae46c9c9"
+    },
+    {
+      "path": "app/s2/smc/ManualOrderPanel.tsx",
+      "upstreamSha256": "eec89ae7a39681a4b274b9386c47dec90642a48990422dd371a31b6a373d29ca"
+    },
+    {
+      "path": "app/s2/smc/MonitorDisclosure.tsx",
+      "upstreamSha256": "e83af939844f7602aae99384b6bce7a0bf56356d4d2456c1e391c9796796e4da"
+    },
+    {
+      "path": "app/s2/smc/PositionControls.tsx",
+      "upstreamSha256": "0432fc129e85c4ebde9b163f479a0f41ea34358f868cd5eabbc7d9e08e67a9d1"
+    },
+    {
+      "path": "app/s2/smc/PriceDigitInput.tsx",
+      "upstreamSha256": "e1f7cc474ad754fe419a57c5faad45d12164a3d4a082bdcb2609f51d2bff395d"
+    },
+    {
+      "path": "app/s2/smc/SmcEquityLedger.tsx",
+      "upstreamSha256": "0570d95c36d4c7c0c8a3398aa3e878b298fbf82f8b96f3b3c7971b5f5af1b406"
+    },
+    {
+      "path": "app/s2/smc/SmcOpportunities.tsx",
+      "upstreamSha256": "f4fd8023e537be81a547a2fa1580973d53c5fab8113fcf09a16ddddca8fd7bcf"
+    },
+    {
+      "path": "app/s2/smc/SmcWorkspace.tsx",
+      "upstreamSha256": "1cda7478e8ea13cf12743f0a73f43ce46fc126ba0d944e03dee12f991ccc1298"
+    },
+    {
+      "path": "app/s2/smc/intersection-view.mjs",
+      "upstreamSha256": "c0df156762b07e3c7a8392d3f6fc40c6574fb18fdae6ad39b02d81be4ace0a01"
+    },
+    {
+      "path": "app/s2/smc/manual-order.module.css",
+      "upstreamSha256": "389e33335b997368b876a1b05a2586ade25dad63f66b66f307d842e459036d20"
+    },
+    {
+      "path": "app/s2/smc/motion.ts",
+      "upstreamSha256": "2174473e4c711f1e8de0013aa0702cab83b2442d8ca8bbfb95328a2b82d451d3"
+    },
+    {
+      "path": "app/s2/smc/page.tsx",
+      "upstreamSha256": "6370d578a8f78ef38b01c3aaf2fffbd165fb9d79261871fb68325ea9537c3380"
+    },
+    {
+      "path": "app/s2/smc/plan-presentation.mjs",
+      "upstreamSha256": "a2c7eae76428ce6426dc89c5cff8ad1a43e1022fd9c040fdb51f69fb499f1b79"
+    },
+    {
+      "path": "app/s2/smc/position-controls.module.css",
+      "upstreamSha256": "9f88bda3794f6817c2dcaf6f39206839effc9f57127ea21d4a930399ecc98e71"
+    },
+    {
+      "path": "app/s2/smc/smc-equity-ledger.module.css",
+      "upstreamSha256": "04f8138d30eb8cab4369c32d3b1583e05fef400351ac0d88f875a89cf315974a"
+    },
+    {
+      "path": "app/s2/smc/smc-opportunities.module.css",
+      "upstreamSha256": "22b0b006919e8be7d53b3495b3142c7b263471da7fabe1a45574b8206cc2fe07"
+    },
+    {
+      "path": "app/s2/smc/smc-workspace.module.css",
+      "upstreamSha256": "29b9b46bad06778424d0f31a2f473686170220a25a55a1bcfa999e81b32e2bea"
+    },
+    {
+      "path": "app/s2/smc/source-health.mjs",
+      "upstreamSha256": "83dacacfd70f1b2d23f3f126a0930491074c1bd37d5e34ef9038c65fc3dc7a95"
+    },
+    {
+      "path": "app/s2/smc/types.ts",
+      "upstreamSha256": "8fdae7ad84c78e80a378a3ecc861c6c9d5b39f0e9b156f7e03543550387bf759"
+    },
+    {
+      "path": "app/s2/smc-executor.module.css",
+      "upstreamSha256": "c6494fb9d87dec27909b0a959d3ed245d36612735ee297b31dd42e515fb1ba7d"
+    },
+    {
+      "path": "app/s2-2/layout.tsx",
+      "upstreamSha256": "9fd2e0f20fcc5791a59dd25c8c56b09ab468f062edc913628e6be435ad5f88c7"
+    },
+    {
+      "path": "app/s2-2/page.tsx",
+      "upstreamSha256": "b42220ca54eadb1ad86ad14a05b1a8a6537df67e63f2f3d267ffdd3e1cbdaba8"
+    },
+    {
+      "path": "app/s2-2/report.json",
+      "upstreamSha256": "3d8877fbd17c08ff231a2258dff027d4c6a38a4ac66e54f3331d5dd46a5f1e0a"
+    },
+    {
+      "path": "app/s2-2/terminal.module.css",
+      "upstreamSha256": "e8d8504d25ec981532d932824d1de103eb49df5e417a7d0a32cd04c4313b79f6"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/CandidateStudyPanel.tsx",
+      "upstreamSha256": "672f510e558f402e4c047863e5293a631e01987282ede4ed55b70a6aae7d391c"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/candidate-api.mjs",
+      "upstreamSha256": "6139440e0ecbff98af649d0089d69682c3bfa1958a864bbed38969d980cd3170"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/candidate-contract.mjs",
+      "upstreamSha256": "45a8562d386bcbdecffb3c1b878648f1c06179c7fe1fa301b293e088273f9aa1"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/candidate.module.css",
+      "upstreamSha256": "d74c18fe9ff2c171a2451fe35d611bd835115fb2fe07a5b9e4ea1729596927dd"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/engine.mjs",
+      "upstreamSha256": "594fe696b60b2dba29ae3567479fb6e027f68e58012cec9a829cec5777f1a971"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/layout.tsx",
+      "upstreamSha256": "28cd11731599fcc6c09f50a7c7c4034737c80862f347b2eb2d8b82da7b810bec"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/page.tsx",
+      "upstreamSha256": "41794ca213951325f13cc8f75e3e22c57c8c5dc7d4b2c97f2f1ea14a6c9f5a9f"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/persistence.mjs",
+      "upstreamSha256": "1c09406c4fd424233b3c5aa4f06291bd3b22ef5537efa6cb0cc154edd5415be3"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/rolling.mjs",
+      "upstreamSha256": "fffa6fbcfe23f8285429632e614332c65e2ae91c64af099598c6c593f6af3086"
+    },
+    {
+      "path": "app/v2-ledger/account-shadow/shadow.module.css",
+      "upstreamSha256": "f4169e67a3d67c1a1b396a22eb9802642876fe0c2f10fb1cb7142c0306989447"
+    },
+    {
+      "path": "app/v2-ledger/execution-release.mjs",
+      "upstreamSha256": "e924ebed00c3394f36f90230caa8a56eb7ca170461a358fc693a90a835b7638c"
+    },
+    {
+      "path": "app/v2-ledger/labels.ts",
+      "upstreamSha256": "8e9f6b222d8b6235cd43b5da1d365bfb617bf1d25eb3005071c6cc47c6d3e9c3"
+    },
+    {
+      "path": "app/v2-ledger/layout.tsx",
+      "upstreamSha256": "e85c34e63abbb5259251027cf1c95e944c10970e6a95f529b3015ed19f8698c3"
+    },
+    {
+      "path": "app/v2-ledger/ledger.module.css",
+      "upstreamSha256": "3b83628fc07ced54b9792bd7501ef13b42205ced386fe0319e9888ac2b1651e9"
+    },
+    {
+      "path": "app/v2-ledger/page.tsx",
+      "upstreamSha256": "9c2837a32ef0cc95e06f1b213bbdae0ee48f5e3a771e3bbbb373a04dfd6f3fbc"
+    },
+    {
+      "path": "app/v2-ledger/valuation.ts",
+      "upstreamSha256": "1beeeba40e52347206a07684b65c0be530a8defed6effbd3e64990a4483a349e"
+    },
+    {
+      "path": "app/v2-ledger/version-history.json",
+      "upstreamSha256": "55f62617d4104e1b9d0c17ea17d1170c8019587a94def1382e6800b79b1cde59"
+    },
+    {
+      "path": "app/v3-equity/bootstrap-snapshot.json",
+      "upstreamSha256": "653e6cc2830fb39ee2e95330e6c07a00e99a5902e5db33a51ffbf5ee32b57d05"
+    },
+    {
+      "path": "app/v3-equity/curve.ts",
+      "upstreamSha256": "669a48615a00b13d490833ca910caa9dd349b2ab61c8264ce554dbc07e11a366"
+    },
+    {
+      "path": "app/v3-equity/execution-view.mjs",
+      "upstreamSha256": "cbdc4c887e0679fac0fe079421b2eccbebe895cf31fb1ca29fd4d873d630d193"
+    },
+    {
+      "path": "app/v3-equity/hf12a-shadow/page.tsx",
+      "upstreamSha256": "2bdfa208c96990b1a38f0baae79f76c93251ea70b67b20a81fb5c1c755e50297"
+    },
+    {
+      "path": "app/v3-equity/hf12a-shadow/shadow.module.css",
+      "upstreamSha256": "9747e4838b080a7d06eaf6c06922bdfb25f1b483704eb581d3711b0965851694"
+    },
+    {
+      "path": "app/v3-equity/layout.tsx",
+      "upstreamSha256": "c34857315cd0f3f048d49a3bed86df15cf00fe035da5156d0bd01b5b7372e818"
+    },
+    {
+      "path": "app/v3-equity/page.tsx",
+      "upstreamSha256": "40840208543adaefebbfb7a803f40e3df8937d758e017b329614dfed876afc67"
+    },
+    {
+      "path": "app/v3-equity/px-research/layout.tsx",
+      "upstreamSha256": "89f17aaf5f3c6543afe776b5cba7e5f50a8e1f7fd041868fc8cab904bcd5ac1e"
+    },
+    {
+      "path": "app/v3-equity/px-research/page.tsx",
+      "upstreamSha256": "39292d6c4c86a5bb716aa220887c7cb4818c099050ff24ed90392e406371002f"
+    },
+    {
+      "path": "app/v3-equity/px-research/research.module.css",
+      "upstreamSha256": "227b51a386880593be45dcbeb9ff411dbf31e78536c0d02627d46f6ab1a2d92a"
+    },
+    {
+      "path": "app/v3-equity/v3-equity.module.css",
+      "upstreamSha256": "381b10e9b9a502265074002bfa946a19bff59b79b91588d26a7209e63678db4b"
+    },
+    {
+      "path": "app/v4-monitor/bootstrap-snapshot.json",
+      "upstreamSha256": "9701730d3c01206ab7a7431874d3e9c4f8dce195884089bfd5240cc8c0c330dd"
+    },
+    {
+      "path": "app/v4-monitor/layout.tsx",
+      "upstreamSha256": "1af9f72043fe84e0872e8bed400e0e4dbab02f8b29e86ff9ff2e0eb8189e6b20"
+    },
+    {
+      "path": "app/v4-monitor/page.tsx",
+      "upstreamSha256": "c537094902367a803672ba0e9dd454337350e4f224f7389c87c05e7c24bb838c"
+    },
+    {
+      "path": "app/v4-monitor/v4-monitor.module.css",
+      "upstreamSha256": "874d31917dd8daf0a674b1939d727677d99eb3c89e232830521e08ff1c231f7e"
+    },
+    {
+      "path": "app/v5-au/bootstrap-snapshot.json",
+      "upstreamSha256": "2a3c5821a94e06fd4021a6f47901899f585827eb65930af0c991bf549234a763"
+    },
+    {
+      "path": "app/v5-au/layout.tsx",
+      "upstreamSha256": "1ce25d1c0dae8d47bca917483150cae3b45b090e1f042f4eaa4202bffec420f6"
+    },
+    {
+      "path": "app/v5-au/page.tsx",
+      "upstreamSha256": "923530bbdd2ffebeba33d44ff54137166e3e92b63411a12309c8c58631587c0b"
+    },
+    {
+      "path": "app/v5-au/v5-au.module.css",
+      "upstreamSha256": "4fa624edbc7b9829726f9be708f3899af04016c4dcb41a9a2d12a2368529812a"
+    },
+    {
+      "path": "apps/jev-filter/app/DecisionBoard.tsx",
+      "upstreamSha256": "bf4053d12c4343452918d425867d9952d3c640bd692474d876a8c490eee399b8"
+    },
+    {
+      "path": "apps/jev-filter/app/JudgeBoard.tsx",
+      "upstreamSha256": "10fd653b1e25513a13fdb00dc738b311a0d2692f743d1194b313e54e17c15355"
+    },
+    {
+      "path": "apps/jev-filter/app/PotentialPool.tsx",
+      "upstreamSha256": "d48189fec2965a007fe3fc691d85643b665749e7f88b749dc5accd15ce01ee34"
+    },
+    {
+      "path": "apps/jev-filter/app/ResearchBoard.tsx",
+      "upstreamSha256": "657bc1134a88f2dd3977c0287007533bd2f52536b83829b76ba8754ddb4fab6a"
+    },
+    {
+      "path": "apps/jev-filter/app/ShadowBoard.tsx",
+      "upstreamSha256": "5996ba8fb654d96d5c767ba7312c41c79ad93ffbeb162e0e55b2ae353c9f1ba3"
+    },
+    {
+      "path": "apps/jev-filter/app/api/observations/route.ts",
+      "upstreamSha256": "2d3493f97e3aae1eac9c71d1903c4640682e0a9bb968c8db433a883a72c04b5a"
+    },
+    {
+      "path": "apps/jev-filter/app/api/shadow/route.ts",
+      "upstreamSha256": "9535de8b7292733d27dc6077d5f46caf3286e9062499e42389e1ba7857d30094"
+    },
+    {
+      "path": "apps/jev-filter/app/layout.tsx",
+      "upstreamSha256": "6b950aef8ce04da7eed4f340052040942b9a0d8b85e2b20b468c62e739109517"
+    },
+    {
+      "path": "apps/jev-filter/app/page.tsx",
+      "upstreamSha256": "06b374d99bcf2b93f3677f9844671982765ace5e4938238402a34c2c6661aff5"
+    },
+    {
+      "path": "apps/jev-filter/app/style.css",
+      "upstreamSha256": "fb501809b035532ba46bb2d62f9e6f4921d15af90a62eac39f7a1c89e895bd7a"
+    },
+    {
+      "path": "apps/jev-filter/build/sites-vite-plugin.ts",
+      "upstreamSha256": "d9bfa0657db7074b36adea14aa50ee945d9be85687b19e191679cccdbb7533a5"
+    },
+    {
+      "path": "apps/jev-filter/env.d.ts",
+      "upstreamSha256": "60cad56887cb8c70411762a62b5477099079f5ffd0238e0bb561403286023ed9"
+    },
+    {
+      "path": "apps/jev-filter/lib/decision.ts",
+      "upstreamSha256": "6cd8aba241cc62c7b1793edd30d85cafc9e2a1cd039dba304124702ae5882129"
+    },
+    {
+      "path": "apps/jev-filter/lib/entry-band.ts",
+      "upstreamSha256": "60cd867e0ec3e2091955516c4a14d85713492b1b0691a3f05d35967e9ce0a314"
+    },
+    {
+      "path": "apps/jev-filter/lib/feed.ts",
+      "upstreamSha256": "e141b11085ce70344a691eed7af5bf1cb4502c04d2e552ac6e524da65f02cdd8"
+    },
+    {
+      "path": "apps/jev-filter/lib/judge.ts",
+      "upstreamSha256": "779bb670de6bc3e9044fa837c4945ea0510a130741acd644f6c81c4d7903afcc"
+    },
+    {
+      "path": "apps/jev-filter/lib/payload.ts",
+      "upstreamSha256": "4e644d31076deff55ee9e55ddfc7fada57a4210802f80aae1064249b14e9a32d"
+    },
+    {
+      "path": "apps/jev-filter/lib/potential.ts",
+      "upstreamSha256": "7692a0ac347899bf862445f600f06c1a8f75e9df82937a5b7dc171dc69d60d73"
+    },
+    {
+      "path": "apps/jev-filter/lib/research.ts",
+      "upstreamSha256": "516fa5d4702ce5ea40248a3e482ad278ebd3bca8ebaba2061ce3cec7bf396f71"
+    },
+    {
+      "path": "apps/jev-filter/lib/shadow.ts",
+      "upstreamSha256": "f7889d92cca2e2e89aa358dc632b8161b07799864937be52e1ad346c33cd041e"
+    },
+    {
+      "path": "apps/jev-filter/package-lock.json",
+      "upstreamSha256": "c2b1550a9125ad54b1574f7c0ad688f5fb5604e643ddcefef41c0a49d9d1403e"
+    },
+    {
+      "path": "apps/jev-filter/package.json",
+      "upstreamSha256": "3a9aa6019ad4759a8410f34630f2c38b668e0e664d799c7974d5ced909071ae1"
+    },
+    {
+      "path": "apps/jev-filter/tsconfig.json",
+      "upstreamSha256": "6b8e5eee91eb19a1d3b4bfc74c358199585898cb844d0d03e0ae7154ac66085d"
+    },
+    {
+      "path": "apps/jev-filter/vite.config.ts",
+      "upstreamSha256": "680d6ea63b61183bbacec4a41725405e3b2bf7abce86c1fe7e01c4784f6a790c"
+    },
+    {
+      "path": "apps/jev-filter/worker/index.ts",
+      "upstreamSha256": "1ad6c799767532e59ae06f58e36544083af48fcf9eb1dc827fc8f49a05873240"
+    },
+    {
+      "path": "build/sites-vite-plugin.ts",
+      "upstreamSha256": "81b7cbfaeb970611572256aba0e313425beb3809f6426f63750696c15d9c756b"
+    },
+    {
+      "path": "db/index.ts",
+      "upstreamSha256": "6d2b1bd2e01b0ba2c9346dcf8a84408fd410f3e91161f5d4c383c0e76e9f3e4b"
+    },
+    {
+      "path": "db/schema.ts",
+      "upstreamSha256": "8cae2dcb8ccfe012fa046555f9f61ed6e071fc3c7d775c6d6c3f20684f9f50f4"
+    },
+    {
+      "path": "drizzle/0000_organic_microchip.sql",
+      "upstreamSha256": "12f9f84d53724c24dbbae65f8e363c85d0a54e928e84c793a65d8ef85222773a"
+    },
+    {
+      "path": "drizzle/0001_wooden_microchip.sql",
+      "upstreamSha256": "005e699358176832ac82248251e761dd2e17ecf83d83031ecd3b1379fb6fa2f6"
+    },
+    {
+      "path": "drizzle/0002_brave_lucky_pierre.sql",
+      "upstreamSha256": "e731a6433a4955f074d6cc601b5aa5faee9c0929af884f62e209398b689efc1d"
+    },
+    {
+      "path": "drizzle/0003_pink_namorita.sql",
+      "upstreamSha256": "7b375cc8827cbbf021abeaf8606ebdb209452b28da4708a4696d8a3ad6fdf4b8"
+    },
+    {
+      "path": "drizzle/0004_third_radioactive_man.sql",
+      "upstreamSha256": "2387a70ff25ea2591dae58dd02c219bbc3909bac115bc54aabebeeee4db03dbf"
+    },
+    {
+      "path": "drizzle/0005_military_thena.sql",
+      "upstreamSha256": "4a18a87bee22efc51a2f7a0482d94b23b0470c26172bbd12ac477d5626696c55"
+    },
+    {
+      "path": "drizzle/0006_deep_lilith.sql",
+      "upstreamSha256": "971ae3bcbf13c55c2ca3dc1503b8a0ee53aab1684c51f7deda13af2b2dcb663a"
+    },
+    {
+      "path": "drizzle/0007_damp_bloodscream.sql",
+      "upstreamSha256": "f212c40da4d83c4729b9e4bb0050d269a969d31e5e34a2865d1f7152513d8d0d"
+    },
+    {
+      "path": "experiments/s2-2-simulator/geometry.json",
+      "upstreamSha256": "19b66731c5ecd365cc1324286e8846549eba4d2566ba8e7f98ba4ba9ec7cba9e"
+    },
+    {
+      "path": "experiments/s2-2-simulator/policy.json",
+      "upstreamSha256": "27651cfa4f192ea7b15a83374c40c584d5c55a42267bc44d1a05413c82165193"
+    },
+    {
+      "path": "experiments/s2-2-simulator/scan.mjs",
+      "upstreamSha256": "02c1657e265863ae5296381970a04ece5a0bce33d3078c29a2965bbd46291757"
+    },
+    {
+      "path": "experiments/s2-2-simulator/settle.mjs",
+      "upstreamSha256": "77210bf037b24abc3dabe35ca4f06583dfc10a7d80448433ad5426994add38df"
+    },
+    {
+      "path": "experiments/s2-2-simulator/strategy.mjs",
+      "upstreamSha256": "69464911bb656fc3c00d66d95552dad63e4efc90a62cf285b926ff4bc20b81ab"
+    },
+    {
+      "path": "experiments/s2-2-simulator/strategy.test.mjs",
+      "upstreamSha256": "aaea5f9cb8a9938dd8ea02d5f0f4dd6fed26f1ca2f54110b1b52b94ecb875bb5"
+    },
+    {
+      "path": "experiments/smc-structure-injection/run-r2.mjs",
+      "upstreamSha256": "d69793d96b70c4576043b27f447755f53870e3575d0aa5a568b475b141f4955e"
+    },
+    {
+      "path": "experiments/smc-structure-injection/run.mjs",
+      "upstreamSha256": "320c4da91aeb6f1c30f0bcd74cd82dcaf3689ff38b16e050c296612af067fc23"
+    },
+    {
+      "path": "experiments/smc-structure-injection/scan.mjs",
+      "upstreamSha256": "be389655c0508f65c5e92331b5e50dea5e9d6c0b042fafb99f522da9b3abda3e"
+    },
+    {
+      "path": "experiments/smc-structure-injection/structure-r2.mjs",
+      "upstreamSha256": "c05e61b0e994aeca161fb6d19f16e598120a0e57021854b0d5fcdc599c257f1f"
+    },
+    {
+      "path": "experiments/smc-structure-injection/structure.mjs",
+      "upstreamSha256": "04a5b3d5b8fb20b209488720c523dbfafe10041759a245ac7c872440b6aa4b9d"
+    },
+    {
+      "path": "experiments/v2-execution-reality/config.json",
+      "upstreamSha256": "814f346e0537d17b0f0a8753064614e3c09923914b92c1cce0cc0dab4228a360"
+    },
+    {
+      "path": "experiments/v2-f1-breakout-distance/config.json",
+      "upstreamSha256": "5657b0ebdd33f95dee7d12049cb9bdae76be70061224606003924eb338f448ec"
+    },
+    {
+      "path": "experiments/v2-mtf-trendline-intersection/config.json",
+      "upstreamSha256": "8edb547fe9c3fed0983416a96f1b8e5d0d963f2b6698e89e51e8c2a2da73e1f6"
+    },
+    {
+      "path": "experiments/v2-strategy-refactor-0.3.0/config.json",
+      "upstreamSha256": "9640dcbdd013d43b38f28df22f1b098d1ea1dd60ee4b9691b753d7f443431ae8"
+    },
+    {
+      "path": "experiments/v3-mtf-high-frequency/config.json",
+      "upstreamSha256": "22707d65e36d2b037038f0c31d0e2aa1caae353e87c369512e147ffcc0f6bbe1"
+    },
+    {
+      "path": "experiments/v4-converging-width-reversion/config.json",
+      "upstreamSha256": "fef58d7d3753cc4f7d2238f9a894f9f44b523fea2086a679b287a5bf2be5c7d0"
+    },
+    {
+      "path": "experiments/v4-independent-range-reversion/config.json",
+      "upstreamSha256": "235565423a66907255299b20c26e2976c8aafcdee87dc894bf6cae0e4573efd6"
+    },
+    {
+      "path": "experiments/v4-mtfx-r20/config.json",
+      "upstreamSha256": "a9f1d3d0b07ac7c72b43acc77ed7d0831232d0d63172dba8e1a891ae9f25f04c"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/config.json",
+      "upstreamSha256": "219dbeb0e04f52266977c1e18633432c90dd941b435a80864d3f60a4b3bda135"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/cli.mjs",
+      "upstreamSha256": "6e844e2150da3ea7b2c5c3197854f13668873cb6502c1d7150128c1e027db3ef"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/context.mjs",
+      "upstreamSha256": "4e622cdfdb4fe6c0d61a2b1602b495277a4b855f67e5ac67f0c8735ff84b7d2c"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/demo-account.mjs",
+      "upstreamSha256": "94196809945081aa9f21f424161f4b9ace57bde657ef947575bc82bcc8a2c489"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/execution-gateway.mjs",
+      "upstreamSha256": "f70a3b1e4b8f8572e121691db8ecb9779989dcb46058c760e6fab1eddca00603"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/execution-preflight.mjs",
+      "upstreamSha256": "591613ef9a5ee1f4d74f556815ae4eaf8f4e281b5726c359ab5347c49857eca7"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/execution-report.mjs",
+      "upstreamSha256": "1924e1774f703d91284a73b60184470cbf0ce9d944f743df6b9f058be5639d1d"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/indicators.mjs",
+      "upstreamSha256": "3e000621c13382c96deff68e708185d37c60c700cfbed3eabc53e1be78e50db8"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/market-data.mjs",
+      "upstreamSha256": "8bbb022ffdc7d87b7334109178f4420af1908f193675a171fd6e4444ebad1133"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/replay.mjs",
+      "upstreamSha256": "99bbdd06e8d421564954f57b1c9a44e1778893a5e272ab10942b418c82b79cbc"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/report.mjs",
+      "upstreamSha256": "c4d69ab2957fdadaac3d1e5f3bd78df00330084b41024f1c485f7bd66d00e19c"
+    },
+    {
+      "path": "experiments/v4-range-mean-reversion/src/utils.mjs",
+      "upstreamSha256": "783093970c2a07d38727b34b66a08411c2da1daf42ac6183682d89500e9e2a9f"
+    },
+    {
+      "path": "experiments/v5-au-mtfx/config.json",
+      "upstreamSha256": "4d01b9fba5e3ac590259171ee6df86201fb1e080d59a6042675dcad8b8d0a474"
+    },
+    {
+      "path": "integrations/binance-free-replay/package-lock.json",
+      "upstreamSha256": "0e3ceb6a8ccf91a8235796c491a31da6ae0c2986e01bfb108a3774bd24ade762"
+    },
+    {
+      "path": "integrations/binance-free-replay/package.json",
+      "upstreamSha256": "b1699dd96ecb9e792f3f98f20db6493e7a297ebe1b218efdaf97f258817ef88d"
+    },
+    {
+      "path": "integrations/binance-free-replay/src/backtest.mjs",
+      "upstreamSha256": "2d625a1290ef0a3fa93f4cf4acd71188b78aebf16f9e4f6fffd2911856c14eea"
+    },
+    {
+      "path": "integrations/binance-free-replay/src/cli.mjs",
+      "upstreamSha256": "4442fa41381a1ba11c254b2ae171a75624b908907e4f366199313c05d7e0b1fa"
+    },
+    {
+      "path": "integrations/binance-free-replay/src/market-data.mjs",
+      "upstreamSha256": "75087fd775e6f480ba5362835ba407dc0eb31c29b2647e1b9956e92ff3a58001"
+    },
+    {
+      "path": "integrations/binance-free-replay/src/operations.mjs",
+      "upstreamSha256": "c0692af1d619360d830be962d7a493c912b573f41115570da2f2459966a101ad"
+    },
+    {
+      "path": "integrations/binance-free-replay/src/server.mjs",
+      "upstreamSha256": "9777900b203109d3a32638a8a43cb55da75a080cfe0d20c5a7d871c5a2c94721"
+    },
+    {
+      "path": "integrations/binance-usdm-testnet/audit-ledger.mjs",
+      "upstreamSha256": "735f37597bf70e3cacf0a96e7d1756db584b89352f8721e736396b715b65ae3e"
+    },
+    {
+      "path": "integrations/binance-usdm-testnet/read-only-reconciler.mjs",
+      "upstreamSha256": "3ffae7528ba896f7d95a9ce1fae8df2a2cf7a45a8ff51550b68f5f0d189652d0"
+    },
+    {
+      "path": "integrations/binance-usdm-testnet/readiness.mjs",
+      "upstreamSha256": "4acf43d7887c8fca543460a6f913136312ec781b6beb999c536a231f36cff343"
+    },
+    {
+      "path": "integrations/binance-usdm-testnet/trading-gateway.mjs",
+      "upstreamSha256": "1f0cdca9da9409ae2d1668009f69eab52ed7711462ee8ee9a1fff10b218aef43"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/config.example.json",
+      "upstreamSha256": "16fde8bc93076f17396fc5fb20143e79c505d0394a46bfb616783ce87c34e4f4"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/config.json",
+      "upstreamSha256": "ea66e334f81a0a0336ab3032cf788fe7c5730ffc4b6abece61c82c4605e9d0dd"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/pyproject.toml",
+      "upstreamSha256": "ea089c7cd8b5e892ef72b81f061a272583c9dfb7555ba4295c9cd10a6353217d"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/reports/20260801T083250Z.json",
+      "upstreamSha256": "e89def5ece6f89f0bd8ed75649db83291d97733abdb90cc0d9269ea2682e53c7"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/reports/20260801T162306Z.json",
+      "upstreamSha256": "27734990783f86ebf64b7ccf539650bf44aaa6a6ed77db6c61d691ce71b88eae"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/reports/20260801T162513Z.json",
+      "upstreamSha256": "548a65a5a495df84aae2fe4016078befd8a94116c8f351bc4304be593d9ffd63"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/reports/latest.json",
+      "upstreamSha256": "548a65a5a495df84aae2fe4016078befd8a94116c8f351bc4304be593d9ffd63"
+    },
+    {
+      "path": "integrations/crypto-regime-monitor/tradingview/crypto_regime_v1.pine",
+      "upstreamSha256": "350605e42574aa639ba58e93621b3af7c9fcae9ee1f26b5ad71eea71514020d2"
+    },
+    {
+      "path": "integrations/jev/entry-band.mjs",
+      "upstreamSha256": "6121495241839a4f873b89af919a3e96ed6bd26019571e3fc4ff40332334c69f"
+    },
+    {
+      "path": "integrations/jev/entry-quality.mjs",
+      "upstreamSha256": "243f37cff9cb57f1385f0a9b2aa5fc918d851cce47678e0daa7f877cdb0d5ec2"
+    },
+    {
+      "path": "integrations/jev/evaluate.mjs",
+      "upstreamSha256": "e566f425029faa338c999e829181d73037e4d41cc7371e8695f143410911df92"
+    },
+    {
+      "path": "integrations/jev/filter-core.mjs",
+      "upstreamSha256": "95bab813fcbfb79e061941f5519a40cf7201d78f6e5cf351a882a22ead7daa6f"
+    },
+    {
+      "path": "integrations/jev/filter-worker.mjs",
+      "upstreamSha256": "d07044baaf11e8ebf5c9ce5aa63bf5e0883a4d92753ff409b2bb1d085fde610d"
+    },
+    {
+      "path": "integrations/jev/judge-core.mjs",
+      "upstreamSha256": "5441cb722af4533e86fc47d8352ec2807a1e0567cb1ba009ea55ae12014734f8"
+    },
+    {
+      "path": "integrations/jev/package-lock.json",
+      "upstreamSha256": "63a51f222f324815e30a6b067c9b31f3d8a2d563c3addf85934c50bde6d1dcdd"
+    },
+    {
+      "path": "integrations/jev/package.json",
+      "upstreamSha256": "a03cbaca0d056ceaf079476e95c9ea5b645fa4fd8094f1740ecf128d8060acb5"
+    },
+    {
+      "path": "integrations/jev/probe.mjs",
+      "upstreamSha256": "8a6c768100637162d6d6a7e1ce9b61e6d4c7dd3ee9c054e76aed0593bae57c92"
+    },
+    {
+      "path": "integrations/jev/research-core.mjs",
+      "upstreamSha256": "cbcf8f672c798430e9d0c23a93ad6adf9f66d73a2e9f28dfba4efc65b823fc59"
+    },
+    {
+      "path": "integrations/jev/research-store.mjs",
+      "upstreamSha256": "38d20e6d0bf4f65b96a99ce3b5351b8b811aca918272c0c3f05645653cda6081"
+    },
+    {
+      "path": "integrations/jev/scanner-state-read.mjs",
+      "upstreamSha256": "b3ec0a793029190774d8fb1c58ea6eb7dadcc05250d67438d3499bf4aa0dd3b0"
+    },
+    {
+      "path": "integrations/jev/sdk-probe.mjs",
+      "upstreamSha256": "b4a5d34adad596b293b1579725294d3ee09a1074ac8d3a87e3464aee1c493ff6"
+    },
+    {
+      "path": "integrations/jev/shadow-config/strategy.json",
+      "upstreamSha256": "0692d6a734a3cc7f1cb1822aac0a20c420c7987f36ab2f46704c5e33ac7841a0"
+    },
+    {
+      "path": "integrations/jev/shadow-core.mjs",
+      "upstreamSha256": "2f3da4d2672db1f31c3770eb00b30b60de5b79465be6c7b7b7e04da0af7ee708"
+    },
+    {
+      "path": "integrations/jev/shadow-worker.mjs",
+      "upstreamSha256": "b8e3b572c47a0475d4ce41f87647c048030f7f0862a61b4aee194bdb7e72ffb4"
+    },
+    {
+      "path": "integrations/jev/smc-observer.mjs",
+      "upstreamSha256": "0326ef2791cfc17f2f37a7685b4fc21baa697abd2c12eafad6c8b4e849647158"
+    },
+    {
+      "path": "integrations/jev/smc-opportunity.mjs",
+      "upstreamSha256": "b31959a745e1f9bfa827e0372b5af8a6bcdc0dc91ed218e897dfbf12f893e0a6"
+    },
+    {
+      "path": "integrations/jev/strategy-decision.mjs",
+      "upstreamSha256": "5f0de8b5e98c28023064ab2a885c37c2c3d5c33f2c50fa546c9bcca144209f7c"
+    },
+    {
+      "path": "integrations/jev/structure-quality.mjs",
+      "upstreamSha256": "e86f3f06f06c28ada3d530ed42463b60282ae5099319c509c629214d5b7bcf89"
+    },
+    {
+      "path": "integrations/jev/transport-retry.mjs",
+      "upstreamSha256": "ad8f2e17c21b925638899043bd43c8adf7fd7c13623c458ff38167b9b90dc3f8"
+    },
+    {
+      "path": "lib/exchange-json.mjs",
+      "upstreamSha256": "a3af833ed97c15a3ac283c2ba3f4eb36364007797b1bdfe26890126135899289"
+    },
+    {
+      "path": "lib/s1-account.mjs",
+      "upstreamSha256": "2d194dadfb2def693a96dc43d6e79d3efe7efda54fc97817e02ce8f29897c995"
+    },
+    {
+      "path": "lib/s1-arrival.mjs",
+      "upstreamSha256": "1af8e6dc033dd2f1fa35e9b8a29c18180fb146dcc822e1115ee86d5c25217243"
+    },
+    {
+      "path": "lib/s1-candidate-funnel.mjs",
+      "upstreamSha256": "936666eccc4489229c6790dcfc125ec7091bf26a7a214e7343db3246c84f1d41"
+    },
+    {
+      "path": "lib/s1-candidate-order.mjs",
+      "upstreamSha256": "c3c66a64ad1f706a259fb66c92ab0f4bc9fc20258824cde90078c2222896ac40"
+    },
+    {
+      "path": "lib/s1-execution-ledger.mjs",
+      "upstreamSha256": "f717a0b72fe3484030af7fddef3018f2030df914c6fa7eabdea6a7520f504624"
+    },
+    {
+      "path": "lib/s1-monitor.mjs",
+      "upstreamSha256": "f4fbb3307961b1e007e42b71efea657d74e92f5149d28a3186869df5088eae89"
+    },
+    {
+      "path": "lib/s1-precision.mjs",
+      "upstreamSha256": "673585289b87f4748977e4cd7a8ff956435a477e501a74de01ae045ff37e8d6c"
+    },
+    {
+      "path": "lib/s1-price-display.mjs",
+      "upstreamSha256": "4761059c88703c2f970e8f46ca4b1e7957ff42834141f6b0f4f3eccfeaeae72d"
+    },
+    {
+      "path": "lib/s1-px-distance.mjs",
+      "upstreamSha256": "02e893ce380fd72fa8b4f9f98aef9988b2e44add492365b93df4e7f3915f6b76"
+    },
+    {
+      "path": "lib/s1-risk-calendar-seed.json",
+      "upstreamSha256": "dd5763c701debab02dc50075854170b136139bb50be116dbe3d18fa399b596bf"
+    },
+    {
+      "path": "lib/s1-risk-calendar.mjs",
+      "upstreamSha256": "d8a48896311c30f073c48c217e184dae7fabdb997f1a677343874c27e17f265e"
+    },
+    {
+      "path": "lib/s1-signal-flow.mjs",
+      "upstreamSha256": "d343bd8b2995a21d34f14034eba0f45dce94ed87d3a7bd24610d29d8a747bd47"
+    },
+    {
+      "path": "lib/s2-monitor.mjs",
+      "upstreamSha256": "8ddcb8db0343e63fefc7667cd5b57aca01c17698d14709f28c06af18f39d9328"
+    },
+    {
+      "path": "lib/smc-15m-reaction.mjs",
+      "upstreamSha256": "76d23bb5a2f3ea885a0495fc5e192c32a3af279f307b0a9933a43206acec862e"
+    },
+    {
+      "path": "lib/smc-4h-trailing.mjs",
+      "upstreamSha256": "8150f0d18a955a66c8f51f6e451bb0967c2cc8d898ccd82a6d474669f0881f7c"
+    },
+    {
+      "path": "lib/smc-bar-evidence.mjs",
+      "upstreamSha256": "9f7bab6bcb4a2b69163cd7e4862b541babde19f97d161ca47380871064858322"
+    },
+    {
+      "path": "lib/smc-continuation.mjs",
+      "upstreamSha256": "6d1df30fe833c5b7b348112b49861486c3f59c89f99a797eb7198b8ae0bf76c1"
+    },
+    {
+      "path": "lib/smc-distance-display.mjs",
+      "upstreamSha256": "6c97d56aae3e7222b4906117365f451d13cc3a881fe9f389f4c8c3ed0d24d333"
+    },
+    {
+      "path": "lib/smc-dual-frame-entry.mjs",
+      "upstreamSha256": "1fed777c97bff14994dc1e4f084131d62b33ffd3db0eb03b0eedc80a75cd71be"
+    },
+    {
+      "path": "lib/smc-entry-paths.mjs",
+      "upstreamSha256": "422a43904bb294f6c57a530599e6ed6678f46eddc46901e2a081796fd4e9b5fc"
+    },
+    {
+      "path": "lib/smc-entry-review.mjs",
+      "upstreamSha256": "d91bd07dbc0ac28e35a1ae1f6b867bb0d3a551fd30be63047334d13c4d8a2347"
+    },
+    {
+      "path": "lib/smc-execution-ledger.mjs",
+      "upstreamSha256": "7fc0c230357d411bb1e7248c28b32df251027a6ea0ef9668a6a2f27ba1f37663"
+    },
+    {
+      "path": "lib/smc-executor.mjs",
+      "upstreamSha256": "40dde723b1f97bcb3a2c0edee7212d8fc65852038dcde96b0b7732712fbbb412"
+    },
+    {
+      "path": "lib/smc-exit-optimizer.mjs",
+      "upstreamSha256": "01a587682c191da3a9e708af06e14449167b043d2dfbb80e12c4527f38b6ebd8"
+    },
+    {
+      "path": "lib/smc-fvg-entry.mjs",
+      "upstreamSha256": "84c7601a3acda05343964ce90189451c26ee16b771117a0c95f98d8031237072"
+    },
+    {
+      "path": "lib/smc-intersection-clock.mjs",
+      "upstreamSha256": "484daadefa94b44dc65ec8b14ab51fe754c6f301347a76db34bdeddf6deaddfd"
+    },
+    {
+      "path": "lib/smc-intersection-observation.mjs",
+      "upstreamSha256": "c18e712e437e76e990840e2064bb1e27c75d7c0c242f1c9d50f7887e9080f344"
+    },
+    {
+      "path": "lib/smc-ledger-profile.json",
+      "upstreamSha256": "a0d1dfece5c8711a8d33869bd0dc45121bb11441bc1e6647520d5dee28516b57"
+    },
+    {
+      "path": "lib/smc-live-quotes.mjs",
+      "upstreamSha256": "6007da9705fa2575f6257be001d0b54a4e8f76477e1d688fd8dd470c81136a5d"
+    },
+    {
+      "path": "lib/smc-local-entry.mjs",
+      "upstreamSha256": "45a4712ddd6a40e23996838e59bff5fa4203ddb7cc15388f56bd30b765204e83"
+    },
+    {
+      "path": "lib/smc-manual-intent.mjs",
+      "upstreamSha256": "21c0c4cdb0fbae78200287dc693abc4c4755e9cb0a5f617c1338a17f0470eb78"
+    },
+    {
+      "path": "lib/smc-manual-order-estimate.mjs",
+      "upstreamSha256": "559075cb593d5e8ed6b02e873a7e15245beaf42cceb3ab68e9858a8235c6bf7f"
+    },
+    {
+      "path": "lib/smc-manual-order-source.mjs",
+      "upstreamSha256": "06b3516688b3b32ce2edd9b06878223fe004104181e9224aac939c6c69164360"
+    },
+    {
+      "path": "lib/smc-manual-receipt.mjs",
+      "upstreamSha256": "36f5bfe232ca8af9fadd88cb056f9ff4578f1d1c7f03336605c75e88767cbaa1"
+    },
+    {
+      "path": "lib/smc-market-evidence.mjs",
+      "upstreamSha256": "c114611c6372cc9adcdd436ff02e7f883f84b8b0035b2ecdfcf0dc1f68442ee5"
+    },
+    {
+      "path": "lib/smc-owner-direction.mjs",
+      "upstreamSha256": "5003dad827599940560fab9a86bbafe4bca78018a8d20b630613d584f086c353"
+    },
+    {
+      "path": "lib/smc-plan-lifecycle.mjs",
+      "upstreamSha256": "e425b953808838314574842f9cfb0ffaf8f733325f2e5ba5f96b1fe36b153f7b"
+    },
+    {
+      "path": "lib/smc-position-action.mjs",
+      "upstreamSha256": "d7bb5b3bbca513db996fc5883f2e2865dc3b9170d781c851057f464ed86866bf"
+    },
+    {
+      "path": "lib/smc-position-unrealized.mjs",
+      "upstreamSha256": "7d89460380fc7155d1f894bb5f9c3a1f11290a3dc6eea502ac1defe8698f25bc"
+    },
+    {
+      "path": "lib/smc-price-input.mjs",
+      "upstreamSha256": "4406fda52204465fc290b05c1124f3e972e5335e221f94f4e265993eb33a7da5"
+    },
+    {
+      "path": "lib/smc-pullback-scope.mjs",
+      "upstreamSha256": "ab16f89264bceaaf865033fc53758937977e9f51149c85b926d138a7e322f793"
+    },
+    {
+      "path": "lib/smc-recent-invalidations.mjs",
+      "upstreamSha256": "9ebe65fff6f75a34d01bb6ab4a3f78e38518e2bb57938812828092955e85701f"
+    },
+    {
+      "path": "lib/smc-reference-link.mjs",
+      "upstreamSha256": "9120559a938378fe18aee1146f1a1acd4c6c23b4b2fa724bc59dfb8d7b2802c3"
+    },
+    {
+      "path": "lib/smc-retest-timing.mjs",
+      "upstreamSha256": "642f37446f1160933a1fe84349e620638eb64d9e4d5a55cc8c8ed23583b38c66"
+    },
+    {
+      "path": "lib/smc-risk-scope.mjs",
+      "upstreamSha256": "3372e767f42ebee55a291fa6190149b95e70b9631ab9263f63390678e3de9758"
+    },
+    {
+      "path": "lib/smc-s1-entry.mjs",
+      "upstreamSha256": "385607c1e525e3fed6d0a2dc8d86a692f59e0e3256132f3a1c21dd8cf15e8be8"
+    },
+    {
+      "path": "lib/smc-s1-policy.json",
+      "upstreamSha256": "39fd8f643334c92b37d01bf6c83fd131a7d85ad0e751b79c2f1437cabdd4f072"
+    },
+    {
+      "path": "lib/smc-s1-trailing.mjs",
+      "upstreamSha256": "455828188486c26dca9957e369607ad8edb15c5204847ed2fd00b25463caa29d"
+    },
+    {
+      "path": "lib/smc-scan-policy.json",
+      "upstreamSha256": "568ca8fa5e0d5f6d9f66b196b7e3e269b5237e4c625e6c921aed413070dce31e"
+    },
+    {
+      "path": "lib/smc-scan-snapshot.mjs",
+      "upstreamSha256": "de1348fe37a8b79b14fd29c9712b265952c1800ec784866e12b9d9a17180c23d"
+    },
+    {
+      "path": "lib/smc-scanner.mjs",
+      "upstreamSha256": "d3f5493e73ba57090eefefabd626741294449c205108a6b0b84f6d3b361401f1"
+    },
+    {
+      "path": "lib/smc-snapshot-wire.mjs",
+      "upstreamSha256": "5bb114810329dc33d8b2e2dfb414294bae84ce294845891a7fe1397d0fdc32a2"
+    },
+    {
+      "path": "lib/smc-stop-safety.mjs",
+      "upstreamSha256": "93cbf85e9a5ae8c018ad9074abe0bfc375c154c69e24c0bafa70630f5d13044f"
+    },
+    {
+      "path": "lib/smc-structure-context-policy.json",
+      "upstreamSha256": "c2a66806b56e5931bef9b30b16965fc5febdd2a7c17bfd53587116ab991f4cf8"
+    },
+    {
+      "path": "lib/smc-structure-context.mjs",
+      "upstreamSha256": "4ed81cb914c0a8dc00f924a535ff5cf19b63cd44a8fc86e0b3b36f67d4172c61"
+    },
+    {
+      "path": "lib/smc-structure-plan.mjs",
+      "upstreamSha256": "665c15d0396fc250d3eab97e18fabc6e051095e67f0eb520c479169848ce0123"
+    },
+    {
+      "path": "lib/smc-target-path-candidate.mjs",
+      "upstreamSha256": "4984352319165d6da3b2eba68460afc6a7acb94d95f90a6680f06f79ad214f1d"
+    },
+    {
+      "path": "lib/smc-target-path.mjs",
+      "upstreamSha256": "de0daba178833ebb951649ddefcdaee2e386ec5c09bc8379c2c735702607c18d"
+    },
+    {
+      "path": "lib/smc-target-policy.mjs",
+      "upstreamSha256": "f03d75441db8fbd38ff6bb2cc299cbe2c93a51b071529b80821834cad0522f24"
+    },
+    {
+      "path": "lib/smc-timed-entry.mjs",
+      "upstreamSha256": "65245f2290030b50808eaea5479043a3f879d20a432b459ce4fe745cf6346ac1"
+    },
+    {
+      "path": "lib/smc-timed-reaction.mjs",
+      "upstreamSha256": "4bcd0a72706912ff7b6caf829fd99a93d155e85ef21cefb6a37c8b4dea4d155b"
+    },
+    {
+      "path": "lib/smc-timed-scope.mjs",
+      "upstreamSha256": "b34e4b088a6f303d049a90402839141e95995091a284038d96729ca1e4c9c065"
+    },
+    {
+      "path": "lib/v3-px-monitor.mjs",
+      "upstreamSha256": "4f4bbe07c6ddd5bc9c6ca0874ddc6e30ba0151755d8998575938e868d80a67ff"
+    },
+    {
+      "path": "public/favicon.svg",
+      "upstreamSha256": "e6d2e59b7b5bbb0342e0fb496dfc262decbfe4426bbb7b047aec8d467d1dc6f7"
+    },
+    {
+      "path": "public/file.svg",
+      "upstreamSha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4"
+    },
+    {
+      "path": "public/globe.svg",
+      "upstreamSha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf"
+    },
+    {
+      "path": "public/s1-logo.svg",
+      "upstreamSha256": "8bb3515a19999e49853d9e69fab290a45006db94c7843c74879b570ffdb11cf5"
+    },
+    {
+      "path": "public/s2-logo.svg",
+      "upstreamSha256": "f1a685f5de4b508b2bf10d04dbe070a569d3157f2e9a327a5beefdc841c41586"
+    },
+    {
+      "path": "public/window.svg",
+      "upstreamSha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1"
+    },
+    {
+      "path": "scripts/agent-memory-resident.mjs",
+      "upstreamSha256": "b8b0073202f08d49b2fb66c6d1cd8a0dfd28a232045c7ca8e29672306f0ec2ed"
+    },
+    {
+      "path": "scripts/agent-memory.mjs",
+      "upstreamSha256": "86ecdae0d94342c3d4306cd9069c062ef4f7c062b776372895f4e9a59d461fa0"
+    },
+    {
+      "path": "scripts/audit-v2-account-candidate.mjs",
+      "upstreamSha256": "8cfebea9c26a54d1669b84911b9b4098d351454017ad29d1e51962de9aef6b54"
+    },
+    {
+      "path": "scripts/build-binance-production-release.mjs",
+      "upstreamSha256": "abdb8d81e6e8e233740216c905d84331557ddfed6b52dc2329e4105a470e28cb"
+    },
+    {
+      "path": "scripts/build-s1-execution-prep-release.mjs",
+      "upstreamSha256": "9e305a1864614591834841fc28d6659232852276e7d8216685611e69ac7836e2"
+    },
+    {
+      "path": "scripts/build-s1-scanner-release.mjs",
+      "upstreamSha256": "1519f80fb452349a1e0102224d7ba1f219cb4cc1f9f64445cebca8e46bc6dcd7"
+    },
+    {
+      "path": "scripts/build-s2-s1-clone-release.mjs",
+      "upstreamSha256": "211dbdb6eb932a0a9b3ab79b02304a16d0f4911cc1ca13a33c0f50b6cbdbf38b"
+    },
+    {
+      "path": "scripts/check-s1-design.mjs",
+      "upstreamSha256": "4a3275f2a3488571250dd94e03fd91ac8d2b77c2c96b915a404104a08405f7be"
+    },
+    {
+      "path": "scripts/check-s1-live-sync.mjs",
+      "upstreamSha256": "9a9ee4045608153e1495dd8306215cbee77105b8cdc073324e259e5f3f03bcfd"
+    },
+    {
+      "path": "scripts/check-s1-monitor.mjs",
+      "upstreamSha256": "cd1ac2aef5ca6d041190982c94d8239d041f8618834e2701391342a46da95f3f"
+    },
+    {
+      "path": "scripts/check-s1-precision-monitor.mjs",
+      "upstreamSha256": "5b9bb7d0f77651b324d21a40fee9220014f911050c38ddbb209f8b5e9b349592"
+    },
+    {
+      "path": "scripts/check-s1-precision.mjs",
+      "upstreamSha256": "60ec1240491dcd2128ba25c831c1cc3c73bf36d2bc24f16a635a7492e570f2c6"
+    },
+    {
+      "path": "scripts/lib/v4-owner-stop.mjs",
+      "upstreamSha256": "e457645bcdfdf2c77d83a7d9831f6e746cc5aaa0a4230e096837eede823eb421"
+    },
+    {
+      "path": "scripts/mtfx-promotion-status.mjs",
+      "upstreamSha256": "588be4d4449776d3ec334583d3456cd8552695af5c51a50529c13a6491f6de01"
+    },
+    {
+      "path": "scripts/provision-binance-production-secrets.mjs",
+      "upstreamSha256": "1e41327c3cebb4e572e65107a0d4af08d492605244e808f1aab803c7a2625cbc"
+    },
+    {
+      "path": "scripts/provision-s1-monitor-env.mjs",
+      "upstreamSha256": "4279f57737897e350f8d96f788bdb81e012718d4e1781b2116c932942ed80a9a"
+    },
+    {
+      "path": "scripts/recover-v3-settlement-times.mjs",
+      "upstreamSha256": "99673b79d9480d9f0f6250077102afccf76568be8fcc54eaa767d7d7b85893c7"
+    },
+    {
+      "path": "scripts/render-v2-broadcast.mjs",
+      "upstreamSha256": "4123f867c8dff1d3653e1c3302974f54bea319534735dd9d26145e1e286110c5"
+    },
+    {
+      "path": "scripts/session-broadcast-archive.mjs",
+      "upstreamSha256": "5724297635a95a6592318f36d83ead013ac14c04ec83b21ccc6deb265ee1f421"
+    },
+    {
+      "path": "scripts/v2-broadcast-gate.mjs",
+      "upstreamSha256": "12c8ee7ae77d75bcedba6a295108dd70da93a7666ff9f5faf15bf0331c526fa4"
+    },
+    {
+      "path": "scripts/v2-execution-replay-audit.mjs",
+      "upstreamSha256": "07a56638be8e7a1ef5bbcde258d725fd61b682e6e6a00d6b39f7d577ee401bb8"
+    },
+    {
+      "path": "scripts/v2-f1-breakout-shadow.mjs",
+      "upstreamSha256": "8b1a9e7b06258a672f882f055bad92bd6fdcbe56d6f625f7ba26a05cf9341561"
+    },
+    {
+      "path": "scripts/v2-mtf-trendline-intersection.mjs",
+      "upstreamSha256": "33a3d82a6b4ff005a4a2d1a4c9cce33860e7a6d4eae5688c80bd6d9753eeb125"
+    },
+    {
+      "path": "scripts/v2-strategy-refactor.mjs",
+      "upstreamSha256": "abbb8d0a737d1490d69a55d002e47f18a996adb5f8b52c5365f58936ecd675c8"
+    },
+    {
+      "path": "scripts/v2-testnet-readiness.mjs",
+      "upstreamSha256": "47fda954fd522f9be30dcda25640ad38d664551094c62b41902a24cea6e5604e"
+    },
+    {
+      "path": "scripts/v2-tick-bbo-collector.mjs",
+      "upstreamSha256": "7dde7235300b1743714d2c9d6a4372fcafd1ef8139e14136c612cb2c95f36c2c"
+    },
+    {
+      "path": "scripts/validate-mtfx-fixed-universe.mjs",
+      "upstreamSha256": "813aa53689dfbe19aa6957697ba276994289d4944cffed6cd026f8cfb686c992"
+    },
+    {
+      "path": "scripts/verify-aegis-current-rotation.mjs",
+      "upstreamSha256": "537c55777bdac46fd732ef3b496052fb9f252088076851deca0705ac5022a36b"
+    },
+    {
+      "path": "scripts/verify-aegis-rotation.mjs",
+      "upstreamSha256": "b0d8dd2b656adcc8183a408aef5c0b95744a4a6ba6202cafb4ce2a90b85e2cec"
+    },
+    {
+      "path": "scripts/verify-jev-sync.mjs",
+      "upstreamSha256": "c99abe8e14dcdd759d23fe81daf1d4bd6b01dbfe412a07202a2de4cd204a56c0"
+    },
+    {
+      "path": "scripts/verify-migration.mjs",
+      "upstreamSha256": "61d79fa091d44854dc6e9ca201dfb30351ebd8051909f7a526196258c3fb97e0"
+    },
+    {
+      "path": "scripts/verify-quant-server-replacement.mjs",
+      "upstreamSha256": "30d1c1c67c7c47082665bab48484ba9323761293a781260df5cc31f025bb72d6"
+    },
+    {
+      "path": "scripts/verify-s1-paper-final-resume.mjs",
+      "upstreamSha256": "444968d0a8416fab19787f5fc6994955311b3c3392176e628b03884675464090"
+    },
+    {
+      "path": "scripts/verify-s1-r22-rollback.mjs",
+      "upstreamSha256": "df840bc7865eafd8fe5032dc132d066efaa45d72e7a49c5a0622476c49765623"
+    },
+    {
+      "path": "scripts/verify-s1-r221-iq1-successor.mjs",
+      "upstreamSha256": "62ebdd1860b0fd61d64640976e6b218645d1e8832a9d14640306660aa85677e6"
+    },
+    {
+      "path": "scripts/verify-s1-release-imports.mjs",
+      "upstreamSha256": "3fc86ab82d6d08987f525d6724bed1ccbb77a5c8c1d6d2085ac2103f9447352c"
+    },
+    {
+      "path": "scripts/verify-s1-s2-owner-pause.mjs",
+      "upstreamSha256": "9ccd42a0131c9b67a2abc49facc3150844c5280be04c0add0c86f58ceb313003"
+    },
+    {
+      "path": "scripts/verify-s2-profit-retention-successor.mjs",
+      "upstreamSha256": "d6264057b1c96c6f0695a71d6f9f4ee92b34afc926b0cf7782a7ecff5cdc5647"
+    },
+    {
+      "path": "scripts/verify-s2-s1-clone.mjs",
+      "upstreamSha256": "f3403de67cc763c78fd4a1a0a6c55a6e4c8f266ecc4c187a58d5c8b5e1d09926"
+    },
+    {
+      "path": "scripts/verify-v2-iq1-successor.mjs",
+      "upstreamSha256": "27168cc1f3f46d8354866911f69154adae797d812b7c2a9a23dc926e7e54a68b"
+    },
+    {
+      "path": "scripts/verify-v3-hf14-successor.mjs",
+      "upstreamSha256": "eb7b3739a1f42c5072464e84f579ea15fcaddf9184a61ae71a89d95070ccc0be"
+    },
+    {
+      "path": "tests/helpers/s1-candidate-lifecycle-fixture.mjs",
+      "upstreamSha256": "fc26383a447de31f2071866e569283126e25628b53dab655374c543893e30318"
+    },
+    {
+      "path": "tests/helpers/s1-fake-venue.mjs",
+      "upstreamSha256": "f951e46a4bd10c24833c80b0ffe9af4b17800323a92c28badaa07274116f849e"
+    },
+    {
+      "path": "tests/jev-evaluate.test.mjs",
+      "upstreamSha256": "c70522547fced1cd1363de0ee23ecbb4833a6b655121d2c26df144b31c319685"
+    },
+    {
+      "path": "tests/jev-filter.test.mjs",
+      "upstreamSha256": "af6120772f37a6760f25f75d02dc0c491b0955ab2a77e892f382f2091a6b205a"
+    },
+    {
+      "path": "tests/s1-candidate-selection.test.mjs",
+      "upstreamSha256": "16dad783f33958242071d24a3e4fac5779d376392b944267b0a8ce975c7a1246"
+    },
+    {
+      "path": "tests/s1-execution-engine.test.mjs",
+      "upstreamSha256": "8e2ef554fdf4adb1843fd74e2d96ffc27b15d176eb665377784d7d6c7aa0194d"
+    },
+    {
+      "path": "tests/s1-position-lifecycle.test.mjs",
+      "upstreamSha256": "c7f711dfa10f24b86ee514bda895a241fb3ad686ca7249da0e65d2314914c9be"
+    },
+    {
+      "path": "tests/s1-precision.test.mjs",
+      "upstreamSha256": "ef3f5cdd42e0c39ed4e07e3350328e890376f03641cbc67aff5f6eb22beda38e"
+    },
+    {
+      "path": "tests/s1-s2-px-first-close-live.test.mjs",
+      "upstreamSha256": "ecb5c23d9bd922e1a33825b79f103e8a853a2a33c08d06f26736cdbbce6d2c82"
+    },
+    {
+      "path": "tests/s1-untouched-intersections.test.mjs",
+      "upstreamSha256": "565ee41dee01d2d44ba504c120ace0cb3a6a357bf07684eef0840eb7e6d0dca6"
+    },
+    {
+      "path": "tradingview/orion_v2_paper_observer.pine",
+      "upstreamSha256": "75142fe1df4a3e243f3b0a7c2553bc9c1e40d6c6bf6787e6890e66e44019303f"
+    },
+    {
+      "path": "tradingview/s1-s2-r22/S1_S2_R22.pine",
+      "upstreamSha256": "3f35b61fefbc429b0433daf6d8be8992b4c3ba8a5cb331fcc29008a60c01a8e1"
+    },
+    {
+      "path": "tradingview/smc-structure-observer/SMC_Structure_Observer_v1.pine",
+      "upstreamSha256": "14ab7b100fb414449791a31b9da9730b3a83ece923912f634fb41743b67ff261"
+    },
+    {
+      "path": "tradingview/smc-structure-observer/Source_Check.pine",
+      "upstreamSha256": "4ee33d723ed599007eee1a3c2fb5c2dbb56465ffcd6654bd22d51b9582390ebc"
+    },
+    {
+      "path": "tradingview/v2-r22/V2.pine",
+      "upstreamSha256": "160db1b51f7b65f24111971c316d2afb6fa5fbe1671ead3a4b32ef5a36b9eb7e"
+    },
+    {
+      "path": "worker/index.ts",
+      "upstreamSha256": "2ed36d7fa996e946d9d7695c5925e7760246f6bf8fa35c06f1bc515c087dc450"
+    }
+  ],
+  "testDisposition": "Curated portable module tests; private authorization and incident-history tests excluded."
+}

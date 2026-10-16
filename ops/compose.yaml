@@ -1,0 +1,18 @@
+name: aegis-public-demo
+services:
+  cockpit:
+    build:
+      context: ..
+      dockerfile: ops/Dockerfile
+    command: [npm, run, dev, --, --host, 0.0.0.0]
+    ports: ["127.0.0.1:3000:3000"]
+    volumes: [public-runtime:/app/.runtime]
+  simulation:
+    build:
+      context: ..
+      dockerfile: ops/Dockerfile
+    command: [npm, run, demo:watch]
+    network_mode: none
+    volumes: [public-runtime:/app/.runtime]
+volumes:
+  public-runtime:

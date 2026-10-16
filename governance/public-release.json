@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "disposition": "INDEPENDENT_SANITIZED_FULL_SOURCE_EXPORT",
+  "privateRuntimeEffect": "NONE",
+  "privateAuthorizationsExported": false,
+  "privateHistoryExported": false,
+  "newGitHistory": true,
+  "default": "LOCAL_SIMULATED_VENUE",
+  "jev": "PRESERVED_SOURCE_DISABLED_RUNTIME"
+}

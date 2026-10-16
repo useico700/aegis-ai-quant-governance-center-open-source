@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/kline-pattern-recognition.schema.json",
+  "title": "K-line pattern recognition result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "symbol",
+    "timeframe",
+    "as_of",
+    "patterns",
+    "data_quality"
+  ],
+  "properties": {
+    "symbol": {
+      "type": "string"
+    },
+    "timeframe": {
+      "type": "string"
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "market_mode": {
+      "enum": [
+        "session",
+        "continuous",
+        "unknown"
+      ]
+    },
+    "data_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "bars"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ok",
+            "warning",
+            "invalid"
+          ]
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pattern_id",
+          "name_zh",
+          "family",
+          "direction",
+          "state",
+          "start_index",
+          "end_index",
+          "confidence",
+          "evidence",
+          "confirmation",
+          "invalidation"
+        ],
+        "properties": {
+          "pattern_id": {
+            "type": "string"
+          },
+          "name_zh": {
+            "type": "string"
+          },
+          "family": {
+            "enum": [
+              "candle",
+              "gap",
+              "price_structure",
+              "harmonic",
+              "market_structure"
+            ]
+          },
+          "direction": {
+            "enum": [
+              "bullish",
+              "bearish",
+              "neutral",
+              "contextual"
+            ]
+          },
+          "state": {
+            "enum": [
+              "forming",
+              "candidate",
+              "confirmed",
+              "failed",
+              "invalidated"
+            ]
+          },
+          "start_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "start_time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "end_time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "prior_trend": {
+            "enum": [
+              "up",
+              "down",
+              "sideways",
+              "mixed",
+              "unknown"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "geometry_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "context_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "confirmation_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "counter_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confirmation": {
+            "type": "string"
+          },
+          "invalidation": {
+            "type": "string"
+          },
+          "confused_with": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "strict_gap": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "lookahead_used": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

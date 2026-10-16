@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "accountLabel": "S1",
+  "strategyRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "mode": "LIVE_PERCENT_RISK",
+  "status": "OWNER_RISK_RECORDED",
+  "riskAuthorization": "governance/owner-authorizations/2026-10-10-s1-r22-rollback.json",
+  "perTradeRiskFraction": "0.04",
+  "portfolioRiskFraction": "0.10",
+  "maximumOpenPositions": 8,
+  "maximumLeverage": 4,
+  "maximumGrossNotionalLeverage": 4,
+  "grossNotionalMustNotExceedEquity": false,
+  "equityBasis": "CURRENT_RECONCILED_S1_MARGIN_BALANCE_USDT",
+  "automaticRiskScalingWithEquity": true,
+  "realOrdersAllowed": true,
+  "newEntriesBlocked": false,
+  "minimumNotionalUpsizingAllowed": false,
+  "negativeExposureOffsetsAllowed": false,
+  "pendingEntryExposureReserved": true,
+  "entryAdmissionRevision": null
+}

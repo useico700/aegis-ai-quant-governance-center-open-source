@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "mode": "LOCAL_SIMULATED_VENUE",
+  "sourceBaseline": "484fcddb3c69f213b0ef26586a2c49f852185bc2",
+  "strategy": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "accounts": [
+    "S1",
+    "S2"
+  ],
+  "exchangeOrdersAllowed": false,
+  "liveAuthorizationInherited": false,
+  "riskProfile": "UPSTREAM_TEST_FIXTURE_ONLY_NOT_AN_ACCOUNT_RECOMMENDATION",
+  "jev": {
+    "enabled": false,
+    "orderAuthority": false
+  }
+}

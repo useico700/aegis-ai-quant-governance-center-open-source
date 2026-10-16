@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "status": "PUBLIC_ISOLATED_DISABLED",
+  "scope": "Public source preserves independent JEV modules; no private observer, shadow, model call or order authority is activated.",
+  "baseline": "governance/upstream-source-manifest.json",
+  "evidence": "governance/public-release.json"
+}

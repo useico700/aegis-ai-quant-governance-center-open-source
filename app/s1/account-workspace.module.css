@@ -1,0 +1,140 @@
+.heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.heading h2{font-size:22px;font-weight:620;letter-spacing:-.02em}
+.heading>span,.kicker{color:var(--muted);font-size:13px}
+.kicker{display:block;margin-bottom:3px;color:var(--cyan-soft);font-weight:600;letter-spacing:.08em}
+.live{color:var(--cyan)!important}
+.warning{color:var(--amber)!important}
+.short{color:var(--rose)!important}
+
+.positions{
+  height:100%;
+  min-height:100%;
+  padding:20px;
+  background:
+    radial-gradient(420px 280px at 100% 0,color-mix(in oklch,var(--cyan) 7%,transparent),transparent 70%),
+    color-mix(in oklch,var(--surface) 91%,transparent);
+}
+.exposure{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.exposure>div{padding:15px;border:1px solid var(--line-soft);border-radius:10px;background:color-mix(in oklch,var(--ink) 55%,transparent)}
+.exposure span{color:var(--muted);font-size:12px}
+.exposure strong{display:block;margin-top:5px;font-size:21px;font-weight:570;letter-spacing:-.025em}
+.exposure small{display:inline!important;color:var(--muted);font-size:12px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:3px}
+.tabs button{min-width:0;padding:8px!important;border-color:transparent!important;background:transparent!important;font-size:12px!important}
+.tabs button[aria-pressed=true]{border-color:var(--line)!important;background:var(--surface-raised)!important;color:var(--cyan)!important}
+.tabs span{margin-left:6px}
+.empty{display:flex;min-height:188px;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+.emptyMark{display:grid;width:48px;height:48px;place-items:center;margin-bottom:12px;border:1px solid var(--line);border-radius:12px;color:var(--cyan);font-size:20px}
+.empty h3{font-size:17px;font-weight:550}
+.empty p{margin-top:7px!important;color:var(--muted);font-size:12px}
+.caption{margin-top:12px!important;color:var(--muted);font-size:12px;line-height:1.7}
+.scroll{overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.scroll table{width:100%;min-width:760px;border-collapse:collapse;text-align:left;white-space:nowrap;font-size:13px}
+.scroll caption{padding:12px 0;text-align:left;color:var(--muted);font-size:12px}
+.scroll th{color:var(--muted);font-size:12px;font-weight:500}
+.scroll th,.scroll td{padding:12px 14px;border-bottom:1px solid var(--line-soft)}
+.scroll td strong,.scroll td small{display:block}
+.scroll td small{margin-top:3px;font-size:12px}
+.stage{color:var(--cyan);font-weight:600}
+.muted{color:var(--muted);font-size:12px}
+.scroll tbody tr:hover{background:color-mix(in oklch,var(--cyan) 5%,transparent)}
+
+.overview{
+  display:grid;
+  grid-template-columns:minmax(0,1.65fr) minmax(280px,.55fr);
+  gap:24px;
+  margin:0;
+  padding:22px;
+  border:1px solid var(--line-soft);
+  border-radius:14px;
+  background:
+    radial-gradient(740px 300px at 22% 100%,color-mix(in oklch,var(--cyan) 8%,transparent),transparent 72%),
+    color-mix(in oklch,var(--surface) 90%,transparent);
+  box-shadow:0 14px 42px oklch(4% .02 250 / .18);
+}
+.overview>*{min-width:0}
+.equityNumbers{display:flex;align-items:flex-end;gap:20px;margin-top:16px;font-variant-numeric:tabular-nums}
+.currentEquity{display:flex;min-width:0;align-items:baseline;gap:8px}
+.currentEquity strong{font-size:38px;font-weight:570;letter-spacing:-.045em;line-height:1.05}
+.currentEquity span{color:var(--muted);font-size:12px}
+.equityNumbers dl{display:flex;gap:28px;margin:0 0 1px auto}
+.equityNumbers dt{color:var(--muted);font-size:12px}
+.equityNumbers dd{margin:4px 0 0;color:var(--text);font-size:14px;font-weight:600;white-space:nowrap}
+.trendMetric dd small{margin-left:4px;color:inherit;font-size:12px;font-weight:500;opacity:.72}
+.positive{color:var(--cyan)!important}
+.negative{color:var(--rose)!important}
+.neutral{color:var(--muted)!important}
+.chart{position:relative;min-height:224px;margin:16px 0 2px;padding:8px 10px 0;border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;background:linear-gradient(180deg,color-mix(in oklch,var(--surface-raised) 48%,transparent),color-mix(in oklch,var(--surface) 34%,transparent))}
+.chart::after{position:absolute;inset:0;pointer-events:none;background:radial-gradient(70% 65% at 55% 4%,color-mix(in oklch,var(--cyan) 5%,transparent),transparent 74%);content:""}
+.chart svg{position:relative;z-index:1;display:block;width:100%;height:auto;max-height:270px;overflow:visible}
+.chart text{fill:var(--muted);font:12px Inter,-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+.grid{stroke:var(--line-soft);stroke-width:.75;stroke-dasharray:2 7;vector-effect:non-scaling-stroke}
+.currentGuide{stroke:currentColor;stroke-width:.75;stroke-dasharray:2 5;opacity:.34;vector-effect:non-scaling-stroke}
+.area{stroke:none;pointer-events:none}
+.areaStart{stop-color:currentColor;stop-opacity:.2}
+.areaEnd{stop-color:currentColor;stop-opacity:.015}
+.curve{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px color-mix(in oklch,currentColor 28%,transparent))}
+.point{fill:currentColor}
+.startPoint{fill:var(--surface);stroke:currentColor;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.endpointHalo{fill:currentColor;opacity:.17}
+.chartEmpty{display:flex;min-height:214px;align-items:center;justify-content:center;flex-direction:column;color:var(--muted);text-align:center}
+.chartEmpty span{font-size:16px}
+.chartEmpty p{margin-top:7px!important;font-size:12px}
+.disclosure{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.8}
+.disclosure summary{min-height:44px;padding:10px 0;color:var(--cyan);cursor:pointer}
+.disclosure p{max-width:84ch}
+.funds{padding-left:22px;border-left:1px solid var(--line-soft)}
+.fundList{margin:17px 0}
+.fundList>div{display:flex;justify-content:space-between;gap:12px;margin:10px 0;font-size:14px}
+.fundList dt{color:var(--muted)}
+.fundList dd{margin:0;font-weight:520}
+.utilization{padding:14px 0;border-block:1px solid var(--line-soft)}
+.utilization>div{display:flex;justify-content:space-between;gap:12px;font-size:12px}
+.utilization meter{display:block;width:100%;height:7px;margin:11px 0;accent-color:var(--cyan);background:var(--line);border:0}
+.utilization meter::-webkit-meter-bar{background:var(--line);border:0}
+.utilization meter::-webkit-meter-optimum-value{background:var(--cyan)}
+.utilization small{color:var(--muted);font-size:12px}
+.accountMeta{display:grid;grid-template-columns:auto 1fr;gap:9px 14px;margin-top:14px;font-size:12px}
+.accountMeta span{color:var(--muted)}
+.accountMeta strong{text-align:right;font-weight:500}
+
+@media(max-width:1100px){
+  .overview{grid-template-columns:minmax(0,1fr) 270px;gap:18px}
+  .funds{padding-left:18px}
+  .equityNumbers{flex-wrap:wrap}
+  .equityNumbers dl{width:100%;margin:5px 0 0}
+}
+@media(max-width:760px){
+  .overview{grid-template-columns:1fr;padding:18px}
+  .funds{padding:18px 0 0;border-top:1px solid var(--line-soft);border-left:0}
+  .fundList{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}
+  .chart{min-height:188px;margin-top:14px;padding-inline:4px}
+  .chart svg{min-height:174px}
+  .currentEquity strong{font-size:32px}
+}
+@media(max-width:430px){
+  .positions{padding:17px}
+  .tabs{grid-template-columns:1fr}
+  .tabs button{text-align:left}
+  .fundList{grid-template-columns:1fr}
+  .equityNumbers dl{justify-content:space-between;gap:14px}
+  .equityNumbers dd{font-size:13px}
+  .trendMetric dd small{display:block;margin:2px 0 0}
+  .heading h2{font-size:20px}
+}
+
+/* Funds and plan overview share one account panel. */
+.equityNumbers dl{width:100%;margin-left:0;justify-content:space-between}
+.equityNumbers .trendMetric dd{font-size:24px;letter-spacing:-.025em}
+.equityNumbers .trendMetric dd small{font-size:12px}
+.fundHero{margin-top:18px}
+.fundHero>span{display:block;margin-bottom:7px;color:var(--muted);font-size:12px}
+.fundHero .currentEquity strong{font-size:36px}
+.accountCounts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 4px;padding:16px 0;border-block:1px solid var(--line-soft);font-variant-numeric:tabular-nums}
+.accountCounts dt{color:var(--muted);font-size:12px}
+.accountCounts dd{margin:5px 0 3px;font-size:26px;font-weight:560;line-height:1.15;letter-spacing:-.025em}
+.accountCounts small{display:block;font-size:12px;color:var(--muted);line-height:1.5}
+.funds [data-stale=true]{opacity:1}
+.funds [data-stale=true] strong,.funds [data-stale=true] dd{color:var(--muted)}
+@media(max-width:760px){.fundHero{margin-top:14px}.fundHero .currentEquity strong{font-size:32px}.funds>.fundList{display:block}.accountCounts{margin-top:14px}.equityNumbers .trendMetric dd{font-size:21px}}
+@media(max-width:430px){.chart svg g text{display:none}.chart svg>text{font-size:33px}}

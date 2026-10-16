@@ -1,0 +1,9 @@
+node_modules
+.git
+.env
+.env.*
+.dev.vars
+.runtime
+.wrangler
+dist
+outputs

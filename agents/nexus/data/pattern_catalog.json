@@ -1,0 +1,1975 @@
+{
+  "version": "1.0.0",
+  "scope": "Candlestick, gap, classical price structure, harmonic and market-structure patterns for AI retrieval and discrimination",
+  "direction_note": "Direction is the traditional contextual interpretation, not a guaranteed forecast.",
+  "patterns": [
+    {
+      "id": "cdl_2_crows",
+      "name_zh": "两只乌鸦",
+      "name_en": "Two Crows",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "长阳后，第二根阴线实体向上跳空；第三根阴线高开后深入第一根阳线实体。",
+      "confirmation": "后续收盘跌破第一根低点或近端支撑。",
+      "invalidation": "收盘重新突破形态最高点。",
+      "confusions": [
+        "cdl_upside_gap_2_crows",
+        "cdl_evening_star"
+      ],
+      "talib": "CDL2CROWS"
+    },
+    {
+      "id": "cdl_3_black_crows",
+      "name_zh": "三只乌鸦",
+      "name_en": "Three Black Crows",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "reversal_or_continuation",
+      "prior_context": "uptrend_or_breakdown",
+      "geometry": "连续三根较长阴线，收盘逐根降低，后两根开盘通常落在前一实体内，上影较短。",
+      "confirmation": "跌破组合最低点且卖量不衰减。",
+      "invalidation": "快速收复第二、第三根实体。",
+      "confusions": [
+        "cdl_identical_3_crows",
+        "cdl_advance_block"
+      ],
+      "talib": "CDL3BLACKCROWS"
+    },
+    {
+      "id": "cdl_3_inside",
+      "name_zh": "三内升/三内降",
+      "name_en": "Three Inside Up/Down",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "前两根构成孕线，第三根沿反转方向收盘并越过第一根收盘。",
+      "confirmation": "第三根已经提供初步确认；再越过组合极值可加强。",
+      "invalidation": "反向跌破或突破组合另一侧极值。",
+      "confusions": [
+        "cdl_harami",
+        "cdl_harami_cross"
+      ],
+      "talib": "CDL3INSIDE"
+    },
+    {
+      "id": "cdl_3_line_strike",
+      "name_zh": "三线打击",
+      "name_en": "Three-Line Strike",
+      "family": "candle",
+      "bars": 4,
+      "direction": "contextual",
+      "role": "continuation_candidate",
+      "prior_context": "trend_matching_first_three",
+      "geometry": "前三根同色并逐步推进，第四根反色长实体包回前三根价格推进。",
+      "confirmation": "价格重新沿前三根方向突破组合极值。",
+      "invalidation": "沿第四根方向延续并突破另一侧。",
+      "confusions": [
+        "cdl_engulfing",
+        "cdl_3_outside"
+      ],
+      "talib": "CDL3LINESTRIKE"
+    },
+    {
+      "id": "cdl_3_outside",
+      "name_zh": "三外升/三外降",
+      "name_en": "Three Outside Up/Down",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "前两根构成反向吞没，第三根继续沿吞没方向并超过第二根收盘。",
+      "confirmation": "第三根为初步确认，越过组合极值增强。",
+      "invalidation": "反向越过吞没组合极值。",
+      "confusions": [
+        "cdl_engulfing",
+        "cdl_3_inside"
+      ],
+      "talib": "CDL3OUTSIDE"
+    },
+    {
+      "id": "cdl_3_stars_in_south",
+      "name_zh": "南方三星",
+      "name_en": "Three Stars in the South",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "三根阴线逐步缩小；第一根下影长，第二根低点更高，第三根为被第二根范围包含的小阴线。",
+      "confirmation": "突破第三根及第二根高点。",
+      "invalidation": "跌破第一根最低点。",
+      "confusions": [
+        "cdl_ladder_bottom",
+        "cdl_3_inside"
+      ],
+      "talib": "CDL3STARSINSOUTH"
+    },
+    {
+      "id": "cdl_3_white_soldiers",
+      "name_zh": "三白兵",
+      "name_en": "Three Advancing White Soldiers",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bullish",
+      "role": "reversal_or_continuation",
+      "prior_context": "downtrend_or_breakout",
+      "geometry": "连续三根较长阳线，收盘逐根升高，后两根开盘位于前一实体内，上影较短。",
+      "confirmation": "突破组合最高点且成交量健康。",
+      "invalidation": "快速跌回第二、第三根实体下方。",
+      "confusions": [
+        "cdl_advance_block",
+        "cdl_stalled_pattern"
+      ],
+      "talib": "CDL3WHITESOLDIERS"
+    },
+    {
+      "id": "cdl_abandoned_baby",
+      "name_zh": "弃婴",
+      "name_en": "Abandoned Baby",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "长实体、与两侧影线均完全跳空的十字星、反向长实体；上下版本镜像。",
+      "confirmation": "第三根反向收盘已经初步确认，突破组合反转侧极值增强。",
+      "invalidation": "回补并越过第三根反向实体。",
+      "confusions": [
+        "cdl_morning_doji_star",
+        "cdl_evening_doji_star",
+        "gap_island_reversal"
+      ],
+      "talib": "CDLABANDONEDBABY"
+    },
+    {
+      "id": "cdl_advance_block",
+      "name_zh": "前进受阻",
+      "name_en": "Advance Block",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "weakening",
+      "prior_context": "uptrend",
+      "geometry": "三根阳线创新高，但实体逐步缩短或上影增长，显示上攻效率下降。",
+      "confirmation": "跌破第三根低点或近端支撑。",
+      "invalidation": "放量长阳突破组合最高点。",
+      "confusions": [
+        "cdl_3_white_soldiers",
+        "cdl_stalled_pattern"
+      ],
+      "talib": "CDLADVANCEBLOCK"
+    },
+    {
+      "id": "cdl_belt_hold",
+      "name_zh": "捉腰带线",
+      "name_en": "Belt-hold",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "reversal_or_momentum",
+      "prior_context": "directional_trend_or_breakout",
+      "geometry": "长实体从一端附近开盘：阳线几乎无下影，阴线几乎无上影。",
+      "confirmation": "沿实体方向突破极值。",
+      "invalidation": "收盘越过开盘端极值。",
+      "confusions": [
+        "cdl_marubozu",
+        "cdl_closing_marubozu"
+      ],
+      "talib": "CDLBELTHOLD"
+    },
+    {
+      "id": "cdl_breakaway",
+      "name_zh": "脱离形态",
+      "name_en": "Breakaway",
+      "family": "candle",
+      "bars": 5,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "strong_directional_trend",
+      "geometry": "第一根延续原趋势，第二根同向跳空，随后两根继续但动能减弱，第五根强力反向并回补部分缺口。",
+      "confirmation": "第五根后继续反向突破。",
+      "invalidation": "价格恢复原趋势并越过形态极值。",
+      "confusions": [
+        "cdl_rise_fall_3_methods",
+        "cdl_mat_hold"
+      ],
+      "talib": "CDLBREAKAWAY"
+    },
+    {
+      "id": "cdl_closing_marubozu",
+      "name_zh": "收盘光头光脚线",
+      "name_en": "Closing Marubozu",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "momentum",
+      "prior_context": "any",
+      "geometry": "长实体且收盘端几乎无影线；阳线收在高点附近，阴线收在低点附近。",
+      "confirmation": "下一根沿实体方向突破。",
+      "invalidation": "下一根完全反包。",
+      "confusions": [
+        "cdl_marubozu",
+        "cdl_belt_hold",
+        "cdl_long_line"
+      ],
+      "talib": "CDLCLOSINGMARUBOZU"
+    },
+    {
+      "id": "cdl_concealing_baby_swallow",
+      "name_zh": "藏婴吞没",
+      "name_en": "Concealing Baby Swallow",
+      "family": "candle",
+      "bars": 4,
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "前两根为向下的阴线光头光脚，第三根向下跳空但带上影，第四根阴线实体吞没第三根。",
+      "confirmation": "突破第四根高点。",
+      "invalidation": "跌破组合最低点。",
+      "confusions": [
+        "cdl_breakaway",
+        "cdl_ladder_bottom"
+      ],
+      "talib": "CDLCONCEALBABYSWALL"
+    },
+    {
+      "id": "cdl_counterattack",
+      "name_zh": "反击线",
+      "name_en": "Counterattack",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "两根反色长实体，第二根沿原趋势方向大幅开出后反攻，收盘与第一根收盘近似相等。",
+      "confirmation": "突破第二根反转侧极值。",
+      "invalidation": "越过第二根另一侧极值。",
+      "confusions": [
+        "cdl_piercing",
+        "cdl_dark_cloud_cover",
+        "cdl_separating_lines"
+      ],
+      "talib": "CDLCOUNTERATTACK"
+    },
+    {
+      "id": "cdl_dark_cloud_cover",
+      "name_zh": "乌云盖顶",
+      "name_en": "Dark Cloud Cover",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "长阳后阴线向上开出，收盘深入前阳实体，通常超过一半但未完全吞没。",
+      "confirmation": "跌破第二根低点或前阳低点。",
+      "invalidation": "突破形态最高点。",
+      "confusions": [
+        "cdl_engulfing",
+        "cdl_counterattack",
+        "cdl_thrusting"
+      ],
+      "talib": "CDLDARKCLOUDCOVER"
+    },
+    {
+      "id": "cdl_doji",
+      "name_zh": "十字星",
+      "name_en": "Doji",
+      "family": "candle",
+      "bars": 1,
+      "direction": "neutral",
+      "role": "indecision",
+      "prior_context": "any",
+      "geometry": "开盘与收盘近似相等，实体相对近期振幅极小。",
+      "confirmation": "必须由位置、前置趋势及后续突破决定方向。",
+      "invalidation": "不适用；单独出现不构成方向信号。",
+      "confusions": [
+        "cdl_long_legged_doji",
+        "cdl_dragonfly_doji",
+        "cdl_gravestone_doji",
+        "cdl_spinning_top"
+      ],
+      "talib": "CDLDOJI"
+    },
+    {
+      "id": "cdl_doji_star",
+      "name_zh": "十字星线",
+      "name_en": "Doji Star",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "directional_trend",
+      "geometry": "长实体后出现实体跳空的十字星。",
+      "confirmation": "第三根向相反方向收盘形成早晨/黄昏十字星。",
+      "invalidation": "价格沿原趋势直接延续。",
+      "confusions": [
+        "cdl_morning_doji_star",
+        "cdl_evening_doji_star",
+        "cdl_abandoned_baby"
+      ],
+      "talib": "CDLDOJISTAR"
+    },
+    {
+      "id": "cdl_dragonfly_doji",
+      "name_zh": "蜻蜓十字",
+      "name_en": "Dragonfly Doji",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "usually_downtrend",
+      "geometry": "十字星位于振幅顶部，长下影，几乎无上影。",
+      "confirmation": "后续突破高点；底部语义强于趋势中部。",
+      "invalidation": "跌破长下影低点。",
+      "confusions": [
+        "cdl_takuri",
+        "cdl_hammer",
+        "cdl_gravestone_doji"
+      ],
+      "talib": "CDLDRAGONFLYDOJI"
+    },
+    {
+      "id": "cdl_engulfing",
+      "name_zh": "吞没形态",
+      "name_en": "Engulfing Pattern",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "第一根与第二根反色，第二根实体完整覆盖第一根实体；影线无需被覆盖。",
+      "confirmation": "突破第二根反转侧极值。",
+      "invalidation": "越过组合另一侧极值。",
+      "confusions": [
+        "cdl_3_outside",
+        "cdl_harami",
+        "candle_outside_bar"
+      ],
+      "talib": "CDLENGULFING"
+    },
+    {
+      "id": "cdl_evening_doji_star",
+      "name_zh": "黄昏十字星",
+      "name_en": "Evening Doji Star",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "长阳、实体向上跳空的十字星、长阴；第三根深入第一根阳线实体。",
+      "confirmation": "跌破第三根低点。",
+      "invalidation": "突破组合最高点。",
+      "confusions": [
+        "cdl_evening_star",
+        "cdl_abandoned_baby",
+        "cdl_doji_star"
+      ],
+      "talib": "CDLEVENINGDOJISTAR"
+    },
+    {
+      "id": "cdl_evening_star",
+      "name_zh": "黄昏之星",
+      "name_en": "Evening Star",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "长阳、小实体星线、长阴；第三根深入第一根阳线实体。",
+      "confirmation": "跌破第三根低点或近端支撑。",
+      "invalidation": "突破星线最高点。",
+      "confusions": [
+        "cdl_evening_doji_star",
+        "cdl_2_crows"
+      ],
+      "talib": "CDLEVENINGSTAR"
+    },
+    {
+      "id": "cdl_gap_side_side_white",
+      "name_zh": "跳空并列阳线",
+      "name_en": "Up/Down-gap Side-by-side White Lines",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "directional_trend",
+      "geometry": "第一根后形成向上或向下跳空，随后两根相似大小、开盘近似相等的阳线并列。",
+      "confirmation": "沿缺口方向突破并列线极值。",
+      "invalidation": "完整回补缺口并突破反侧。",
+      "confusions": [
+        "cdl_tasuki_gap",
+        "gap_runaway"
+      ],
+      "talib": "CDLGAPSIDESIDEWHITE"
+    },
+    {
+      "id": "cdl_gravestone_doji",
+      "name_zh": "墓碑十字",
+      "name_en": "Gravestone Doji",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "usually_uptrend",
+      "geometry": "十字星位于振幅底部，长上影，几乎无下影。",
+      "confirmation": "后续跌破低点；顶部语义强于趋势中部。",
+      "invalidation": "突破长上影高点。",
+      "confusions": [
+        "cdl_dragonfly_doji",
+        "cdl_shooting_star",
+        "cdl_inverted_hammer"
+      ],
+      "talib": "CDLGRAVESTONEDOJI"
+    },
+    {
+      "id": "cdl_hammer",
+      "name_zh": "锤子线",
+      "name_en": "Hammer",
+      "family": "candle",
+      "bars": 1,
+      "direction": "bullish",
+      "role": "reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "小实体位于振幅顶部，长下影，几乎无上影，并处在近端低位。",
+      "confirmation": "后续收盘突破锤子高点。",
+      "invalidation": "收盘跌破锤子低点。",
+      "confusions": [
+        "cdl_hanging_man",
+        "cdl_dragonfly_doji",
+        "candle_pin_bar"
+      ],
+      "talib": "CDLHAMMER"
+    },
+    {
+      "id": "cdl_hanging_man",
+      "name_zh": "上吊线",
+      "name_en": "Hanging Man",
+      "family": "candle",
+      "bars": 1,
+      "direction": "bearish",
+      "role": "reversal_candidate",
+      "prior_context": "uptrend",
+      "geometry": "与锤子线相同：小实体在顶部、长下影、上影很短，但处于近端高位。",
+      "confirmation": "后续收盘跌破上吊线低点。",
+      "invalidation": "突破上吊线高点并延续。",
+      "confusions": [
+        "cdl_hammer",
+        "cdl_takuri",
+        "candle_pin_bar"
+      ],
+      "talib": "CDLHANGINGMAN"
+    },
+    {
+      "id": "cdl_harami",
+      "name_zh": "孕线",
+      "name_en": "Harami",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "directional_trend",
+      "geometry": "第一根为长实体，第二根为短实体且包含在第一根实体内；颜色可相同，但反色更典型。",
+      "confirmation": "突破第二根及第一根反转侧边界。",
+      "invalidation": "沿原趋势突破第一根极值。",
+      "confusions": [
+        "cdl_harami_cross",
+        "cdl_engulfing",
+        "candle_inside_bar"
+      ],
+      "talib": "CDLHARAMI"
+    },
+    {
+      "id": "cdl_harami_cross",
+      "name_zh": "十字孕线",
+      "name_en": "Harami Cross",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "directional_trend",
+      "geometry": "第一根长实体，第二根为被第一根实体包含的十字星。",
+      "confirmation": "向反转方向突破第一根边界。",
+      "invalidation": "沿原趋势突破第一根极值。",
+      "confusions": [
+        "cdl_harami",
+        "cdl_doji_star",
+        "candle_inside_bar"
+      ],
+      "talib": "CDLHARAMICROSS"
+    },
+    {
+      "id": "cdl_high_wave",
+      "name_zh": "高浪线",
+      "name_en": "High-Wave Candle",
+      "family": "candle",
+      "bars": 1,
+      "direction": "neutral",
+      "role": "indecision",
+      "prior_context": "any",
+      "geometry": "短实体，同时具有很长的上影和下影。",
+      "confirmation": "由后续突破高浪线高低点决定。",
+      "invalidation": "不适用；颜色仅描述收涨收跌。",
+      "confusions": [
+        "cdl_long_legged_doji",
+        "cdl_spinning_top",
+        "cdl_rickshaw_man"
+      ],
+      "talib": "CDLHIGHWAVE"
+    },
+    {
+      "id": "cdl_hikkake",
+      "name_zh": "陷阱形态",
+      "name_en": "Hikkake",
+      "family": "candle",
+      "bars": "3_to_5",
+      "direction": "contextual",
+      "role": "false_breakout_reversal",
+      "prior_context": "any",
+      "geometry": "先形成内包线，随后向一侧假突破，之后价格反向越过内包线另一侧完成陷阱。",
+      "confirmation": "在限定根数内反向突破母线边界。",
+      "invalidation": "假突破方向持续并远离母线。",
+      "confusions": [
+        "cdl_hikkake_modified",
+        "candle_inside_bar",
+        "structure_false_breakout"
+      ],
+      "talib": "CDLHIKKAKE"
+    },
+    {
+      "id": "cdl_hikkake_modified",
+      "name_zh": "修正陷阱形态",
+      "name_en": "Modified Hikkake",
+      "family": "candle",
+      "bars": "4_to_7",
+      "direction": "contextual",
+      "role": "false_breakout_reversal",
+      "prior_context": "any",
+      "geometry": "在普通陷阱结构前增加范围与位置限制，内包组合前的母线处于更明确的短期极值。",
+      "confirmation": "反向越过母线边界。",
+      "invalidation": "假突破方向继续延伸。",
+      "confusions": [
+        "cdl_hikkake",
+        "structure_false_breakout"
+      ],
+      "talib": "CDLHIKKAKEMOD"
+    },
+    {
+      "id": "cdl_homing_pigeon",
+      "name_zh": "家鸽",
+      "name_en": "Homing Pigeon",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bullish",
+      "role": "reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "两根阴线，第一根长实体，第二根较短且实体完整包含在第一根实体内。",
+      "confirmation": "突破第二根及第一根高点。",
+      "invalidation": "跌破组合最低点。",
+      "confusions": [
+        "cdl_harami",
+        "cdl_matching_low"
+      ],
+      "talib": "CDLHOMINGPIGEON"
+    },
+    {
+      "id": "cdl_identical_3_crows",
+      "name_zh": "相同三只乌鸦",
+      "name_en": "Identical Three Crows",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "reversal_or_continuation",
+      "prior_context": "uptrend_or_breakdown",
+      "geometry": "连续三根阴线，后两根开盘与前一根收盘近似相等，收盘逐步降低。",
+      "confirmation": "跌破第三根低点。",
+      "invalidation": "强力收复后两根实体。",
+      "confusions": [
+        "cdl_3_black_crows"
+      ],
+      "talib": "CDLIDENTICAL3CROWS"
+    },
+    {
+      "id": "cdl_in_neck",
+      "name_zh": "颈内线",
+      "name_en": "In-Neck",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bearish",
+      "role": "continuation",
+      "prior_context": "downtrend",
+      "geometry": "长阴后阳线低开，反弹收盘略高于前阴收盘但远未进入其实体中部。",
+      "confirmation": "跌破组合最低点。",
+      "invalidation": "阳线继续深入并站上前阴实体中点。",
+      "confusions": [
+        "cdl_on_neck",
+        "cdl_thrusting",
+        "cdl_piercing"
+      ],
+      "talib": "CDLINNECK"
+    },
+    {
+      "id": "cdl_inverted_hammer",
+      "name_zh": "倒锤子线",
+      "name_en": "Inverted Hammer",
+      "family": "candle",
+      "bars": 1,
+      "direction": "bullish",
+      "role": "reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "小实体位于振幅底部，长上影、几乎无下影，并处于近端低位。",
+      "confirmation": "后续收盘突破其高点。",
+      "invalidation": "跌破其低点。",
+      "confusions": [
+        "cdl_shooting_star",
+        "cdl_gravestone_doji",
+        "candle_pin_bar"
+      ],
+      "talib": "CDLINVERTEDHAMMER"
+    },
+    {
+      "id": "cdl_kicking",
+      "name_zh": "反冲形态",
+      "name_en": "Kicking",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal_or_breakout",
+      "prior_context": "any",
+      "geometry": "两根反色光头光脚长实体之间存在完整跳空，显示控制权突然切换。",
+      "confirmation": "沿第二根方向延续且缺口不被回补。",
+      "invalidation": "完整回补缺口并回到第一根实体。",
+      "confusions": [
+        "cdl_kicking_by_length",
+        "gap_breakaway"
+      ],
+      "talib": "CDLKICKING"
+    },
+    {
+      "id": "cdl_kicking_by_length",
+      "name_zh": "长实体反冲形态",
+      "name_en": "Kicking by Length",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal_or_breakout",
+      "prior_context": "any",
+      "geometry": "与反冲形态相同，但方向由两根光头光脚线中实体更长者决定。",
+      "confirmation": "沿更长实体方向延续且缺口保留。",
+      "invalidation": "缺口被完整回补。",
+      "confusions": [
+        "cdl_kicking"
+      ],
+      "talib": "CDLKICKINGBYLENGTH"
+    },
+    {
+      "id": "cdl_ladder_bottom",
+      "name_zh": "梯底",
+      "name_en": "Ladder Bottom",
+      "family": "candle",
+      "bars": 5,
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "多根阴线阶梯式下行，第四根带明显上影，第五根阳线向上开出并强力反转。",
+      "confirmation": "突破第五根高点或前端短期阻力。",
+      "invalidation": "跌破组合最低点。",
+      "confusions": [
+        "cdl_3_stars_in_south",
+        "cdl_concealing_baby_swallow"
+      ],
+      "talib": "CDLLADDERBOTTOM"
+    },
+    {
+      "id": "cdl_long_legged_doji",
+      "name_zh": "长脚十字",
+      "name_en": "Long-Legged Doji",
+      "family": "candle",
+      "bars": 1,
+      "direction": "neutral",
+      "role": "indecision",
+      "prior_context": "any",
+      "geometry": "十字星伴随很长的上、下影线。",
+      "confirmation": "由后续突破高低点和所处位置决定。",
+      "invalidation": "不适用。",
+      "confusions": [
+        "cdl_high_wave",
+        "cdl_rickshaw_man",
+        "cdl_doji"
+      ],
+      "talib": "CDLLONGLEGGEDDOJI"
+    },
+    {
+      "id": "cdl_long_line",
+      "name_zh": "长实体线",
+      "name_en": "Long Line Candle",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "momentum",
+      "prior_context": "any",
+      "geometry": "实体相对近期平均显著较长，上下影相对较短。",
+      "confirmation": "沿实体方向突破并延续。",
+      "invalidation": "被下一根完全反包。",
+      "confusions": [
+        "cdl_marubozu",
+        "cdl_closing_marubozu"
+      ],
+      "talib": "CDLLONGLINE"
+    },
+    {
+      "id": "cdl_marubozu",
+      "name_zh": "光头光脚线",
+      "name_en": "Marubozu",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "momentum",
+      "prior_context": "any",
+      "geometry": "长实体且上下影线均极短。",
+      "confirmation": "沿实体方向继续收盘。",
+      "invalidation": "迅速被反向长实体吞没。",
+      "confusions": [
+        "cdl_long_line",
+        "cdl_belt_hold",
+        "cdl_closing_marubozu"
+      ],
+      "talib": "CDLMARUBOZU"
+    },
+    {
+      "id": "cdl_matching_low",
+      "name_zh": "相同低价",
+      "name_en": "Matching Low",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bullish",
+      "role": "support_reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "连续两根阴线的收盘价近似相等，第二根实体通常较小。",
+      "confirmation": "突破第二根高点或近端阻力。",
+      "invalidation": "收盘明显跌破共同低位。",
+      "confusions": [
+        "candle_tweezer_bottom",
+        "cdl_homing_pigeon"
+      ],
+      "talib": "CDLMATCHINGLOW"
+    },
+    {
+      "id": "cdl_mat_hold",
+      "name_zh": "铺垫形态",
+      "name_en": "Mat Hold",
+      "family": "candle",
+      "bars": 5,
+      "direction": "bullish",
+      "role": "continuation",
+      "prior_context": "uptrend",
+      "geometry": "长阳后小阴实体向上跳空，随后两根小实体回撤但守在首根实体上部，最后长阳突破反应线高点。",
+      "confirmation": "第五根突破并收高。",
+      "invalidation": "回撤跌穿第一根阳线实体允许深度。",
+      "confusions": [
+        "cdl_rise_fall_3_methods",
+        "cdl_breakaway"
+      ],
+      "talib": "CDLMATHOLD"
+    },
+    {
+      "id": "cdl_morning_doji_star",
+      "name_zh": "早晨十字星",
+      "name_en": "Morning Doji Star",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "长阴、实体向下跳空的十字星、长阳；第三根深入第一根阴线实体。",
+      "confirmation": "突破第三根高点。",
+      "invalidation": "跌破组合最低点。",
+      "confusions": [
+        "cdl_morning_star",
+        "cdl_abandoned_baby",
+        "cdl_doji_star"
+      ],
+      "talib": "CDLMORNINGDOJISTAR"
+    },
+    {
+      "id": "cdl_morning_star",
+      "name_zh": "早晨之星",
+      "name_en": "Morning Star",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "长阴、小实体星线、长阳；第三根深入第一根阴线实体。",
+      "confirmation": "突破第三根高点或近端阻力。",
+      "invalidation": "跌破星线最低点。",
+      "confusions": [
+        "cdl_morning_doji_star",
+        "cdl_3_stars_in_south"
+      ],
+      "talib": "CDLMORNINGSTAR"
+    },
+    {
+      "id": "cdl_on_neck",
+      "name_zh": "颈上线",
+      "name_en": "On-Neck",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bearish",
+      "role": "continuation",
+      "prior_context": "downtrend",
+      "geometry": "长阴后阳线向下跳空，收盘仅回到前阴最低点附近。",
+      "confirmation": "跌破第二根最低点。",
+      "invalidation": "继续反弹进入前阴实体。",
+      "confusions": [
+        "cdl_in_neck",
+        "cdl_thrusting",
+        "cdl_piercing"
+      ],
+      "talib": "CDLONNECK"
+    },
+    {
+      "id": "cdl_piercing",
+      "name_zh": "刺透形态",
+      "name_en": "Piercing Pattern",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "长阴后阳线低开，阳线收盘超过前阴实体中点但未完全吞没。",
+      "confirmation": "突破第二根高点或第一根高点。",
+      "invalidation": "跌破组合最低点。",
+      "confusions": [
+        "cdl_engulfing",
+        "cdl_in_neck",
+        "cdl_thrusting",
+        "cdl_counterattack"
+      ],
+      "talib": "CDLPIERCING"
+    },
+    {
+      "id": "cdl_rickshaw_man",
+      "name_zh": "黄包车夫",
+      "name_en": "Rickshaw Man",
+      "family": "candle",
+      "bars": 1,
+      "direction": "neutral",
+      "role": "indecision",
+      "prior_context": "any",
+      "geometry": "长脚十字且实体位于整根振幅中部附近。",
+      "confirmation": "由后续突破高低点决定。",
+      "invalidation": "不适用。",
+      "confusions": [
+        "cdl_long_legged_doji",
+        "cdl_high_wave"
+      ],
+      "talib": "CDLRICKSHAWMAN"
+    },
+    {
+      "id": "cdl_rise_fall_3_methods",
+      "name_zh": "上升/下降三法",
+      "name_en": "Rising/Falling Three Methods",
+      "family": "candle",
+      "bars": 5,
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "directional_trend",
+      "geometry": "长趋势实体后出现三根被首根范围约束的小幅反向整理，最后一根长实体沿原趋势突破。",
+      "confirmation": "第五根越过第一根趋势端极值。",
+      "invalidation": "整理阶段越过第一根反侧极值。",
+      "confusions": [
+        "cdl_mat_hold",
+        "structure_flag",
+        "cdl_breakaway"
+      ],
+      "talib": "CDLRISEFALL3METHODS"
+    },
+    {
+      "id": "cdl_separating_lines",
+      "name_zh": "分离线",
+      "name_en": "Separating Lines",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "directional_trend",
+      "geometry": "两根反色 K 线开盘价近似相等，第二根恢复原趋势并以长实体收盘。",
+      "confirmation": "突破第二根趋势侧极值。",
+      "invalidation": "价格反向穿过第二根实体。",
+      "confusions": [
+        "cdl_counterattack",
+        "cdl_kicking"
+      ],
+      "talib": "CDLSEPARATINGLINES"
+    },
+    {
+      "id": "cdl_shooting_star",
+      "name_zh": "流星线",
+      "name_en": "Shooting Star",
+      "family": "candle",
+      "bars": 1,
+      "direction": "bearish",
+      "role": "reversal_candidate",
+      "prior_context": "uptrend",
+      "geometry": "与倒锤子相同：小实体位于振幅底部，长上影、几乎无下影，但处于近端高位。",
+      "confirmation": "后续收盘跌破其低点。",
+      "invalidation": "突破其高点并延续。",
+      "confusions": [
+        "cdl_inverted_hammer",
+        "cdl_gravestone_doji",
+        "candle_pin_bar"
+      ],
+      "talib": "CDLSHOOTINGSTAR"
+    },
+    {
+      "id": "cdl_short_line",
+      "name_zh": "短实体线",
+      "name_en": "Short Line Candle",
+      "family": "candle",
+      "bars": 1,
+      "direction": "neutral",
+      "role": "low_momentum",
+      "prior_context": "any",
+      "geometry": "实体和影线相对近期平均都较短。",
+      "confirmation": "本身不提供方向，等待区间突破。",
+      "invalidation": "不适用。",
+      "confusions": [
+        "cdl_spinning_top",
+        "cdl_doji"
+      ],
+      "talib": "CDLSHORTLINE"
+    },
+    {
+      "id": "cdl_spinning_top",
+      "name_zh": "纺锤线",
+      "name_en": "Spinning Top",
+      "family": "candle",
+      "bars": 1,
+      "direction": "neutral",
+      "role": "indecision",
+      "prior_context": "any",
+      "geometry": "短实体，上下影均明显但不必极长。",
+      "confirmation": "由位置及后续突破决定。",
+      "invalidation": "不适用；颜色只表示当根涨跌。",
+      "confusions": [
+        "cdl_doji",
+        "cdl_high_wave",
+        "cdl_short_line"
+      ],
+      "talib": "CDLSPINNINGTOP"
+    },
+    {
+      "id": "cdl_stalled_pattern",
+      "name_zh": "停滞形态",
+      "name_en": "Stalled Pattern",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "weakening",
+      "prior_context": "uptrend",
+      "geometry": "三根阳线继续抬高，但第三根小实体靠近第二根顶部，显示推进停滞。",
+      "confirmation": "跌破第三根或第二根低点。",
+      "invalidation": "放量突破形态最高点。",
+      "confusions": [
+        "cdl_advance_block",
+        "cdl_3_white_soldiers"
+      ],
+      "talib": "CDLSTALLEDPATTERN"
+    },
+    {
+      "id": "cdl_stick_sandwich",
+      "name_zh": "条形三明治",
+      "name_en": "Stick Sandwich",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bullish",
+      "role": "support_reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "阴线、阳线、阴线；第一与第三根阴线收盘近似相等，形成重复支撑。",
+      "confirmation": "突破中间阳线或第三根高点。",
+      "invalidation": "明显跌破共同收盘支撑。",
+      "confusions": [
+        "cdl_matching_low",
+        "candle_tweezer_bottom"
+      ],
+      "talib": "CDLSTICKSANDWICH"
+    },
+    {
+      "id": "cdl_takuri",
+      "name_zh": "探水竿",
+      "name_en": "Takuri",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "usually_downtrend",
+      "geometry": "蜻蜓十字的极端版本：几乎无上影且下影特别长。",
+      "confirmation": "后续突破高点。",
+      "invalidation": "跌破长下影低点。",
+      "confusions": [
+        "cdl_dragonfly_doji",
+        "cdl_hammer",
+        "cdl_hanging_man"
+      ],
+      "talib": "CDLTAKURI"
+    },
+    {
+      "id": "cdl_tasuki_gap",
+      "name_zh": "跳空并列阴阳线",
+      "name_en": "Tasuki Gap",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "directional_trend",
+      "geometry": "两根同向实体形成缺口，第三根反色回补部分缺口但不完全封闭。",
+      "confirmation": "价格重新沿缺口方向突破。",
+      "invalidation": "缺口被完整回补并越过。",
+      "confusions": [
+        "cdl_gap_side_side_white",
+        "cdl_xside_gap_3_methods"
+      ],
+      "talib": "CDLTASUKIGAP"
+    },
+    {
+      "id": "cdl_thrusting",
+      "name_zh": "插入线",
+      "name_en": "Thrusting Pattern",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bearish",
+      "role": "continuation",
+      "prior_context": "downtrend",
+      "geometry": "长阴后阳线低开并回升进入前阴实体，但收盘仍未达到实体中点。",
+      "confirmation": "跌破组合最低点。",
+      "invalidation": "进一步收复前阴实体中点以上。",
+      "confusions": [
+        "cdl_on_neck",
+        "cdl_in_neck",
+        "cdl_piercing"
+      ],
+      "talib": "CDLTHRUSTING"
+    },
+    {
+      "id": "cdl_tristar",
+      "name_zh": "三星形态",
+      "name_en": "Tristar",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "连续三个十字星，中间十字星相对两侧发生实体跳空；顶部和底部版本镜像。",
+      "confirmation": "第三根后向反转方向突破。",
+      "invalidation": "沿原趋势突破中间十字星极值。",
+      "confusions": [
+        "cdl_abandoned_baby",
+        "cdl_doji_star"
+      ],
+      "talib": "CDLTRISTAR"
+    },
+    {
+      "id": "cdl_unique_3_river",
+      "name_zh": "奇特三河床",
+      "name_en": "Unique Three River",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bullish",
+      "role": "reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "长阴、创新低且带长下影的小阴、位于前一范围内的小阳，显示抛压衰竭。",
+      "confirmation": "突破第三根及第二根高点。",
+      "invalidation": "跌破第二根长下影低点。",
+      "confusions": [
+        "cdl_morning_star",
+        "cdl_3_stars_in_south"
+      ],
+      "talib": "CDLUNIQUE3RIVER"
+    },
+    {
+      "id": "cdl_upside_gap_2_crows",
+      "name_zh": "向上跳空两只乌鸦",
+      "name_en": "Upside Gap Two Crows",
+      "family": "candle",
+      "bars": 3,
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "长阳后第一根小阴向上跳空，第二根更大的阴线吞没小阴实体，但仍位于首根阳线上方。",
+      "confirmation": "跌破首根阳线高点附近的缺口支撑或其实体。",
+      "invalidation": "突破组合最高点。",
+      "confusions": [
+        "cdl_2_crows",
+        "cdl_evening_star"
+      ],
+      "talib": "CDLUPSIDEGAP2CROWS"
+    },
+    {
+      "id": "cdl_xside_gap_3_methods",
+      "name_zh": "向上/向下跳空三法",
+      "name_en": "Upside/Downside Gap Three Methods",
+      "family": "candle",
+      "bars": 3,
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "directional_trend",
+      "geometry": "前两根同色并形成方向性缺口，第三根反色从第二根实体内穿回第一根实体，但主要缺口结构仍表达延续。",
+      "confirmation": "沿原趋势越过前两根极值。",
+      "invalidation": "完整回补并反向离开缺口。",
+      "confusions": [
+        "cdl_tasuki_gap",
+        "cdl_rise_fall_3_methods"
+      ],
+      "talib": "CDLXSIDEGAP3METHODS"
+    },
+    {
+      "id": "candle_inside_bar",
+      "name_zh": "内包线",
+      "name_en": "Inside Bar",
+      "family": "candle",
+      "bars": 2,
+      "direction": "neutral",
+      "role": "compression",
+      "prior_context": "any",
+      "geometry": "第二根最高价低于第一根最高价，最低价高于第一根最低价；比较的是完整振幅而非实体。",
+      "confirmation": "收盘突破母线高点或低点。",
+      "invalidation": "假突破后反向越过母线另一端。",
+      "confusions": [
+        "cdl_harami",
+        "cdl_harami_cross",
+        "cdl_hikkake"
+      ],
+      "talib": null
+    },
+    {
+      "id": "candle_outside_bar",
+      "name_zh": "外包线",
+      "name_en": "Outside Bar",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "range_expansion",
+      "prior_context": "any",
+      "geometry": "第二根最高价高于第一根最高价且最低价低于第一根最低价。",
+      "confirmation": "收盘位置和后续突破决定方向。",
+      "invalidation": "价格重返并停留在外包线中部。",
+      "confusions": [
+        "cdl_engulfing",
+        "candle_key_reversal"
+      ],
+      "talib": null
+    },
+    {
+      "id": "candle_pin_bar",
+      "name_zh": "针形线",
+      "name_en": "Pin Bar",
+      "family": "candle",
+      "bars": 1,
+      "direction": "contextual",
+      "role": "rejection",
+      "prior_context": "directional_trend_or_level_test",
+      "geometry": "一侧影线通常至少为实体两倍，另一侧影线很短，实体靠近振幅一端。",
+      "confirmation": "向长影线反方向突破。",
+      "invalidation": "收盘越过长影线端点。",
+      "confusions": [
+        "cdl_hammer",
+        "cdl_hanging_man",
+        "cdl_inverted_hammer",
+        "cdl_shooting_star"
+      ],
+      "talib": null
+    },
+    {
+      "id": "candle_tweezer_top",
+      "name_zh": "镊子顶",
+      "name_en": "Tweezer Top",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bearish",
+      "role": "resistance_reversal_candidate",
+      "prior_context": "uptrend",
+      "geometry": "相邻两根最高价在容差内近似相等，颜色和实体结构可变。",
+      "confirmation": "跌破两根 K 线的近端低点。",
+      "invalidation": "收盘突破共同高点。",
+      "confusions": [
+        "structure_double_top",
+        "cdl_matching_low"
+      ],
+      "talib": null
+    },
+    {
+      "id": "candle_tweezer_bottom",
+      "name_zh": "镊子底",
+      "name_en": "Tweezer Bottom",
+      "family": "candle",
+      "bars": 2,
+      "direction": "bullish",
+      "role": "support_reversal_candidate",
+      "prior_context": "downtrend",
+      "geometry": "相邻两根最低价在容差内近似相等。",
+      "confirmation": "突破两根 K 线的近端高点。",
+      "invalidation": "收盘跌破共同低点。",
+      "confusions": [
+        "structure_double_bottom",
+        "cdl_matching_low"
+      ],
+      "talib": null
+    },
+    {
+      "id": "candle_key_reversal",
+      "name_zh": "关键反转线",
+      "name_en": "Key Reversal Bar",
+      "family": "candle",
+      "bars": 2,
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "创出趋势新极值后，收盘反向越过前一根收盘；严格版可要求外包。",
+      "confirmation": "下一根沿反转方向突破。",
+      "invalidation": "重新越过反转线极值。",
+      "confusions": [
+        "candle_outside_bar",
+        "cdl_engulfing"
+      ],
+      "talib": null
+    },
+    {
+      "id": "gap_common",
+      "name_zh": "普通缺口",
+      "name_en": "Common Gap",
+      "family": "gap",
+      "bars": "2_plus",
+      "direction": "neutral",
+      "role": "range_gap",
+      "prior_context": "sideways",
+      "geometry": "整理区内出现小型价格区间不重叠，缺少趋势启动或加速背景。",
+      "confirmation": "通常无需方向确认。",
+      "invalidation": "缺口被回补即结束。",
+      "confusions": [
+        "gap_breakaway",
+        "gap_runaway"
+      ],
+      "talib": null
+    },
+    {
+      "id": "gap_breakaway",
+      "name_zh": "突破缺口",
+      "name_en": "Breakaway Gap",
+      "family": "gap",
+      "bars": "2_plus",
+      "direction": "contextual",
+      "role": "breakout",
+      "prior_context": "base_or_major_boundary",
+      "geometry": "价格以明显缺口越过盘整区、颈线或重要支撑阻力，常伴成交量放大。",
+      "confirmation": "数根 K 线内缺口未被回补且沿突破方向延续。",
+      "invalidation": "快速完整回补并返回原区间。",
+      "confusions": [
+        "gap_common",
+        "gap_runaway"
+      ],
+      "talib": null
+    },
+    {
+      "id": "gap_runaway",
+      "name_zh": "持续/测量缺口",
+      "name_en": "Runaway or Measuring Gap",
+      "family": "gap",
+      "bars": "2_plus",
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "established_trend",
+      "geometry": "成熟趋势中段出现方向性缺口，远离主要盘整边界。",
+      "confirmation": "缺口保持且趋势继续。",
+      "invalidation": "短期内完整回补。",
+      "confusions": [
+        "gap_breakaway",
+        "gap_exhaustion"
+      ],
+      "talib": null
+    },
+    {
+      "id": "gap_exhaustion",
+      "name_zh": "衰竭缺口",
+      "name_en": "Exhaustion Gap",
+      "family": "gap",
+      "bars": "2_plus",
+      "direction": "contextual",
+      "role": "reversal_candidate",
+      "prior_context": "extended_trend",
+      "geometry": "长趋势末端出现大缺口与极端波动/成交量，但随后缺乏延续。",
+      "confirmation": "价格回补缺口并反向突破缺口前支撑/阻力。",
+      "invalidation": "缺口保持并演化为持续缺口。",
+      "confusions": [
+        "gap_runaway",
+        "gap_island_reversal"
+      ],
+      "talib": null
+    },
+    {
+      "id": "gap_island_reversal",
+      "name_zh": "岛形反转",
+      "name_en": "Island Reversal",
+      "family": "gap",
+      "bars": "3_plus",
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "extended_trend",
+      "geometry": "一组价格先沿原趋势跳空形成孤岛，随后以反向缺口离开，孤岛与两侧区间不重叠。",
+      "confirmation": "反向缺口保持并进一步突破。",
+      "invalidation": "任一缺口被完整回补。",
+      "confusions": [
+        "cdl_abandoned_baby",
+        "gap_exhaustion"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_double_top",
+      "name_zh": "双顶",
+      "name_en": "Double Top",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "两个显著高点近似等高，中间存在有足够显著度的低点作为颈线。",
+      "confirmation": "收盘跌破颈线；放量或回抽不过可加强。",
+      "invalidation": "收盘有效突破两顶。",
+      "confusions": [
+        "candle_tweezer_top",
+        "structure_triple_top",
+        "structure_rectangle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_double_bottom",
+      "name_zh": "双底",
+      "name_en": "Double Bottom",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "两个显著低点近似等低，中间高点构成颈线。",
+      "confirmation": "收盘突破颈线。",
+      "invalidation": "有效跌破两底。",
+      "confusions": [
+        "candle_tweezer_bottom",
+        "structure_triple_bottom",
+        "structure_rectangle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_triple_top",
+      "name_zh": "三重顶",
+      "name_en": "Triple Top",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "三个显著高点位于同一阻力带，两段回撤形成颈线区域。",
+      "confirmation": "跌破最低的颈线支撑。",
+      "invalidation": "突破三顶阻力带。",
+      "confusions": [
+        "structure_double_top",
+        "structure_head_shoulders_top",
+        "structure_rectangle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_triple_bottom",
+      "name_zh": "三重底",
+      "name_en": "Triple Bottom",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "三个显著低点位于同一支撑带，两段反弹形成颈线区域。",
+      "confirmation": "突破最高的颈线阻力。",
+      "invalidation": "跌破三底支撑带。",
+      "confusions": [
+        "structure_double_bottom",
+        "structure_head_shoulders_bottom",
+        "structure_rectangle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_head_shoulders_top",
+      "name_zh": "头肩顶",
+      "name_en": "Head and Shoulders Top",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "三个峰，中峰显著高于左右肩，左右肩近似，两谷连线为颈线。",
+      "confirmation": "收盘跌破颈线；量能扩大或回抽失败加强。",
+      "invalidation": "突破右肩或头部，具体级别按策略定义。",
+      "confusions": [
+        "structure_triple_top",
+        "structure_complex_head_shoulders"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_head_shoulders_bottom",
+      "name_zh": "头肩底",
+      "name_en": "Inverse Head and Shoulders",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "三个谷，中谷显著低于左右肩，左右肩近似，两峰连线为颈线。",
+      "confirmation": "收盘突破颈线。",
+      "invalidation": "跌破右肩或头部。",
+      "confusions": [
+        "structure_triple_bottom",
+        "structure_complex_head_shoulders"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_complex_head_shoulders",
+      "name_zh": "复合头肩形",
+      "name_en": "Complex Head and Shoulders",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "contextual",
+      "role": "reversal",
+      "prior_context": "directional_trend",
+      "geometry": "头部或肩部包含多个次级峰谷，但整体仍形成中央极值、两侧肩群和颈线。",
+      "confirmation": "突破颈线。",
+      "invalidation": "突破中央极值或结构失去对称关系。",
+      "confusions": [
+        "structure_head_shoulders_top",
+        "structure_triple_top",
+        "structure_broadening"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_rounding_bottom",
+      "name_zh": "圆弧底",
+      "name_en": "Rounding Bottom",
+      "family": "price_structure",
+      "bars": "long_multi_swing",
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "斜率由负逐步变平再转正，形成平滑 U 形而非尖锐 V 形。",
+      "confirmation": "突破圆弧左侧关键高点。",
+      "invalidation": "重新跌破底部区域。",
+      "confusions": [
+        "structure_v_bottom",
+        "structure_cup_handle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_rounding_top",
+      "name_zh": "圆弧顶",
+      "name_en": "Rounding Top",
+      "family": "price_structure",
+      "bars": "long_multi_swing",
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "斜率由正逐步变平再转负，形成平滑倒 U 形。",
+      "confirmation": "跌破圆弧左侧关键低点。",
+      "invalidation": "重新突破顶部区域。",
+      "confusions": [
+        "structure_v_top",
+        "structure_head_shoulders_top"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_v_bottom",
+      "name_zh": "V 形底",
+      "name_en": "V Bottom",
+      "family": "price_structure",
+      "bars": "multi_bar",
+      "direction": "bullish",
+      "role": "sharp_reversal",
+      "prior_context": "fast_downtrend",
+      "geometry": "陡峭下跌后在单一尖点附近快速转为陡峭上涨，左右斜率大而方向相反。",
+      "confirmation": "突破反转前最后一个显著低高点结构。",
+      "invalidation": "重返尖底区域。",
+      "confusions": [
+        "structure_rounding_bottom",
+        "gap_island_reversal"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_v_top",
+      "name_zh": "倒 V 形顶",
+      "name_en": "V Top",
+      "family": "price_structure",
+      "bars": "multi_bar",
+      "direction": "bearish",
+      "role": "sharp_reversal",
+      "prior_context": "fast_uptrend",
+      "geometry": "陡峭上涨后迅速转为陡峭下跌。",
+      "confirmation": "跌破反转前最后一个显著高低点结构。",
+      "invalidation": "重返尖顶区域。",
+      "confusions": [
+        "structure_rounding_top",
+        "gap_island_reversal"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_ascending_triangle",
+      "name_zh": "上升三角形",
+      "name_en": "Ascending Triangle",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bullish",
+      "role": "continuation_or_breakout",
+      "prior_context": "usually_uptrend",
+      "geometry": "多个高点受近似水平阻力压制，低点逐步抬高，两边界收敛。",
+      "confirmation": "收盘突破水平阻力。",
+      "invalidation": "跌破上升支撑线。",
+      "confusions": [
+        "structure_rectangle",
+        "structure_symmetrical_triangle",
+        "structure_rising_wedge"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_descending_triangle",
+      "name_zh": "下降三角形",
+      "name_en": "Descending Triangle",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bearish",
+      "role": "continuation_or_breakout",
+      "prior_context": "usually_downtrend",
+      "geometry": "多个低点受近似水平支撑，高点逐步降低，两边界收敛。",
+      "confirmation": "收盘跌破水平支撑。",
+      "invalidation": "突破下降阻力线。",
+      "confusions": [
+        "structure_rectangle",
+        "structure_symmetrical_triangle",
+        "structure_falling_wedge"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_symmetrical_triangle",
+      "name_zh": "对称三角形",
+      "name_en": "Symmetrical Triangle",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "neutral",
+      "role": "compression",
+      "prior_context": "any",
+      "geometry": "高点降低、低点抬高，上下趋势线收敛且至少各有两个有效触点。",
+      "confirmation": "收盘突破任一边界，成交量或波动扩张加强。",
+      "invalidation": "突破后迅速回到三角形并穿越另一边。",
+      "confusions": [
+        "structure_pennant",
+        "structure_rising_wedge",
+        "structure_falling_wedge"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_rectangle",
+      "name_zh": "矩形整理",
+      "name_en": "Rectangle",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "neutral",
+      "role": "range",
+      "prior_context": "any",
+      "geometry": "多个高点和低点分别聚集在近似水平的阻力带与支撑带。",
+      "confirmation": "收盘有效突破任一边界。",
+      "invalidation": "突破后重新进入并穿过区间中部。",
+      "confusions": [
+        "structure_triple_top",
+        "structure_triple_bottom",
+        "structure_channel"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_rising_wedge",
+      "name_zh": "上升楔形",
+      "name_en": "Rising Wedge",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bearish",
+      "role": "reversal_or_continuation",
+      "prior_context": "uptrend_or_bearish_retracement",
+      "geometry": "高点和低点都抬高但边界收敛，通常下边界斜率更陡，上行动能减弱。",
+      "confirmation": "跌破下边界。",
+      "invalidation": "向上突破上边界并保持。",
+      "confusions": [
+        "structure_ascending_triangle",
+        "structure_channel"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_falling_wedge",
+      "name_zh": "下降楔形",
+      "name_en": "Falling Wedge",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bullish",
+      "role": "reversal_or_continuation",
+      "prior_context": "downtrend_or_bullish_retracement",
+      "geometry": "高点和低点都降低但边界收敛，通常上边界下降更陡，下行动能减弱。",
+      "confirmation": "突破上边界。",
+      "invalidation": "向下突破下边界并保持。",
+      "confusions": [
+        "structure_descending_triangle",
+        "structure_channel"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_broadening",
+      "name_zh": "扩散形/喇叭形",
+      "name_en": "Broadening Formation",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "neutral",
+      "role": "volatility_expansion",
+      "prior_context": "any",
+      "geometry": "高点逐步升高、低点逐步降低，上下边界向外发散。",
+      "confirmation": "突破任一外扩边界并保持。",
+      "invalidation": "波动重新收缩进入内部。",
+      "confusions": [
+        "structure_diamond_top",
+        "structure_diamond_bottom"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_flag",
+      "name_zh": "旗形",
+      "name_en": "Flag",
+      "family": "price_structure",
+      "bars": "multi_bar",
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "strong_impulse",
+      "geometry": "先有至少数个 ATR 的快速旗杆，随后在平行小通道内逆势或横向回撤。",
+      "confirmation": "沿旗杆方向突破旗面边界。",
+      "invalidation": "反向突破旗面并深度回撤旗杆。",
+      "confusions": [
+        "structure_channel",
+        "structure_pennant",
+        "cdl_rise_fall_3_methods"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_pennant",
+      "name_zh": "三角旗",
+      "name_en": "Pennant",
+      "family": "price_structure",
+      "bars": "multi_bar",
+      "direction": "contextual",
+      "role": "continuation",
+      "prior_context": "strong_impulse",
+      "geometry": "快速旗杆后出现短小对称收敛整理。",
+      "confirmation": "沿旗杆方向突破。",
+      "invalidation": "反向突破并深度回撤旗杆。",
+      "confusions": [
+        "structure_symmetrical_triangle",
+        "structure_flag"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_channel",
+      "name_zh": "价格通道",
+      "name_en": "Price Channel",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "contextual",
+      "role": "trend_or_range",
+      "prior_context": "any",
+      "geometry": "至少两组高低点沿近似平行边界运行，可上升、下降或水平。",
+      "confirmation": "边界内触碰属于通道延续，收盘越界属于突破候选。",
+      "invalidation": "突破后重新进入通道。",
+      "confusions": [
+        "structure_rectangle",
+        "structure_flag",
+        "structure_rising_wedge",
+        "structure_falling_wedge"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_cup_handle",
+      "name_zh": "杯柄形",
+      "name_en": "Cup with Handle",
+      "family": "price_structure",
+      "bars": "long_multi_swing",
+      "direction": "bullish",
+      "role": "continuation",
+      "prior_context": "uptrend",
+      "geometry": "圆弧杯底两侧高点近似，右侧随后出现较浅、较短的柄部回撤。",
+      "confirmation": "放量突破杯口/柄部阻力。",
+      "invalidation": "柄部深度通常不应超过杯体回升的约三分之一；跌回杯底失效。",
+      "confusions": [
+        "structure_rounding_bottom",
+        "structure_double_bottom"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_diamond_top",
+      "name_zh": "钻石顶",
+      "name_en": "Diamond Top",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bearish",
+      "role": "reversal",
+      "prior_context": "uptrend",
+      "geometry": "先扩散后收敛，整体形成菱形且位于上涨末端。",
+      "confirmation": "跌破右下边界。",
+      "invalidation": "向上突破右上边界。",
+      "confusions": [
+        "structure_broadening",
+        "structure_symmetrical_triangle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_diamond_bottom",
+      "name_zh": "钻石底",
+      "name_en": "Diamond Bottom",
+      "family": "price_structure",
+      "bars": "multi_swing",
+      "direction": "bullish",
+      "role": "reversal",
+      "prior_context": "downtrend",
+      "geometry": "先扩散后收敛，整体形成菱形且位于下跌末端。",
+      "confirmation": "突破右上边界。",
+      "invalidation": "向下突破右下边界。",
+      "confusions": [
+        "structure_broadening",
+        "structure_symmetrical_triangle"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_breakout_retest",
+      "name_zh": "突破回踩/回抽",
+      "name_en": "Breakout and Retest",
+      "family": "market_structure",
+      "bars": "multi_bar",
+      "direction": "contextual",
+      "role": "confirmation",
+      "prior_context": "completed_breakout",
+      "geometry": "价格越过边界后返回测试原边界，原阻力转支撑或原支撑转阻力，随后再沿突破方向离开。",
+      "confirmation": "回测在 ATR 容差内守住并出现方向性收盘。",
+      "invalidation": "收盘重新深入原结构。",
+      "confusions": [
+        "structure_false_breakout"
+      ],
+      "talib": null
+    },
+    {
+      "id": "structure_false_breakout",
+      "name_zh": "假突破/诱多诱空",
+      "name_en": "False Breakout",
+      "family": "market_structure",
+      "bars": "multi_bar",
+      "direction": "contextual",
+      "role": "trap_reversal",
+      "prior_context": "boundary_test",
+      "geometry": "价格短暂越过明确边界，随后迅速收回结构内部并向相反方向移动。",
+      "confirmation": "反向越过假突破 K 线另一端或结构中轴。",
+      "invalidation": "价格重新沿最初突破方向有效离开。",
+      "confusions": [
+        "structure_breakout_retest",
+        "cdl_hikkake"
+      ],
+      "talib": null
+    },
+    {
+      "id": "harmonic_abcd",
+      "name_zh": "AB=CD",
+      "name_en": "AB=CD",
+      "family": "harmonic",
+      "bars": "four_pivots",
+      "direction": "contextual",
+      "role": "potential_reversal_zone",
+      "prior_context": "swing_structure",
+      "geometry": "A-B-C-D 四个拐点，CD 与 AB 的价格或时间长度近似，C 为 AB 的回撤。",
+      "confirmation": "D 点潜在反转区出现结构反转或突破确认。",
+      "invalidation": "D 点明显穿越预设比例区间且无反转。",
+      "confusions": [
+        "harmonic_gartley",
+        "harmonic_bat"
+      ],
+      "talib": null
+    },
+    {
+      "id": "harmonic_gartley",
+      "name_zh": "加特利形态",
+      "name_en": "Gartley",
+      "family": "harmonic",
+      "bars": "five_pivots",
+      "direction": "contextual",
+      "role": "potential_reversal_zone",
+      "prior_context": "impulse_then_retracement",
+      "geometry": "X-A-B-C-D 五点结构；常用基准为 B 约回撤 XA 的 0.618，D 约回撤 XA 的 0.786，并结合 AB=CD。",
+      "confirmation": "D 区出现反转 K 线、动量背离或结构突破。",
+      "invalidation": "价格显著越过 X 或允许比例区。",
+      "confusions": [
+        "harmonic_bat",
+        "harmonic_butterfly"
+      ],
+      "talib": null
+    },
+    {
+      "id": "harmonic_bat",
+      "name_zh": "蝙蝠形态",
+      "name_en": "Bat",
+      "family": "harmonic",
+      "bars": "five_pivots",
+      "direction": "contextual",
+      "role": "potential_reversal_zone",
+      "prior_context": "impulse_then_retracement",
+      "geometry": "X-A-B-C-D 结构；B 通常浅回撤 XA，D 常位于 XA 的约 0.886 回撤。",
+      "confirmation": "D 区结构反转。",
+      "invalidation": "明显越过 X 或比例容差。",
+      "confusions": [
+        "harmonic_gartley",
+        "harmonic_crab"
+      ],
+      "talib": null
+    },
+    {
+      "id": "harmonic_butterfly",
+      "name_zh": "蝴蝶形态",
+      "name_en": "Butterfly",
+      "family": "harmonic",
+      "bars": "five_pivots",
+      "direction": "contextual",
+      "role": "potential_reversal_zone",
+      "prior_context": "swing_structure",
+      "geometry": "B 常约回撤 XA 的 0.786，D 超越 X，常位于 XA 的 1.27 或 1.618 扩展附近。",
+      "confirmation": "D 区出现反向结构确认。",
+      "invalidation": "继续远离潜在反转区。",
+      "confusions": [
+        "harmonic_crab",
+        "harmonic_gartley"
+      ],
+      "talib": null
+    },
+    {
+      "id": "harmonic_crab",
+      "name_zh": "螃蟹形态",
+      "name_en": "Crab",
+      "family": "harmonic",
+      "bars": "five_pivots",
+      "direction": "contextual",
+      "role": "potential_reversal_zone",
+      "prior_context": "swing_structure",
+      "geometry": "D 为较深扩展点，常接近 XA 的 1.618 扩展，并结合 BC 的扩展比例。",
+      "confirmation": "D 区出现明确反转证据。",
+      "invalidation": "价格继续穿越扩展区。",
+      "confusions": [
+        "harmonic_butterfly",
+        "harmonic_bat"
+      ],
+      "talib": null
+    },
+    {
+      "id": "market_bos",
+      "name_zh": "结构突破",
+      "name_en": "Break of Structure",
+      "family": "market_structure",
+      "bars": "multi_swing",
+      "direction": "contextual",
+      "role": "trend_confirmation",
+      "prior_context": "established_structure",
+      "geometry": "上涨结构中有效突破前高，或下跌结构中有效跌破前低，延续现有高低点序列。",
+      "confirmation": "收盘越过被选定的有效摆动点并满足缓冲。",
+      "invalidation": "迅速收回并突破反侧结构。",
+      "confusions": [
+        "market_choch",
+        "structure_false_breakout"
+      ],
+      "talib": null
+    },
+    {
+      "id": "market_choch",
+      "name_zh": "结构特征改变",
+      "name_en": "Change of Character",
+      "family": "market_structure",
+      "bars": "multi_swing",
+      "direction": "contextual",
+      "role": "early_reversal_candidate",
+      "prior_context": "established_structure",
+      "geometry": "价格首次破坏原有高高/低高或低低/高低序列中的关键反侧摆动点。",
+      "confirmation": "随后形成新的反向高低点序列。",
+      "invalidation": "价格恢复原趋势并创新极值。",
+      "confusions": [
+        "market_bos",
+        "structure_false_breakout"
+      ],
+      "talib": null
+    },
+    {
+      "id": "market_liquidity_sweep",
+      "name_zh": "流动性扫掠",
+      "name_en": "Liquidity Sweep",
+      "family": "market_structure",
+      "bars": "multi_bar",
+      "direction": "contextual",
+      "role": "failed_breakout_reversal_candidate",
+      "prior_context": "visible_equal_highs_or_lows",
+      "geometry": "影线或短暂交易越过明显等高/等低或摆动极值，随后收盘回到该水平内侧。",
+      "confirmation": "反向突破扫掠 K 线或近端内部结构。",
+      "invalidation": "在被扫水平外侧持续收盘。",
+      "confusions": [
+        "structure_false_breakout",
+        "candle_pin_bar"
+      ],
+      "talib": null
+    },
+    {
+      "id": "market_compression_expansion",
+      "name_zh": "波动收缩后扩张",
+      "name_en": "Volatility Contraction Expansion",
+      "family": "market_structure",
+      "bars": "multi_bar",
+      "direction": "neutral",
+      "role": "regime_transition",
+      "prior_context": "compression",
+      "geometry": "ATR、振幅或布林带宽持续下降后突然扩张并突破局部区间。",
+      "confirmation": "扩张 K 线收在区间外且随后保持。",
+      "invalidation": "下一阶段立即缩回原区间。",
+      "confusions": [
+        "structure_symmetrical_triangle",
+        "structure_rectangle"
+      ],
+      "talib": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "aegis-jev-research",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "check": "node --env-file=../../.env sdk-probe.mjs",
+    "test": "node --test ../../tests/jev-evaluate.test.mjs"
+  },
+  "dependencies": {
+    "@typesafe-ai/sdk": "0.6.0"
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "V2-MTF-PRICE-TIME-STRUCTURE-0.5.0",
+  "candidateVersion": "ORION-V2-RESEARCH-MTFX-0.5.0",
+  "implementationRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "implementationDirectiveId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "status": "OWNER_AUTHORIZED_PAPER_SIMULATION",
+  "marketModel": {
+    "name": "MULTITIMEFRAME_PRICE_TIME_STRUCTURE_CROSS",
+    "states": [
+      "STRUCTURE_FORMING",
+      "CROSS_BAR_LOCKED",
+      "EXPANSION_UP",
+      "EXPANSION_DOWN",
+      "EXPANSION_SIDEWAYS"
+    ],
+    "timeframeResponsibilities": {
+      "4h": "PRIMARY_OBVIOUS_PRICE_STRUCTURE",
+      "1h": "OPPOSING_ADAPTIVE_PRICE_STRUCTURE_AND_RUNNER_TRAIL",
+      "15m": "FIRST_POST_CROSS_BAR_CLOSE_RELATIVE_TO_EXACT_INTERSECTION_AND_ENTRY",
+      "tickBbo": "PAPER_EXECUTABILITY_PARTIALS_AND_STOP_PATH"
+    },
+    "signalInputs": [
+      "EXCHANGE_OPEN_TIME",
+      "OPEN",
+      "HIGH",
+      "LOW",
+      "CLOSE"
+    ],
+    "indicatorSignalFilters": [],
+    "sidewaysIsRecordedOutcome": true
+  },
+  "authorization": {
+    "paperExecutionAllowed": true,
+    "realExecutionAllowed": false,
+    "automaticRestartAllowed": true,
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED"
+  },
+  "pivots": {
+    "leftBars": 2,
+    "rightBars": 2,
+    "anchorTimestamp": "EXCHANGE_BAR_OPEN_TIME",
+    "commonCoordinate": "INTEGER_15M_BAR_INDEX",
+    "anchorPriceFields": {
+      "HIGH": "BAR_HIGH",
+      "LOW": "BAR_LOW"
+    },
+    "sameTypePairRequiresInterveningOppositeSwing": true,
+    "nearestEligiblePairOnlyForStops": true,
+    "fourHour": {
+      "leftBars": 3,
+      "rightBars": 3,
+      "hierarchyWindowMultipliers": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "minimumRealtimeHierarchyMultiplier": 4,
+      "minimumAnchorSeparationBars": 3,
+      "searchWindowBars": 360,
+      "minimumAnchorProminenceFractionOfVisibleRange": 0.06,
+      "minimumPairMoveFractionOfVisibleRange": 0.02,
+      "minimumPairSpanFractionOfSearchWindow": 0.015,
+      "maximumIntermediateViolationFractionOfVisibleRange": 0.003,
+      "preferredSecondAnchorAgeFraction": {
+        "minimum": 0.02,
+        "maximum": 0.35
+      },
+      "maximumAnchorHypothesesPerLineage": 4,
+      "nonAdjacentParentAnchorsAllowed": true,
+      "lineValidity": "PERSISTS_UNTIL_REPLACED_OR_INVALIDATED_BY_NEW_CONFIRMED_4H_STRUCTURE"
+    },
+    "oneHour": {
+      "leftBars": 4,
+      "rightBars": 4,
+      "hierarchyWindowMultipliers": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "minimumAnchorSeparationBars": 6,
+      "searchWindowBars": 1000,
+      "minimumAnchorProminenceFractionOfVisibleRange": 0.05,
+      "minimumPairMoveFractionOfVisibleRange": 0.02,
+      "minimumPairSpanFractionOfSearchWindow": 0.006,
+      "maximumIntermediateViolationFractionOfVisibleRange": 0.004,
+      "preferredSecondAnchorAgeFraction": {
+        "minimum": 0.01,
+        "maximum": 0.35
+      },
+      "nonAdjacentParentAnchorsAllowed": true,
+      "adaptiveBackwardSearch": true
+    }
+  },
+  "symmetricPatterns": [
+    {
+      "id": "4H_DESC_HIGH__1H_ASC_LOW",
+      "fourHour": "TWO_PROGRESSIVELY_LOWER_HIGHS",
+      "oneHour": "TWO_PROGRESSIVELY_HIGHER_LOWS"
+    },
+    {
+      "id": "4H_ASC_LOW__1H_DESC_HIGH",
+      "fourHour": "TWO_PROGRESSIVELY_HIGHER_LOWS",
+      "oneHour": "TWO_PROGRESSIVELY_LOWER_HIGHS"
+    }
+  ],
+  "intersection": {
+    "lineRepresentation": "MATHEMATICAL_ONLY_DRAWING_OPTIONAL",
+    "minimumDiscoveryLeadHours": 2,
+    "maximumLeadHours": 72,
+    "commitmentLeadHours": 2,
+    "realtimeCrossMustBeInFutureBlankArea": true,
+    "minimumSlopeDifferencePer15m": 1e-12,
+    "fourHourPairCandidates": 8,
+    "oneHourPairCandidates": 12,
+    "barMapping": "FLOOR_X_STAR_CONTAINING_15M_INTERVAL",
+    "exactBoundaryLocksNewBar": true,
+    "ambiguousBoundaryMs": 60000,
+    "ambiguousCrossAction": "SKIP",
+    "freezeWhenPostCrossReserveBegins": true,
+    "priceProximityRequired": false,
+    "scaleAffectsRankingNotRisk": true,
+    "anchorConsensus": {
+      "method": "MULTI_ANCHOR_INTERSECTION_CLUSTER_AND_ONE_BAR_PERTURBATION",
+      "clusterTimeRadiusMinutes": 120,
+      "clusterPriceRadiusBps": 100,
+      "highStabilityMinimumSupport": 3,
+      "perturbationBars": 1,
+      "stablePerturbationDriftMinutes": 240,
+      "maximumEvidenceHypotheses": 12,
+      "stabilityWeights": {
+        "support": 0.4,
+        "timeDispersion": 0.15,
+        "priceDispersion": 0.1,
+        "pairQuality": 0.15,
+        "perturbationSensitivity": 0.2
+      },
+      "gradeThresholds": {
+        "high": 0.75,
+        "medium": 0.55
+      },
+      "lowStabilityAction": "KEEP_FOR_PAPER_OBSERVATION_NOT_BLOCK",
+      "drawingCoordinatesUsed": false,
+      "mathematicalInputs": [
+        "EXCHANGE_BAR_OPEN_TIME",
+        "BAR_HIGH",
+        "BAR_LOW"
+      ]
+    }
+  },
+  "optimizationObjective": {
+    "primary": "MAXIMIZE_ONE_SIDED_EXPANSION_PROBABILITY_WITHOUT_INCREASING_RISK",
+    "notPrimary": [
+      "RAW_WIN_RATE",
+      "TRADE_FREQUENCY",
+      "NEAREST_CROSS_ONLY"
+    ],
+    "candidateSelectionOrder": [
+      "ACTIVE_4H_LINE",
+      "ANCHOR_INTERSECTION_STABILITY",
+      "ANCHOR_PAIR_PRICE_TIME_QUALITY",
+      "WEAKEST_LEG_HIERARCHY",
+      "4H_HIERARCHY",
+      "1H_HIERARCHY",
+      "WEAKEST_NORMALIZED_STRUCTURE",
+      "TOTAL_STRUCTURE_IMPORTANCE",
+      "NEAREST_ELIGIBLE_FUTURE_CROSS"
+    ],
+    "forwardOutcomes": [
+      "P_TWO_NET_R_BEFORE_FINAL_STOP",
+      "P_RUNNER_THREE_NET_R_GIVEN_TWO_NET_R",
+      "P_RUNNER_FIVE_NET_R_GIVEN_TWO_NET_R",
+      "MEAN_REALIZED_R",
+      "MEAN_MAXIMUM_NET_EXCURSION_R"
+    ],
+    "rankingStatus": "STRUCTURAL_PRIOR_ONLY_UNTIL_ATTRIBUTABLE_FORWARD_SAMPLE",
+    "automaticParameterLearning": false
+  },
+  "researchFactorMining": {
+    "status": "OBSERVE_ONLY_NOT_EXECUTION_INPUT",
+    "schemaVersion": 1,
+    "registry": "research/orion-v2-mtfx/FACTOR_REGISTRY.md",
+    "captureIntervalMinutes": 1,
+    "planSnapshotIntervalMinutes": 15,
+    "inputs": [
+      "PRICE",
+      "TIME",
+      "STRUCTURE",
+      "BBO_EXECUTION_COST"
+    ],
+    "outcomes": [
+      "REALIZED_R",
+      "MFE_R",
+      "MAE_R",
+      "TIME_TO_1R",
+      "TIME_TO_2R",
+      "RUNNER_3R",
+      "RUNNER_5R",
+      "PATH_EFFICIENCY"
+    ],
+    "minimumAttributableClosedPositionsForExploratoryRanking": 100,
+    "minimumObservationsPerBucket": 20,
+    "walkForwardValidationRequired": true,
+    "multipleTestingRecordRequired": true,
+    "ownerApprovalRequiredBeforeExecutionUse": true,
+    "automaticParameterLearning": false
+  },
+  "fourHourLineLifecycle": {
+    "newQualifiedTrend": "PROMOTE_TO_ACTIVE",
+    "priorActiveTrend": "DEMOTE_TO_PREVIOUS_CANDIDATE",
+    "maximumConcurrentLineage": 2,
+    "bothMayPairWithBackwardSearched1hForFutureCross": true,
+    "olderLines": "ARCHIVE_NOT_REALTIME_CANDIDATES"
+  },
+  "signal": {
+    "interval": "15m",
+    "barSelection": "THE_FULLY_CLOSED_15M_BAR_CONTAINING_CANONICAL_EXACT_INTERSECTION",
+    "maximumReserveBars": 4,
+    "entryMode": "TWO_BAR_CROSS_CLOSE_WITH_BUFFER",
+    "crossCloseBufferBps": 5,
+    "allowedPatternLengths": [
+      1
+    ],
+    "maximumDirectionDecisionBars": 2,
+    "patternSelection": "FIRST_ELIGIBLE_CLOSE_IN_THE_CROSS_BAR_OR_IMMEDIATE_NEXT_15M_BAR_DETERMINES_DIRECTION",
+    "longRule": "FIRST_ELIGIBLE_CLOSE_GREATER_THAN_OR_EQUAL_TO_INTERSECTION_PRICE_PLUS_5_BPS",
+    "shortRule": "FIRST_ELIGIBLE_CLOSE_LESS_THAN_OR_EQUAL_TO_INTERSECTION_PRICE_MINUS_5_BPS",
+    "bufferAction": "WAIT_FOR_IMMEDIATE_SECOND_BAR_IF_CROSS_BAR_IS_STRICTLY_INSIDE_BUFFER; THEN_EXPIRE_WITHOUT_LATER_SUBSTITUTION",
+    "candleColorBodyAndWicks": "NOT_EXECUTION_INPUTS",
+    "execution": "LATEST_CAUSALLY_VALID_EXECUTABLE_BBO_WITHIN_50BPS_OF_CONFIRMED_15M_DECISION_CLOSE_AND_180_SECONDS_REVALIDATED_ON_EVERY_ATTEMPT",
+    "bboTemporalEvidence": "DUAL_CLOCK_EXCHANGE_MARKET_TIME_AND_LOCAL_RECEIVED_TIME",
+    "bboOrdering": "MARKET_TIME_NON_REGRESSING_AND_UPDATE_ID_REQUIRED_STRICTLY_INCREASING",
+    "positionStateDurability": "LEDGER_FIRST_OPEN_AND_PER_POSITION_SEQUENCE_REPLAY_FOR_BBO_AND_1H_TRAIL_COMMITS",
+    "minimumBodyToRange": null,
+    "longMinimumCloseLocation": null,
+    "shortMaximumCloseLocation": null,
+    "bodySizeFilter": false,
+    "volumeFilter": false,
+    "intersectionPriceProximityFilter": true,
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "entryDisplacementReference": "LATEST_EXECUTABLE_PUBLIC_BBO_VERSUS_CONFIRMED_15M_DECISION_CLOSE",
+    "entryQualityRevalidation": "EVERY_NEW_ENTRY_RETRY_AND_OPPOSITE_REPLACEMENT_ATTEMPT",
+    "maximumCompleteLifecycleCostR": 0.12,
+    "costEfficiencyFormula": "ENTRY_PRICE_TIMES_TWO_TIMES_TAKER_FEE_PLUS_TWO_TIMES_ADVERSE_SLIPPAGE_DIVIDED_BY_COST_ADJUSTED_INITIAL_RISK_PER_UNIT",
+    "costEfficiencyRevalidation": "BEFORE_POSITION_SIZING_ON_EVERY_SUBMISSION_ATTEMPT",
+    "aboveCostThresholdAction": "REJECT_AND_CONSUME_INTERSECTION",
+    "outsideDistanceAction": "WAIT_ONLY_WITHIN_ORIGINAL_SIGNAL_WINDOW_NO_CHASING",
+    "expiredSignalAction": "TERMINATE_AND_CONSUME_INTERSECTION",
+    "protectiveStructureMaturation": "INTERSECTION_BUFFER_STOP_READY_AT_DIRECTION_LOCKING_BAR_CLOSE",
+    "oppositeAcceptanceAfterDirectionLock": "OBSERVE_ONLY_DIRECTION_REMAINS_LOCKED",
+    "expiryAction": "BOTH_DIRECTION_DECISION_BARS_INSIDE_BUFFER_EXPIRE; AFTER_DIRECTION_LOCK_WAIT_ONLY_FOR_CAUSAL_BBO_AND_PRICE_REENTRY_UNTIL_180_SECONDS_AFTER_DECISION_CLOSE",
+    "oneEntryMaximumPerIntersection": true
+  },
+  "execution": {
+    "singleSymbolExposure": "AT_MOST_ONE_OPEN_POSITION_PER_SYMBOL_ACROSS_ALL_ACTIVE_PAPER_BOOKS",
+    "newSameSymbolPlan": "AUDIT_AND_EXPIRE_WITHOUT_PAPER_POSITION_OPENED",
+    "oppositeCurrentStructurePlan": "CLOSE_OLD_THEN_OPEN_NEW_ONLY_AFTER_FULL_CONFIRMATION",
+    "automaticSignalReplacement": "OPPOSITE_CURRENT_FULLY_CONFIRMED_ONLY"
+  },
+  "eventRisk": {
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "mode": "SCHEDULED_TIER1_EVENT_NEW_ENTRY_FREEZE",
+    "freezeBeforeMinutes": 30,
+    "freezeAfterMinutes": 30,
+    "existingPositions": "UNCHANGED_UNLESS_A_NON_FROZEN_CONFIRMED_OPPOSITE_CURRENT_STRUCTURE_REPLACES_THEM",
+    "entryWindowExtensionAllowed": false,
+    "calendar": "agents/nexus/data/mtfx-tier1-event-calendar.json"
+  },
+  "stop": {
+    "initialStopMode": "INTERSECTION_BUFFER",
+    "intersectionBufferBps": 5,
+    "pivotInterval": "1h",
+    "confirmedPointCount": 2,
+    "fibonacciRatio": 0.618,
+    "longStructure": "NEAREST_LOW_GT_SECOND_EARLIER_LOW",
+    "shortStructure": "NEAREST_HIGH_LT_SECOND_EARLIER_HIGH",
+    "formula": "NEAREST_PLUS_0_618_TIMES_EARLIER_MINUS_NEAREST",
+    "requireInterveningOppositeStructure": true,
+    "minimumProgressionFractionOfWeakerProminence": 0.1,
+    "structureHygienePatch": "ACTIVE",
+    "initialStopStructure": "TWO_NEAREST_CAUSALLY_CONFIRMED_1H_DIRECTIONAL_PIVOTS_WITH_INTERVENING_OPPOSITE_1H_PIVOT",
+    "lookaheadForbidden": true,
+    "cherryPickingOlderPointForbidden": true
+  },
+  "costAdjustedRisk": {
+    "riskUnit": "ABS_ENTRY_MINUS_INITIAL_STOP_PLUS_ENTRY_FEE_PLUS_STOP_EXIT_FEE_PLUS_STOP_SLIPPAGE_PLUS_FUNDING",
+    "maximumCompleteLifecycleCostR": 0.12,
+    "completeLifecycleCostFormula": "ENTRY_PRICE_TIMES_TWO_TIMES_TAKER_FEE_PLUS_TWO_TIMES_ADVERSE_SLIPPAGE_DIVIDED_BY_COST_ADJUSTED_INITIAL_RISK_PER_UNIT",
+    "gateBeforePositionSizing": true,
+    "softLockActivationNetR": 0.5,
+    "softLockAggregateNetRFloor": 0.15,
+    "oneNetRAggregateNetRFloor": 0.6,
+    "profitFloorStop": "AGGREGATE_NET_R_FLOOR_INCLUDING_REALIZED_PARTIALS_AND_REMAINING_EXIT_COSTS_AT_BBO_THRESHOLD",
+    "gapRisk": "BBO_GAP_CAN_FILL_WORSE_THAN_CALCULATED_STOP_THRESHOLD",
+    "updateCadence": "TICK_BBO_IMMEDIATE",
+    "stopCanNeverLoosen": true
+  },
+  "exit": {
+    "atHalfNetR": {
+      "closeFractionOfOriginal": 0.4,
+      "moveStopToAggregateNetRFloor": 0.15
+    },
+    "atOneNetR": {
+      "closeFractionOfOriginal": 0.25,
+      "moveStopToAggregateNetRFloor": 0.6
+    },
+    "atTwoNetR": {
+      "closeFractionOfOriginal": 0.2
+    },
+    "runner": {
+      "fractionOfOriginal": 0.15,
+      "interval": "1h",
+      "longRule": "NEW_CONFIRMED_HIGHER_LOW",
+      "shortRule": "NEW_CONFIRMED_LOWER_HIGH",
+      "updateOnlyAfterFullyClosedConfirmation": true,
+      "mechanicalEveryRAdvancement": false,
+      "fifteenMinuteTrailForbidden": true,
+      "maximumHoldingTime": null,
+      "exit": "TICK_BBO_STOP_HIT"
+    }
+  },
+  "variants": [
+    {
+      "id": "MTFX-T",
+      "status": "CANONICAL_ACTIVE"
+    },
+    {
+      "id": "MTFX-TP",
+      "status": "RETIRED_NO_NEW_ENTRIES",
+      "reason": "PRICE_PROXIMITY_IS_NOT_OWNER_STRATEGY"
+    }
+  ],
+  "controls": [
+    "MATCHED_RANDOM_TIME",
+    "15M_CANDLE_COLOR_WITHOUT_INTERSECTION"
+  ],
+  "promotion": {
+    "tickBboReplayRequired": true,
+    "unknownSameBarPathExcluded": true,
+    "dataGapExcluded": true,
+    "ownerApprovalRequired": true
+  },
+  "futurePaperRisk": {
+    "status": "OWNER_AUTHORIZED_PAPER_ONLY",
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "application": "FORWARD_ELIGIBLE_NEW_ENTRIES_ONLY",
+    "maximumRiskPerIntersectionFraction": 0.02,
+    "maximumPortfolioRiskFraction": 0.1,
+    "lossAveragingAllowed": false,
+    "stopWideningAllowed": false
+  }
+}

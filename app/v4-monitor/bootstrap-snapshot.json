@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "runtimeId": "ORION-V4-MTFX-R22-MONITOR-1.0",
+  "sourceAsOf": "2026-08-22T13:45:54.145Z",
+  "strategyDisplayName": "V4 MTFX · R22",
+  "implementationRevision": "ORION-V4-MTFX-R22-V2-FULL-RULE-PARITY-20260829",
+  "evaluationCohortId": "ORION-V4-MTFX-R22-V2-FULL-RULE-PARITY-FORWARD-20260829",
+  "account": {
+    "walletBalanceUsdt": 4999.93249872,
+    "marginEquityUsdt": 4999.39677382,
+    "availableBalanceUsdt": 4957.34240254,
+    "unrealizedPnlUsdt": -0.5357249
+  },
+  "risk": {
+    "maximumRiskPerEntryFraction": 0.01,
+    "maximumPortfolioRiskFraction": 0.05,
+    "maximumOpenPositionsTotal": 10,
+    "maximumEffectiveNotionalLeverage": 4,
+    "actualEffectiveNotionalLeverage": 0.0336475564,
+    "openPositionCount": 1,
+    "protectedPositionCount": 1
+  },
+  "execution": {
+    "status": "RECONCILED",
+    "pendingOperationCount": 0,
+    "standardOpenOrderCount": 0,
+    "activeAlgoOrderCount": 1
+  },
+  "system": {
+    "planCount": 5,
+    "economicPrequalifiedCount": 0,
+    "confirmedSignalCount": 0,
+    "broadUniverseSize": 10,
+    "scanIntervalMs": 60000
+  },
+  "r21ProfitProtection": {
+    "minimumSameDirectionPositions": 3,
+    "eligibleSymbols": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT"
+    ],
+    "excludedSymbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "freezeEligibleEntries": false,
+    "frozenDirections": [],
+    "lastEvaluatedAt": 1787406353871,
+    "campaigns": {
+      "LONG": {
+        "active": false,
+        "tier": "IDLE",
+        "highWaterPnlUsdt": 0,
+        "freezeUntil": null
+      },
+      "SHORT": {
+        "active": false,
+        "tier": "IDLE",
+        "highWaterPnlUsdt": 0,
+        "freezeUntil": null
+      }
+    }
+  },
+  "positions": [
+    {
+      "symbol": "XRPUSDT",
+      "side": "LONG",
+      "entryPrice": 1.5027,
+      "markPrice": 1.49792952,
+      "unrealizedPnlUsdt": -0.5357249,
+      "leverage": 4,
+      "stopPrice": 1.0693,
+      "stage": "INITIAL_PROTECTION",
+      "openedAt": 1787395609489,
+      "protected": true
+    }
+  ],
+  "candidates": [
+    {
+      "id": "v4-sol",
+      "symbol": "SOLUSDT",
+      "pattern": "4H_ASC_LOW__1H_DESC_HIGH",
+      "intersectionTime": 1787560982754,
+      "intersectionPrice": 69.61871454,
+      "stabilityScore": 0.6527,
+      "support": 1,
+      "signalStatus": "NO_SIGNAL",
+      "economicPrequalified": false
+    },
+    {
+      "id": "v4-doge",
+      "symbol": "DOGEUSDT",
+      "pattern": "4H_DESC_HIGH__1H_ASC_LOW",
+      "intersectionTime": 1787495192531,
+      "intersectionPrice": 0.07198978,
+      "stabilityScore": 0.7111,
+      "support": 2,
+      "signalStatus": "NO_SIGNAL",
+      "economicPrequalified": false
+    },
+    {
+      "id": "v4-zec",
+      "symbol": "ZECUSDT",
+      "pattern": "4H_ASC_LOW__1H_DESC_HIGH",
+      "intersectionTime": 1787655663328,
+      "intersectionPrice": 494.76520724,
+      "stabilityScore": 0.7923,
+      "support": 2,
+      "signalStatus": "NO_SIGNAL",
+      "economicPrequalified": false
+    },
+    {
+      "id": "v4-link",
+      "symbol": "LINKUSDT",
+      "pattern": "4H_ASC_LOW__1H_DESC_HIGH",
+      "intersectionTime": 1787454480120,
+      "intersectionPrice": 9.16571218,
+      "stabilityScore": 0.7455,
+      "support": 2,
+      "signalStatus": "NO_SIGNAL",
+      "economicPrequalified": false
+    },
+    {
+      "id": "v4-aave",
+      "symbol": "AAVEUSDT",
+      "pattern": "4H_ASC_LOW__1H_DESC_HIGH",
+      "intersectionTime": 1787467644753,
+      "intersectionPrice": 90.71911493,
+      "stabilityScore": 0.642,
+      "support": 1,
+      "signalStatus": "NO_SIGNAL",
+      "economicPrequalified": false
+    }
+  ]
+}

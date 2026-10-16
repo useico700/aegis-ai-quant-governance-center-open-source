@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "V2-EXECUTION-REALITY-1.0",
+  "status": "MANUAL_RESEARCH_CAPTURE_ONLY_OWNER_PAUSED",
+  "source": {
+    "venue": "BINANCE_USDT_PERPETUAL",
+    "websocketUrl": "wss://fstream.binancefuture.com/ws",
+    "v2LatestPath": "archive/runtime-snapshots/orion-v2/latest.json",
+    "v2StatePath": "archive/runtime-snapshots/orion-v2/state.json",
+    "v2LedgerPath": "archive/runtime-snapshots/orion-v2/ledger.ndjson"
+  },
+  "capture": {
+    "scope": "PENDING_AND_OPEN_CONTINUOUS",
+    "streamsPerSymbol": [
+      "trade",
+      "bookTicker"
+    ],
+    "statePollMs": 500,
+    "statusFlushMs": 2000,
+    "reconnectMinimumMs": 1000,
+    "reconnectMaximumMs": 30000,
+    "staleConnectionMs": 15000,
+    "decisionIntervalMs": 900000,
+    "captureUniverseAroundDecision": false,
+    "universeCaptureStartAfterCloseMs": 30000,
+    "universeCaptureEndAfterCloseMs": 90000,
+    "bboMinimumPersistIntervalMs": 20,
+    "maximumTrackedSymbols": 40,
+    "rawRetentionDays": 14,
+    "automaticDeletionAllowed": false
+  },
+  "coverageGate": {
+    "requireTradeStream": true,
+    "requireBookTickerStream": true,
+    "bookTickerPersistence": "LATEST_UPDATE_PER_20MS_PER_SYMBOL",
+    "maximumUncoveredMsPerOrderOrPosition": 0,
+    "maximumEventClockSkewMs": 2000,
+    "minimumWarmupBeforeEvaluationMs": 1000,
+    "limitOrderQueueStatus": "UNKNOWN_WITHOUT_L3_QUEUE"
+  },
+  "authority": {
+    "realOrdersAllowed": false,
+    "testnetOrdersAllowed": false,
+    "apiKeysRequired": false,
+    "v2PaperRuntimeMutationAllowed": false,
+    "v2LedgerMutationAllowed": false
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "candidateVersion": "ORION-V4-CONVERGING-WIDTH-REVERSION-1.1.0",
+  "displayName": "V4 收敛宽度回归 · CWR1.1",
+  "implementationRevision": "ORION-V4-CWR1.1-COST-FLOOR-EXACT-NET-RR",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "scanUniverseAuthorizationId": "OWNER-DIRECTIVE-ORION-V3-V4-TIERED-SCAN-UNIVERSE30-20260820",
+  "lifecycle": "ACTIVE_OWNER_AUTHORIZED_BINANCE_USDM_DEMO_EXECUTION",
+  "sourceGeometry": {
+    "agent": "ORION_V2",
+    "strategyVersion": "ORION-V2-RESEARCH-MTFX-0.5.0",
+    "implementationRevision": "MTFX-0.5.0-R18-ENTRY-QUALITY-GUARDS",
+    "configPath": "experiments/v2-mtf-trendline-intersection/config.json",
+    "configHash": "507d83d202afa51b2866eb5a193f161a582267dc84cd43e7eb210e0c0b9267c2",
+    "parameterSnapshotLocked": true,
+    "allowedPureFunctions": [
+      "findConvergencePlan",
+      "linePriceAt",
+      "costAdjustedRiskPlan"
+    ],
+    "v2RuntimePositionOrderLedgerAccessAllowed": false,
+    "v3ImportsAllowed": false
+  },
+  "venue": {
+    "name": "BINANCE_USDM_DEMO",
+    "fixedBaseUrl": "https://demo-fapi.binance.com",
+    "strategyCapitalBaselineUsdt": 5000,
+    "initialLeverage": 10
+  },
+  "universe": {
+    "symbols": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "DOTUSDT",
+      "LTCUSDT",
+      "BCHUSDT",
+      "TRXUSDT",
+      "SUIUSDT",
+      "NEARUSDT",
+      "ETCUSDT",
+      "FILUSDT",
+      "ATOMUSDT",
+      "APTUSDT",
+      "ARBUSDT",
+      "OPUSDT",
+      "INJUSDT",
+      "WIFUSDT",
+      "SEIUSDT",
+      "UNIUSDT",
+      "TAOUSDT",
+      "RENDERUSDT"
+    ]
+  },
+  "corridor": {
+    "minimumLeadHours": 2,
+    "maximumLeadHours": 72,
+    "commitmentShutdownHours": 2,
+    "lookbackBars15m": 32,
+    "entryZoneFractionOfWidth": 0.15,
+    "maximumBoundaryExcursionFractionOfWidth": 0.05,
+    "minimumWidthToRoundTripCostRatio": 4,
+    "widthToCostGateRole": "BASIC_TRADABILITY_PREFILTER_ONLY",
+    "maximumWidthBps": 1500,
+    "evaluationHorizonMinutes": 60,
+    "maximumWidthShrinkFractionOverHorizon": 0.25,
+    "maximumCenterDriftFractionOfWidthOverHorizon": 0.25,
+    "invalidationBufferFractionOfWidth": 0.05,
+    "requireActiveFourHourLine": true,
+    "requireBothBoundaryTouches": true,
+    "requireCenterCrossing": true
+  },
+  "signal": {
+    "interval": "15m",
+    "confirmation": "BOUNDARY_TOUCH_OR_BRIEF_EXCURSION_THEN_FULLY_CLOSED_RECLAIM",
+    "reclaimBufferBps": 5,
+    "longZoneZMinimum": -1.05,
+    "longZoneZMaximum": -0.75,
+    "shortZoneZMinimum": 0.75,
+    "shortZoneZMaximum": 1.05,
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "oneEntryPerBoundaryCycle": true,
+    "rearmRequiresDynamicCenterCross": true,
+    "preActivationBackfillAllowed": false
+  },
+  "stop": {
+    "widthBufferFraction": 0.08,
+    "minimumBufferBps": 5,
+    "stopCanNeverLoosen": true,
+    "oneHourCloseOutsideCorridorInvalidates": true
+  },
+  "targets": {
+    "firstTargetWidthFraction": 0.25,
+    "firstTargetCloseFractionOfOriginal": 0.4,
+    "secondTarget": "DYNAMIC_CENTERLINE",
+    "secondTargetCloseFractionOfOriginal": 0.4,
+    "runnerTargetOppositeInnerFraction": 0.15,
+    "runnerFractionOfOriginal": 0.2,
+    "targetsCanOnlyMoveCloser": true,
+    "minimumNetRewardToCenterR": 1.2,
+    "economicQualificationRole": "FINAL_SIGNAL_SPECIFIC_GATE_AFTER_FEES_AND_ADVERSE_SLIPPAGE"
+  },
+  "risk": {
+    "maximumRiskPerEntryFraction": 0.01,
+    "maximumPortfolioRiskFraction": 0.1,
+    "maximumOpenPositionsTotal": 10,
+    "maximumEffectiveNotionalLeverage": 10,
+    "maximumNewEntriesPerCycle": 2,
+    "riskSizingUtilizationFraction": 0.98,
+    "takerFeeRate": 0.0007,
+    "adverseSlippageRate": 0.0002,
+    "averagingDownAllowed": false,
+    "stopWideningAllowed": false
+  },
+  "eventRisk": {
+    "enabled": true,
+    "freezeBeforeMinutes": 30,
+    "freezeAfterMinutes": 30,
+    "calendarPath": "agents/nexus/data/mtfx-tier1-event-calendar.json"
+  },
+  "runtime": {
+    "scanIntervalMs": 60000,
+    "structuralDiscoveryIntervalMs": 900000,
+    "structuralDiscoveryAlignment": "CLOSED_15M_BUCKET",
+    "candidatePositionAndReconciliationIntervalMs": 60000,
+    "latestPath": ".runtime/orion-v4-binance-demo/strategy-latest.json",
+    "autoStatePath": ".runtime/orion-v4-binance-demo/auto-state.json",
+    "autoAuditPath": ".runtime/orion-v4-binance-demo/auto-audit.ndjson",
+    "pidPath": ".runtime/orion-v4-binance-demo/scanner.pid.json"
+  },
+  "evaluationIsolation": {
+    "baselineCohortId": "ORION-V4-CWR1-UNIVERSE30-FORWARD-20260820",
+    "forwardCohortId": "ORION-V4-CWR1.1-COST-FLOOR-FORWARD-20260821",
+    "historicalRg1MixedAggregationAllowed": false
+  }
+}

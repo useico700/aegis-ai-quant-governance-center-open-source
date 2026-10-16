@@ -1,0 +1,6 @@
+AEGIS AI Quant Governance Center Open Source
+
+Derived from project-authored source in the repository identified in README and governance/upstream-source-manifest.json.
+Includes original strategy, execution, cockpit, research, JEV and storage source with public-distribution adaptations.
+Private authorizations, account data, deployment resources and source Git history are not included.
+Third-party dependencies retain their own licenses; this repository does not relicense external SDKs or registry packages.

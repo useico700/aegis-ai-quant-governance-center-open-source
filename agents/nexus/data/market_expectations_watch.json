@@ -1,0 +1,126 @@
+{
+  "version": "2026-08-01T17:30:31+08:00",
+  "timezone": "Asia/Shanghai",
+  "purpose": "Lag-aware snapshot of market expectations and positioning; not a standalone direction signal",
+  "source": {
+    "publisher": "U.S. Commodity Futures Trading Commission",
+    "report": "CME Futures Only Commitments of Traders long report",
+    "report_as_of": "2026-07-28",
+    "retrieved_at": "2026-08-01T17:30:31+08:00",
+    "url": "https://www.cftc.gov/dea/futures/deacmelf.htm",
+    "source_tier": "A",
+    "coverage_limits": [
+      "Weekly snapshot with publication lag",
+      "CME futures only; excludes global spot, offshore perpetuals and options",
+      "Legacy non-commercial classification can include directional, spread and hedging activity"
+    ]
+  },
+  "aggregate_assessment": {
+    "priority": "P1",
+    "score": 78,
+    "score_breakdown": {
+      "historical_market_sensitivity": 19,
+      "surprise_or_expectation_gap": 12,
+      "transmission_breadth": 12,
+      "time_proximity": 10,
+      "source_credibility": 15,
+      "market_fragility": 10
+    },
+    "classification": "short_covering_with_high_long_concentration",
+    "confirmed_fact": "Across CME BTC, ETH, XRP and SOL contracts, non-commercial net longs increased because shorts fell faster than longs; outright non-commercial longs declined in all four contracts.",
+    "inference": "The apparent improvement in net positioning is lower quality than broad fresh-long accumulation and may leave upside moves vulnerable if concentrated longs reduce exposure.",
+    "alternative_explanations": [
+      "Contract roll or portfolio hedging can change long, short and spreading positions without a directional view",
+      "CME positioning may diverge from spot and offshore derivatives",
+      "The three-day reporting lag may omit subsequent position changes"
+    ],
+    "bullish_confirmation": [
+      "Spot-led price advance with expanding real volume",
+      "Open interest rebuilds without excessive funding or basis",
+      "Verifiable fund flows and BTC/ETH market structure confirm demand"
+    ],
+    "bearish_confirmation": [
+      "Price rises while open interest and spot volume contract",
+      "Funding, basis or call skew becomes extreme before a structure break",
+      "Large-cap weakness spreads to high-beta assets during concentrated long reduction"
+    ],
+    "invalidation": "A later COT report or real-time cross-market data shows broad fresh-long accumulation with non-extreme leverage and spot confirmation.",
+    "permitted_use": "Raise confirmation threshold and avoid treating net-long growth alone as bullish evidence.",
+    "prohibited_use": "Do not open, close, size or reverse a position from this snapshot alone."
+  },
+  "contracts": [
+    {
+      "asset": "BTC",
+      "cftc_code": "133741",
+      "contract_unit": "5 BTC",
+      "open_interest": 20019,
+      "open_interest_weekly_change": -508,
+      "noncommercial_long": 15572,
+      "noncommercial_long_weekly_change": -830,
+      "noncommercial_short": 11668,
+      "noncommercial_short_weekly_change": -1680,
+      "noncommercial_spreading": 3687,
+      "noncommercial_spreading_weekly_change": 452,
+      "net_noncommercial": 3904,
+      "net_noncommercial_weekly_change": 850,
+      "four_or_fewer_gross_long_pct": 61.3,
+      "four_or_fewer_net_long_pct": 58.8,
+      "classification": "short_covering_and_open_interest_contraction"
+    },
+    {
+      "asset": "ETH",
+      "cftc_code": "146021",
+      "contract_unit": "50 index points",
+      "open_interest": 23853,
+      "open_interest_weekly_change": 186,
+      "noncommercial_long": 19237,
+      "noncommercial_long_weekly_change": -1006,
+      "noncommercial_short": 14150,
+      "noncommercial_short_weekly_change": -2178,
+      "noncommercial_spreading": 3837,
+      "noncommercial_spreading_weekly_change": 1262,
+      "net_noncommercial": 5087,
+      "net_noncommercial_weekly_change": 1172,
+      "four_or_fewer_gross_long_pct": 81.9,
+      "four_or_fewer_net_long_pct": 75.3,
+      "classification": "short_covering_with_spread_growth_and_high_concentration"
+    },
+    {
+      "asset": "XRP",
+      "cftc_code": "176740",
+      "contract_unit": "50000 XRP",
+      "open_interest": 7862,
+      "open_interest_weekly_change": 884,
+      "noncommercial_long": 6091,
+      "noncommercial_long_weekly_change": -447,
+      "noncommercial_short": 4698,
+      "noncommercial_short_weekly_change": -962,
+      "noncommercial_spreading": 1626,
+      "noncommercial_spreading_weekly_change": 1307,
+      "net_noncommercial": 1393,
+      "net_noncommercial_weekly_change": 515,
+      "four_or_fewer_gross_long_pct": 81.2,
+      "four_or_fewer_net_long_pct": 68.5,
+      "classification": "short_covering_with_large_spread_growth"
+    },
+    {
+      "asset": "SOL",
+      "cftc_code": "177741",
+      "contract_unit": "500 SOL",
+      "open_interest": 10824,
+      "open_interest_weekly_change": 314,
+      "noncommercial_long": 9997,
+      "noncommercial_long_weekly_change": -164,
+      "noncommercial_short": 8409,
+      "noncommercial_short_weekly_change": -713,
+      "noncommercial_spreading": 539,
+      "noncommercial_spreading_weekly_change": 408,
+      "net_noncommercial": 1588,
+      "net_noncommercial_weekly_change": 549,
+      "four_or_fewer_gross_long_pct": 91.8,
+      "four_or_fewer_net_long_pct": 91.1,
+      "classification": "short_covering_with_extreme_long_concentration"
+    }
+  ],
+  "next_expected_update": "After the next official weekly CFTC COT release or a material revision"
+}

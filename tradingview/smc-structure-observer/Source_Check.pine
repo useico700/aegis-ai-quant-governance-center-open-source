@@ -1,0 +1,40 @@
+//@version=6
+indicator("AAVE 当前摆动来源核对｜只读",shorttitle="来源核对·当前摆动",overlay=true,max_lines_count=30,max_labels_count=20)
+bool logarithmic=input.bool(true,"对数价格（图表价格轴须同步）")
+int a=1789574400000
+float pa=113.1
+int b=1790596800000
+float pb=143.9
+int c=1790916300000
+float pc=187.4
+int d=1790944200000
+float pd=186.8
+f_y(float p)=>logarithmic?math.log(p):p
+float ma=(f_y(pb)-f_y(pa))/((b-a)/3600000.0)
+float mb=(f_y(pd)-f_y(pc))/((d-c)/3600000.0)
+float hours=(f_y(pc)+mb*((a-c)/3600000.0)-f_y(pa))/(ma-mb)
+float tx=a+hours*3600000.0
+float py=f_y(pa)+ma*hours
+float px=logarithmic?math.exp(py):py
+var table info=table.new(position.top_center,1,4,bgcolor=color.new(color.rgb(22,27,37),5))
+if barstate.islast
+    for ln in line.all
+        line.delete(ln)
+    for lb in label.all
+        label.delete(lb)
+    int visibleA=math.max(a,chart.left_visible_bar_time)
+    float visibleYa=f_y(pa)+ma*((visibleA-a)/3600000.0)
+    float visiblePa=logarithmic?math.exp(visibleYa):visibleYa
+    line.new(visibleA,visiblePa,int(math.round(tx)),px,xloc=xloc.bar_time,color=color.rgb(243,106,101),width=2)
+    line.new(c,pc,int(math.round(tx)),px,xloc=xloc.bar_time,color=color.rgb(224,230,239),width=2)
+    label.new(a,pa,"4H 起点 113.10\n09/17 00:00",xloc=xloc.bar_time,style=label.style_label_up,color=color.new(color.rgb(243,106,101),18),textcolor=color.white,size=size.small)
+    label.new(b,pb,"4H 包络 143.90\n09/28 20:00",xloc=xloc.bar_time,style=label.style_label_up,color=color.new(color.rgb(243,106,101),18),textcolor=color.white,size=size.small)
+    label.new(c,pc,"15M 顶部 187.40\n10/02 12:45",xloc=xloc.bar_time,style=label.style_label_down,color=color.new(color.rgb(224,230,239),15),textcolor=color.black,size=size.small)
+    label.new(d,pd,"15M LH 186.80\n10/02 20:30",xloc=xloc.bar_time,style=label.style_label_up,color=color.new(color.rgb(224,230,239),15),textcolor=color.black,size=size.small)
+    label.new(int(math.round(tx)),px,"交点 "+str.tostring(px,"#.####")+"\n"+str.format_time(int(math.round(tx)),"MM-dd HH:mm","Asia/Shanghai")+" CST",xloc=xloc.bar_time,style=label.style_label_up,color=color.rgb(167,136,233),textcolor=color.white,size=size.normal)
+    table.cell(info,0,0,"实际来源核对 · "+(logarithmic?"对数价格":"线性价格"),text_color=color.white,text_size=size.normal)
+    table.cell(info,0,1,"红：4H 当前上升家族 113.10 → 143.90",text_color=color.rgb(243,106,101),text_size=size.small)
+    table.cell(info,0,2,"白：15M 顶部下降家族 187.40 → 186.80",text_color=color.rgb(224,230,239),text_size=size.small)
+    table.cell(info,0,3,"已确认四锚点快照 · 非预测/入场信号 · 主脚本默认不画源线",text_color=color.gray,text_size=size.small)
+if barstate.islastconfirmedhistory
+    log.info("SOURCE-CHECK | mode="+(logarithmic?"log":"linear")+" | tx="+str.tostring(tx,"#.000")+" | px="+str.tostring(px,"#.##########"))

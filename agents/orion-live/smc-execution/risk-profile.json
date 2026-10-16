@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "accountLabel": "S2",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "strategyRevision": "SMC-EXEC-11",
+  "scannerRevision": "SMC-SCAN-13",
+  "risk": {
+    "perTradeFraction": "0.04",
+    "portfolioFraction": "0.10",
+    "maximumOpenPositions": 4,
+    "maximumLeverage": 25,
+    "maximumGrossNotionalLeverage": 25,
+    "equityBasis": "CURRENT_RECONCILED_S2_MARGIN_BALANCE_USDT",
+    "pendingEntriesReserveRisk": true,
+    "negativeRiskOffsetsAllowed": false,
+    "minimumNotionalUpsizingAllowed": false,
+    "stopWideningAllowed": false,
+    "lossAveragingAllowed": false
+  },
+  "minimumNetRewardRisk": 2,
+  "fundingReserveRate": "0.0002",
+  "candidateMaximumAgeMs": 420000,
+  "confirmationMaximumAgeMs": 1200000,
+  "activationAt": "2026-10-01T01:25:00.000Z",
+  "realOrdersAllowed": true,
+  "entryPolicyRevision": "SMC-S1-PX-1"
+}

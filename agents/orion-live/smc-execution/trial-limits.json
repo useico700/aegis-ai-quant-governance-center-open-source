@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 2,
+  "accountLabel": "S2",
+  "strategyRevision": "SMC-EXEC-11",
+  "mode": "LIVE_PERCENT_RISK",
+  "status": "OWNER_RISK_RECORDED",
+  "perTradeRiskFraction": "0.04",
+  "portfolioRiskFraction": "0.10",
+  "maximumOpenPositions": 4,
+  "maximumLeverage": 25,
+  "maximumGrossNotionalLeverage": 25,
+  "grossNotionalMustNotExceedEquity": false,
+  "equityBasis": "CURRENT_RECONCILED_S2_MARGIN_BALANCE_USDT",
+  "automaticRiskScalingWithEquity": true,
+  "realOrdersAllowed": true,
+  "newEntriesBlocked": false,
+  "minimumNotionalUpsizingAllowed": false,
+  "negativeExposureOffsetsAllowed": false,
+  "pendingEntryExposureReserved": true
+}

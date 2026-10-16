@@ -1,0 +1,157 @@
+.flow{--flow-period:.7s;--flow-blue:oklch(78% .12 230);--flow-long:oklch(82% .13 190);--flow-short:oklch(79% .16 350);margin:18px 0 22px;padding:18px 22px;border:1px solid var(--line);border-radius:5px;background:radial-gradient(ellipse at 54% 58%,color-mix(in oklch,var(--flow-blue) 10%,transparent),transparent 38%),var(--ink);isolation:isolate}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.heading h2{font-size:1rem;font-weight:500}.heading p,.note{font-size:.75rem;color:var(--muted)}.heading p{margin-top:4px!important}.heading button{font-size:.75rem!important;flex-shrink:0;min-height:36px;touch-action:manipulation}.heading button:focus-visible{outline:2px solid var(--flow-blue);outline-offset:3px}
+.network{position:relative;display:grid;grid-template-columns:18% 28% 16% 18% 20%;align-items:center;padding:16px 0;min-width:0}.network>*{min-width:0}.network .circuit{position:absolute;inset:16px 0 auto;width:100%;height:160px;overflow:visible;pointer-events:none}.scan,.incoming{color:var(--flow-blue)}
+.origin{position:relative;border-left:2px solid var(--cyan);padding:10px 14px}.origin span,.origin small{color:var(--muted);font-size:.75rem}.origin strong{display:block;font-size:1.125rem;font-weight:500;margin:5px 0}
+.network svg.mobile{display:none}.incoming,.branches{position:relative;height:160px}.confirmation{position:absolute;top:24px;left:0;right:0;text-align:center;color:var(--text);z-index:1}.confirmation h3{font-size:.875rem;font-weight:500;margin:0}.confirmation p{font-size:.75rem;color:var(--muted);margin:5px 0 0!important}
+.gate{height:160px;position:relative;text-align:center;isolation:isolate;display:grid;place-items:center}
+.network dl{margin:0}.gate .pending{position:relative;min-width:104px;padding:12px 4px;border-radius:50%;background:radial-gradient(ellipse,var(--ink) 35%,color-mix(in oklch,var(--ink) 90%,transparent) 52%,transparent 72%)}.network dt{font-size:.875rem}.network dd{font-size:1.5rem;font-variant-numeric:tabular-nums;margin:0;display:flex;align-items:baseline;gap:8px}.network dd small{font-size:.75rem;color:var(--muted)}.pending dd{font-size:2rem;line-height:1.2;justify-content:center;align-items:center;flex-direction:column;gap:3px;margin-top:5px}.pending dd small{font-size:.75rem;line-height:1.5}
+.outcomes{position:relative;display:grid;gap:52px}.outcomes>div{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:52px;gap:10px;padding:0 12px 0 18px;background:linear-gradient(90deg,color-mix(in oklch,currentColor 5%,transparent),transparent);border-bottom:1px solid color-mix(in oklch,currentColor 12%,transparent)}.outcomes>div::before{content:"";position:absolute;left:-3px;top:calc(50% - 3px);width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 5px currentColor,0 0 14px color-mix(in oklch,currentColor 50%,transparent)}
+.long{color:var(--flow-long)}.short{color:var(--flow-short)}.pending{color:var(--text)}
+.fiber,.sheath,.strand{fill:none;stroke:currentColor;vector-effect:non-scaling-stroke}.fiber{stroke-width:1;opacity:.65}.sheath{stroke-width:7;opacity:.055}.strand{stroke-width:.7;opacity:.2}.node{fill:currentColor;filter:drop-shadow(0 0 4px currentColor)}
+.packet,.trail{fill:none;stroke:currentColor;stroke-linecap:round;opacity:0;vector-effect:non-scaling-stroke;animation:transmit var(--flow-period) linear infinite;animation-play-state:paused}.packet{stroke-width:3;stroke-dasharray:.15 24.85;filter:drop-shadow(0 0 4px currentColor)}.trail{stroke-width:1.5;stroke-dasharray:3 22;stroke-dashoffset:2.85;animation-name:transmit-tail}
+.flow[data-animated=true] [data-active=true] .packet{opacity:1;animation-play-state:running}.flow[data-animated=true] [data-active=true] .trail{opacity:.4;animation-play-state:running}.short .packet,.short .trail{animation-delay:-.35s}.note{line-height:1.8}
+@keyframes transmit{to{stroke-dashoffset:-25}}@keyframes transmit-tail{to{stroke-dashoffset:-22.15}}
+@media(prefers-reduced-motion:reduce){.packet,.trail{animation:none!important;opacity:0!important}}
+@media(max-width:1000px){.outcomes>div{padding-left:12px;gap:6px}.outcomes dd{gap:4px}.outcomes dd small{display:none}.outcomes dt{font-size:.875rem}.origin{padding-left:10px}.origin small{max-width:90px;display:block}}
+@media(max-width:760px){.flow{padding:16px}.network{grid-template-columns:1fr;padding:18px 0}.network .circuit{display:none}.origin{justify-self:center;text-align:center;border-left:0;border-bottom:2px solid var(--cyan);padding:0 16px 12px}.origin small{display:block;max-width:none}.network svg.mobile{display:block;width:100%;height:90px;overflow:visible}.incoming{width:100%;height:90px}.confirmation{top:24px;left:calc(50% + 16px);right:auto;text-align:left;min-width:100px;background:var(--ink)}.gate{width:136px;max-width:100%;height:136px;justify-self:center}.branches{height:56px}.branches svg.mobile{height:56px}.outcomes{grid-template-columns:1fr 1fr;gap:20px}.outcomes>div{justify-content:center;flex-direction:column;gap:6px;padding:12px 6px}.outcomes dd small{display:block}.outcomes>div::before{left:calc(50% - 3px);top:-3px}.heading{align-items:flex-start}.heading p{max-width:190px;line-height:1.6}}
+
+/* S1/S2 monitor visual system v3 */
+.flow{margin:20px 0 0;padding:20px 22px;border-color:var(--line-soft);border-radius:14px;background:radial-gradient(ellipse at 54% 58%,color-mix(in oklch,var(--flow-blue) 12%,transparent),transparent 40%),linear-gradient(120deg,color-mix(in oklch,var(--surface) 92%,transparent),color-mix(in oklch,var(--ink) 88%,transparent));box-shadow:0 14px 42px oklch(4% .02 250 / .18)}
+.heading h2{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.heading p,.note,.origin span,.origin small,.confirmation p,.network dd small{font-size:12px}
+.heading button{min-height:44px;font-size:12px!important}
+.origin strong{font-size:19px;font-weight:600}
+.confirmation h3,.network dt{font-size:14px}
+.note{line-height:1.8}
+@media(max-width:760px){.flow{padding:17px}.heading h2{font-size:18px}}
+
+/* Primary signal view, above account metrics and candidate plans. */
+.flow{margin:0 0 20px;padding:24px 26px;border-color:color-mix(in oklch,var(--cyan) 40%,var(--line));background:radial-gradient(ellipse at 54% 58%,color-mix(in oklch,var(--flow-blue) 20%,transparent),transparent 52%),linear-gradient(120deg,var(--surface),var(--ink-deep));box-shadow:0 18px 60px oklch(4% .02 250 / .3),inset 0 1px color-mix(in oklch,var(--cyan) 12%,transparent)}
+.heading h2{font-size:26px;font-weight:650;letter-spacing:-.03em}
+.network{margin:14px 0}
+.network dd{font-size:30px}
+.pending dd{font-size:38px}
+@media(max-width:760px){
+ .flow{padding:18px;margin-bottom:16px}
+ .heading h2{font-size:24px}
+ .heading p{font-size:12px}
+ .network{margin:4px 0;padding:12px 0}
+ .origin{padding-bottom:8px}
+ .origin strong{margin:2px 0;font-size:18px}
+ .origin small{display:none}
+ .incoming,.network svg.mobile{height:48px}
+ .confirmation{top:8px}
+ .gate{height:104px;width:120px}
+ .branches,.branches svg.mobile{height:36px}
+ .outcomes{gap:16px}
+ .outcomes>div{padding:8px 6px;gap:3px}
+ .network dd{font-size:28px}
+ .pending dd{font-size:34px}
+ .note{font-size:12px}
+}
+
+/* Meteor ingress: independent flights converge without persistent fiber lines. */
+.flow{--meteor-core:oklch(97% .035 220)}
+.flow[data-account=S2]{--flow-blue:oklch(78% .13 300);--meteor-core:oklch(97% .025 300)}
+.outcomes>div{border:1px solid color-mix(in oklch,currentColor 26%,transparent);border-radius:10px;background:linear-gradient(90deg,color-mix(in oklch,currentColor 12%,transparent),color-mix(in oklch,currentColor 3%,transparent))}
+.outcomes>div dt,.outcomes>div dd,.outcomes>div dd small{color:inherit}
+.outcomes>div dd{font-weight:620}
+.outcomes>div dd small{opacity:.82}
+.meteorFlight{opacity:0;animation:meteor-arrive var(--meteor-duration) cubic-bezier(.24,.08,.58,1) infinite;animation-delay:var(--meteor-delay);animation-play-state:paused;pointer-events:none}
+.meteorHead{fill:var(--meteor-core);filter:drop-shadow(0 0 2px currentColor) drop-shadow(0 0 5px currentColor)}
+.relay{animation-name:relay-arrive;animation-timing-function:cubic-bezier(.15,.45,.26,1)}
+.relayHead{fill:var(--meteor-core);filter:drop-shadow(0 0 3px var(--meteor-core)) drop-shadow(0 0 8px currentColor)}
+.relayHalo{fill:var(--meteor-core);opacity:.28;filter:blur(2px)}
+.convergenceGlow{fill:currentColor;opacity:.09;filter:blur(6px);animation:convergence-breathe 2.7s ease-in-out infinite;animation-play-state:paused}
+.flow[data-animated=true] [data-active=true] .meteorFlight,.flow[data-animated=true] [data-active=true] .convergenceGlow{animation-play-state:running}
+.flow[data-animated=false] .meteorFlight,[data-active=false] .meteorFlight{opacity:0;visibility:hidden}
+.confirmation{top:33px;left:57%;right:auto;width:max-content;max-width:none;transform:translateX(-50%);background:transparent}
+.confirmation h3{color:var(--meteor-core);font-size:14px;font-weight:700;letter-spacing:.1em;line-height:1.2;text-shadow:0 0 8px var(--flow-blue),0 0 20px color-mix(in oklch,var(--flow-blue) 55%,transparent)}
+.confirmation::after{content:"";position:absolute;left:calc(50% - .5px);top:calc(100% + 3px);width:1px;height:16px;background:linear-gradient(var(--flow-blue),transparent);opacity:.8;box-shadow:0 0 7px var(--flow-blue)}
+@keyframes meteor-arrive{0%{transform:var(--meteor-from);opacity:0}10%{opacity:.65}55%{opacity:.95}76%{transform:var(--meteor-to);opacity:.85}87%,100%{transform:var(--meteor-to);opacity:0}}
+@keyframes relay-arrive{0%{transform:var(--meteor-from);opacity:0}12%{opacity:.8}78%{transform:var(--meteor-to);opacity:1}91%,100%{transform:var(--meteor-to);opacity:0}}
+@keyframes convergence-breathe{0%,100%{opacity:.08}50%{opacity:.22}}
+@media(prefers-reduced-motion:reduce){.meteorFlight{animation:none!important;opacity:0!important}.convergenceGlow{animation:none!important;opacity:.1!important}}
+@media(max-width:760px){
+ .origin{border-bottom:0;padding-bottom:8px}
+ .incoming{display:flex;align-items:center;flex-direction:column;width:100%;height:108px}
+ .confirmation{position:absolute;top:50px;left:50%;right:auto;display:block;width:max-content;max-width:none;min-width:0;padding:0;text-align:center;transform:translateX(-50%);background:transparent}
+ .confirmation h3{font-size:14px;white-space:nowrap}
+ .confirmation::after{height:13px}
+ .incoming svg.mobile{flex:none;width:140px;height:100px;margin:3px auto 0}
+ .incoming[data-active=false]{height:48px}
+ .incoming[data-active=false] .confirmation{top:12px}
+ .incoming[data-active=false] .confirmation::after{display:none}
+ .incoming[data-active=false] svg.mobile{display:none}
+ .gate .pending{min-width:112px;padding:8px 4px;background:transparent}
+}
+
+/* A compact thinking scanner, shared by both live monitors. */
+.origin{display:flex;align-items:center;flex-direction:column;justify-content:center;box-sizing:border-box;width:100%;text-align:center;padding:4px 8px;border-left:0}
+.origin > span:first-child{color:var(--muted);font-size:12px;letter-spacing:.04em}
+.origin strong{margin:0;font-size:17px}
+.origin small{margin-top:3px}
+.thought{position:relative;width:min(184px,100%);height:96px;margin:0 auto -4px;isolation:isolate}
+.thought::before,.thought::after{content:"";position:absolute;z-index:-1;left:50%;top:50%;width:62px;height:62px;border:1px solid color-mix(in oklch,var(--flow-blue) 30%,transparent);border-radius:50%;transform:translate(-50%,-50%);opacity:.35;animation:thought-ring 3.4s ease-out infinite;animation-play-state:paused}
+.thought::after{animation-delay:-1.7s}
+.eeg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;color:var(--flow-blue)}
+.eeg path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:7 3 2 8 11 5;opacity:.56;filter:drop-shadow(0 0 4px currentColor);animation:eeg-wave 3.1s cubic-bezier(.37,.08,.56,.94) infinite;animation-play-state:paused}
+.eeg path:last-child{stroke-dasharray:3 5 13 2 8 7;animation-duration:3.8s;animation-delay:-1.4s}
+.origin .brain{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:65px;height:65px;border:1px solid color-mix(in oklch,var(--flow-blue) 35%,transparent);border-radius:50%;background:radial-gradient(circle,color-mix(in oklch,var(--flow-blue) 19%,transparent),color-mix(in oklch,var(--surface) 70%,transparent) 67%,transparent);box-shadow:0 0 24px color-mix(in oklch,var(--flow-blue) 13%,transparent);color:var(--flow-blue);transform:translate(-50%,-50%);animation:brain-think 2.8s ease-in-out infinite;animation-play-state:paused}
+.brainGlyph{width:58px;height:54px;overflow:visible}
+.brainShape{fill:color-mix(in oklch,var(--flow-blue) 13%,var(--ink-deep));stroke:color-mix(in oklch,var(--flow-blue) 84%,white);stroke-width:2;stroke-linejoin:round;filter:drop-shadow(0 0 5px var(--flow-blue))}
+.brainFold{fill:none;stroke:color-mix(in oklch,var(--flow-blue) 70%,white);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.brainStem{fill:none;stroke:var(--flow-blue);stroke-width:2;stroke-linecap:round}
+.brainNode{fill:white;filter:drop-shadow(0 0 3px var(--flow-blue))}
+.origin .formulaOne,.origin .formulaTwo,.origin .formulaThree{position:absolute;color:var(--flow-blue);font-family:ui-monospace,SFMono-Regular,monospace;font-size:10px;font-weight:600;line-height:1;letter-spacing:.01em;opacity:.12;animation:formula-think 5s ease-in-out infinite;animation-play-state:paused}
+.formulaOne{left:4%;top:9%;animation-delay:-.7s!important}
+.formulaTwo{right:8%;top:14%;animation-delay:-2.4s!important}
+.formulaThree{right:6%;bottom:9%;animation-delay:-4s!important}
+.flow[data-animated=true] .origin[data-active=true] .thought::before,.flow[data-animated=true] .origin[data-active=true] .thought::after,.flow[data-animated=true] .origin[data-active=true] .eeg path,.flow[data-animated=true] .origin[data-active=true] .brain,.flow[data-animated=true] .origin[data-active=true] .formulaOne,.flow[data-animated=true] .origin[data-active=true] .formulaTwo,.flow[data-animated=true] .origin[data-active=true] .formulaThree{animation-play-state:running}
+@keyframes thought-ring{0%{transform:translate(-50%,-50%) scale(.82);opacity:.28}75%,100%{transform:translate(-50%,-50%) scale(1.62);opacity:0}}
+@keyframes eeg-wave{0%{stroke-dashoffset:0;opacity:.16}17%{opacity:.82}31%{opacity:.38}46%{opacity:.93}63%{opacity:.47}81%{opacity:.7}100%{stroke-dashoffset:-68;opacity:.16}}
+@keyframes brain-think{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.065)}}
+@keyframes formula-think{0%,100%{opacity:0;transform:translateY(4px)}18%{opacity:.64;transform:translateY(0)}44%{opacity:.28;transform:translateY(-3px)}62%{opacity:0;transform:translateY(-6px)}}
+@media(max-width:760px){.origin{padding:0 8px 8px}.thought{height:82px;margin:0 auto -6px}.origin .brain{width:58px;height:58px}.brainGlyph{width:52px;height:49px}.origin strong{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.thought::before,.thought::after,.eeg path,.origin .brain,.origin .formulaOne,.origin .formulaTwo,.origin .formulaThree{animation:none!important}.thought::after{display:none}.origin .formulaOne,.origin .formulaTwo,.origin .formulaThree{opacity:.34}}
+
+/* An open, re-forming wireframe cube replaces the opaque confirmation card. */
+.gate{height:168px;isolation:isolate;overflow:visible}
+.cubeField{position:absolute;left:50%;top:50%;width:200px;height:168px;max-width:none;overflow:visible;transform:translate(-50%,-50%);color:var(--flow-blue);pointer-events:none}
+.cubeFrame,.cubeTop,.cubeLeft,.cubeRight,.cubeDiamond,.cubeNested,.cubeConduit,.cubeOrbit{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.cubeFrame{stroke-width:1.3;opacity:.56;filter:drop-shadow(0 0 5px currentColor);transform-origin:100px 84px;animation:cube-reform-frame 7.2s cubic-bezier(.65,0,.35,1) infinite;animation-play-state:paused}
+.cubeTop{stroke-width:1.5;opacity:.78;transform-origin:100px 42px;animation:cube-reform-top 7.2s cubic-bezier(.65,0,.35,1) infinite;animation-play-state:paused}
+.cubeLeft{stroke-width:1.35;opacity:.6;transform-origin:70px 94px;animation:cube-reform-left 7.2s cubic-bezier(.65,0,.35,1) infinite;animation-play-state:paused}
+.cubeRight{stroke-width:1.35;opacity:.6;transform-origin:130px 94px;animation:cube-reform-right 7.2s cubic-bezier(.65,0,.35,1) infinite;animation-play-state:paused}
+.cubeDiamond,.cubeNested{stroke-width:1.7;opacity:0;stroke-dasharray:800;stroke-dashoffset:800;filter:drop-shadow(0 0 7px currentColor);transform-origin:100px 84px;animation:cube-diamond-phase 7.2s cubic-bezier(.65,0,.35,1) infinite;animation-play-state:paused}
+.cubeNested{stroke-width:1.35;animation-name:cube-nested-phase}
+.cubeConduit{stroke-width:1.5;opacity:.7;stroke-dasharray:10 5;filter:drop-shadow(0 0 5px currentColor);animation:cube-charge 1.7s linear infinite;animation-play-state:paused}
+.cubeOrbit{stroke-width:2;opacity:.72;filter:drop-shadow(0 0 7px currentColor);transform-origin:100px 84px;animation:cube-orbit-phase 7.2s ease-in-out infinite;animation-play-state:paused}
+.cubeIntake,.cubeOutput{fill:var(--meteor-core);filter:drop-shadow(0 0 5px var(--meteor-core)) drop-shadow(0 0 12px currentColor);animation:cube-spark 1.7s ease-out infinite;animation-play-state:paused}
+.cubeOutput{animation-delay:-.8s}
+.flow[data-animated=true] .gate[data-active=true] .cubeFrame,.flow[data-animated=true] .gate[data-active=true] .cubeTop,.flow[data-animated=true] .gate[data-active=true] .cubeLeft,.flow[data-animated=true] .gate[data-active=true] .cubeRight,.flow[data-animated=true] .gate[data-active=true] .cubeDiamond,.flow[data-animated=true] .gate[data-active=true] .cubeNested,.flow[data-animated=true] .gate[data-active=true] .cubeOrbit,.flow[data-animated=true] .gate[data-active=true] .cubeConduit,.flow[data-animated=true] .gate[data-active=true] .cubeIntake,.flow[data-animated=true] .gate[data-active=true] .cubeOutput{animation-play-state:running}
+.gate .pending{position:relative;z-index:1;box-sizing:border-box;display:grid;place-items:center;width:110px;min-width:0;height:94px;padding:0;border:0;border-radius:0;background:radial-gradient(ellipse at center,color-mix(in oklch,var(--surface) 94%,transparent) 5%,color-mix(in oklch,var(--surface) 65%,transparent) 45%,transparent 75%);box-shadow:none}
+.gate .pending::before{content:none}
+.pending dd{margin-top:5px;gap:0;color:var(--text);font-size:43px;font-weight:650;line-height:1;text-shadow:0 0 20px color-mix(in oklch,var(--flow-blue) 38%,transparent)}
+.pendingLabel{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.pending dd{margin-top:0}
+.pendingFigure{position:relative;display:inline-grid;place-items:center;isolation:isolate;transform-origin:center;animation:pending-voltage-hum 1.9s ease-in-out infinite;animation-play-state:paused}
+.pendingValue{grid-area:1/1;position:relative;z-index:1;white-space:nowrap;animation:pending-voltage-tremor 7.2s steps(1,end) infinite;animation-play-state:paused}
+.pendingEcho{grid-area:1/1;position:absolute;inset:0;display:grid;place-items:center;color:var(--flow-blue);opacity:0;filter:blur(.7px);pointer-events:none;animation:pending-voltage-echo 7.2s steps(1,end) infinite;animation-play-state:paused}
+.pendingFigure::after{content:"";position:absolute;left:8%;right:8%;bottom:-4px;height:1px;background:linear-gradient(90deg,transparent,var(--meteor-core),transparent);box-shadow:0 0 8px var(--flow-blue);opacity:.3;transform:scaleX(.45);animation:pending-voltage-rail 7.2s steps(1,end) infinite;animation-play-state:paused}
+.flow[data-animated=true] .gate[data-active=true] .pending[data-active=true] .pendingFigure,.flow[data-animated=true] .gate[data-active=true] .pending[data-active=true] .pendingValue,.flow[data-animated=true] .gate[data-active=true] .pending[data-active=true] .pendingEcho,.flow[data-animated=true] .gate[data-active=true] .pending[data-active=true] .pendingFigure::after{animation-play-state:running}
+@keyframes cube-reform-frame{0%,18%,100%{transform:rotate(0) scale(1);opacity:.56}30%,40%{transform:rotate(-11deg) scale(.82);opacity:.18}52%,63%{transform:rotate(45deg) scale(.9);opacity:.12}77%,87%{transform:rotate(9deg) scale(1.07);opacity:.54}}
+@keyframes cube-reform-top{0%,18%,100%{transform:translate(0,0) scale(1) rotate(0);opacity:.78}30%,40%{transform:translate(0,-20px) scaleX(.68) rotate(-9deg);opacity:.98}52%,63%{transform:translate(0,-9px) scaleX(.52) rotate(55deg);opacity:.18}77%,87%{transform:translate(0,8px) scaleX(1.13) rotate(-5deg);opacity:.88}}
+@keyframes cube-reform-left{0%,18%,100%{transform:translate(0,0) skewY(0) rotate(0);opacity:.6}30%,40%{transform:translate(-19px,8px) skewY(-12deg) rotate(-7deg);opacity:.92}52%,63%{transform:translate(-26px,0) skewY(-5deg) rotate(-20deg);opacity:.16}77%,87%{transform:translate(-5px,-4px) skewY(8deg) rotate(5deg);opacity:.82}}
+@keyframes cube-reform-right{0%,18%,100%{transform:translate(0,0) skewY(0) rotate(0);opacity:.6}30%,40%{transform:translate(19px,8px) skewY(12deg) rotate(7deg);opacity:.92}52%,63%{transform:translate(26px,0) skewY(5deg) rotate(20deg);opacity:.16}77%,87%{transform:translate(5px,-4px) skewY(-8deg) rotate(-5deg);opacity:.82}}
+@keyframes cube-diamond-phase{0%,40%,100%{opacity:0;stroke-dashoffset:800;transform:rotate(-24deg) scale(.72)}48%{opacity:.55;stroke-dashoffset:260;transform:rotate(-8deg) scale(.94)}53%,64%{opacity:.93;stroke-dashoffset:0;transform:rotate(0) scale(1)}70%{opacity:0;stroke-dashoffset:-180;transform:rotate(16deg) scale(1.15)}}
+@keyframes cube-nested-phase{0%,64%,100%{opacity:0;stroke-dashoffset:800;transform:rotate(18deg) scale(.7)}72%{opacity:.4;stroke-dashoffset:300;transform:rotate(9deg) scale(.9)}78%,86%{opacity:.77;stroke-dashoffset:0;transform:rotate(0) scale(1)}94%{opacity:0;stroke-dashoffset:-150;transform:rotate(-9deg) scale(1.08)}}
+@keyframes cube-orbit-phase{0%,18%,100%{transform:rotate(0) scale(1);opacity:.72}30%,40%{transform:rotate(12deg) scale(1.22);opacity:1}52%,63%{transform:rotate(45deg) scale(1.1);opacity:.5}77%,87%{transform:rotate(-8deg) scale(.87);opacity:.82}}
+@keyframes cube-charge{to{stroke-dashoffset:-30}}
+@keyframes cube-spark{0%,62%,100%{opacity:.32;r:2}78%{opacity:1;r:4.5}92%{opacity:.55;r:2.5}}
+@keyframes pending-voltage-hum{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-.4px) scale(1.012)}}
+@keyframes pending-voltage-tremor{0%,16%,19%,42%,47%,67%,72%,100%{transform:translate(0,0) skewX(0);opacity:1;filter:brightness(1)}17%{transform:translate(-1px,.5px) skewX(-1deg);opacity:.82;filter:brightness(.8)}18%{transform:translate(1.5px,-.7px) skewX(1deg);opacity:1;filter:brightness(1.75)}43%{transform:translate(.8px,.4px) skewX(.7deg);opacity:.76;filter:brightness(.75)}44%{transform:translate(-1.6px,-.6px) skewX(-1.1deg);opacity:1;filter:brightness(1.9)}45%{transform:translate(.6px,.2px) skewX(.4deg);opacity:.88;filter:brightness(1.2)}68%{transform:translate(-.9px,.4px) skewX(-.6deg);opacity:.78;filter:brightness(.78)}69%{transform:translate(1.7px,-.8px) skewX(1.2deg);opacity:1;filter:brightness(2)}70%{transform:translate(-.4px,.2px) skewX(-.3deg);opacity:.9;filter:brightness(1.25)}}
+@keyframes pending-voltage-echo{0%,16%,19%,42%,47%,67%,72%,100%{opacity:0;transform:translate(0,0)}17%,43%,68%{opacity:.25;transform:translate(-2px,1px)}18%,44%,69%{opacity:.58;transform:translate(2.5px,-1px)}45%,70%{opacity:.2;transform:translate(1px,0)}}
+@keyframes pending-voltage-rail{0%,16%,19%,42%,47%,67%,72%,100%{opacity:.3;transform:scaleX(.45)}17%,43%,68%{opacity:.06;transform:scaleX(.25)}18%,44%,69%{opacity:1;transform:scaleX(1.25)}45%,70%{opacity:.55;transform:scaleX(.75)}}
+@media(max-width:760px){.gate{width:160px;height:142px}.gate::before{content:"";position:absolute;left:calc(50% - 1px);top:-6px;width:2px;height:19px;background:linear-gradient(transparent,var(--flow-blue));box-shadow:0 0 8px var(--flow-blue)}.cubeField{width:172px;height:144px}.gate .pending{width:98px;height:82px}.pending dd{font-size:38px}.incoming svg.mobile{overflow:visible}}
+@media(prefers-reduced-motion:reduce){.cubeFrame,.cubeTop,.cubeLeft,.cubeRight,.cubeDiamond,.cubeNested,.cubeOrbit,.cubeConduit,.cubeIntake,.cubeOutput,.pendingFigure,.pendingValue,.pendingEcho,.pendingFigure::after{animation:none!important}.pendingEcho{opacity:0!important}}

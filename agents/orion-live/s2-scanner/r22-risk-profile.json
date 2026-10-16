@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "accountLabel": "S2",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "requestedMode": "MAINNET_AUTOMATED_TRADING",
+  "implementationStatus": "LIVE_EXECUTION_ACTIVE",
+  "strategyRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "signalConfiguration": "agents/orion-live/s2-scanner/config.json",
+  "risk": {
+    "perTradeFraction": "0.04",
+    "portfolioFraction": "0.12",
+    "maximumLeverage": 25,
+    "maximumGrossNotionalLeverage": 4,
+    "equityBasis": "CURRENT_RECONCILED_S2_MARGIN_BALANCE_USDT",
+    "definition": "ESTIMATED_LOSS_AT_STOP_INCLUDING_FEES_AND_ADVERSE_SLIPPAGE",
+    "pendingEntriesReserveRisk": true,
+    "negativeRiskOffsetsAllowed": false,
+    "minimumNotionalUpsizingAllowed": false,
+    "stopWideningAllowed": false,
+    "lossAveragingAllowed": false
+  },
+  "eventRisk": {
+    "beforeMinutes": 30,
+    "afterMinutes": 30,
+    "unknownCalendar": "BLOCK_NEW_ENTRIES"
+  },
+  "activation": {
+    "realOrdersAllowed": true,
+    "newEntriesBlocked": false,
+    "gatewayImplemented": true,
+    "serverDeployed": true,
+    "operatorActivationRequired": false
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "revision": "V2-IQ1-P1-20260915",
+  "policyRevision": "S1-R22-ROLLBACK-20261010",
+  "strategyRevision": "V2-IQ1-NEAR-PX-EARLY-EXPANSION-CORRELATED-EXPOSURE",
+  "status": "OWNER_AUTHORIZED_S1_LIVE",
+  "atrPeriod": 14,
+  "compressionBars": 4,
+  "maximumCompressionRatio": 0.8,
+  "maximumCrossAnchorDelayMs": 5000,
+  "minimumPostCrossExpansionAtr": 0.05,
+  "minimumLatestProgressAtr": 0.05,
+  "maximumPxBps": 200,
+  "maximumPxAtr": 1.0,
+  "pxDistanceGateEnabled": false,
+  "maximumDecisionCloseDisplacementBps": 50,
+  "maximumCrossAgeMs": 1800000,
+  "correlationWindows": [
+    96,
+    288
+  ],
+  "minimumPositiveCorrelation": 0.8,
+  "maximumGroupPositions": 2,
+  "maximumGroupRiskFraction": 0.04,
+  "maximumGroupNotionalLeverage": 1.0,
+  "maximumCorrelationAgeMs": 900000,
+  "maximumQuoteAgeMs": 5000
+}

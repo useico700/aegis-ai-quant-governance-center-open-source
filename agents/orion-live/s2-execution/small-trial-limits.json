@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "accountLabel": "S2",
+  "strategyRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+  "mode": "LIVE_PERCENT_RISK",
+  "status": "OWNER_RISK_RECORDED",
+  "riskAuthorization": "governance/owner-authorizations/2026-09-22-s2-leverage-25x-s1-venue-refusal.json",
+  "perTradeRiskFraction": "0.04",
+  "portfolioRiskFraction": "0.12",
+  "maximumOpenPositions": 8,
+  "maximumLeverage": 25,
+  "maximumGrossNotionalLeverage": 4,
+  "grossNotionalMustNotExceedEquity": false,
+  "equityBasis": "CURRENT_RECONCILED_S2_MARGIN_BALANCE_USDT",
+  "automaticRiskScalingWithEquity": true,
+  "realOrdersAllowed": true,
+  "newEntriesBlocked": false,
+  "minimumNotionalUpsizingAllowed": false,
+  "negativeExposureOffsetsAllowed": false,
+  "pendingEntryExposureReserved": true,
+  "entryAdmissionRevision": "S2-PX-BAND-3PCT-P5-20260921"
+}

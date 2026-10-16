@@ -1,0 +1,7 @@
+{
+  "revision": "S1-S2-ENTRY-RECONFIRM-ROOM-1",
+  "account": "S2",
+  "entryIntervalMs": 300000,
+  "staleAfterMs": 900000,
+  "roomLookbackHours": 6
+}

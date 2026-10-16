@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "enabled": false,
+  "entriesEnabled": false,
+  "environment": "BINANCE_DEMO_ONLY",
+  "accountAlias": "YOUR_DEMO_ACCOUNT",
+  "strategyRevision": "USER_REVIEW_REQUIRED",
+  "symbolUniverse": [],
+  "riskProfile": "USER_DEFINED_REQUIRED",
+  "executionHost": "USER_OWNED_REQUIRED",
+  "expiresAt": "1970-01-01T00:00:00Z",
+  "rollback": "STOP_NEW_ENTRIES_PRESERVE_PROTECTION_AND_AUDIT"
+}

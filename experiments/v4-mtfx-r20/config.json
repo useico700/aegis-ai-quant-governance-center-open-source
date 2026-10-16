@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "candidateVersion": "ORION-V4-MTFX-0.5.0",
+  "implementationRevision": "ORION-V4-MTFX-R22-V2-FULL-RULE-PARITY-20260829",
+  "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+  "riskPolicy": {
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "revision": "V4-RISK-V2-PARITY-1PCT-5PCT-20260829",
+    "status": "ACTIVE",
+    "supplements": "OWNER-DIRECTIVE-ORION-V4-MTFX-R22-V2-FULL-RULE-PARITY-20260829",
+    "appliesTo": "FORWARD_NEW_ENTRIES_AFTER_ACTIVATION_ONLY",
+    "activatedAt": "2026-08-29T17:52:23+08:00",
+    "legacyInstructionRestored": false
+  },
+  "executionParity": {
+    "enabled": true,
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "activatedAt": "2026-08-29T17:52:23+08:00",
+    "priorImplementationRevision": "ORION-V4-MTFX-R21-V2-EXECUTION-PARITY-20260824",
+    "sourceImplementationRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+    "candidateCommitmentLeadMs": 7200000,
+    "candidateLifecycleDurable": true,
+    "firstEligibleClosed15mDirectionLocks": true,
+    "lookaheadGuardRequired": true,
+    "causalBboRequired": true,
+    "bboDualClocksRequired": true,
+    "strictlyIncreasingUpdateIdRequired": true,
+    "tickOrBboPositionManagementRequired": true,
+    "terminalRejectConsumesIntersection": true,
+    "entryAndManagementLedgerFirst": true,
+    "auditRemediationNewEntriesFailClosed": false,
+    "demoWebSocketBaseUrl": "wss://fstream.binancefuture.com/stream"
+  },
+  "sourceStrategy": {
+    "owner": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "configPath": "experiments/v2-mtf-trendline-intersection/config.json",
+    "strategyVersion": "ORION-V2-RESEARCH-MTFX-0.5.0",
+    "implementationRevision": "MTFX-0.5.0-R22-BALANCED-PROFIT-REALIZATION",
+    "authorizationId": "PUBLIC_USER_CONFIGURATION_REQUIRED",
+    "copyMode": "CURRENT_V2_RULE_PARITY_ISOLATED_EXECUTION",
+    "runtimePositionOrderLedgerAccessAllowed": false,
+    "runtimeMutationAllowed": false
+  },
+  "venue": {
+    "fixedBaseUrl": "https://demo-fapi.binance.com",
+    "accountIsolation": "DEDICATED_ORION_V4_ACCOUNT"
+  },
+  "universe": {
+    "selection": "FIXED_OWNER_APPROVED_10",
+    "symbols": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT"
+    ]
+  },
+  "risk": {
+    "maximumRiskPerEntryFraction": 0.01,
+    "maximumPortfolioRiskFraction": 0.05,
+    "maximumEffectiveNotionalLeverage": 4,
+    "maximumOpenPositionsTotal": 10,
+    "maximumNewEntriesPerCycle": 10,
+    "riskSizingUtilizationFraction": 0.98,
+    "takerFeeRate": 0.0007,
+    "adverseSlippageRate": 0.0002,
+    "averagingDownAllowed": false,
+    "stopWideningAllowed": false
+  },
+  "signal": {
+    "maximumEntryDisplacementBps": 50,
+    "maximumEntrySignalAgeMs": 180000,
+    "maximumCompleteLifecycleCostR": 0.12
+  },
+  "exit": {
+    "halfNetRCloseFraction": 0.4,
+    "halfNetRLock": 0.15,
+    "oneNetRCloseFraction": 0.25,
+    "oneNetRLock": 0.6,
+    "twoNetRCloseFraction": 0.2,
+    "runnerFraction": 0.15,
+    "runnerInterval": "1h"
+  },
+  "portfolioProfitProtection": {
+    "enabled": true,
+    "eligibleSymbols": [
+      "SOLUSDT",
+      "XRPUSDT",
+      "BNBUSDT",
+      "DOGEUSDT",
+      "ZECUSDT",
+      "HYPEUSDT",
+      "LINKUSDT",
+      "AAVEUSDT"
+    ],
+    "excludedSymbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "minimumSameDirectionPositions": 3,
+    "armProfitFractionOfEquity": 0.015,
+    "armProfitMultipleOfInitialRisk": 2,
+    "quoteSampleIntervalMs": 60000,
+    "shockLookbackMs": 180000,
+    "shockMinimumObservedSymbols": 6,
+    "shockMinimumAdverseSymbols": 6,
+    "shockMedianReturnFraction": -0.02,
+    "trendBreadthMinimumFraction": 0.625,
+    "normalThresholds": {
+      "warning": 0.2,
+      "defense": 0.3,
+      "hard": 0.4
+    },
+    "weakThresholds": {
+      "warning": 0.15,
+      "defense": 0.25,
+      "hard": 0.35
+    },
+    "initialDefenseReductionFractionOfOriginal": 0.25,
+    "freezeMs": 900000,
+    "initialStopsImmediate": true,
+    "protectiveStopsFullQuantity": true,
+    "runnerAtrPeriod": 14,
+    "runnerAtrTiers": [
+      {
+        "minimumNetR": 3,
+        "multiplier": 4
+      },
+      {
+        "minimumNetR": 5,
+        "multiplier": 3
+      },
+      {
+        "minimumNetR": 10,
+        "multiplier": 2.5
+      }
+    ],
+    "runnerAtrRatchetOnClosed15mBarsOnly": true,
+    "runnerTrailCombination": "TIGHTER_OF_CONFIRMED_1H_STRUCTURE_AND_15M_ATR"
+  },
+  "runtime": {
+    "scanIntervalMs": 60000,
+    "marketDataLimits": {
+      "15m": 320,
+      "1h": 1200,
+      "4h": 500
+    }
+  },
+  "eventRisk": {
+    "enabled": true,
+    "freezeBeforeMinutes": 30,
+    "freezeAfterMinutes": 30
+  },
+  "evaluationIsolation": {
+    "baselineCohortId": "ORION-V4-PRE-R22-BASELINE-20260829",
+    "priorRiskCohortId": "ORION-V4-MTFX-R21-V2-EXECUTION-PARITY-FORWARD-20260824",
+    "forwardCohortId": "ORION-V4-MTFX-R22-V2-FULL-RULE-PARITY-FORWARD-20260829",
+    "historicalStrategyAggregationAllowed": false
+  },
+  "execution": {
+    "residentScannerAutomaticOrderSubmissionAllowed": true,
+    "historicalSignalBackfillAllowed": false,
+    "onePositionPerSymbol": true,
+    "oppositeConfirmedSignalReplacement": true
+  }
+}

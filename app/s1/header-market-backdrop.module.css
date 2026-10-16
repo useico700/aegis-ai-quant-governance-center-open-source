@@ -1,0 +1,88 @@
+.backdrop {
+  position: absolute;
+  inset: 0 8% 0 22%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 95%, color-mix(in oklch, var(--cyan) 10%, transparent), transparent 68%);
+  mask-image: linear-gradient(90deg, transparent, #0005 20%, #000 45%, #000 55%, #0005 80%, transparent);
+}
+.backdrop svg { display: block; width: 100%; height: 100%; }
+.backdrop .base { opacity: .24; }
+.flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  mask-repeat: no-repeat;
+  mask-position: -90% 0;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+.boltOne {
+  mask-image: linear-gradient(90deg, transparent, #000 38%, #000 62%, transparent);
+  mask-size: 26% 100%;
+  animation: bolt-one 19s linear infinite;
+}
+.boltTwo {
+  mask-image: linear-gradient(90deg, transparent, #000 44%, #000 56%, transparent);
+  mask-size: 19% 100%;
+  animation: bolt-two 19s linear infinite;
+}
+.boltThree {
+  mask-image: repeating-linear-gradient(90deg, transparent 0 16%, #000 19% 27%, transparent 30% 44%);
+  mask-size: 50% 100%;
+  animation: bolt-three 19s linear infinite;
+}
+.boltFour {
+  mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  mask-size: 36% 100%;
+  animation: bolt-four 19s linear infinite;
+}
+.up { color: var(--cyan); }
+.down { color: var(--rose); }
+.wick { fill: none; stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.body { fill: color-mix(in oklch, currentColor 24%, transparent); stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.grid { fill: none; stroke: var(--cyan); stroke-width: .5; opacity: .13; }
+@keyframes bolt-one {
+  0%, 2.4% { opacity: 0; mask-position: -90% 0; }
+  2.5% { opacity: .18; mask-position: -90% 0; }
+  3.15% { opacity: .54; mask-position: -18% 0; }
+  3.75% { opacity: 1; mask-position: 48% 0; }
+  4.35% { opacity: .58; mask-position: 116% 0; }
+  4.95% { opacity: .12; mask-position: 170% 0; }
+  5.1%, 100% { opacity: 0; mask-position: 170% 0; }
+}
+@keyframes bolt-two {
+  0%, 25.2% { opacity: 0; mask-position: -90% 0; }
+  25.4% { opacity: .16; mask-position: -90% 0; }
+  26.2% { opacity: 1; mask-position: 48% 0; }
+  27% { opacity: .12; mask-position: 170% 0; }
+  27.05%, 27.35% { opacity: 0; mask-position: -90% 0; }
+  27.4% { opacity: .12; mask-position: -90% 0; }
+  28.2% { opacity: .88; mask-position: 48% 0; }
+  29% { opacity: .1; mask-position: 170% 0; }
+  29.2%, 100% { opacity: 0; mask-position: 170% 0; }
+}
+@keyframes bolt-three {
+  0%, 52% { opacity: 0; mask-position: -90% 0; }
+  52.2% { opacity: .12; mask-position: -90% 0; }
+  53.7% { opacity: .94; mask-position: 48% 0; }
+  55.2% { opacity: .1; mask-position: 170% 0; }
+  55.4%, 100% { opacity: 0; mask-position: 170% 0; }
+}
+@keyframes bolt-four {
+  0%, 78% { opacity: 0; mask-position: -90% 0; }
+  78.2% { opacity: .13; mask-position: -90% 0; }
+  79.3% { opacity: .7; mask-position: 34% 0; }
+  79.45% { opacity: .28; mask-position: 43% 0; }
+  79.65% { opacity: 1; mask-position: 48% 0; }
+  82% { opacity: .09; mask-position: 170% 0; }
+  82.2%, 100% { opacity: 0; mask-position: 170% 0; }
+}
+@media (max-width: 600px) {
+  .backdrop { left: 8%; right: 0; }
+  .backdrop .base { opacity: .18; }
+  .flash { filter: drop-shadow(0 0 3px currentColor); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flash { animation: none; display: none; }
+}

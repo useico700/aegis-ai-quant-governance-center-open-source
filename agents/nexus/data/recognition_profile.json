@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "purpose": "Default, adjustable engineering profile for OHLCV pattern recognition",
+  "zero_division_epsilon": 1e-12,
+  "features": {
+    "range": "high-low",
+    "real_body": "abs(close-open)",
+    "upper_shadow": "high-max(open,close)",
+    "lower_shadow": "min(open,close)-low",
+    "body_ratio": "real_body/max(range,epsilon)",
+    "upper_ratio": "upper_shadow/max(range,epsilon)",
+    "lower_ratio": "lower_shadow/max(range,epsilon)",
+    "close_position": "(close-low)/max(range,epsilon)",
+    "true_range": "max(high-low,abs(high-prev_close),abs(low-prev_close))",
+    "atr": "WilderAverage(true_range,14)",
+    "relative_volume": "volume/SMA(volume,20)"
+  },
+  "adaptive_candle_thresholds": {
+    "reference_window": 10,
+    "body_long": "real_body >= 1.0 * mean(real_body,10)",
+    "body_very_long": "real_body >= 3.0 * mean(real_body,10)",
+    "body_short": "real_body <= 1.0 * mean(real_body,10)",
+    "doji": "real_body <= 0.10 * mean(high-low,10)",
+    "shadow_long": "shadow >= real_body",
+    "shadow_very_long": "shadow >= 2.0 * real_body",
+    "near": "distance <= 0.20 * mean(high-low,5)",
+    "far": "distance >= 0.60 * mean(high-low,5)",
+    "equal": "distance <= 0.05 * mean(high-low,5)"
+  },
+  "simple_fallback_thresholds": {
+    "doji_body_ratio_max": 0.1,
+    "small_body_ratio_max": 0.35,
+    "long_body_ratio_min": 0.6,
+    "marubozu_body_ratio_min": 0.85,
+    "short_shadow_ratio_max": 0.1,
+    "hammer_long_shadow_to_body_min": 2.0,
+    "hammer_body_position_min": 0.6,
+    "price_equal_atr_tolerance": 0.25,
+    "pivot_price_tolerance_atr": 0.5
+  },
+  "trend": {
+    "lookback_bars": 20,
+    "uptrend": "EMA(close,5)>EMA(close,20) and linear_regression_slope(close,20)>0 and higher-high/higher-low score>=0.60",
+    "downtrend": "EMA(close,5)<EMA(close,20) and linear_regression_slope(close,20)<0 and lower-high/lower-low score>=0.60",
+    "sideways": "otherwise",
+    "minimum_pretrend_move_atr": 2.0
+  },
+  "pivots": {
+    "left_bars": 3,
+    "right_bars": 3,
+    "minimum_prominence_atr": 0.75,
+    "note": "Right-side pivots are retrospective and must not be used without delay in live evaluation."
+  },
+  "breakout": {
+    "close_buffer_atr": 0.1,
+    "confirmation_bars": 3,
+    "preferred_relative_volume_min": 1.2,
+    "retest_tolerance_atr": 0.25
+  },
+  "market_modes": {
+    "session_market": "Keep strict gap rules for exchange sessions such as equities.",
+    "continuous_market": "For 24/7 markets, emit strict_gap and relaxed_no_gap variants separately."
+  },
+  "confidence_weights": {
+    "geometry": 0.35,
+    "prior_trend": 0.2,
+    "location": 0.15,
+    "confirmation": 0.2,
+    "volume": 0.1
+  }
+}
